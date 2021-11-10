@@ -1,0 +1,3 @@
+/*
+this folder was created in order to be used if the image is needed
+*/
