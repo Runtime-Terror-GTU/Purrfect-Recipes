@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.emilsjolander.components.StickyScrollViewItems.StickyScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/main">
+
+            <ImageView
+                android:layout_width="110sp"
+                android:layout_height="81sp"
+                android:background="@drawable/pati_edited2"
+                android:rotation="-180" />
+
+            <ImageView
+                android:layout_width="110sp"
+                android:layout_height="81sp"
+                android:layout_gravity="right"
+                android:background="@drawable/pati_edited2"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|bottom"
+                android:fontFamily="@font/josefin_slab_bold"
+                android:gravity="center"
+                android:text="Setting's \u0026 More"
+                android:layout_marginBottom="10sp"
+                android:textColor="@color/white"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+        </FrameLayout>
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/navigationTabbarSettings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/main"
+            app:elevation="0dp"
+            app:itemRippleColor="@color/white"
+            app:itemBackground="@drawable/radiobutton_bg_selector"
+            app:itemTextAppearanceActive="@style/JosefinSlabTextViewStyleB2"
+            app:itemTextAppearanceInactive="@style/JosefinSlabTextViewStyle2"
+            app:itemTextColor="@color/white"
+            app:labelVisibilityMode="labeled"
+            android:theme="@style/BottomNavigationStyle"
+            app:menu="@menu/settings_navigation_tabbar"/>
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/nav_host_fragment"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:defaultNavHost="true"
+            app:navGraph="@navigation/nav_graph_settings"/>
+
+    </LinearLayout>
+
+</com.emilsjolander.components.StickyScrollViewItems.StickyScrollView>

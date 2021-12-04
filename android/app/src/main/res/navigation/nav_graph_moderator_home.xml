@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph_moderator_home"
+    app:startDestination="@id/usersModeratorChildfragment">
+
+    <fragment
+        android:id="@+id/usersModeratorChildfragment"
+        android:name="com.example.purrfectrecipes.Moderator.UsersModeratorChildfragment"
+        android:label="UsersModeratorChildfragment" />
+    <fragment
+        android:id="@+id/recipesModeratorChildfragment"
+        android:name="com.example.purrfectrecipes.Moderator.RecipesModeratorChildfragment"
+        android:label="RecipesModeratorChildfragment" />
+    <fragment
+        android:id="@+id/requestsModeratorChildfragment"
+        android:name="com.example.purrfectrecipes.Moderator.RequestsModeratorChildfragment"
+        android:label="RequestsModeratorChildfragment" />
+</navigation>

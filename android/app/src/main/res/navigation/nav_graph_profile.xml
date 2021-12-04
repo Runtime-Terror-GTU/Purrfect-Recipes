@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph_profile"
+    app:startDestination="@id/infoProfileChildfragment">
+
+    <fragment
+        android:id="@+id/infoProfileChildfragment"
+        android:name="com.example.purrfectrecipes.Customer.InfoProfileChildfragment"
+        android:label="InfoProfileChildfragment" />
+    <fragment
+        android:id="@+id/addedrecipesProfileChildfragment"
+        android:name="com.example.purrfectrecipes.Customer.AddedrecipesProfileChildfragment"
+        android:label="AddedrecipesProfileChildfragment" />
+    <fragment
+        android:id="@+id/purrfectedrecipesProfileChildfragment"
+        android:name="com.example.purrfectrecipes.Customer.PurrfectedrecipesProfileChildfragment"
+        android:label="PurrfectedrecipesProfileChildfragment" />
+</navigation>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/JADE/AndroidStudioProjects/PurrfectRecipes/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.28541666666666665" />
+        <entry key="..\:/Users/JADE/AndroidStudioProjects/PurrfectRecipes/app/src/main/res/drawable/button_bg.xml" value="0.3769230769230769" />
+        <entry key="..\:/Users/JADE/AndroidStudioProjects/PurrfectRecipes/app/src/main/res/drawable/font_selector.xml" value="0.3769230769230769" />
+        <entry key="..\:/Users/JADE/AndroidStudioProjects/PurrfectRecipes/app/src/main/res/drawable/half_main_bg.xml" value="0.3769230769230769" />
+        <entry key="..\:/Users/JADE/AndroidStudioProjects/PurrfectRecipes/app/src/main/res/drawable/ic_launcher_background.xml" value="0.28541666666666665" />
+        <entry key="..\:/Users/JADE/AndroidStudioProjects/PurrfectRecipes/app/src/main/res/drawable/logo.xml" value="0.3769230769230769" />
+        <entry key="..\:/Users/JADE/AndroidStudioProjects/PurrfectRecipes/app/src/main/res/drawable/radiobutton_bg_selector.xml" value="0.3769230769230769" />
+        <entry key="..\:/Users/JADE/AndroidStudioProjects/PurrfectRecipes/app/src/main/res/drawable/splash_screen.xml" value="0.3769230769230769" />
+        <entry key="..\:/Users/JADE/AndroidStudioProjects/PurrfectRecipes/app/src/main/res/drawable/white_bg.xml" value="0.3769230769230769" />
+        <entry key="..\:/Users/JADE/AndroidStudioProjects/PurrfectRecipes/app/src/main/res/layout/activity_admin.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/JADE/AndroidStudioProjects/PurrfectRecipes/app/src/main/res/layout/activity_customer.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/JADE/AndroidStudioProjects/PurrfectRecipes/app/src/main/res/layout/activity_edit_profile.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/JADE/AndroidStudioProjects/PurrfectRecipes/app/src/main/res/layout/activity_edit_recipe.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/JADE/AndroidStudioProjects/PurrfectRecipes/app/src/main/res/layout/activity_filter.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/JADE/AndroidStudioProjects/PurrfectRecipes/app/src/main/res/layout/activity_guest.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/JADE/AndroidStudioProjects/PurrfectRecipes/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/JADE/AndroidStudioProjects/PurrfectRecipes/app/src/main/res/layout/activity_moderator.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/JADE/AndroidStudioProjects/PurrfectRecipes/app/src/main/res/layout/activity_sort.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/JADE/AndroidStudioProjects/PurrfectRecipes/app/src/main/res/layout/activity_splash.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/JADE/AndroidStudioProjects/PurrfectRecipes/app/src/main/res/layout/activity_start.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/JADE/AndroidStudioProjects/PurrfectRecipes/app/src/main/res/layout/childfragment_admin_add.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/JADE/AndroidStudioProjects/PurrfectRecipes/app/src/main/res/layout/childfragment_admin_remove.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/JADE/AndroidStudioProjects/PurrfectRecipes/app/src/main/res/layout/childfragment_home_recipes.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/JADE/AndroidStudioProjects/PurrfectRecipes/app/src/main/res/layout/childfragment_home_what.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/JADE/AndroidStudioProjects/PurrfectRecipes/app/src/main/res/layout/childfragment_home_whatres.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/JADE/AndroidStudioProjects/PurrfectRecipes/app/src/main/res/layout/childfragment_moderator_recipes.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/JADE/AndroidStudioProjects/PurrfectRecipes/app/src/main/res/layout/childfragment_moderator_requests.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/JADE/AndroidStudioProjects/PurrfectRecipes/app/src/main/res/layout/childfragment_moderator_users.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/JADE/AndroidStudioProjects/PurrfectRecipes/app/src/main/res/layout/childfragment_profile_addedrecipes.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/JADE/AndroidStudioProjects/PurrfectRecipes/app/src/main/res/layout/childfragment_profile_info.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/JADE/AndroidStudioProjects/PurrfectRecipes/app/src/main/res/layout/childfragment_profile_purrfectedrecipes.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/JADE/AndroidStudioProjects/PurrfectRecipes/app/src/main/res/layout/childfragment_recipe.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/JADE/AndroidStudioProjects/PurrfectRecipes/app/src/main/res/layout/childfragment_settings_contact.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/JADE/AndroidStudioProjects/PurrfectRecipes/app/src/main/res/layout/childfragment_settings_getverified.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/JADE/AndroidStudioProjects/PurrfectRecipes/app/src/main/res/layout/childfragment_settings_shop.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/JADE/AndroidStudioProjects/PurrfectRecipes/app/src/main/res/layout/childfragment_settings_suggest.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/JADE/AndroidStudioProjects/PurrfectRecipes/app/src/main/res/layout/fragment_admin.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/JADE/AndroidStudioProjects/PurrfectRecipes/app/src/main/res/layout/fragment_guest_contact.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/JADE/AndroidStudioProjects/PurrfectRecipes/app/src/main/res/layout/fragment_home.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/JADE/AndroidStudioProjects/PurrfectRecipes/app/src/main/res/layout/fragment_moderator.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/JADE/AndroidStudioProjects/PurrfectRecipes/app/src/main/res/layout/fragment_profile.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/JADE/AndroidStudioProjects/PurrfectRecipes/app/src/main/res/layout/fragment_settings.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/JADE/AndroidStudioProjects/PurrfectRecipes/app/src/main/res/menu/admin_navigation_bar.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/JADE/AndroidStudioProjects/PurrfectRecipes/app/src/main/res/menu/admin_navigation_tabbar.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/JADE/AndroidStudioProjects/PurrfectRecipes/app/src/main/res/menu/customer_navigation_bar.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/JADE/AndroidStudioProjects/PurrfectRecipes/app/src/main/res/menu/guest_navigation_bar.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/JADE/AndroidStudioProjects/PurrfectRecipes/app/src/main/res/menu/home_navigation_bar.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/JADE/AndroidStudioProjects/PurrfectRecipes/app/src/main/res/menu/home_navigation_tabbar.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/JADE/AndroidStudioProjects/PurrfectRecipes/app/src/main/res/menu/moderator_navigation_tabbar.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/JADE/AndroidStudioProjects/PurrfectRecipes/app/src/main/res/menu/navigation_bar_moderator.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/JADE/AndroidStudioProjects/PurrfectRecipes/app/src/main/res/menu/profile_navigation_tabbar.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/JADE/AndroidStudioProjects/PurrfectRecipes/app/src/main/res/menu/settings_navigation_tabbar.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/JADE/AndroidStudioProjects/PurrfectRecipes/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.28541666666666665" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
