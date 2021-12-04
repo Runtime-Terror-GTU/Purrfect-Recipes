@@ -29,6 +29,11 @@ class SplashActivity : AppCompatActivity()
         initiateAutoLogIn()
 
         viewModel.getRetrievedUser().observe(this, {
+
+            Hawk.put(Constants.LOGGEDIN_PASS, viewModel.getRetrievedUser().value!!.getUserPassword())
+            Hawk.put(Constants.LOGGEDIN_USERNAME, viewModel.getRetrievedUser().value!!.getUsername())
+            Hawk.put(Constants.LOGGEDIN_USERID, viewModel.getRetrievedUser().value!!.getUserID())
+
             if(viewModel.getRetrievedUser().value is Customer)
                 startCustomerActivity()
             else if(viewModel.getRetrievedUser().value is Admin)
@@ -60,10 +65,6 @@ class SplashActivity : AppCompatActivity()
 
     private fun startCustomerActivity()
     {
-        Hawk.put(Constants.LOGGEDIN_PASS, viewModel.getRetrievedUser().value!!.getUserPassword())
-        Hawk.put(Constants.LOGGEDIN_USERNAME, viewModel.getRetrievedUser().value!!.getUsername())
-        Hawk.put(Constants.LOGGEDIN_USERID, viewModel.getRetrievedUser().value!!.getUserID())
-
         val intent= Intent(this, CustomerActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -74,10 +75,6 @@ class SplashActivity : AppCompatActivity()
 
     private fun startAdminActivity()
     {
-        Hawk.put(Constants.LOGGEDIN_PASS, viewModel.getRetrievedUser().value!!.getUserPassword())
-        Hawk.put(Constants.LOGGEDIN_USERNAME, viewModel.getRetrievedUser().value!!.getUsername())
-        Hawk.put(Constants.LOGGEDIN_USERID, viewModel.getRetrievedUser().value!!.getUserID())
-
         val intent= Intent(this, AdminActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -88,9 +85,6 @@ class SplashActivity : AppCompatActivity()
 
     private fun startModeratorActivity()
     {
-        Hawk.put(Constants.LOGGEDIN_PASS, viewModel.getRetrievedUser().value!!.getUserPassword())
-        Hawk.put(Constants.LOGGEDIN_USERNAME, viewModel.getRetrievedUser().value!!.getUsername())
-        Hawk.put(Constants.LOGGEDIN_USERID, viewModel.getRetrievedUser().value!!.getUserID())
 
         val intent= Intent(this, ModeratorActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

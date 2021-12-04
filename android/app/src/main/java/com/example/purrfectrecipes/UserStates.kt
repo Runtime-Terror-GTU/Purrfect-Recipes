@@ -2,7 +2,9 @@ package com.example.purrfectrecipes
 
 enum class UserStates(val text:String)
 {
-    CUSTOMER("Customer"),
-    ADMIN("Admin"),
-    MODERATOR("Moderator")
+    PREMIUM("PREMIUM"),
+    UNVERIFIED("UNVERIFIED"),
+    VERIFIED("VERIFIED"),
+    ADMIN("ADMIN"),
+    MODERATOR("MODERATOR")
 }

@@ -1,6 +1,6 @@
 package com.example.purrfectrecipes.User
 
-class Admin(id:String, username:String, email:String, password:String):AbstractUser(id, username, email, password)
+class Admin(id:String, username:String, email:String, password:String="12345"):AbstractUser(id, username, email, password)
 {
 
 }

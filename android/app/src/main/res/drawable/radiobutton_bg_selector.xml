@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--When selected, it was 4. dp The bottom edge-->
+    <item android:state_checked="true">
+        <layer-list>
+            <item>
+                <shape>
+                    <solid android:color="@color/background_white"/>
+                </shape>
+            </item>
+            <item android:bottom="3.5sp">
+                <shape>
+                    <solid android:color="@color/main"/>
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+
+    <!--Unselected 2 dp The bottom edge-->
+    <item>
+        <layer-list>
+            <item>
+                <shape>
+                    <solid android:color="@color/background_white"/>
+                </shape>
+            </item>
+            <item android:bottom="0sp">
+                <shape>
+                    <solid android:color="@color/main"/>
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+</selector>

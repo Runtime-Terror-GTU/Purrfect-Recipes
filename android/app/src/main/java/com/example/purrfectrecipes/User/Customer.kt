@@ -1,6 +1,6 @@
 package com.example.purrfectrecipes.User
 
-class Customer(id:String, username:String, email:String, password:String, status:CustomerStatus=CustomerStatus.UNVERIFIED, bio:String="Insert Bio Here", pic:String="Insert Picture URL here")
+class Customer(id:String, username:String, email:String, password:String="12345", status:CustomerStatus=CustomerStatus.UNVERIFIED, bio:String="Insert Bio Here", pic:String="Insert Picture URL here")
     :AbstractUser(id, username, email, password)
 {
     private var userStatus:CustomerStatus=status

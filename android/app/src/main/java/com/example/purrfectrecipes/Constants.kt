@@ -13,6 +13,6 @@ object Constants
     const val R_USEREMAIL="R_UserEmail"
     const val R_USERPICTURE="R_UserPicture"
     const val R_USERBIO="R_UserBio"
-    const val R_USERSTATUS="R_UserStatus"
+    const val R_USERSTATUS="R_User_Status"
 
 }

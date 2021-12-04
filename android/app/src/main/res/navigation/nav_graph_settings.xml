@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph_settings"
+    app:startDestination="@id/getverifiedSettingsChildfragment">
+
+    <fragment
+        android:id="@+id/getverifiedSettingsChildfragment"
+        android:name="com.example.purrfectrecipes.Customer.GetverifiedSettingsChildfragment"
+        android:label="GetverifiedSettingsChildfragment" />
+    <fragment
+        android:id="@+id/shopSettingsChildFragment"
+        android:name="com.example.purrfectrecipes.Customer.ShopSettingsChildFragment"
+        android:label="ShopSettingsChildFragment" />
+    <fragment
+        android:id="@+id/suggestSettingsChildfragment"
+        android:name="com.example.purrfectrecipes.Customer.SuggestSettingsChildfragment"
+        android:label="SuggestSettingsChildfragment" />
+    <fragment
+        android:id="@+id/contactSettingsChildfragment"
+        android:name="com.example.purrfectrecipes.Customer.ContactSettingsChildfragment"
+        android:label="ContactSettingsChildfragment" />
+</navigation>

@@ -1,6 +1,6 @@
 package com.example.purrfectrecipes.User
 
-abstract class AbstractUser(id:String, username:String, email:String, password:String):User
+abstract class AbstractUser(id:String, username:String, email:String, password:String="12345"):User
 {
     private val userID:String=id
         override fun getUserID(): String {return userID}

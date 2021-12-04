@@ -38,7 +38,7 @@
 
         <item name="android:windowBackground">@drawable/splash_screen</item>
         <item name="android:statusBarColor" tools:targetApi="l">@color/status_bar_secondary</item>
-        <item name="android:navigationBarColor">@color/nav_bar_secondary</item>
+        <item name="android:navigationBarColor">@color/status_bar_secondary</item>
     </style>
 
     <style name="AuthenticationTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
@@ -52,6 +52,29 @@
 
         <item name="android:statusBarColor" tools:targetApi="l">@color/status_bar_secondary</item>
         <item name="android:navigationBarColor">@color/nav_bar_secondary</item>
+    </style>
+
+    <style name="JosefinSlabTextViewStyle" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/josefin_slab</item>
+    </style>
+
+    <style name="JosefinSlabTextViewStyleB" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/josefin_slab_bold</item>
+    </style>
+
+    <style name="JosefinSlabTextViewStyle2" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/josefin_slab</item>
+        <item name="android:textSize">19sp</item>
+    </style>
+
+    <style name="JosefinSlabTextViewStyleB2" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/josefin_slab_bold</item>
+        <item name="android:textSize">19sp</item>
+    </style>
+
+    <style name="BottomNavigationStyle">
+        <item name="android:lines">2</item>
+        <item name="android:gravity">center</item>
     </style>
 
 </resources>

@@ -25,12 +25,16 @@ class MainRepository(val connector: MainVMRepConnector)
                             val status=ds.child(Constants.R_USERSTATUS).value.toString()
 
                             val user: User?
-                            if(status==UserStates.CUSTOMER.text)
-                                user=Customer(id, username, email, password)
+                            if(status==UserStates.MODERATOR.text)
+                                user= Moderator(id, username, email, password)
                             else if(status==UserStates.ADMIN.text)
-                                user=Admin(id, username, email, password)
+                                user= Admin(id, username, email, password)
+                            else if(status==UserStates.PREMIUM.text)
+                                user= Customer(id, username, email, password, status=CustomerStatus.PREMIUM)
+                            else if(status==UserStates.UNVERIFIED.text)
+                                user= Customer(id, username, email, password, status=CustomerStatus.UNVERIFIED)
                             else
-                                user=Moderator(id, username, email, password)
+                                user= Customer(id, username, email, password, status=CustomerStatus.VERIFIED)
 
                             connector.onUserRetrieved(user)
                             break

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.purrfectrecipes">
+    package="com.example.purrfectrecipes" >
 
     <application
         android:allowBackup="true"
@@ -9,11 +9,27 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
-        android:theme="@style/SplashTheme">
+        android:theme="@style/SplashTheme" >
+        <activity
+            android:name=".EditProfileActivity"
+            android:exported="true"
+            android:theme="@style/Theme2.StartScreen"/>
+        <activity
+            android:name=".SortActivity"
+            android:exported="true"
+            android:theme="@style/Theme2.StartScreen" />
+        <activity
+            android:name=".EditRecipeActivity"
+            android:exported="true"
+            android:theme="@style/Theme2.StartScreen" />
+        <activity
+            android:name=".FilterActivity"
+            android:exported="true"
+            android:theme="@style/Theme2.StartScreen" />
         <activity
             android:name=".Guest.GuestActivity"
             android:exported="true"
-            android:theme="@style/Theme2.StartScreen"/>
+            android:theme="@style/Theme2.StartScreen" />
         <activity
             android:name=".Moderator.ModeratorActivity"
             android:exported="true"
@@ -32,7 +48,7 @@
             android:theme="@style/AuthenticationTheme" />
         <activity
             android:name=".SplashActivity"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
