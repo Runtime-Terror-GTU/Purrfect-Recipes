@@ -24,11 +24,12 @@ class InfoProfileChildfragment: Fragment(R.layout.childfragment_profile_info)
         if(viewModel.getView().value!=null)
             fragmentView=viewModel.getView().value
         else
+        {
             fragmentView=super.onCreateView(inflater, container, savedInstanceState)
+            viewModel.setView(fragmentView!!)
+        }
 
         val logoutButton=fragmentView?.findViewById<ImageView>(R.id.logoutButton)
-
-        Log.i("here", logoutButton.toString())
 
         logoutButton?.setOnClickListener {
             Hawk.delete(Constants.LOGGEDIN_USERNAME)

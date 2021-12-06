@@ -14,7 +14,10 @@ class PurrfectedrecipesProfileChildfragment: Fragment(R.layout.childfragment_pro
         if(viewModel.getView().value!=null)
             super.onViewCreated(viewModel.getView().value!!, savedInstanceState)
         else
+        {
+            viewModel.setView(view)
             super.onViewCreated(view, savedInstanceState)
+        }
     }
 
 }

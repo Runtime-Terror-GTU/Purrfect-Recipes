@@ -8,13 +8,16 @@ import com.example.purrfectrecipes.R
 
 class GetverifiedSettingsChildfragment: Fragment(R.layout.childfragment_settings_getverified)
 {
-    private val viewModel: GetverifiedSettingsViewModel by viewModels()
+    private val viewModel: SettingsSharedViewModel by viewModels()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        if(viewModel.getView().value!=null)
-            super.onViewCreated(viewModel.getView().value!!, savedInstanceState)
+        if(viewModel.getVerifyView().value!=null)
+            super.onViewCreated(viewModel.getVerifyView().value!!, savedInstanceState)
         else
+        {
+            viewModel.setVerifyView(view)
             super.onViewCreated(view, savedInstanceState)
+        }
     }
 
 }

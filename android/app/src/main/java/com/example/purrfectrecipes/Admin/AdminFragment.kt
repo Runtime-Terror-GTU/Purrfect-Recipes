@@ -21,7 +21,10 @@ class AdminFragment: Fragment(R.layout.fragment_admin)
         if(viewModel.getView().value!=null)
             super.onViewCreated(viewModel.getView().value!!, savedInstanceState)
         else
+        {
+            viewModel.setView(view)
             super.onViewCreated(view, savedInstanceState)
+        }
     }
 
 }

@@ -17,7 +17,10 @@ class RequestsModeratorChildfragment: Fragment(R.layout.childfragment_moderator_
         if(viewModel.getView().value!=null)
             super.onViewCreated(viewModel.getView().value!!, savedInstanceState)
         else
+        {
+            viewModel.setView(view)
             super.onViewCreated(view, savedInstanceState)
+        }
     }
 
 }

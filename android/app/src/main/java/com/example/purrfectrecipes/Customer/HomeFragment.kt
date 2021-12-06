@@ -1,6 +1,7 @@
 package com.example.purrfectrecipes.Customer
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -21,7 +22,10 @@ class HomeFragment: Fragment(R.layout.fragment_home)
         if(viewModel.getView().value!=null)
             super.onViewCreated(viewModel.getView().value!!, savedInstanceState)
         else
+        {
+            viewModel.setView(view)
             super.onViewCreated(view, savedInstanceState)
+        }
     }
 
 

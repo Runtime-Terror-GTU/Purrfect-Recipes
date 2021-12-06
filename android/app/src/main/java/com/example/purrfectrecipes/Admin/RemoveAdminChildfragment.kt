@@ -18,6 +18,9 @@ class RemoveAdminChildfragment: Fragment(R.layout.childfragment_admin_remove)
         if(viewModel.getView().value!=null)
             super.onViewCreated(viewModel.getView().value!!, savedInstanceState)
         else
+        {
+            viewModel.setView(view)
             super.onViewCreated(view, savedInstanceState)
+        }
     }
 }

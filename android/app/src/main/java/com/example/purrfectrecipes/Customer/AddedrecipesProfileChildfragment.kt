@@ -18,7 +18,10 @@ class AddedrecipesProfileChildfragment: Fragment(R.layout.childfragment_profile_
         if(viewModel.getView().value!=null)
             super.onViewCreated(viewModel.getView().value!!, savedInstanceState)
         else
+        {
+            viewModel.setView(view)
             super.onViewCreated(view, savedInstanceState)
+        }
     }
 
 }

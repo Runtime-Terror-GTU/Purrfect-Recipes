@@ -8,13 +8,16 @@ import com.example.purrfectrecipes.R
 
 class ShopSettingsChildFragment: Fragment(R.layout.childfragment_settings_shop)
 {
-    private val viewModel: ShopSettingsViewModel by viewModels()
+    private val viewModel: SettingsSharedViewModel by viewModels()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        if(viewModel.getView().value!=null)
-            super.onViewCreated(viewModel.getView().value!!, savedInstanceState)
+        if(viewModel.getShopView().value!=null)
+            super.onViewCreated(viewModel.getShopView().value!!, savedInstanceState)
         else
+        {
+            viewModel.setShopView(view)
             super.onViewCreated(view, savedInstanceState)
+        }
     }
 
 }

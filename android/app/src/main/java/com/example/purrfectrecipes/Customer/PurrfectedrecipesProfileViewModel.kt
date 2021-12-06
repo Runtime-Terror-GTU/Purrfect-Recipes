@@ -9,4 +9,9 @@ class PurrfectedrecipesProfileViewModel: ViewModel()
 {
     private var view= MutableLiveData<View?>()
     fun getView(): LiveData<View?> {return view}
+
+    fun setView(newView: View)
+    {
+        view.value=newView
+    }
 }

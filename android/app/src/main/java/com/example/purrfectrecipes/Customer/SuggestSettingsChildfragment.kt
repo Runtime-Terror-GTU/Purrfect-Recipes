@@ -8,13 +8,16 @@ import com.example.purrfectrecipes.R
 
 class SuggestSettingsChildfragment: Fragment(R.layout.childfragment_settings_suggest)
 {
-    private val viewModel: SuggestSettingsViewModel by viewModels()
+    private val viewModel: SettingsSharedViewModel by viewModels()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        if(viewModel.getView().value!=null)
-            super.onViewCreated(viewModel.getView().value!!, savedInstanceState)
+        if(viewModel.getSuggestView().value!=null)
+            super.onViewCreated(viewModel.getSuggestView().value!!, savedInstanceState)
         else
+        {
+            viewModel.setSuggestView(view)
             super.onViewCreated(view, savedInstanceState)
+        }
     }
 
 }
