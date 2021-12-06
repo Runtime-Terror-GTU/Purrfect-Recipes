@@ -30,8 +30,6 @@ class SplashActivity : AppCompatActivity()
 
         viewModel.getRetrievedUser().observe(this, {
 
-            Hawk.put(Constants.LOGGEDIN_PASS, viewModel.getRetrievedUser().value!!.getUserPassword())
-            Hawk.put(Constants.LOGGEDIN_USERNAME, viewModel.getRetrievedUser().value!!.getUsername())
             Hawk.put(Constants.LOGGEDIN_USERID, viewModel.getRetrievedUser().value!!.getUserID())
 
             if(viewModel.getRetrievedUser().value is Customer)
@@ -46,11 +44,10 @@ class SplashActivity : AppCompatActivity()
 
     private fun initiateAutoLogIn()
     {
-        val userName=Hawk.get<String>(Constants.LOGGEDIN_USERNAME)
-        val userPass=Hawk.get<String>(Constants.LOGGEDIN_PASS)
+        val userID=Hawk.get<String>(Constants.LOGGEDIN_USERID)
 
-        if(userName!=null && userPass!=null)
-            viewModel.logIn(userName, userPass)
+        if(userID!=null)
+            viewModel.logIn(userID)
         else
         {
             val intent= Intent(this, StartActivity::class.java)

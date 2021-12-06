@@ -16,11 +16,11 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.NavigationUI.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
 import com.example.purrfectrecipes.Customer.HomeFragment
+import com.example.purrfectrecipes.Customer.HomeFragmentViewModel
 import com.example.purrfectrecipes.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class GuestActivity : AppCompatActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_guest)
@@ -29,6 +29,13 @@ class GuestActivity : AppCompatActivity() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
         NavigationUI.setupWithNavController(navigationBarGuest, navController)
+        navigationBarGuest.setOnItemReselectedListener {
+            if(it==navigationBarGuest.menu.getItem(0)) {
+                val homeViewModel:HomeFragmentViewModel by viewModels()
+                homeViewModel.setView(null)
+                navController.navigate(R.id.homeFragment)
+            }
+        }
 
 
     }

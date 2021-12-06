@@ -12,11 +12,24 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 class AdminFragment: Fragment(R.layout.fragment_admin)
 {
     private val viewModel: AdminFragmentViewModel by viewModels()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val navigationTabbarAdmin=view.findViewById<BottomNavigationView>(R.id.navigationTabbarAdmin)
         val navHostFragment = childFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
         NavigationUI.setupWithNavController(navigationTabbarAdmin, navController)
+        navigationTabbarAdmin.setOnItemReselectedListener {
+            if(it==navigationTabbarAdmin.menu.getItem(0)) {
+                val addAdminViewModel:AddAdminViewModel by viewModels()
+                addAdminViewModel.setView(null)
+                navController.navigate(R.id.addAdminChildfragment)
+            }
+            else {
+                val removeAdminViewModel:RemoveAdminViewModel by viewModels()
+                removeAdminViewModel.setView(null)
+                navController.navigate(R.id.removeAdminChildfragment)
+            }
+        }
 
         if(viewModel.getView().value!=null)
             super.onViewCreated(viewModel.getView().value!!, savedInstanceState)

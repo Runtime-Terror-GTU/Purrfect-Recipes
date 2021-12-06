@@ -32,9 +32,7 @@ class InfoProfileChildfragment: Fragment(R.layout.childfragment_profile_info)
         val logoutButton=fragmentView?.findViewById<ImageView>(R.id.logoutButton)
 
         logoutButton?.setOnClickListener {
-            Hawk.delete(Constants.LOGGEDIN_USERNAME)
             Hawk.delete(Constants.LOGGEDIN_USERID)
-            Hawk.delete(Constants.LOGGEDIN_PASS)
 
             val intent= Intent(context, StartActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

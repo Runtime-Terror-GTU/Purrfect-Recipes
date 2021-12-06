@@ -13,11 +13,27 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 class SettingsFragment: Fragment(R.layout.fragment_settings)
 {
     private val viewModel: SettingsFragmentViewModel by viewModels()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val navigationTabbarSettings=view.findViewById<BottomNavigationView>(R.id.navigationTabbarSettings)
         val navHostFragment = childFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
         NavigationUI.setupWithNavController(navigationTabbarSettings, navController)
+        navigationTabbarSettings.setOnItemReselectedListener {
+            val settingsViewModel:SettingsSharedViewModel by viewModels()
+            if(it==navigationTabbarSettings.menu.getItem(0)) {
+                settingsViewModel.setVerifyView(null)
+                navController.navigate(R.id.getverifiedSettingsChildfragment)
+            }
+            else if(it==navigationTabbarSettings.menu.getItem(1)) {
+                settingsViewModel.setShopView(null)
+                navController.navigate(R.id.shopSettingsChildFragment)
+            }
+            else if (it==navigationTabbarSettings.menu.getItem(2)){
+                settingsViewModel.setSuggestView(null)
+                navController.navigate(R.id.suggestSettingsChildfragment)
+            }
+        }
 
         if(viewModel.getView().value!=null)
             super.onViewCreated(viewModel.getView().value!!, savedInstanceState)

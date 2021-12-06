@@ -55,11 +55,7 @@ class StartActivity : AppCompatActivity() {
         viewModel.getAuthenticationState().observe(this, {
 
             if(viewModel.getRetrievedUser()!=null)
-            {
-                Hawk.put(Constants.LOGGEDIN_PASS, viewModel.getRetrievedUser()!!.getUserPassword())
-                Hawk.put(Constants.LOGGEDIN_USERNAME, viewModel.getRetrievedUser()!!.getUsername())
                 Hawk.put(Constants.LOGGEDIN_USERID, viewModel.getRetrievedUser()!!.getUserID())
-            }
 
             if(viewModel.getAuthenticationState().value==AuthenticationStates.FAILED_LOGIN)
                 resetLogIn()

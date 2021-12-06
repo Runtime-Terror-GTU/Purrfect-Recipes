@@ -14,17 +14,17 @@ class SettingsSharedViewModel: ViewModel()
     private var suggestView= MutableLiveData<View?>()
         fun getSuggestView(): LiveData<View?> {return suggestView}
 
-    fun setVerifyView(newView: View)
+    fun setVerifyView(newView: View?)
     {
         verifyView.value=newView
     }
 
-    fun setShopView(newView: View)
+    fun setShopView(newView: View?)
     {
         shopView.value=newView
     }
 
-    fun setSuggestView(newView: View)
+    fun setSuggestView(newView: View?)
     {
         suggestView.value=newView
     }

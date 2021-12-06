@@ -11,9 +11,9 @@ class MainViewModel: ViewModel(), MainVMRepConnector
     private var retrievedUser= MutableLiveData<User>()
         fun getRetrievedUser(): LiveData<User> {return retrievedUser}
 
-    fun logIn(username:String, password:String)
+    fun logIn(userID:String)
     {
-        repository.retrieveUser(username, password)
+        repository.retrieveUser(userID)
     }
 
     override fun onUserRetrieved(user: User?) {
