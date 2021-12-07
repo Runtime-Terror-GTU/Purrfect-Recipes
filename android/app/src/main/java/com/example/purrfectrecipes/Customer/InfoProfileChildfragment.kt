@@ -33,6 +33,7 @@ class InfoProfileChildfragment: Fragment(R.layout.childfragment_profile_info)
 
         logoutButton?.setOnClickListener {
             Hawk.delete(Constants.LOGGEDIN_USERID)
+            Hawk.delete(Constants.LOGGEDIN_USER_STATUS)
 
             val intent= Intent(context, StartActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

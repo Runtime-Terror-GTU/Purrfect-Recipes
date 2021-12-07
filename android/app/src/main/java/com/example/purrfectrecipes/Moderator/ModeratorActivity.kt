@@ -32,9 +32,10 @@ class ModeratorActivity : AppCompatActivity() {
         }
         navigationBarModerator.menu.get(1).setOnMenuItemClickListener{
             Hawk.delete(Constants.LOGGEDIN_USERID)
+            Hawk.delete(Constants.LOGGEDIN_USER_STATUS)
 
             val intent= Intent(this, StartActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
 
             startActivity(intent)
             finish()

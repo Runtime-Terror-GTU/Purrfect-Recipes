@@ -86,10 +86,8 @@ class StartActivity : AppCompatActivity() {
     fun onContinueGuest(view: View)
     {
         val intent= Intent(this, GuestActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         startActivity(intent)
-        finish()
     }
 
     fun onEnter(view: View)
@@ -156,6 +154,7 @@ class StartActivity : AppCompatActivity() {
 
     private fun startCustomerActivity()
     {
+        Hawk.put(Constants.LOGGEDIN_USER_STATUS, (viewModel.getRetrievedUser()!! as Customer).getUserStatus())
         val intent= Intent(this, CustomerActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 

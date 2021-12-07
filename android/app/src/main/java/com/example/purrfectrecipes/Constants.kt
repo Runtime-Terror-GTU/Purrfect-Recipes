@@ -4,8 +4,7 @@ object Constants
 {
     //For Authentication
     const val LOGGEDIN_USERID="loggedin_userid"
-    const val LOGGEDIN_PASS="loggedin_pass"
-    const val LOGGEDIN_USERNAME="loggedin_username"
+    const val LOGGEDIN_USER_STATUS="loggedin_user_status"
 
     //For Repository
     const val R_USERNAME="R_Username"
