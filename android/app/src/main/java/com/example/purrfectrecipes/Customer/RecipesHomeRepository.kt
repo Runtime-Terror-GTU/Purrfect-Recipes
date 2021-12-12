@@ -9,6 +9,7 @@ import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.random.Random.Default.nextInt
 
 class RecipesHomeRepository(val connector: RecipesHomeVMRepConnector)
 {
@@ -104,7 +105,12 @@ class RecipesHomeRepository(val connector: RecipesHomeVMRepConnector)
                     c2.set(Calendar.SECOND, 0)
                     c2.set(Calendar.MILLISECOND, 0)
                     if(c2.compareTo(c)!=0) {
-
+                        val min = 0;
+                        val max = recipesArray.size-1;
+                        val random = Random().nextInt((max - min) + 1) + min
+                        connector.onSelectRecipeOfTheDay(recipesArray.get(random))
+                        ds.ref.removeValue()
+                        dayRecipeRef.child(""+c.time.date.toString()+" "+(c.time.month+1).toString()+" "+(c.time.year+1900).toString()).setValue(recipesArray.get(random).getRecipeID())
                     }
                     else if(c2.compareTo(c)==0)
                     {
