@@ -5,6 +5,8 @@ import com.example.purrfectrecipes.Connectors.RecipesHomeVMRepConnector
 import com.example.purrfectrecipes.Constants
 import com.example.purrfectrecipes.Recipe
 import com.google.firebase.database.*
+import java.text.DateFormat
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -12,6 +14,7 @@ class RecipesHomeRepository(val connector: RecipesHomeVMRepConnector)
 {
     private val recipesRef: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Recipes")
     private val usersRef: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users")
+    private val dayRecipeRef: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Recipe of The Day")
     fun retrieveRecipes()
     {
         val id1="7686f73a-7a30-4e90-96d3-5ddda964fbcd"
@@ -59,11 +62,14 @@ class RecipesHomeRepository(val connector: RecipesHomeVMRepConnector)
                     recipesArray.add(recipe)
                 }
 
+                var i=0
                 for(recipe in recipesArray) {
                     usersRef.child(recipe.recipeOwner).addValueEventListener(object : ValueEventListener {
                         override fun onDataChange(snapshot: DataSnapshot) {
                             recipe.recipeOwner=snapshot.child(Constants.R_USERNAME).value.toString()
-                            connector.onRecipesRetrieved(recipesArray)
+                            i++
+                            if(i==recipesArray.size-1)
+                                getRecipeOfTheDay(recipesArray)
                         }
 
                         override fun onCancelled(error: DatabaseError) {
@@ -76,6 +82,44 @@ class RecipesHomeRepository(val connector: RecipesHomeVMRepConnector)
             override fun onCancelled(error: DatabaseError) {
                 Log.e("ERROR", error.message)
             }
+        })
+    }
+
+    fun getRecipeOfTheDay(recipesArray:ArrayList<Recipe>)
+    {
+        dayRecipeRef.addValueEventListener(object: ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val format: DateFormat = SimpleDateFormat("dd MM yyyy", Locale.ENGLISH)
+                val c: Calendar = Calendar.getInstance(TimeZone.getTimeZone("GMT+3"))
+                val c2: Calendar = Calendar.getInstance(TimeZone.getTimeZone("GMT+3"))
+                c.set(Calendar.HOUR_OF_DAY, 0)
+                c.set(Calendar.MINUTE, 0)
+                c.set(Calendar.SECOND, 0)
+                c.set(Calendar.MILLISECOND, 0)
+                for(ds in snapshot.children) {
+                    val date: Date? = format.parse(ds.key.toString())
+                    c2.time=date
+                    c2.set(Calendar.HOUR_OF_DAY, 0)
+                    c2.set(Calendar.MINUTE, 0)
+                    c2.set(Calendar.SECOND, 0)
+                    c2.set(Calendar.MILLISECOND, 0)
+                    if(c2.compareTo(c)!=0) {
+
+                    }
+                    else if(c2.compareTo(c)==0)
+                    {
+                        for(recipe in recipesArray)
+                            if(recipe.getRecipeID()==ds.value)
+                                connector.onSelectRecipeOfTheDay(recipe)
+                    }
+                }
+                connector.onRecipesRetrieved(recipesArray)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
         })
     }
 }

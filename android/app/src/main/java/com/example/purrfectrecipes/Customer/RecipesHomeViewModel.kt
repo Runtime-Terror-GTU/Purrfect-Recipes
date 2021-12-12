@@ -14,6 +14,8 @@ class RecipesHomeViewModel: ViewModel(), RecipesHomeVMRepConnector
     private var recipes=MutableLiveData<ArrayList<Recipe>?>()
         fun getRecipes(): LiveData<ArrayList<Recipe>?> {return recipes}
     private val repository=RecipesHomeRepository(this)
+    private var recipeOfTheDay=MutableLiveData<Recipe>()
+        fun getRecipeOfTheDay():LiveData<Recipe> {return recipeOfTheDay}
 
     init{
         repository.retrieveRecipes()
@@ -27,5 +29,9 @@ class RecipesHomeViewModel: ViewModel(), RecipesHomeVMRepConnector
     override fun onRecipesRetrieved(list: ArrayList<Recipe>?) {
         if(list!=null)
             recipes.value=list
+    }
+
+    override fun onSelectRecipeOfTheDay(recipe: Recipe) {
+        recipeOfTheDay.value=recipe
     }
 }
