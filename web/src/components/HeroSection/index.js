@@ -3,7 +3,6 @@ import { Button } from '../ButtonElements';
 import { 
     HeroContainer, 
     HeroBg, 
-    VideoBg,
     HeroContent,
     HeroH1,
     HeroP,
@@ -20,7 +19,6 @@ const HeroSection = () => {
         setHover(!hover);
     }
 
-
     return (
         <HeroContainer id='home'>
             <HeroBg>
@@ -28,10 +26,10 @@ const HeroSection = () => {
             </HeroBg>
             <HeroContent>
                 <HeroH1>
-                    ess mama yapacak
+                   Purrfect Recipes
                 </HeroH1>
                 <HeroP>
-                    Minnos mama yiyecek
+                    You have lots of ingredients and what are you going to cook?
                 </HeroP>
                 <HeroBtnWrapper>
                     <Button 
@@ -46,7 +44,7 @@ const HeroSection = () => {
                         exact='true'
                         offset={80}
                     >
-                        Let's cook! {hover ? <ArrowForward /> : <ArrowRight /> }
+                        Let's decide and cook! {hover ? <ArrowForward /> : <ArrowRight /> }
                     </Button>
                 </HeroBtnWrapper>
             </HeroContent>

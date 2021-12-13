@@ -61,7 +61,7 @@ const Navbar = ({toggle}) => {
                                 </NavLinks>
                             </NavItem>
                             <NavItem>
-                                <NavLinks to="signup"
+                                <NavLinks to="why"
                                     smooth={true}
                                     duration={500}
                                     spy={true}
@@ -72,7 +72,7 @@ const Navbar = ({toggle}) => {
                                 </NavLinks> 
                             </NavItem>
                             <NavItem>
-                                <NavLinks to="services"
+                                <NavLinks to="premium"
                                     smooth={true}
                                     duration={500}
                                     spy={true}
@@ -83,7 +83,7 @@ const Navbar = ({toggle}) => {
                                 </NavLinks>
                             </NavItem>
                             <NavItem>
-                                <NavLinks to="discover"
+                                <NavLinks to="decide"
                                     smooth={true}
                                     duration={500}
                                     spy={true}
