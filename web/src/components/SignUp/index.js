@@ -12,7 +12,7 @@ import {
     Button 
 } from './SignUpElements';
 
-const SignIn= () => {
+const SignUp= () => {
     return (
         <>
             <Container>
@@ -44,4 +44,4 @@ const SignIn= () => {
     )
 }
 
-export default SignIn;
+export default SignUp;
