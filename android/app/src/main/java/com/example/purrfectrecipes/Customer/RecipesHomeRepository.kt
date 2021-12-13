@@ -21,7 +21,6 @@ class RecipesHomeRepository(val connector: RecipesHomeVMRepConnector)
     private val recipesRef: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Recipes")
     private val usersRef: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users")
     private val dayRecipeRef: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Recipe of The Day")
-    private val picturesStorageRef=FirebaseStorage.getInstance().getReference().child("Recipe Pictures")
 
     fun retrieveRecipes()
     {

@@ -199,6 +199,7 @@
                     android:background="@drawable/search_icon"/>
 
                 <EditText
+                    android:id="@+id/searchText"
                     android:layout_width="0sp"
                     android:layout_weight="10"
                     android:layout_height="40sp"

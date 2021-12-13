@@ -1,6 +1,7 @@
 package com.example.purrfectrecipes.Customer
 
 import android.view.View
+import androidx.compose.ui.text.toLowerCase
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,6 +12,7 @@ class RecipesHomeViewModel: ViewModel(), RecipesHomeVMRepConnector
 {
     private var view= MutableLiveData<View?>()
         fun getView(): LiveData<View?> {return view}
+    private var allRecipes:ArrayList<Recipe>?=null
     private var recipes=MutableLiveData<ArrayList<Recipe>?>()
         fun getRecipes(): LiveData<ArrayList<Recipe>?> {return recipes}
     private val repository=RecipesHomeRepository(this)
@@ -26,9 +28,34 @@ class RecipesHomeViewModel: ViewModel(), RecipesHomeVMRepConnector
         view.value=newView
     }
 
+    fun searchByName(text:String)
+    {
+        val newArray=ArrayList<Recipe>()
+        for(recipe in allRecipes!!)
+            if(recipe.recipeName.lowercase().contains(text.lowercase()))
+                newArray.add(recipe)
+        recipes.value=newArray
+    }
+
+    fun searchByUsername(text:String)
+    {
+        val newArray=ArrayList<Recipe>()
+        for(recipe in allRecipes!!)
+            if(recipe.recipeOwner==text)
+                newArray.add(recipe)
+        recipes.value=newArray
+    }
+
+    fun resetRecipeArray()
+    {
+        recipes.value=allRecipes
+    }
+
     override fun onRecipesRetrieved(list: ArrayList<Recipe>?) {
-        if(list!=null)
-            recipes.value=list
+        if(list!=null) {
+            recipes.value = list
+            allRecipes=list
+        }
     }
 
     override fun onSelectRecipeOfTheDay(recipe: Recipe) {

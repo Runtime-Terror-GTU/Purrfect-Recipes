@@ -9,9 +9,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.webkit.MimeTypeMap
-import android.widget.LinearLayout
-import android.widget.ProgressBar
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
@@ -29,7 +26,7 @@ import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileInputStream
 import android.graphics.BitmapFactory
-import android.widget.ImageView
+import android.widget.*
 import com.bumptech.glide.Glide
 import java.io.ByteArrayInputStream
 
@@ -128,6 +125,32 @@ class RecipesHomeChildfragment: Fragment(R.layout.childfragment_home_recipes)
                 homePage.visibility=View.VISIBLE
             }
         })
+
+        val searchDoneButton=view.findViewById<Button>(R.id.searchDoneButton)
+        val byName=view.findViewById<RadioButton>(R.id.byName)
+        val byUsername=view.findViewById<RadioButton>(R.id.byUsername)
+        val searchCancelButton=view.findViewById<ImageView>(R.id.cancelSearchButton)
+        val searchText=view.findViewById<EditText>(R.id.searchText)
+        searchDoneButton.setOnClickListener{
+            if(!byName.isChecked && !byUsername.isChecked){
+                Toast.makeText(context, "Please choose a search method.", Toast.LENGTH_SHORT).show()
+                searchText.clearFocus()
+            }
+            else if(byName.isChecked) {
+                viewModel.searchByName(searchText.text.toString())
+                searchText.clearFocus()
+            }
+            else if(byUsername.isChecked){
+                viewModel.searchByUsername(searchText.text.toString())
+                searchText.clearFocus()
+            }
+        }
+        searchCancelButton.setOnClickListener {
+            searchText.setText("")
+            searchText.clearFocus()
+            viewModel.resetRecipeArray()
+        }
+
     }
     fun resourceToUri(context:Context, resID:Int):Uri
     {
