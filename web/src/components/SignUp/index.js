@@ -30,8 +30,8 @@ const SignIn= () => {
                                  Forgot your password?
                             </Text>
                             <FormButton type='submit' to='/'>Let's cook!</FormButton>
-                            <Button to = "/signup">
-                                Don't you have an account?  Create a Purrfect account! 
+                            <Button to = "/signin">
+                                Do you have already an account? 
                             </Button>
                             <Button to = "/guest">
                                 Continue as a Purrfect guest
