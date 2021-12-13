@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.purrfectrecipes.R
 import com.example.purrfectrecipes.Recipe
 
@@ -37,6 +38,12 @@ class HomePageRVAdapter(val context: Context): RecyclerView.Adapter<HomePageRVAd
             holder.recipeType.text=recipes.get(position).getRecipeTags().get(0)
         else
             holder.recipeType.text="Meal"
+        if(recipes.get(position).recipePictureURL!=" ")
+        {
+            Glide.with(context)
+                .load(recipes.get(position).recipePictureURL)
+                .into(holder.recipePic)
+        }
     }
 
     override fun getItemCount(): Int {

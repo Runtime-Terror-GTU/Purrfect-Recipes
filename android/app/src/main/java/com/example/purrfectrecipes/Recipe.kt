@@ -3,7 +3,7 @@ package com.example.purrfectrecipes
 import com.example.purrfectrecipes.User.CustomerStatus
 import java.util.stream.Collectors
 
-class Recipe(id:String, name:String, owner:String, difficulty:String, likes: Int, overview:String="No Ingredients Overview")
+class Recipe(id:String, name:String, owner:String, difficulty:String, likes: Int, pictureURL:String=" ", overview:String="No Ingredients Overview")
 {
     private var recipeId:String=id
         fun getRecipeID(): String {return recipeId}
@@ -12,6 +12,7 @@ class Recipe(id:String, name:String, owner:String, difficulty:String, likes: Int
     var recipeDifficulty:String=difficulty
     var recipeLikes:Int=likes
     var recipeIngredientsOverview:String=overview
+    var recipePictureURL:String=pictureURL
 
     private val recipeTags=HashSet<String>()
     private val recipeIngredients=HashSet<String>()

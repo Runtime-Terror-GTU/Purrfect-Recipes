@@ -18,6 +18,7 @@ object Constants
     const val R_RECIPEOWNER="R_RecipeOwner"
     const val R_RECIPEDIFFICULTY="R_RecipeDifficulty"
     const val R_RECIPEPURRFECTEDCOUNT="R_RecipePurrfectedCount"
+    const val R_RECIPEPICTURE="R_RecipePicture"
     const val R_RECIPETAGS="R_RecipeTags"
     const val R_RECIPEINGREDIENTS="R_RecipeIngredients"
     const val R_RECIPEINGREDIENTSOVERVIEW="R_RecipeIngredientsOverview"
