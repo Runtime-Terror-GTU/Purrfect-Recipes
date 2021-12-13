@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="0sp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="7sp"
+        android:layout_marginBottom="7sp"
+        android:orientation="vertical"
+        android:background="@drawable/main_bg">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="81sp"
+            app:cardCornerRadius="8dp">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/recipePicRV"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/kruvasan"
+                    android:scaleType="centerCrop"/>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/purrfectButtonRV"
+                    android:layout_width="30dp"
+                    android:layout_height="29dp"
+                    android:layout_gravity="bottom|right"
+                    app:cardCornerRadius="20dp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/purrfect" />
+                </androidx.cardview.widget.CardView>
+
+            </FrameLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/recipeLikesRV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="81"
+            android:fontFamily="@font/josefin_slab"
+            android:textSize="10sp"
+            android:layout_marginTop="2sp"
+            android:textColor="@color/black"
+            android:layout_marginRight="10sp"
+            android:layout_gravity="bottom|right"/>
+
+        <TextView
+            android:id="@+id/recipeNameRV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="-5sp"
+            android:layout_marginLeft="5sp"
+            android:layout_marginRight="5sp"
+            android:fontFamily="@font/josefin_slab_bold"
+            android:text="Chocolate Croissant"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/recipeOwnerRV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="by Lisa"
+            android:textColor="@color/black"
+            android:layout_gravity="center"
+            android:fontFamily="@font/josefin_slab"
+            android:gravity="left"
+            android:textSize="13sp"
+            android:layout_marginLeft="5sp"
+            android:layout_marginRight="5sp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_margin="5sp">
+
+            <TextView
+                android:id="@+id/recipeDifficultyRV"
+                android:layout_width="0dp"
+                android:layout_gravity="center"
+                android:layout_height="30sp"
+                android:layout_weight="1"
+                android:text="Easy"
+                android:layout_margin="2sp"
+                android:background="@color/main"
+                android:textSize="13sp"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:fontFamily="@font/josefin_slab" />
+
+            <TextView
+                android:id="@+id/recipeTypeRV"
+                android:layout_width="0dp"
+                android:layout_height="30sp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:layout_margin="2sp"
+                android:text="Savoury"
+                android:textSize="13sp"
+                android:gravity="center"
+                android:background="@color/main"
+                android:textColor="@color/white"
+                android:fontFamily="@font/josefin_slab" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,5 +1,7 @@
 package com.example.purrfectrecipes.User
 
+import java.util.stream.Collectors
+
 class Customer(id:String, username:String, email:String, password:String="12345", status:CustomerStatus=CustomerStatus.UNVERIFIED, bio:String="Insert Bio Here", pic:String="Insert Picture URL here")
     :AbstractUser(id, username, email, password)
 {
@@ -56,5 +58,15 @@ class Customer(id:String, username:String, email:String, password:String="12345"
     fun removePurrfectedRecipe(recipeID: String)
     {
         purrfectedRecipes.remove(recipeID)
+    }
+
+    fun getAddedRecipes():ArrayList<String>
+    {
+        return addedRecipes?.stream()?.collect(Collectors.toList()) as (ArrayList<String>)
+    }
+
+    fun getPurrfectedRecipes():ArrayList<String>
+    {
+        return purrfectedRecipes?.stream()?.collect(Collectors.toList()) as (ArrayList<String>)
     }
 }
