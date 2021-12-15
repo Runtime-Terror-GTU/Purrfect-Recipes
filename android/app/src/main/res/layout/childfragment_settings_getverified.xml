@@ -2,16 +2,106 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:text="Settings_GetVerified"
-        android:textSize="30sp"
-        android:textColor="@color/black"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_margin="10dp"
+            android:visibility="visible"
+            android:background="@drawable/main_bg">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="15sp"
+                    android:layout_marginLeft="15sp"
+                    android:fontFamily="@font/josefin_slab_bold"
+                    android:gravity="center"
+                    android:text="Enter Your Email to Get Verified"
+                    android:textColor="@color/black"
+                    android:textSize="25sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="15dp"
+                    android:fontFamily="@font/josefin_slab"
+                    android:gravity="center"
+                    android:text="After getting verified you will be able to: Create Your Own Recipes"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="15dp"
+                    android:fontFamily="@font/josefin_slab"
+                    android:gravity="center"
+                    android:text="Note: After getting verified you cannot change your email again."
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="15dp"
+                    android:fontFamily="@font/josefin_slab_bold"
+                    android:gravity="left"
+                    android:text="Email"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/userEmailInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5sp"
+                    android:layout_marginLeft="15dp"
+                    android:textSize="18sp"
+                    android:layout_marginRight="15dp"
+                    android:fontFamily="@font/josefin_slab">
+
+                </EditText>
+
+                <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15sp"
+                    android:layout_marginLeft="15sp"
+                    android:layout_marginTop="15sp"
+                    android:layout_marginBottom="20sp"
+                    android:clickable="true"
+                    android:background="@drawable/button_bg">
+
+                        <TextView
+                            android:id="@+id/getVerifyButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Enter"
+                            android:layout_margin="5sp"
+                            android:textSize="22sp"
+                            android:fontFamily="@font/josefin_slab_bold"
+                            android:textStyle="bold"
+                            android:textColor="@color/light_main"
+                            android:gravity="center" />
+
+                </LinearLayout>
+
+
+        </LinearLayout>
+
+
 
 </LinearLayout>

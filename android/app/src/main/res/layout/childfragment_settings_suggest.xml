@@ -2,16 +2,73 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:background="@color/white">
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:text="Settings_Suggest"
-        android:textSize="30sp"
+        android:fontFamily="@font/josefin_slab_bold"
+        android:text="Suggest Your Desired Ingredients"
+        android:layout_marginRight="15sp"
+        android:layout_marginLeft="15sp"
+        android:layout_marginTop="20sp"
+        android:textSize="25sp"
         android:textColor="@color/black"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/josefin_slab"
+        android:gravity="center"
+        android:text="Our team will review the suggested ingredients and afterwards they might be included to Purrfect Recipes"
+        android:textColor="@color/black"
+        android:layout_margin="15sp"
+        android:textSize="20sp" />
+
+
+    <EditText
+        android:id="@+id/inputSuggestedIngredient"
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/main_bg"
+        android:hint="Enter ingredient name here"
+        android:fontFamily="@font/josefin_slab_italic"
+        android:textSize="18sp"
+        android:text="">
+
+    </EditText>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="20sp"
+        android:layout_marginLeft="20sp"
+        android:layout_marginTop="20sp"
+        android:layout_marginBottom="20sp"
+        android:clickable="true"
+        android:background="@drawable/button_bg">
+
+        <TextView
+            android:id="@+id/enterSuggestButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Enter"
+            android:layout_margin="5sp"
+            android:textSize="22sp"
+            android:fontFamily="@font/josefin_slab_bold"
+            android:textStyle="bold"
+            android:textColor="@color/light_main"
+            android:gravity="center" />
+
+    </LinearLayout>
+
 
 </LinearLayout>

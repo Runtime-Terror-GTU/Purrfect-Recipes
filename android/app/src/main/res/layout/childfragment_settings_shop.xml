@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -7,11 +8,158 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:text="Settings_Shop"
-        android:textSize="30sp"
+        android:fontFamily="@font/josefin_slab_bold"
+        android:layout_marginTop="20sp"
+        android:layout_marginRight="15sp"
+        android:layout_marginLeft="15sp"
+        android:text="Upgrade To Premium"
+        android:textSize="25sp"
         android:textColor="@color/black"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/josefin_slab_bold"
+        android:layout_marginTop="19dp"
+        android:layout_marginRight="15sp"
+        android:layout_marginLeft="15sp"
+        android:gravity="left"
+        android:text="Premium Features"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginRight="15sp"
+        android:layout_marginLeft="15sp"
+        android:fontFamily="@font/josefin_slab"
+        android:gravity="center|left"
+        android:text="- Add any photo you want as profile picture
+        \n- Your comments will show on top
+        \n- There will be a sign next to your name
+        \n- No ads on app
+        \n- Suggest ingredients to add"
+        android:textColor="@color/black"
+        android:textSize="17sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:fontFamily="@font/josefin_slab_bold"
+            android:textColor="@color/black"
+            android:gravity="center|left"
+            android:text="Credit Number"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="15dp"
+            android:textSize="20sp" />
+    <EditText
+        android:id="@+id/creditCartNumberText"
+        android:layout_width="match_parent"
+        android:layout_height="40sp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/main_bg"
+        android:ems="10"
+        android:fontFamily="@font/josefin_slab_italic"
+        android:textSize="18sp"
+        android:inputType="number"
+        android:text="">
+
+    </EditText>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/josefin_slab_bold"
+            android:textColor="@color/black"
+            android:gravity="center|left"
+            android:text="CVV"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="15dp"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/CVVText"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/main_bg"
+            android:ems="10"
+            android:fontFamily="@font/josefin_slab_italic"
+            android:textSize="18sp"
+            android:inputType="number"
+            android:text="">
+
+        </EditText>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/josefin_slab_bold"
+            android:textColor="@color/black"
+            android:gravity="center|left"
+            android:text="Name Surname"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="15dp"
+            android:textSize="20sp" />
+    <EditText
+        android:id="@+id/nameSurnameText"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/main_bg"
+        android:ems="10"
+        android:fontFamily="@font/josefin_slab_italic"
+        android:textSize="18sp"
+        android:inputType="textPersonName"
+        android:text="">
+
+    </EditText>
+
+
+        ></LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/enterButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="15sp"
+        android:layout_marginLeft="15sp"
+        android:layout_marginTop="20sp"
+        android:clickable="true"
+        android:background="@drawable/button_bg">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Enter"
+            android:layout_margin="5sp"
+            android:textSize="22sp"
+            android:fontFamily="@font/josefin_slab_bold"
+            android:textStyle="bold"
+            android:textColor="@color/light_main"
+            android:gravity="center" />
+
+    </LinearLayout>
+
 
 </LinearLayout>
