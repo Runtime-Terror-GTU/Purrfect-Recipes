@@ -8,28 +8,39 @@ import {
     FormLabel, 
     FormWrap,
     Form,
-    Text,
     Button 
 } from './SignUpElements';
+import { signUp, signIn } from "../../backend/UserService"
+import { v4 as uuidv4 } from 'uuid';
 
-const SignUp= () => {
+const onSubmit = (e)=> {
+
+    let user = {
+        id: uuidv4(),
+        password: document.getElementById("passwordInput").value,
+        email: document.getElementById("emailInput").value,
+        username: document.getElementById("userInput").value
+    }
+   signUp(user)
+   signIn()
+} 
+
+const SignUp = () => {
     return (
         <>
             <Container>
                 <FormWrap>
                     <FormContent>
-                        <Form action='#'>
+                        <Form >
                             <FormH1 to='/'>Purrfect Recipes</FormH1>
                             <FormLabel htmlFor='for'>Email</FormLabel>
-                            <FormInput type='email' required/>
+                            <FormInput  id='emailInput' type='email' placeholder="Email" required/>
                             <FormLabel htmlFor='for'>Username</FormLabel>
-                            <FormInput type='username' required/>
+                            <FormInput id='userInput' type='username' placeholder="Username" required/>
                             <FormLabel htmlFor='for'>Password</FormLabel>
-                            <FormInput type='password' required/>
-                            <Text to = "/forgot">
-                                 Forgot your password?
-                            </Text>
-                            <FormButton type='submit' to='/'>Let's cook!</FormButton>
+                            <FormInput id='passwordInput' type='password' placeholder="Password" required/>
+                            
+                            <FormButton type='submit' onClick={onSubmit}>Let's cook!</FormButton>
                             <Button to = "/signin">
                                 Do you have already an account? 
                             </Button>
