@@ -60,11 +60,16 @@
         <entry key="..\:/Users/JADE/AndroidStudioProjects/PurrfectRecipes/app/src/main/res/menu/profile_navigation_tabbar.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/JADE/AndroidStudioProjects/PurrfectRecipes/app/src/main/res/menu/settings_navigation_tabbar.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/JADE/AndroidStudioProjects/PurrfectRecipes/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.28541666666666665" />
+        <entry key="..\:/Users/JADE/Documents/GitHub/Purrfect-Recipes/android/app/src/main/res/layout/activity_edit_profile.xml" value="0.17831813576494426" />
+        <entry key="..\:/Users/JADE/Documents/GitHub/Purrfect-Recipes/android/app/src/main/res/layout/activity_edit_recipe.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/JADE/Documents/GitHub/Purrfect-Recipes/android/app/src/main/res/layout/activity_filter.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/JADE/Documents/GitHub/Purrfect-Recipes/android/app/src/main/res/layout/activity_sort.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/JADE/Documents/GitHub/Purrfect-Recipes/android/app/src/main/res/layout/childfragment_home_recipes.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/JADE/Documents/GitHub/Purrfect-Recipes/android/app/src/main/res/layout/childfragment_profile_info.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/JADE/Documents/GitHub/Purrfect-Recipes/android/app/src/main/res/layout/childfragment_settings_suggest.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/JADE/Documents/GitHub/Purrfect-Recipes/android/app/src/main/res/layout/fragment_edit_ingredients.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/JADE/Documents/GitHub/Purrfect-Recipes/android/app/src/main/res/layout/fragment_home.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/JADE/Documents/GitHub/Purrfect-Recipes/android/app/src/main/res/layout/fragment_profile.xml" value="0.31145833333333334" />
         <entry key="..\:/Users/JADE/Documents/GitHub/Purrfect-Recipes/android/app/src/main/res/layout/fragment_sort.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/JADE/Documents/GitHub/Purrfect-Recipes/android/app/src/main/res/layout/home_recipe_rvbg.xml" value="0.25416666666666665" />
       </map>

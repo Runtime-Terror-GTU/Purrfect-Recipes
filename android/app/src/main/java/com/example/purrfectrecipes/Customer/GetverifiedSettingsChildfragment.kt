@@ -6,6 +6,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleOwner
 import com.example.purrfectrecipes.Adapters.HomePageRVAdapter
@@ -18,17 +19,19 @@ import com.orhanobut.hawk.Hawk
 class GetverifiedSettingsChildfragment: Fragment(R.layout.childfragment_settings_getverified)
 {
 
-    private val viewModel: SettingsSharedViewModel by viewModels()
+    private val viewModel: SettingsSharedViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        if(viewModel.getVerifyView().value!=null)
-            super.onViewCreated(viewModel.getVerifyView().value!!, savedInstanceState)
-        else
-        {
-            viewModel.setVerifyView(view)
-            super.onViewCreated(view, savedInstanceState)
-        }
+        viewModel.getVerifyView().observe(viewLifecycleOwner, {
+            if(viewModel.getVerifyView().value!=null)
+                super.onViewCreated(viewModel.getVerifyView().value!!, savedInstanceState)
+            else
+            {
+                viewModel.setVerifyView(view)
+                super.onViewCreated(view, savedInstanceState)
+            }
+        })
 
         val enterVerifyButton=view.findViewById<TextView>(R.id.getVerifyButton)
         val emailInput = view.findViewById<EditText>(R.id.userEmailInput)

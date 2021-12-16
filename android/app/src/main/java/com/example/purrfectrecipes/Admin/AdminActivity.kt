@@ -29,6 +29,7 @@ class AdminActivity : AppCompatActivity() {
             if(it==navigationBarAdmin.menu.getItem(0)) {
                 val fragmentViewModel:AdminFragmentViewModel by viewModels()
                 fragmentViewModel.setView(null)
+                navController.popBackStack(R.id.adminFragment, true)
                 navController.navigate(R.id.adminFragment)
             }
         }

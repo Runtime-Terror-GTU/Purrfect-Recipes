@@ -36,6 +36,7 @@ class GuestActivity : AppCompatActivity() {
             if(it==navigationBarGuest.menu.getItem(0)) {
                 val homeViewModel:HomeFragmentViewModel by viewModels()
                 homeViewModel.setView(null)
+                navController.popBackStack(R.id.homeFragment, true)
                 navController.navigate(R.id.homeFragment)
             }
         }

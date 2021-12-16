@@ -31,30 +31,36 @@ class HomeFragment: Fragment(R.layout.fragment_home)
         navigationTabbarHome.setOnItemReselectedListener {
             if(it==navigationTabbarHome.menu.getItem(0)) {
                 recipesViewModel.setView(null)
+                navController.popBackStack(R.id.recipesHomeChildfragment, true)
                 navController.navigate(R.id.recipesHomeChildfragment)
             }
             else {
                 whatViewModel.setView(null)
+                navController.popBackStack(R.id.whatHomeChildfragment, true)
                 navController.navigate(R.id.whatHomeChildfragment)
             }
         }
 
-        if(viewModel.getView().value!=null)
-            super.onViewCreated(viewModel.getView().value!!, savedInstanceState)
-        else
-        {
-            viewModel.setView(view)
-            super.onViewCreated(view, savedInstanceState)
-        }
+        viewModel.getView().observe(viewLifecycleOwner, {
+            if(viewModel.getView().value!=null)
+                super.onViewCreated(viewModel.getView().value!!, savedInstanceState)
+            else
+            {
+                viewModel.setView(view)
+                super.onViewCreated(view, savedInstanceState)
+            }
+        })
 
         val topBar=view.findViewById<LinearLayout>(R.id.topBar)
         recipesViewModel.getSort().observe(viewLifecycleOwner,{
             if(recipesViewModel.getSort().value!=null && recipesViewModel.getSort().value==true)
             {
+                navController.popBackStack(R.id.sortFragment, true)
                 navController.navigate(R.id.sortFragment)
                 topBar.visibility=View.GONE
             }
             else if(recipesViewModel.getSort().value!=null && recipesViewModel.getSort().value==false){
+                navController.popBackStack(R.id.recipesHomeChildfragment, true)
                 navController.navigate(R.id.recipesHomeChildfragment)
                 topBar.visibility=View.VISIBLE
             }

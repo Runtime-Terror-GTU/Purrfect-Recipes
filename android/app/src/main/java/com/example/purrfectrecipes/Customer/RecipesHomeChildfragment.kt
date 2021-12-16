@@ -38,9 +38,9 @@ class RecipesHomeChildfragment: Fragment(R.layout.childfragment_home_recipes)
 {
     private val viewModel: RecipesHomeViewModel by activityViewModels()
     private var recipesRVAdapter:HomePageRVAdapter?=null
+    private val sortViewModel:SortViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
         val recipesRef: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Recipes")
         val usersRef: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users")
         val dayRecipeRef: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Recipe of The Day")
@@ -86,14 +86,20 @@ class RecipesHomeChildfragment: Fragment(R.layout.childfragment_home_recipes)
         uri=resourceToUri(requireContext(), R.drawable.brownie)
         //storageRef.child(id5).putFile(uri)
 
-        if(viewModel.getView().value!=null)
-            super.onViewCreated(viewModel.getView().value!!, savedInstanceState)
-        else
-        {
-            viewModel.setView(view)
-            super.onViewCreated(view, savedInstanceState)
-        }
+        viewModel.getView().observe(viewLifecycleOwner, {
+            if(viewModel.getView().value!=null)
+                super.onViewCreated(viewModel.getView().value!!, savedInstanceState)
+            else
+            {
+                viewModel.setView(view)
+                sortViewModel.setId(-1)
+                super.onViewCreated(view, savedInstanceState)
+            }
+        })
+
+
         setRVAdapter()
+
 
         viewModel.getRecipes().observe(viewLifecycleOwner, {
             if(viewModel.getRecipes().value!=null) {
@@ -163,10 +169,12 @@ class RecipesHomeChildfragment: Fragment(R.layout.childfragment_home_recipes)
             if(viewModel.getDiffSort().value!=null && viewModel.getDiffSort().value==SortMethods.difMintoMax)
             {
                 viewModel.sortDiffMin()
+                viewModel.setDiffSort(null)
             }
             else if(viewModel.getDiffSort().value!=null && viewModel.getDiffSort().value==SortMethods.difMaxtoMin)
             {
                 viewModel.sortDiffMax()
+                viewModel.setDiffSort(null)
             }
 
         })
@@ -175,10 +183,12 @@ class RecipesHomeChildfragment: Fragment(R.layout.childfragment_home_recipes)
             if(viewModel.getPopSort().value!=null && viewModel.getPopSort().value==SortMethods.popMaxtoMin)
             {
                 viewModel.sortPopMax()
+                viewModel.setPopSort(null)
             }
             else if(viewModel.getPopSort().value!=null && viewModel.getPopSort().value==SortMethods.popMintoMax)
             {
                 viewModel.sortPopMin()
+                viewModel.setPopSort(null)
             }
         })
 

@@ -12,6 +12,7 @@ import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.example.purrfectrecipes.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -20,17 +21,19 @@ import java.util.*
 
 class SuggestSettingsChildfragment: Fragment(R.layout.childfragment_settings_suggest)
 {
-    private val viewModel: SettingsSharedViewModel by viewModels()
+    private val viewModel: SettingsSharedViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        if(viewModel.getSuggestView().value!=null)
-            super.onViewCreated(viewModel.getSuggestView().value!!, savedInstanceState)
-        else
-        {
-            viewModel.setSuggestView(view)
-            super.onViewCreated(view, savedInstanceState)
-        }
+        viewModel.getSuggestView().observe(viewLifecycleOwner, {
+            if(viewModel.getSuggestView().value!=null)
+                super.onViewCreated(viewModel.getSuggestView().value!!, savedInstanceState)
+            else
+            {
+                viewModel.setSuggestView(view)
+                super.onViewCreated(view, savedInstanceState)
+            }
+        })
 
         val enterSuggestIngredientButton=view.findViewById<TextView>(R.id.enterSuggestButton)
         val suggestedIngredient = view.findViewById<EditText>(R.id.inputSuggestedIngredient)

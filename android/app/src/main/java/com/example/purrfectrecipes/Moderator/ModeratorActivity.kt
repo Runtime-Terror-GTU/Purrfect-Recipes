@@ -27,6 +27,7 @@ class ModeratorActivity : AppCompatActivity() {
             if(it==navigationBarModerator.menu.getItem(0)) {
                 val moderatorViewModel:ModeratorFragmentViewModel by viewModels()
                 moderatorViewModel.setView(null)
+                navController.popBackStack(R.id.moderatorFragment, true)
                 navController.navigate(R.id.moderatorFragment)
             }
         }

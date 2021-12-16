@@ -3,6 +3,7 @@ package com.example.purrfectrecipes.Customer
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.core.view.get
 import androidx.navigation.fragment.NavHostFragment
@@ -28,17 +29,18 @@ class CustomerActivity : AppCompatActivity() {
             if(it==navigationBarCustomer.menu.getItem(0)) {
                 val homeViewModel:HomeFragmentViewModel by viewModels()
                 homeViewModel.setView(null)
+                navController.popBackStack(R.id.homeFragment, true)
                 navController.navigate(R.id.homeFragment)
-            }
-            else if(it==navigationBarCustomer.menu.getItem(1)) {
+            }else if(it==navigationBarCustomer.menu.getItem(1)) {
                 val profileViewModel:ProfileFragmentViewModel by viewModels()
                 profileViewModel.setView(null)
+                navController.popBackStack(R.id.profileFragment, true)
                 navController.navigate(R.id.profileFragment)
-
             }
             else{
                 val settingsViewModel: SettingsFragmentViewModel by viewModels()
                 settingsViewModel.setView(null)
+                navController.popBackStack(R.id.settingsFragment, true)
                 navController.navigate(R.id.settingsFragment)
             }
         }

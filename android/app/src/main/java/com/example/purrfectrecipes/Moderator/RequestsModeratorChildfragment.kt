@@ -3,6 +3,7 @@ package com.example.purrfectrecipes.Moderator
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
@@ -11,16 +12,18 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class RequestsModeratorChildfragment: Fragment(R.layout.childfragment_moderator_requests)
 {
-    private val viewModel: RequestsModeratorViewModel by viewModels()
+    private val viewModel: RequestsModeratorViewModel by activityViewModels()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        if(viewModel.getView().value!=null)
-            super.onViewCreated(viewModel.getView().value!!, savedInstanceState)
-        else
-        {
-            viewModel.setView(view)
-            super.onViewCreated(view, savedInstanceState)
-        }
+        viewModel.getView().observe(viewLifecycleOwner, {
+            if(viewModel.getView().value!=null)
+                super.onViewCreated(viewModel.getView().value!!, savedInstanceState)
+            else
+            {
+                viewModel.setView(view)
+                super.onViewCreated(view, savedInstanceState)
+            }
+        })
     }
 
 }

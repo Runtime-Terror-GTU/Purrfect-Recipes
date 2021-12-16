@@ -1,8 +1,10 @@
 package com.example.purrfectrecipes.Customer
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
@@ -12,7 +14,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class ProfileFragment: Fragment(R.layout.fragment_profile)
 {
-    private val viewModel: ProfileFragmentViewModel by viewModels()
+    private val viewModel: ProfileFragmentViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val navigationTabbarProfile=view.findViewById<BottomNavigationView>(R.id.navigationTabbarProfile)
@@ -21,29 +23,34 @@ class ProfileFragment: Fragment(R.layout.fragment_profile)
         NavigationUI.setupWithNavController(navigationTabbarProfile, navController)
         navigationTabbarProfile.setOnItemReselectedListener {
             if(it==navigationTabbarProfile.menu.getItem(0)) {
-                val infoViewModel:InfoProfileViewModel by viewModels()
+                val infoViewModel:InfoProfileViewModel by activityViewModels()
                 infoViewModel.setView(null)
+                navController.popBackStack(R.id.infoProfileChildfragment, true)
                 navController.navigate(R.id.infoProfileChildfragment)
             }
             else if (it==navigationTabbarProfile.menu.getItem(1)){
-                val addedrecipesViewModel:AddedrecipesProfileViewModel by viewModels()
+                val addedrecipesViewModel:AddedrecipesProfileViewModel by activityViewModels()
                 addedrecipesViewModel.setView(null)
+                navController.popBackStack(R.id.addedrecipesProfileChildfragment, true)
                 navController.navigate(R.id.addedrecipesProfileChildfragment)
             }
             else{
-                val purrfectedrecipesViewModel:PurrfectedrecipesProfileViewModel by viewModels()
+                val purrfectedrecipesViewModel:PurrfectedrecipesProfileViewModel by activityViewModels()
                 purrfectedrecipesViewModel.setView(null)
+                navController.popBackStack(R.id.purrfectedrecipesProfileChildfragment, true)
                 navController.navigate(R.id.purrfectedrecipesProfileChildfragment)
             }
         }
 
-        if(viewModel.getView().value!=null)
-            super.onViewCreated(viewModel.getView().value!!, savedInstanceState)
-        else
-        {
-            viewModel.setView(view)
-            super.onViewCreated(view, savedInstanceState)
-        }
+        viewModel.getView().observe(viewLifecycleOwner, {
+            if(viewModel.getView().value!=null)
+                super.onViewCreated(viewModel.getView().value!!, savedInstanceState)
+            else
+            {
+                viewModel.setView(view)
+                super.onViewCreated(view, savedInstanceState)
+            }
+        })
     }
 
 }

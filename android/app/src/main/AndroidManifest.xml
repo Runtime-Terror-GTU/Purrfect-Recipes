@@ -11,22 +11,6 @@
         android:supportsRtl="true"
         android:theme="@style/SplashTheme" >
         <activity
-            android:name=".EditProfileActivity"
-            android:exported="true"
-            android:theme="@style/Theme2.StartScreen"/>
-        <activity
-            android:name=".SortActivity"
-            android:exported="true"
-            android:theme="@style/Theme2.StartScreen" />
-        <activity
-            android:name=".EditRecipeActivity"
-            android:exported="true"
-            android:theme="@style/Theme2.StartScreen" />
-        <activity
-            android:name=".FilterActivity"
-            android:exported="true"
-            android:theme="@style/Theme2.StartScreen" />
-        <activity
             android:name=".Guest.GuestActivity"
             android:exported="true"
             android:theme="@style/Theme2.StartScreen" />
