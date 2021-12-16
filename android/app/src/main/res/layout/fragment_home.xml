@@ -11,52 +11,58 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
-        <FrameLayout
+        
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/main">
+            android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="110sp"
-                android:layout_height="81sp"
-                android:background="@drawable/pati_edited2"
-                android:rotation="-180" />
-
-            <ImageView
-                android:layout_width="110sp"
-                android:layout_height="81sp"
-                android:layout_gravity="right"
-                android:background="@drawable/pati_edited2"/>
-
-            <TextView
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center|bottom"
-                android:fontFamily="@font/josefin_slab_bold"
-                android:gravity="center"
-                android:text="Purrfected Recipes"
-                android:layout_marginBottom="10sp"
-                android:textColor="@color/white"
-                android:textSize="30sp"
-                android:textStyle="bold" />
+                android:background="@color/main">
 
-        </FrameLayout>
+                <ImageView
+                    android:layout_width="110sp"
+                    android:layout_height="81sp"
+                    android:background="@drawable/pati_edited2"
+                    android:rotation="-180" />
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/navigationTabbarHome"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/main"
-            app:elevation="0dp"
-            app:itemRippleColor="@color/white"
-            app:itemBackground="@drawable/radiobutton_bg_selector"
-            app:itemTextAppearanceActive="@style/JosefinSlabTextViewStyleB2"
-            app:itemTextAppearanceInactive="@style/JosefinSlabTextViewStyle2"
-            app:itemTextColor="@color/white"
-            android:theme="@style/BottomNavigationStyle"
-            app:menu="@menu/home_navigation_tabbar"
-            android:tag="sticky"/>
+                <ImageView
+                    android:layout_width="110sp"
+                    android:layout_height="81sp"
+                    android:layout_gravity="right"
+                    android:background="@drawable/pati_edited2"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|bottom"
+                    android:fontFamily="@font/josefin_slab_bold"
+                    android:gravity="center"
+                    android:text="Purrfected Recipes"
+                    android:layout_marginBottom="10sp"
+                    android:textColor="@color/white"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+
+            </FrameLayout>
+
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/navigationTabbarHome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/main"
+                app:elevation="0dp"
+                app:itemRippleColor="@color/white"
+                app:itemBackground="@drawable/radiobutton_bg_selector"
+                app:itemTextAppearanceActive="@style/JosefinSlabTextViewStyleB2"
+                app:itemTextAppearanceInactive="@style/JosefinSlabTextViewStyle2"
+                app:itemTextColor="@color/white"
+                android:theme="@style/BottomNavigationStyle"
+                app:menu="@menu/home_navigation_tabbar"
+                android:tag="sticky"/>
+        </LinearLayout>
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/nav_host_fragment"

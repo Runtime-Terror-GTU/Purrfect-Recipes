@@ -15,8 +15,6 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.purrfectrecipes.Adapters.HomePageRVAdapter
-import com.example.purrfectrecipes.Constants
-import com.example.purrfectrecipes.R
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.database.DatabaseReference
@@ -29,9 +27,8 @@ import java.io.FileInputStream
 import android.graphics.BitmapFactory
 import android.widget.*
 import com.bumptech.glide.Glide
+import com.example.purrfectrecipes.*
 import com.example.purrfectrecipes.Guest.GuestActivity
-import com.example.purrfectrecipes.SortActivity
-import com.example.purrfectrecipes.SortMethods
 import com.orhanobut.hawk.Hawk
 import java.io.ByteArrayInputStream
 

@@ -4,10 +4,12 @@ import android.content.Intent
 import android.media.Image
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RadioButton
 import androidx.activity.viewModels
+import androidx.lifecycle.ViewModelProviders
 import com.example.purrfectrecipes.Customer.CustomerActivity
 import com.example.purrfectrecipes.Customer.RecipesHomeViewModel
 import com.example.purrfectrecipes.Guest.GuestActivity

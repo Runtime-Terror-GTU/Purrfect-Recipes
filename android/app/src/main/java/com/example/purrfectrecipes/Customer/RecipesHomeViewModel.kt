@@ -6,6 +6,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.purrfectrecipes.Connectors.RecipesHomeVMRepConnector
+import com.example.purrfectrecipes.DifficultyComparator
+import com.example.purrfectrecipes.HeapSort
 import com.example.purrfectrecipes.Recipe
 import com.example.purrfectrecipes.SortMethods
 
@@ -25,6 +27,9 @@ class RecipesHomeViewModel: ViewModel(), RecipesHomeVMRepConnector
     private val popSort=MutableLiveData<SortMethods?>()
         fun getPopSort():LiveData<SortMethods?> {return popSort}
 
+    private val heapSort=HeapSort<Recipe>()
+    private val diffComparator=DifficultyComparator()
+
     init{
         repository.retrieveRecipes()
     }
@@ -36,11 +41,15 @@ class RecipesHomeViewModel: ViewModel(), RecipesHomeVMRepConnector
 
     fun sortDiffMin()
     {
-
+        heapSort.sort(recipes.value, diffComparator)
     }
 
     fun sortDiffMax()
     {
+        val tempList=recipes.value
+        heapSort.sort(tempList, diffComparator)
+        tempList?.reverse()
+        recipes.value=tempList
 
     }
 

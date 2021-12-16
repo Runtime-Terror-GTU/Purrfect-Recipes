@@ -3,7 +3,7 @@ package com.example.purrfectrecipes
 import com.example.purrfectrecipes.User.CustomerStatus
 import java.util.stream.Collectors
 
-class Recipe(id:String, name:String, owner:String, difficulty:String, likes: Int, pictureURL:String=" ", overview:String="No Ingredients Overview")
+class Recipe(id:String, name:String, owner:String, difficulty:String, likes: Int, pictureURL:String=" ", overview:String="No Ingredients Overview"):Comparable<Recipe>
 {
     private var recipeId:String=id
         fun getRecipeID(): String {return recipeId}
@@ -81,6 +81,15 @@ class Recipe(id:String, name:String, owner:String, difficulty:String, likes: Int
 
     fun getStage(stageNo:Int):String {
         return recipeStages.get(stageNo)
+    }
+
+    override fun compareTo(other: Recipe): Int {
+        if(recipeName.compareTo(other.recipeName)>0)
+            return 1
+        else if(recipeName.compareTo(other.recipeName)<0)
+            return -1
+        else
+            return 0
     }
 
 }
