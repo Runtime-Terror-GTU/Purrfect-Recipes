@@ -7,7 +7,11 @@
     <fragment
         android:id="@+id/recipesHomeChildfragment"
         android:name="com.example.purrfectrecipes.Customer.RecipesHomeChildfragment"
-        android:label="RecipesHomeChildfragment" />
+        android:label="RecipesHomeChildfragment" >
+        <action
+            android:id="@+id/action_recipesHomeChildfragment_to_sortFragment"
+            app:destination="@id/sortFragment" />
+    </fragment>
     <fragment
         android:id="@+id/whatHomeChildfragment"
         android:name="com.example.purrfectrecipes.Customer.WhatHomeChildfragment"
@@ -24,4 +28,8 @@
             android:id="@+id/action_whatresHomeChildfragment_to_whatHomeChildfragment2"
             app:destination="@id/whatHomeChildfragment" />
     </fragment>
+    <fragment
+        android:id="@+id/sortFragment"
+        android:name="com.example.purrfectrecipes.SortFragment"
+        android:label="SortFragment" />
 </navigation>

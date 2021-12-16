@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.PopupMenu
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
@@ -17,10 +18,12 @@ import androidx.navigation.ui.NavigationUI.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
 import com.example.purrfectrecipes.Customer.HomeFragment
 import com.example.purrfectrecipes.Customer.HomeFragmentViewModel
+import com.example.purrfectrecipes.Customer.RecipesHomeViewModel
 import com.example.purrfectrecipes.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class GuestActivity : AppCompatActivity() {
+    private val homeViewModel:RecipesHomeViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_guest)
@@ -36,8 +39,13 @@ class GuestActivity : AppCompatActivity() {
                 navController.navigate(R.id.homeFragment)
             }
         }
+    }
 
-
+    override fun onBackPressed() {
+        if(homeViewModel.getSort().value!=null && homeViewModel.getSort().value==true)
+            homeViewModel.setSort(false)
+        else
+            super.onBackPressed()
     }
 
 

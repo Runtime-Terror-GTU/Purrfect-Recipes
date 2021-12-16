@@ -26,6 +26,7 @@ import java.io.File
 import java.io.FileInputStream
 import android.graphics.BitmapFactory
 import android.widget.*
+import androidx.fragment.app.activityViewModels
 import com.bumptech.glide.Glide
 import com.example.purrfectrecipes.*
 import com.example.purrfectrecipes.Guest.GuestActivity
@@ -35,7 +36,7 @@ import java.io.ByteArrayInputStream
 
 class RecipesHomeChildfragment: Fragment(R.layout.childfragment_home_recipes)
 {
-    private val viewModel: RecipesHomeViewModel by viewModels()
+    private val viewModel: RecipesHomeViewModel by activityViewModels()
     private var recipesRVAdapter:HomePageRVAdapter?=null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -155,9 +156,7 @@ class RecipesHomeChildfragment: Fragment(R.layout.childfragment_home_recipes)
 
         val sortButton=view.findViewById<Button>(R.id.sortButton)
         sortButton.setOnClickListener {
-            val intent= Intent(requireContext(), SortActivity::class.java)
-            Hawk.put(Constants.SORT_DIRECTION, Constants.MAIN_TO_SORT)
-            startActivity(intent)
+            viewModel.setSort(true)
         }
 
         viewModel.getDiffSort().observe(viewLifecycleOwner, {
@@ -170,6 +169,17 @@ class RecipesHomeChildfragment: Fragment(R.layout.childfragment_home_recipes)
                 viewModel.sortDiffMax()
             }
 
+        })
+
+        viewModel.getPopSort().observe(viewLifecycleOwner,{
+            if(viewModel.getPopSort().value!=null && viewModel.getPopSort().value==SortMethods.popMaxtoMin)
+            {
+                viewModel.sortPopMax()
+            }
+            else if(viewModel.getPopSort().value!=null && viewModel.getPopSort().value==SortMethods.popMintoMax)
+            {
+                viewModel.sortPopMin()
+            }
         })
 
     }

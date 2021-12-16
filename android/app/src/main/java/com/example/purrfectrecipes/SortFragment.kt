@@ -5,10 +5,14 @@ import android.media.Image
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RadioButton
 import androidx.activity.viewModels
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProviders
 import com.example.purrfectrecipes.Customer.CustomerActivity
 import com.example.purrfectrecipes.Customer.RecipesHomeViewModel
@@ -16,21 +20,21 @@ import com.example.purrfectrecipes.Guest.GuestActivity
 import com.example.purrfectrecipes.User.User
 import com.orhanobut.hawk.Hawk
 
-class SortActivity : AppCompatActivity() {
+class SortFragment: Fragment(R.layout.fragment_sort) {
 
-    private val homeViewModel:RecipesHomeViewModel by viewModels()
-    override fun onCreate(savedInstanceState: Bundle?)
+    private val homeViewModel:RecipesHomeViewModel by activityViewModels()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sort)
+        super.onViewCreated(view, savedInstanceState)
 
-        val cancelButton=findViewById<ImageView>(R.id.cancelSort)
-        val enterButton=findViewById<LinearLayout>(R.id.enterSortButton)
+        val cancelButton=view.findViewById<ImageView>(R.id.cancelSort)
+        val enterButton=view.findViewById<LinearLayout>(R.id.enterSortButton)
 
-        val diffHardest=findViewById<RadioButton>(R.id.diffHardest)
-        val diffEasiest=findViewById<RadioButton>(R.id.diffEasiest)
-        val popMax=findViewById<RadioButton>(R.id.popMost)
-        val popMin=findViewById<RadioButton>(R.id.popLeast)
+        val diffHardest=view.findViewById<RadioButton>(R.id.diffHardest)
+        val diffEasiest=view.findViewById<RadioButton>(R.id.diffEasiest)
+        val popMax=view.findViewById<RadioButton>(R.id.popMost)
+        val popMin=view.findViewById<RadioButton>(R.id.popLeast)
 
         val direction= Hawk.get<String>(Constants.SORT_DIRECTION)
         if(direction==Constants.MAIN_TO_SORT)
@@ -50,13 +54,14 @@ class SortActivity : AppCompatActivity() {
             cancelButton.setOnClickListener {
                 homeViewModel.setPopSort(null)
                 homeViewModel.setDiffSort(null)
-                finish()
+                homeViewModel.setSort(false)
             }
         }
 
         enterButton.setOnClickListener {
-            finish()
+            homeViewModel.setSort(false)
         }
 
     }
+
 }

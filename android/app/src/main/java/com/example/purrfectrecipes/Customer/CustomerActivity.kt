@@ -15,6 +15,7 @@ import com.orhanobut.hawk.Hawk
 
 class CustomerActivity : AppCompatActivity() {
 
+    private val homeViewModel:RecipesHomeViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_customer)
@@ -41,7 +42,11 @@ class CustomerActivity : AppCompatActivity() {
                 navController.navigate(R.id.settingsFragment)
             }
         }
-
-
+    }
+    override fun onBackPressed() {
+        if(homeViewModel.getSort().value!=null && homeViewModel.getSort().value==true)
+            homeViewModel.setSort(false)
+        else
+            super.onBackPressed()
     }
 }

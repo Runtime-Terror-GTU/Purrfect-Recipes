@@ -88,8 +88,6 @@
                 android:textColor="@color/black"
                 android:textSize="18sp" />
 
-        </RadioGroup>
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -106,13 +104,6 @@
             android:background="@color/dark_grey"
             android:layout_marginRight="15sp"
             android:layout_marginLeft="15sp"/>
-
-        <RadioGroup
-            android:id="@+id/searchStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5sp"
-            android:orientation="vertical">
 
             <RadioButton
                 android:id="@+id/popLeast"

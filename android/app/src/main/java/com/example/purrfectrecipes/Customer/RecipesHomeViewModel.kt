@@ -2,14 +2,12 @@ package com.example.purrfectrecipes.Customer
 
 import android.view.View
 import androidx.compose.ui.text.toLowerCase
+import androidx.compose.ui.window.PopupPositionProvider
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.purrfectrecipes.*
 import com.example.purrfectrecipes.Connectors.RecipesHomeVMRepConnector
-import com.example.purrfectrecipes.DifficultyComparator
-import com.example.purrfectrecipes.HeapSort
-import com.example.purrfectrecipes.Recipe
-import com.example.purrfectrecipes.SortMethods
 
 class RecipesHomeViewModel: ViewModel(), RecipesHomeVMRepConnector
 {
@@ -22,6 +20,9 @@ class RecipesHomeViewModel: ViewModel(), RecipesHomeVMRepConnector
     private var recipeOfTheDay=MutableLiveData<Recipe>()
         fun getRecipeOfTheDay():LiveData<Recipe> {return recipeOfTheDay}
 
+    private val sort=MutableLiveData<Boolean?>()
+        fun getSort():LiveData<Boolean?>{return sort}
+
     private val diffSort=MutableLiveData<SortMethods?>()
         fun getDiffSort():LiveData<SortMethods?> {return diffSort}
     private val popSort=MutableLiveData<SortMethods?>()
@@ -29,9 +30,15 @@ class RecipesHomeViewModel: ViewModel(), RecipesHomeVMRepConnector
 
     private val heapSort=HeapSort<Recipe>()
     private val diffComparator=DifficultyComparator()
+    private val popComparator=PopularityComparator()
 
     init{
         repository.retrieveRecipes()
+    }
+
+    fun setSort(bool:Boolean)
+    {
+        sort.value=bool
     }
 
     fun setDiffSort(method:SortMethods?)
@@ -48,6 +55,20 @@ class RecipesHomeViewModel: ViewModel(), RecipesHomeVMRepConnector
     {
         val tempList=recipes.value
         heapSort.sort(tempList, diffComparator)
+        tempList?.reverse()
+        recipes.value=tempList
+
+    }
+
+    fun sortPopMin()
+    {
+        heapSort.sort(recipes.value, popComparator)
+    }
+
+    fun sortPopMax()
+    {
+        val tempList=recipes.value
+        heapSort.sort(tempList, popComparator)
         tempList?.reverse()
         recipes.value=tempList
 

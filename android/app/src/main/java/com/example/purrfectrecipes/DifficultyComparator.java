@@ -4,10 +4,7 @@ import java.util.Comparator;
 
 public class DifficultyComparator implements Comparator
 {
-    /**
-     * Compares the product with another product.
-     * @return an integer greater than 0 if this.discountPrice>other.discountPrice, smaller than 0 if this.discountPrice<otherdiscountPrice, o if thisdiscountPrice=otherdiscountPrice
-     */
+
     public int compare(Object o1, Object o2)
     {
         Recipe p1=(Recipe)o1;
