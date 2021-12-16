@@ -2,6 +2,7 @@ package com.example.purrfectrecipes.Customer
 
 import android.content.ContentResolver
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
@@ -28,6 +29,10 @@ import java.io.FileInputStream
 import android.graphics.BitmapFactory
 import android.widget.*
 import com.bumptech.glide.Glide
+import com.example.purrfectrecipes.Guest.GuestActivity
+import com.example.purrfectrecipes.SortActivity
+import com.example.purrfectrecipes.SortMethods
+import com.orhanobut.hawk.Hawk
 import java.io.ByteArrayInputStream
 
 
@@ -150,6 +155,25 @@ class RecipesHomeChildfragment: Fragment(R.layout.childfragment_home_recipes)
             searchText.clearFocus()
             viewModel.resetRecipeArray()
         }
+
+        val sortButton=view.findViewById<Button>(R.id.sortButton)
+        sortButton.setOnClickListener {
+            val intent= Intent(requireContext(), SortActivity::class.java)
+            Hawk.put(Constants.SORT_DIRECTION, Constants.MAIN_TO_SORT)
+            startActivity(intent)
+        }
+
+        viewModel.getDiffSort().observe(viewLifecycleOwner, {
+            if(viewModel.getDiffSort().value!=null && viewModel.getDiffSort().value==SortMethods.difMintoMax)
+            {
+                viewModel.sortDiffMin()
+            }
+            else if(viewModel.getDiffSort().value!=null && viewModel.getDiffSort().value==SortMethods.difMaxtoMin)
+            {
+                viewModel.sortDiffMax()
+            }
+
+        })
 
     }
     fun resourceToUri(context:Context, resID:Int):Uri

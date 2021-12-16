@@ -25,4 +25,7 @@ object Constants
     const val R_RECIPEPREPARATION="R_RecipePreparation"
     const val R_RECIPECOMMENTS="R_RecipeComments"
 
+    const val SORT_DIRECTION="Sort_Direction"
+    const val MAIN_TO_SORT="Main_to_Sort"
+
 }

@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.purrfectrecipes.Connectors.RecipesHomeVMRepConnector
 import com.example.purrfectrecipes.Recipe
+import com.example.purrfectrecipes.SortMethods
 
 class RecipesHomeViewModel: ViewModel(), RecipesHomeVMRepConnector
 {
@@ -19,8 +20,33 @@ class RecipesHomeViewModel: ViewModel(), RecipesHomeVMRepConnector
     private var recipeOfTheDay=MutableLiveData<Recipe>()
         fun getRecipeOfTheDay():LiveData<Recipe> {return recipeOfTheDay}
 
+    private val diffSort=MutableLiveData<SortMethods?>()
+        fun getDiffSort():LiveData<SortMethods?> {return diffSort}
+    private val popSort=MutableLiveData<SortMethods?>()
+        fun getPopSort():LiveData<SortMethods?> {return popSort}
+
     init{
         repository.retrieveRecipes()
+    }
+
+    fun setDiffSort(method:SortMethods?)
+    {
+        diffSort.value=method
+    }
+
+    fun sortDiffMin()
+    {
+
+    }
+
+    fun sortDiffMax()
+    {
+
+    }
+
+    fun setPopSort(method:SortMethods?)
+    {
+        popSort.value=method
     }
 
     fun setView(newView: View?)
