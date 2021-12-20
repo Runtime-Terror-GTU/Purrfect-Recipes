@@ -19,11 +19,14 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.purrfectrecipes.Customer.HomeFragment
 import com.example.purrfectrecipes.Customer.HomeFragmentViewModel
 import com.example.purrfectrecipes.Customer.RecipesHomeViewModel
+import com.example.purrfectrecipes.FilterFragment
 import com.example.purrfectrecipes.R
+import com.example.purrfectrecipes.SortFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class GuestActivity : AppCompatActivity() {
-    private val homeViewModel:RecipesHomeViewModel by viewModels()
+
+    private val recipesViewModel:RecipesHomeViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_guest)
@@ -36,17 +39,44 @@ class GuestActivity : AppCompatActivity() {
             if(it==navigationBarGuest.menu.getItem(0)) {
                 val homeViewModel:HomeFragmentViewModel by viewModels()
                 homeViewModel.setView(null)
+                navController.popBackStack(R.id.sortFragment, true)
+                navController.popBackStack(R.id.filterFragment, true)
                 navController.popBackStack(R.id.homeFragment, true)
                 navController.navigate(R.id.homeFragment)
             }
         }
+        recipesViewModel.getSort().observe(this,{
+            if(recipesViewModel.getSort().value!=null && recipesViewModel.getSort().value==true)
+            {
+                navController.popBackStack(R.id.sortFragment, true)
+                navigationBarGuest.visibility=View.GONE
+                navController.navigate(R.id.sortFragment)
+            }
+            else if(recipesViewModel.getSort().value!=null && recipesViewModel.getSort().value==false){
+                navController.popBackStack(R.id.homeFragment, false)
+                navigationBarGuest.visibility=View.VISIBLE
+            }
+        })
+        recipesViewModel.getFilter().observe(this, {
+            if(recipesViewModel.getFilter().value!=null && recipesViewModel.getFilter().value==true)
+            {
+                navController.popBackStack(R.id.filterFragment, true)
+                navigationBarGuest.visibility=View.GONE
+                navController.navigate(R.id.filterFragment)
+            }
+            else if(recipesViewModel.getFilter().value!=null && recipesViewModel.getFilter().value==false){
+                navController.popBackStack(R.id.homeFragment, false)
+                navigationBarGuest.visibility=View.VISIBLE
+            }
+        })
     }
 
     override fun onBackPressed() {
-        if(homeViewModel.getSort().value!=null && homeViewModel.getSort().value==true)
-            homeViewModel.setSort(false)
-        else if(homeViewModel.getFilter().value!=null && homeViewModel.getFilter().value==true)
-            homeViewModel.setFilter(false)
+        if(recipesViewModel.getSort().value!=null && recipesViewModel.getSort().value==true) {
+            recipesViewModel.setSort(false)
+        }
+        else if(recipesViewModel.getFilter().value!=null && recipesViewModel.getFilter().value==true)
+            recipesViewModel.setFilter(false)
         else
             super.onBackPressed()
     }

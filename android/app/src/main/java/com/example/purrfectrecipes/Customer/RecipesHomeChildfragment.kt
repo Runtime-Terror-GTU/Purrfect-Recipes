@@ -92,14 +92,13 @@ class RecipesHomeChildfragment: Fragment(R.layout.childfragment_home_recipes)
             else
             {
                 viewModel.setView(view)
-                sortViewModel.setId(-1)
+                viewModel.resetRecipeArray()
+                sortViewModel.setHomeSortId(-1)
                 super.onViewCreated(view, savedInstanceState)
             }
         })
 
-
         setRVAdapter()
-
 
         viewModel.getRecipes().observe(viewLifecycleOwner, {
             if(viewModel.getRecipes().value!=null) {
@@ -163,6 +162,7 @@ class RecipesHomeChildfragment: Fragment(R.layout.childfragment_home_recipes)
         val sortButton=view.findViewById<Button>(R.id.sortButton)
         sortButton.setOnClickListener {
             viewModel.setSort(true)
+            Hawk.put(Constants.SORT_DIRECTION, Constants.MAIN_TO_SORT)
         }
 
         val filterButton=view.findViewById<Button>(R.id.filterButton)

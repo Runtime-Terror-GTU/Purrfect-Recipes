@@ -35,15 +35,15 @@ class SortFragment: Fragment(R.layout.fragment_sort) {
         val popMax=view.findViewById<RadioButton>(R.id.popMost)
         val popMin=view.findViewById<RadioButton>(R.id.popLeast)
 
-        viewModel.getId().observe(viewLifecycleOwner,{
-            if(viewModel.getId().value!=-1 && sortMethod.checkedRadioButtonId==-1) {
-                if(viewModel.getId().value==0)
+        viewModel.getHomeSortId().observe(viewLifecycleOwner,{
+            if(viewModel.getHomeSortId().value!=-1 && sortMethod.checkedRadioButtonId==-1) {
+                if(viewModel.getHomeSortId().value==0)
                     diffHardest.isChecked=true
-                else if(viewModel.getId().value==1)
+                else if(viewModel.getHomeSortId().value==1)
                     diffEasiest.isChecked=true
-                else if(viewModel.getId().value==2)
+                else if(viewModel.getHomeSortId().value==2)
                     popMin.isChecked=true
-                else if(viewModel.getId().value==3)
+                else if(viewModel.getHomeSortId().value==3)
                     popMax.isChecked=true
             }
         })
@@ -53,33 +53,37 @@ class SortFragment: Fragment(R.layout.fragment_sort) {
         {
             diffHardest.setOnClickListener {
                 homeViewModel.setDiffSort(SortMethods.difMaxtoMin)
-                viewModel.setId(0)
+                viewModel.setHomeSortId(0)
             }
             diffEasiest.setOnClickListener {
                 homeViewModel.setDiffSort(SortMethods.difMintoMax)
-                viewModel.setId(1)
+                viewModel.setHomeSortId(1)
             }
             popMax.setOnClickListener {
                 homeViewModel.setPopSort(SortMethods.popMaxtoMin)
-                viewModel.setId(3)
+                viewModel.setHomeSortId(3)
             }
             popMin.setOnClickListener {
                 homeViewModel.setPopSort(SortMethods.popMintoMax)
-                viewModel.setId(2)
+                viewModel.setHomeSortId(2)
             }
         }
 
         cancelButton.setOnClickListener {
-            homeViewModel.setPopSort(null)
-            homeViewModel.setDiffSort(null)
+            homeViewModel.resetSort()
             homeViewModel.setSort(false)
+            Hawk.delete(Constants.SORT_DIRECTION)
         }
 
         enterButton.setOnClickListener {
-            if(sortMethod.checkedRadioButtonId!=-1)
-                homeViewModel.setSort(false)
-            else
+            if(sortMethod.checkedRadioButtonId==-1) {
                 Toast.makeText(requireContext(), "Choose a sort method first.", Toast.LENGTH_SHORT).show()
+            }
+            else
+            {
+                homeViewModel.setSort(false)
+                Hawk.delete(Constants.SORT_DIRECTION)
+            }
         }
 
     }

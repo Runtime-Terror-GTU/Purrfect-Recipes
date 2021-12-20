@@ -9,17 +9,21 @@ import com.example.purrfectrecipes.User.User
 
 class SortViewModel: ViewModel()
 {
-    private var checkId= MutableLiveData<Int>()
-        fun getId(): LiveData<Int> {return checkId}
+    private var checkHomeSortId= MutableLiveData<Int>()
+        fun getHomeSortId(): LiveData<Int> {return checkHomeSortId}
+    private val diffSort=MutableLiveData<SortMethods?>()
+        fun getDiffSort():LiveData<SortMethods?> {return diffSort}
+    private val popSort=MutableLiveData<SortMethods?>()
+        fun getPopSort():LiveData<SortMethods?> {return popSort}
 
     init{
-        checkId.value=-1
+        checkHomeSortId.value=-1
     }
 
-    fun setId(newId: Int)
+    fun setHomeSortId(newId: Int)
     {
-        if(checkId.value!=newId)
-         checkId.value=newId
+        if(checkHomeSortId.value!=newId)
+            checkHomeSortId.value=newId
     }
 
 }

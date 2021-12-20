@@ -7,7 +7,16 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.purrfectrecipes.Customer.HomeFragment"
-        android:label="HomeFragment" />
+        android:label="HomeFragment" >
+        <action
+            android:id="@+id/action_homeFragment_to_sortFragment"
+            app:destination="@id/sortFragment"
+            app:enterAnim="@android:anim/cycle_interpolator" />
+        <action
+            android:id="@+id/action_homeFragment_to_filterFragment"
+            app:destination="@id/filterFragment"
+            app:enterAnim="@android:anim/accelerate_decelerate_interpolator" />
+    </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.purrfectrecipes.Customer.ProfileFragment"
@@ -16,4 +25,12 @@
         android:id="@+id/settingsFragment"
         android:name="com.example.purrfectrecipes.Customer.SettingsFragment"
         android:label="SettingsFragment" />
+    <fragment
+        android:id="@+id/sortFragment"
+        android:name="com.example.purrfectrecipes.SortFragment"
+        android:label="SortFragment" />
+    <fragment
+        android:id="@+id/filterFragment"
+        android:name="com.example.purrfectrecipes.FilterFragment"
+        android:label="FilterFragment" />
 </navigation>

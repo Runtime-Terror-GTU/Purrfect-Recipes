@@ -51,33 +51,6 @@ class HomeFragment: Fragment(R.layout.fragment_home)
             }
         })
 
-        val topBar=view.findViewById<LinearLayout>(R.id.topBar)
-        recipesViewModel.getSort().observe(viewLifecycleOwner,{
-            if(recipesViewModel.getSort().value!=null && recipesViewModel.getSort().value==true)
-            {
-                navController.popBackStack(R.id.sortFragment, true)
-                navController.navigate(R.id.sortFragment)
-                topBar.visibility=View.GONE
-            }
-            else if(recipesViewModel.getSort().value!=null && recipesViewModel.getSort().value==false){
-                navController.popBackStack(R.id.recipesHomeChildfragment, true)
-                navController.navigate(R.id.recipesHomeChildfragment)
-                topBar.visibility=View.VISIBLE
-            }
-        })
-        recipesViewModel.getFilter().observe(viewLifecycleOwner, {
-            if(recipesViewModel.getFilter().value!=null && recipesViewModel.getFilter().value==true)
-            {
-                navController.popBackStack(R.id.filterFragment, true)
-                navController.navigate(R.id.filterFragment)
-                topBar.visibility=View.GONE
-            }
-            else if(recipesViewModel.getFilter().value!=null && recipesViewModel.getFilter().value==false){
-                navController.popBackStack(R.id.recipesHomeChildfragment, true)
-                navController.navigate(R.id.recipesHomeChildfragment)
-                topBar.visibility=View.VISIBLE
-            }
-        })
     }
 
 }

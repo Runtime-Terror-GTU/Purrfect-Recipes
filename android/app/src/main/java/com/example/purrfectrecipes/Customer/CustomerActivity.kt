@@ -4,52 +4,91 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.activity.viewModels
 import androidx.core.view.get
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
-import com.example.purrfectrecipes.Constants
-import com.example.purrfectrecipes.R
-import com.example.purrfectrecipes.StartActivity
+import com.example.purrfectrecipes.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.orhanobut.hawk.Hawk
 
 class CustomerActivity : AppCompatActivity() {
 
-    private val homeViewModel:RecipesHomeViewModel by viewModels()
+    private val homeViewModel:HomeFragmentViewModel by viewModels()
+    private val profileViewModel:ProfileFragmentViewModel by viewModels()
+    private val settingsViewModel: SettingsFragmentViewModel by viewModels()
+
+    private val recipesViewModel:RecipesHomeViewModel by viewModels()
+
+    var navHostFragment:NavHostFragment?=null
+    var navController: NavController?=null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_customer)
 
         val navigationBarCustomer=findViewById<BottomNavigationView>(R.id.navigationBarCustomer)
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        val navController = navHostFragment.navController
-        NavigationUI.setupWithNavController(navigationBarCustomer, navController)
+        navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        navController = navHostFragment?.navController
+        NavigationUI.setupWithNavController(navigationBarCustomer, navController!!)
         navigationBarCustomer.setOnItemReselectedListener {
             if(it==navigationBarCustomer.menu.getItem(0)) {
-                val homeViewModel:HomeFragmentViewModel by viewModels()
                 homeViewModel.setView(null)
-                navController.popBackStack(R.id.homeFragment, true)
-                navController.navigate(R.id.homeFragment)
+                navController?.popBackStack(R.id.sortFragment, true)
+                navController?.popBackStack(R.id.filterFragment, true)
+                navController?.popBackStack(R.id.homeFragment, true)
+                navController?.navigate(R.id.homeFragment)
             }else if(it==navigationBarCustomer.menu.getItem(1)) {
-                val profileViewModel:ProfileFragmentViewModel by viewModels()
                 profileViewModel.setView(null)
-                navController.popBackStack(R.id.profileFragment, true)
-                navController.navigate(R.id.profileFragment)
+                navController?.popBackStack(R.id.profileFragment, true)
+                navController?.navigate(R.id.profileFragment)
             }
             else{
-                val settingsViewModel: SettingsFragmentViewModel by viewModels()
                 settingsViewModel.setView(null)
-                navController.popBackStack(R.id.settingsFragment, true)
-                navController.navigate(R.id.settingsFragment)
+                navController?.popBackStack(R.id.settingsFragment, true)
+                navController?.navigate(R.id.settingsFragment)
             }
         }
+
+        recipesViewModel.getSort().observe(this,{
+            if(recipesViewModel.getSort().value!=null && recipesViewModel.getSort().value==true)
+            {
+                navController?.popBackStack(R.id.sortFragment, true)
+                navigationBarCustomer.visibility=View.GONE
+                navController?.navigate(R.id.sortFragment)
+            }
+            else if(recipesViewModel.getSort().value!=null && recipesViewModel.getSort().value==false){
+                navController?.popBackStack(R.id.homeFragment, false)
+                navigationBarCustomer.visibility=View.VISIBLE
+            }
+        })
+        recipesViewModel.getFilter().observe(this, {
+            if(recipesViewModel.getFilter().value!=null && recipesViewModel.getFilter().value==true)
+            {
+                navController?.popBackStack(R.id.filterFragment, true)
+                navigationBarCustomer.visibility=View.GONE
+                navController?.navigate(R.id.filterFragment)
+            }
+            else if(recipesViewModel.getFilter().value!=null && recipesViewModel.getFilter().value==false){
+                navController?.popBackStack(R.id.homeFragment, false)
+                navigationBarCustomer.visibility=View.VISIBLE
+            }
+        })
     }
     override fun onBackPressed() {
-        if(homeViewModel.getSort().value!=null && homeViewModel.getSort().value==true)
-            homeViewModel.setSort(false)
-        else if(homeViewModel.getFilter().value!=null && homeViewModel.getFilter().value==true)
-            homeViewModel.setFilter(false)
+
+        if(recipesViewModel.getSort().value!=null && recipesViewModel.getSort().value==true) {
+                recipesViewModel.resetSort()
+                recipesViewModel.setSort(false)
+                Hawk.delete(Constants.SORT_DIRECTION)
+        }
+        else if(recipesViewModel.getFilter().value!=null && recipesViewModel.getFilter().value==true) {
+                recipesViewModel.setFilter(false)
+        }
         else
             super.onBackPressed()
     }

@@ -1,5 +1,6 @@
 package com.example.purrfectrecipes.Customer
 
+import android.util.Log
 import android.view.View
 import androidx.compose.ui.text.toLowerCase
 import androidx.compose.ui.window.PopupPositionProvider
@@ -13,7 +14,8 @@ class RecipesHomeViewModel: ViewModel(), RecipesHomeVMRepConnector
 {
     private var view= MutableLiveData<View?>()
         fun getView(): LiveData<View?> {return view}
-    private var allRecipes:ArrayList<Recipe>?=null
+    private var allRecipes=MutableLiveData<ArrayList<Recipe>?>()
+        fun getAllRecipes(): LiveData<ArrayList<Recipe>?> {return allRecipes}
     private var recipes=MutableLiveData<ArrayList<Recipe>?>()
         fun getRecipes(): LiveData<ArrayList<Recipe>?> {return recipes}
     private val repository=RecipesHomeRepository(this)
@@ -56,12 +58,16 @@ class RecipesHomeViewModel: ViewModel(), RecipesHomeVMRepConnector
 
     fun sortDiffMin()
     {
-        heapSort.sort(recipes.value, diffComparator)
+        val tempList=ArrayList<Recipe>()
+        tempList.addAll(recipes.value!!)
+        heapSort.sort(tempList, diffComparator)
+        recipes.value=tempList
     }
 
     fun sortDiffMax()
     {
-        val tempList=recipes.value
+        val tempList=ArrayList<Recipe>()
+        tempList.addAll(recipes.value!!)
         heapSort.sort(tempList, diffComparator)
         tempList?.reverse()
         recipes.value=tempList
@@ -70,12 +76,16 @@ class RecipesHomeViewModel: ViewModel(), RecipesHomeVMRepConnector
 
     fun sortPopMin()
     {
-        heapSort.sort(recipes.value, popComparator)
+        val tempList=ArrayList<Recipe>()
+        tempList.addAll(recipes.value!!)
+        heapSort.sort(tempList, popComparator)
+        recipes.value=tempList
     }
 
     fun sortPopMax()
     {
-        val tempList=recipes.value
+        val tempList=ArrayList<Recipe>()
+        tempList.addAll(recipes.value!!)
         heapSort.sort(tempList, popComparator)
         tempList?.reverse()
         recipes.value=tempList
@@ -95,7 +105,7 @@ class RecipesHomeViewModel: ViewModel(), RecipesHomeVMRepConnector
     fun searchByName(text:String)
     {
         val newArray=ArrayList<Recipe>()
-        for(recipe in allRecipes!!)
+        for(recipe in allRecipes.value!!)
             if(recipe.recipeName.lowercase().contains(text.lowercase()))
                 newArray.add(recipe)
         recipes.value=newArray
@@ -104,7 +114,7 @@ class RecipesHomeViewModel: ViewModel(), RecipesHomeVMRepConnector
     fun searchByUsername(text:String)
     {
         val newArray=ArrayList<Recipe>()
-        for(recipe in allRecipes!!)
+        for(recipe in allRecipes.value!!)
             if(recipe.recipeOwner==text)
                 newArray.add(recipe)
         recipes.value=newArray
@@ -112,13 +122,19 @@ class RecipesHomeViewModel: ViewModel(), RecipesHomeVMRepConnector
 
     fun resetRecipeArray()
     {
-        recipes.value=allRecipes
+        recipes.value=allRecipes.value
+    }
+
+    fun resetSort()
+    {
+        diffSort.value=null
+        popSort.value=null
     }
 
     override fun onRecipesRetrieved(list: ArrayList<Recipe>?) {
         if(list!=null) {
             recipes.value = list
-            allRecipes=list
+            allRecipes.value=list
         }
     }
 
