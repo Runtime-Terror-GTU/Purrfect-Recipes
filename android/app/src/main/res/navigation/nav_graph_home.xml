@@ -11,6 +11,9 @@
         <action
             android:id="@+id/action_recipesHomeChildfragment_to_sortFragment"
             app:destination="@id/sortFragment" />
+        <action
+            android:id="@+id/action_recipesHomeChildfragment_to_filterFragment"
+            app:destination="@id/filterFragment" />
     </fragment>
     <fragment
         android:id="@+id/whatHomeChildfragment"
@@ -32,4 +35,8 @@
         android:id="@+id/sortFragment"
         android:name="com.example.purrfectrecipes.SortFragment"
         android:label="SortFragment" />
+    <fragment
+        android:id="@+id/filterFragment"
+        android:name="com.example.purrfectrecipes.FilterFragment"
+        android:label="FilterFragment" />
 </navigation>

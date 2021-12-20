@@ -28,6 +28,9 @@ class RecipesHomeViewModel: ViewModel(), RecipesHomeVMRepConnector
     private val popSort=MutableLiveData<SortMethods?>()
         fun getPopSort():LiveData<SortMethods?> {return popSort}
 
+    private val filter=MutableLiveData<Boolean?>()
+        fun getFilter():LiveData<Boolean?>{return filter}
+
     private val heapSort=HeapSort<Recipe>()
     private val diffComparator=DifficultyComparator()
     private val popComparator=PopularityComparator()
@@ -39,6 +42,11 @@ class RecipesHomeViewModel: ViewModel(), RecipesHomeVMRepConnector
     fun setSort(bool:Boolean)
     {
         sort.value=bool
+    }
+
+    fun setFilter(bool:Boolean)
+    {
+        filter.value=bool
     }
 
     fun setDiffSort(method:SortMethods?)

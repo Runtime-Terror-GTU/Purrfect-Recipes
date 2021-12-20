@@ -67,11 +67,12 @@ class SortFragment: Fragment(R.layout.fragment_sort) {
                 homeViewModel.setPopSort(SortMethods.popMintoMax)
                 viewModel.setId(2)
             }
-            cancelButton.setOnClickListener {
-                homeViewModel.setPopSort(null)
-                homeViewModel.setDiffSort(null)
-                homeViewModel.setSort(false)
-            }
+        }
+
+        cancelButton.setOnClickListener {
+            homeViewModel.setPopSort(null)
+            homeViewModel.setDiffSort(null)
+            homeViewModel.setSort(false)
         }
 
         enterButton.setOnClickListener {

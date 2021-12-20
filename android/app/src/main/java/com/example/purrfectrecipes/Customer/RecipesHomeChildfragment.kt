@@ -165,6 +165,11 @@ class RecipesHomeChildfragment: Fragment(R.layout.childfragment_home_recipes)
             viewModel.setSort(true)
         }
 
+        val filterButton=view.findViewById<Button>(R.id.filterButton)
+        filterButton.setOnClickListener{
+            viewModel.setFilter(true)
+        }
+
         viewModel.getDiffSort().observe(viewLifecycleOwner, {
             if(viewModel.getDiffSort().value!=null && viewModel.getDiffSort().value==SortMethods.difMintoMax)
             {

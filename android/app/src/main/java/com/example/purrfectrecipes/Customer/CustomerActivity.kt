@@ -48,6 +48,8 @@ class CustomerActivity : AppCompatActivity() {
     override fun onBackPressed() {
         if(homeViewModel.getSort().value!=null && homeViewModel.getSort().value==true)
             homeViewModel.setSort(false)
+        else if(homeViewModel.getFilter().value!=null && homeViewModel.getFilter().value==true)
+            homeViewModel.setFilter(false)
         else
             super.onBackPressed()
     }
