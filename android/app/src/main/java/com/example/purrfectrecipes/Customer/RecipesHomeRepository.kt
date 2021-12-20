@@ -37,6 +37,9 @@ class RecipesHomeRepository(val connector: RecipesHomeVMRepConnector)
                     val pictureUrl=ds.child(Constants.R_RECIPEPICTURE).value.toString()
 
                     val recipe=Recipe(id, name, ownerId, difficulty, likes.toInt(), pictureUrl)
+                    for(tag in ds.child(Constants.R_RECIPETAGS).children)
+                        recipe.addTag(tag.key.toString())
+
                     recipesArray.add(recipe)
                 }
 

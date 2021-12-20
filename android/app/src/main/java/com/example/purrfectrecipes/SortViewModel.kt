@@ -11,10 +11,11 @@ class SortViewModel: ViewModel()
 {
     private var checkHomeSortId= MutableLiveData<Int>()
         fun getHomeSortId(): LiveData<Int> {return checkHomeSortId}
-    private val diffSort=MutableLiveData<SortMethods?>()
-        fun getDiffSort():LiveData<SortMethods?> {return diffSort}
-    private val popSort=MutableLiveData<SortMethods?>()
-        fun getPopSort():LiveData<SortMethods?> {return popSort}
+
+    private val diffHomeSort=MutableLiveData<SortMethods?>()
+        fun getDiffHomeSort():LiveData<SortMethods?> {return diffHomeSort}
+    private val popHomeSort=MutableLiveData<SortMethods?>()
+        fun getPopHomeSort():LiveData<SortMethods?> {return popHomeSort}
 
     init{
         checkHomeSortId.value=-1
@@ -24,6 +25,22 @@ class SortViewModel: ViewModel()
     {
         if(checkHomeSortId.value!=newId)
             checkHomeSortId.value=newId
+    }
+
+    fun setDiffHomeSort(method:SortMethods?)
+    {
+        diffHomeSort.value=method
+    }
+
+    fun setPopHomeSort(method:SortMethods?)
+    {
+        popHomeSort.value=method
+    }
+
+    fun resetHomeSort()
+    {
+        diffHomeSort.value=null
+        popHomeSort.value=null
     }
 
 }

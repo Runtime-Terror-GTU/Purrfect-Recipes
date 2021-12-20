@@ -19,13 +19,15 @@ object Constants
     const val R_RECIPEDIFFICULTY="R_RecipeDifficulty"
     const val R_RECIPEPURRFECTEDCOUNT="R_RecipePurrfectedCount"
     const val R_RECIPEPICTURE="R_RecipePicture"
-    const val R_RECIPETAGS="R_RecipeTags"
+    const val R_RECIPETAGS="R_Recipe_Tags"
     const val R_RECIPEINGREDIENTS="R_RecipeIngredients"
     const val R_RECIPEINGREDIENTSOVERVIEW="R_RecipeIngredientsOverview"
     const val R_RECIPEPREPARATION="R_RecipePreparation"
     const val R_RECIPECOMMENTS="R_RecipeComments"
 
     const val SORT_DIRECTION="Sort_Direction"
+    const val FILTER_DIRECTION="Filter_Direction"
     const val MAIN_TO_SORT="Main_to_Sort"
+    const val MAIN_TO_FILTER="Main_to_Filter"
 
 }

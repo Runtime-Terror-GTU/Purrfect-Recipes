@@ -23,6 +23,7 @@ class CustomerActivity : AppCompatActivity() {
     private val settingsViewModel: SettingsFragmentViewModel by viewModels()
 
     private val recipesViewModel:RecipesHomeViewModel by viewModels()
+    private val sortViewModel:SortViewModel by viewModels()
 
     var navHostFragment:NavHostFragment?=null
     var navController: NavController?=null
@@ -82,7 +83,7 @@ class CustomerActivity : AppCompatActivity() {
     override fun onBackPressed() {
 
         if(recipesViewModel.getSort().value!=null && recipesViewModel.getSort().value==true) {
-                recipesViewModel.resetSort()
+                sortViewModel.resetHomeSort()
                 recipesViewModel.setSort(false)
                 Hawk.delete(Constants.SORT_DIRECTION)
         }

@@ -39,6 +39,7 @@ class RecipesHomeChildfragment: Fragment(R.layout.childfragment_home_recipes)
     private val viewModel: RecipesHomeViewModel by activityViewModels()
     private var recipesRVAdapter:HomePageRVAdapter?=null
     private val sortViewModel:SortViewModel by activityViewModels()
+    private val filterViewModel:FilterViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val recipesRef: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Recipes")
@@ -92,6 +93,7 @@ class RecipesHomeChildfragment: Fragment(R.layout.childfragment_home_recipes)
             else
             {
                 viewModel.setView(view)
+                sortViewModel.resetHomeSort()
                 viewModel.resetRecipeArray()
                 sortViewModel.setHomeSortId(-1)
                 super.onViewCreated(view, savedInstanceState)
@@ -119,7 +121,7 @@ class RecipesHomeChildfragment: Fragment(R.layout.childfragment_home_recipes)
                 recipeName.text=viewModel.getRecipeOfTheDay().value?.recipeName
                 recipeOwner.text="by "+viewModel.getRecipeOfTheDay().value?.recipeOwner
                 recipeDifficulty.text=viewModel.getRecipeOfTheDay().value?.recipeDifficulty
-                recipeType.text="Meal"
+                recipeType.text=viewModel.getRecipeOfTheDay().value?.getRecipeTags()?.get(0)
                 recipeLikes.text=viewModel.getRecipeOfTheDay().value?.recipeLikes.toString()
                 if(viewModel.getRecipeOfTheDay().value?.recipePictureURL!=" ")
                 {
@@ -135,28 +137,15 @@ class RecipesHomeChildfragment: Fragment(R.layout.childfragment_home_recipes)
         })
 
         val searchDoneButton=view.findViewById<Button>(R.id.searchDoneButton)
-        val byName=view.findViewById<RadioButton>(R.id.byName)
-        val byUsername=view.findViewById<RadioButton>(R.id.byUsername)
         val searchCancelButton=view.findViewById<ImageView>(R.id.cancelSearchButton)
         val searchText=view.findViewById<EditText>(R.id.searchText)
         searchDoneButton.setOnClickListener{
-            if(!byName.isChecked && !byUsername.isChecked){
-                Toast.makeText(context, "Please choose a search method.", Toast.LENGTH_SHORT).show()
-                searchText.clearFocus()
-            }
-            else if(byName.isChecked) {
-                viewModel.searchByName(searchText.text.toString())
-                searchText.clearFocus()
-            }
-            else if(byUsername.isChecked){
-                viewModel.searchByUsername(searchText.text.toString())
-                searchText.clearFocus()
-            }
+            redoOperations()
         }
         searchCancelButton.setOnClickListener {
             searchText.setText("")
             searchText.clearFocus()
-            viewModel.resetRecipeArray()
+            redoOperations()
         }
 
         val sortButton=view.findViewById<Button>(R.id.sortButton)
@@ -168,33 +157,23 @@ class RecipesHomeChildfragment: Fragment(R.layout.childfragment_home_recipes)
         val filterButton=view.findViewById<Button>(R.id.filterButton)
         filterButton.setOnClickListener{
             viewModel.setFilter(true)
+            Hawk.put(Constants.FILTER_DIRECTION, Constants.MAIN_TO_FILTER)
         }
 
-        viewModel.getDiffSort().observe(viewLifecycleOwner, {
-            if(viewModel.getDiffSort().value!=null && viewModel.getDiffSort().value==SortMethods.difMintoMax)
-            {
-                viewModel.sortDiffMin()
-                viewModel.setDiffSort(null)
-            }
-            else if(viewModel.getDiffSort().value!=null && viewModel.getDiffSort().value==SortMethods.difMaxtoMin)
-            {
-                viewModel.sortDiffMax()
-                viewModel.setDiffSort(null)
-            }
-
+        sortViewModel.getDiffHomeSort().observe(viewLifecycleOwner, {
+            redoOperations()
         })
 
-        viewModel.getPopSort().observe(viewLifecycleOwner,{
-            if(viewModel.getPopSort().value!=null && viewModel.getPopSort().value==SortMethods.popMaxtoMin)
-            {
-                viewModel.sortPopMax()
-                viewModel.setPopSort(null)
-            }
-            else if(viewModel.getPopSort().value!=null && viewModel.getPopSort().value==SortMethods.popMintoMax)
-            {
-                viewModel.sortPopMin()
-                viewModel.setPopSort(null)
-            }
+        sortViewModel.getPopHomeSort().observe(viewLifecycleOwner,{
+            redoOperations()
+        })
+
+        filterViewModel.getChosenTagsHome().observe(viewLifecycleOwner, {
+            redoOperations()
+        })
+
+        filterViewModel.getChosenDifficultiesHome().observe(viewLifecycleOwner, {
+            redoOperations()
         })
 
     }
@@ -212,6 +191,38 @@ class RecipesHomeChildfragment: Fragment(R.layout.childfragment_home_recipes)
         recipesGridView?.layoutManager = GridLayoutManager(requireActivity(), 2)
         recipesRVAdapter = HomePageRVAdapter(requireContext())
         recipesGridView?.adapter = recipesRVAdapter
+    }
+
+    fun redoOperations()
+    {
+        viewModel.resetRecipeArray()
+
+        val byName=view?.findViewById<RadioButton>(R.id.byName)
+        val byUsername=view?.findViewById<RadioButton>(R.id.byUsername)
+        val searchText=view?.findViewById<EditText>(R.id.searchText)
+
+        //Redo search
+        if(searchText?.text.isNullOrEmpty()){ }
+        else if(byName!!.isChecked)
+            viewModel.searchByName(searchText?.text.toString())
+        else if(byUsername!!.isChecked)
+            viewModel.searchByUsername(searchText?.text.toString())
+
+        //Redo filter
+        if(filterViewModel.getChosenTagsHome().value!= null && filterViewModel.getChosenTagsHome().value!!.size!=0)
+            viewModel.applyTagFilters(filterViewModel.getChosenTagsHome().value!!)
+        if(filterViewModel.getChosenDifficultiesHome().value!= null && filterViewModel.getChosenDifficultiesHome().value!!.size!=0)
+            viewModel.applyDifficultyFilters(filterViewModel.getChosenDifficultiesHome().value!!)
+
+        //Redo sort
+        if(sortViewModel.getDiffHomeSort().value!=null && sortViewModel.getDiffHomeSort().value==SortMethods.difMintoMax)
+            viewModel.sortDiffMin()
+        else if(sortViewModel.getDiffHomeSort().value!=null && sortViewModel.getDiffHomeSort().value==SortMethods.difMaxtoMin)
+            viewModel.sortDiffMax()
+        if(sortViewModel.getPopHomeSort().value!=null && sortViewModel.getPopHomeSort().value==SortMethods.popMaxtoMin)
+            viewModel.sortPopMax()
+        else if(sortViewModel.getPopHomeSort().value!=null && sortViewModel.getPopHomeSort().value==SortMethods.popMintoMax)
+            viewModel.sortPopMin()
     }
 
 }

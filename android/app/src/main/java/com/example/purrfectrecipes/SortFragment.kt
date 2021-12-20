@@ -52,39 +52,44 @@ class SortFragment: Fragment(R.layout.fragment_sort) {
         if(direction==Constants.MAIN_TO_SORT)
         {
             diffHardest.setOnClickListener {
-                homeViewModel.setDiffSort(SortMethods.difMaxtoMin)
+                viewModel.setPopHomeSort(null)
+                viewModel.setDiffHomeSort(SortMethods.difMaxtoMin)
                 viewModel.setHomeSortId(0)
             }
             diffEasiest.setOnClickListener {
-                homeViewModel.setDiffSort(SortMethods.difMintoMax)
+                viewModel.setPopHomeSort(null)
+                viewModel.setDiffHomeSort(SortMethods.difMintoMax)
                 viewModel.setHomeSortId(1)
             }
             popMax.setOnClickListener {
-                homeViewModel.setPopSort(SortMethods.popMaxtoMin)
+                viewModel.setDiffHomeSort(null)
+                viewModel.setPopHomeSort(SortMethods.popMaxtoMin)
                 viewModel.setHomeSortId(3)
             }
             popMin.setOnClickListener {
-                homeViewModel.setPopSort(SortMethods.popMintoMax)
+                viewModel.setDiffHomeSort(null)
+                viewModel.setPopHomeSort(SortMethods.popMintoMax)
                 viewModel.setHomeSortId(2)
             }
-        }
 
-        cancelButton.setOnClickListener {
-            homeViewModel.resetSort()
-            homeViewModel.setSort(false)
-            Hawk.delete(Constants.SORT_DIRECTION)
-        }
-
-        enterButton.setOnClickListener {
-            if(sortMethod.checkedRadioButtonId==-1) {
-                Toast.makeText(requireContext(), "Choose a sort method first.", Toast.LENGTH_SHORT).show()
-            }
-            else
-            {
+            cancelButton.setOnClickListener {
+                viewModel.resetHomeSort()
                 homeViewModel.setSort(false)
                 Hawk.delete(Constants.SORT_DIRECTION)
             }
+
+            enterButton.setOnClickListener {
+                if(sortMethod.checkedRadioButtonId==-1) {
+                    Toast.makeText(requireContext(), "Choose a sort method first.", Toast.LENGTH_SHORT).show()
+                }
+                else
+                {
+                    homeViewModel.setSort(false)
+                    Hawk.delete(Constants.SORT_DIRECTION)
+                }
+            }
         }
+
 
     }
 

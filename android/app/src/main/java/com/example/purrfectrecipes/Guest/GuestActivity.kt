@@ -16,17 +16,18 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.NavigationUI.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
+import com.example.purrfectrecipes.*
 import com.example.purrfectrecipes.Customer.HomeFragment
 import com.example.purrfectrecipes.Customer.HomeFragmentViewModel
 import com.example.purrfectrecipes.Customer.RecipesHomeViewModel
-import com.example.purrfectrecipes.FilterFragment
-import com.example.purrfectrecipes.R
-import com.example.purrfectrecipes.SortFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.orhanobut.hawk.Hawk
 
 class GuestActivity : AppCompatActivity() {
 
     private val recipesViewModel:RecipesHomeViewModel by viewModels()
+    private val sortViewModel: SortViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_guest)
@@ -73,7 +74,9 @@ class GuestActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         if(recipesViewModel.getSort().value!=null && recipesViewModel.getSort().value==true) {
+            sortViewModel.resetHomeSort()
             recipesViewModel.setSort(false)
+            Hawk.delete(Constants.SORT_DIRECTION)
         }
         else if(recipesViewModel.getFilter().value!=null && recipesViewModel.getFilter().value==true)
             recipesViewModel.setFilter(false)

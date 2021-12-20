@@ -7,10 +7,11 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.purrfectrecipes.Connectors.TagOnSelectedListener
 import com.example.purrfectrecipes.R
 import com.example.purrfectrecipes.Recipe
 
-class TagsRVAdapter(val context: Context): RecyclerView.Adapter<TagsRVAdapter.ViewHolder>()
+class TagsRVAdapter(val context: Context, val connector: TagOnSelectedListener): RecyclerView.Adapter<TagsRVAdapter.ViewHolder>()
 {
     private var tags=ArrayList<String>()
     class ViewHolder(view: View): RecyclerView.ViewHolder(view)
@@ -24,7 +25,12 @@ class TagsRVAdapter(val context: Context): RecyclerView.Adapter<TagsRVAdapter.Vi
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.tagName.text=tags.get(position)
-
+        holder.tagName.setOnClickListener {
+            if(holder.tagName.isChecked)
+                connector.onSelectTag(holder.tagName.text.toString())
+            else
+                connector.deselectTag(holder.tagName.text.toString())
+        }
     }
 
     override fun getItemCount(): Int {

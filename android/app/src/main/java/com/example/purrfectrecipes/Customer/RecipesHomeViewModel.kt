@@ -25,11 +25,6 @@ class RecipesHomeViewModel: ViewModel(), RecipesHomeVMRepConnector
     private val sort=MutableLiveData<Boolean?>()
         fun getSort():LiveData<Boolean?>{return sort}
 
-    private val diffSort=MutableLiveData<SortMethods?>()
-        fun getDiffSort():LiveData<SortMethods?> {return diffSort}
-    private val popSort=MutableLiveData<SortMethods?>()
-        fun getPopSort():LiveData<SortMethods?> {return popSort}
-
     private val filter=MutableLiveData<Boolean?>()
         fun getFilter():LiveData<Boolean?>{return filter}
 
@@ -51,9 +46,30 @@ class RecipesHomeViewModel: ViewModel(), RecipesHomeVMRepConnector
         filter.value=bool
     }
 
-    fun setDiffSort(method:SortMethods?)
+    fun applyDifficultyFilters(diffs:ArrayList<String>)
     {
-        diffSort.value=method
+        val tempList=ArrayList<Recipe>()
+        for(recipe in recipes.value!!)
+            for(diff in diffs)
+                if(recipe.recipeDifficulty==diff)
+                {
+                    tempList.add(recipe)
+                    break
+                }
+        recipes.value=tempList
+    }
+
+    fun applyTagFilters(tags:ArrayList<String>)
+    {
+        val tempList=ArrayList<Recipe>()
+        for(recipe in recipes.value!!)
+            for(tag in tags)
+                if(recipe.isRecipeTag(tag))
+                {
+                    tempList.add(recipe)
+                    break
+                }
+        recipes.value=tempList
     }
 
     fun sortDiffMin()
@@ -71,7 +87,6 @@ class RecipesHomeViewModel: ViewModel(), RecipesHomeVMRepConnector
         heapSort.sort(tempList, diffComparator)
         tempList?.reverse()
         recipes.value=tempList
-
     }
 
     fun sortPopMin()
@@ -90,11 +105,6 @@ class RecipesHomeViewModel: ViewModel(), RecipesHomeVMRepConnector
         tempList?.reverse()
         recipes.value=tempList
 
-    }
-
-    fun setPopSort(method:SortMethods?)
-    {
-        popSort.value=method
     }
 
     fun setView(newView: View?)
@@ -125,11 +135,6 @@ class RecipesHomeViewModel: ViewModel(), RecipesHomeVMRepConnector
         recipes.value=allRecipes.value
     }
 
-    fun resetSort()
-    {
-        diffSort.value=null
-        popSort.value=null
-    }
 
     override fun onRecipesRetrieved(list: ArrayList<Recipe>?) {
         if(list!=null) {
