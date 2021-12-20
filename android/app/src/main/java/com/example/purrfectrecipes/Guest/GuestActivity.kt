@@ -50,7 +50,7 @@ class GuestActivity : AppCompatActivity() {
             {
                 navController.popBackStack(R.id.sortFragment, true)
                 navigationBarGuest.visibility=View.GONE
-                navController.navigate(R.id.sortFragment)
+                navController?.navigate(R.id.action_homeFragment_to_sortFragment)
             }
             else if(recipesViewModel.getSort().value!=null && recipesViewModel.getSort().value==false){
                 navController.popBackStack(R.id.homeFragment, false)
@@ -62,7 +62,7 @@ class GuestActivity : AppCompatActivity() {
             {
                 navController.popBackStack(R.id.filterFragment, true)
                 navigationBarGuest.visibility=View.GONE
-                navController.navigate(R.id.filterFragment)
+                navController?.navigate(R.id.action_homeFragment_to_filterFragment)
             }
             else if(recipesViewModel.getFilter().value!=null && recipesViewModel.getFilter().value==false){
                 navController.popBackStack(R.id.homeFragment, false)

@@ -11,11 +11,11 @@
         <action
             android:id="@+id/action_homeFragment_to_sortFragment"
             app:destination="@id/sortFragment"
-            app:enterAnim="@android:anim/cycle_interpolator" />
+            app:enterAnim="@anim/nav_default_enter_anim" />
         <action
             android:id="@+id/action_homeFragment_to_filterFragment"
             app:destination="@id/filterFragment"
-            app:enterAnim="@android:anim/accelerate_decelerate_interpolator" />
+            app:enterAnim="@anim/nav_default_enter_anim" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
