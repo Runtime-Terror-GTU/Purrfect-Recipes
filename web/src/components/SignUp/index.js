@@ -10,20 +10,36 @@ import {
     Form,
     Button 
 } from './SignUpElements';
-import { signUp, signIn } from "../../backend/UserService"
+import { signUp } from "../../backend/UserService"
 import { v4 as uuidv4 } from 'uuid';
 
-const onSubmit = (e)=> {
+const onSubmit = async (e)=> {
+    //TODO: show warning
+    //sanırım toast deniyormus
+    //KOD SORUN CIKARIRSA BUTTON TYPEINI SUBMIT YERİNE BUTTON YAP 
 
-    let user = {
-        id: uuidv4(),
-        password: document.getElementById("passwordInput").value,
-        email: document.getElementById("emailInput").value,
-        username: document.getElementById("userInput").value
+    if( document.getElementById("passwordInput").value !== "" 
+        && document.getElementById("emailInput").value !== "" 
+        && document.getElementById("userInput").value !== ""){
+        
+        let user = {
+            id: uuidv4(),
+            password: document.getElementById("passwordInput").value,
+            email: document.getElementById("emailInput").value,
+            username: document.getElementById("userInput").value
+        }
+        let userSignUp = await signUp(user)
+        if ( userSignUp === true){
+            window.location.href = "/mainpage"
+        } else{
+            window.location.href = "/signup"
+        }
+
+    } else{
+        console.log("something empty");
     }
-   signUp(user)
-   signIn()
-} 
+
+}
 
 const SignUp = () => {
     return (
@@ -31,7 +47,7 @@ const SignUp = () => {
             <Container>
                 <FormWrap>
                     <FormContent>
-                        <Form >
+                        <Form action='#'>                            
                             <FormH1 to='/'>Purrfect Recipes</FormH1>
                             <FormLabel htmlFor='for'>Email</FormLabel>
                             <FormInput  id='emailInput' type='email' placeholder="Email" required/>
