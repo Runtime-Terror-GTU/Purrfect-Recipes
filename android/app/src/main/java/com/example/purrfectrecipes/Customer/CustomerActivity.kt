@@ -23,6 +23,7 @@ class CustomerActivity : AppCompatActivity() {
     private val settingsViewModel: SettingsFragmentViewModel by viewModels()
 
     private val recipesViewModel:RecipesHomeViewModel by viewModels()
+    private val whatViewModel:WhatHomeViewModel by viewModels()
     private val sortViewModel:SortViewModel by viewModels()
     private val filterViewModel:FilterViewModel by viewModels()
 
@@ -82,6 +83,19 @@ class CustomerActivity : AppCompatActivity() {
                 filterViewModel.tempDifficulties.clear()
             }
         })
+
+        whatViewModel.getEditWanted().observe(this, {
+            if(whatViewModel.getEditWanted().value!=null && whatViewModel.getEditWanted().value==true)
+            {
+                navController?.popBackStack(R.id.editIngredientsFragment, true)
+                navigationBarCustomer.visibility=View.GONE
+                navController?.navigate(R.id.action_homeFragment_to_editIngredientsFragment)
+            }
+            else if(whatViewModel.getEditWanted().value!=null && whatViewModel.getEditWanted().value==false){
+                navController?.popBackStack(R.id.homeFragment, false)
+                navigationBarCustomer.visibility=View.VISIBLE
+            }
+        })
     }
     override fun onBackPressed() {
 
@@ -92,6 +106,9 @@ class CustomerActivity : AppCompatActivity() {
         }
         else if(recipesViewModel.getFilter().value!=null && recipesViewModel.getFilter().value==true) {
                 recipesViewModel.setFilter(false)
+        }
+        else if(whatViewModel.getEditWanted().value!=null && whatViewModel.getEditWanted().value==true) {
+            whatViewModel.setEditWanted(false)
         }
         else
             super.onBackPressed()

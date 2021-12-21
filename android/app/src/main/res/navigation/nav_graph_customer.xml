@@ -16,6 +16,9 @@
             android:id="@+id/action_homeFragment_to_filterFragment"
             app:destination="@id/filterFragment"
             app:enterAnim="@anim/nav_default_enter_anim" />
+        <action
+            android:id="@+id/action_homeFragment_to_editIngredientsFragment"
+            app:destination="@id/editIngredientsFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -33,4 +36,8 @@
         android:id="@+id/filterFragment"
         android:name="com.example.purrfectrecipes.FilterFragment"
         android:label="FilterFragment" />
+    <fragment
+        android:id="@+id/editIngredientsFragment"
+        android:name="com.example.purrfectrecipes.EditIngredientsFragment"
+        android:label="EditIngredientsFragment" />
 </navigation>

@@ -8,7 +8,14 @@ import androidx.lifecycle.ViewModel
 class WhatHomeViewModel: ViewModel()
 {
     private var view= MutableLiveData<View?>()
-    fun getView(): LiveData<View?> {return view}
+        fun getView(): LiveData<View?> {return view}
+    private val editWanted=MutableLiveData<Boolean?>()
+        fun getEditWanted():LiveData<Boolean?>{return editWanted}
+
+    fun setEditWanted(bool:Boolean)
+    {
+        editWanted.value=bool
+    }
 
     fun setView(newView: View?)
     {
