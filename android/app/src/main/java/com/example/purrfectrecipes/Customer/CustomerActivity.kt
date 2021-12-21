@@ -24,6 +24,7 @@ class CustomerActivity : AppCompatActivity() {
 
     private val recipesViewModel:RecipesHomeViewModel by viewModels()
     private val sortViewModel:SortViewModel by viewModels()
+    private val filterViewModel:FilterViewModel by viewModels()
 
     var navHostFragment:NavHostFragment?=null
     var navController: NavController?=null
@@ -77,6 +78,8 @@ class CustomerActivity : AppCompatActivity() {
             else if(recipesViewModel.getFilter().value!=null && recipesViewModel.getFilter().value==false){
                 navController?.popBackStack(R.id.homeFragment, false)
                 navigationBarCustomer.visibility=View.VISIBLE
+                filterViewModel.tempTags.clear()
+                filterViewModel.tempDifficulties.clear()
             }
         })
     }

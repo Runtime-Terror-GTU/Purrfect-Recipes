@@ -14,6 +14,7 @@ import com.example.purrfectrecipes.Recipe
 class TagsRVAdapter(val context: Context, val connector: TagOnSelectedListener): RecyclerView.Adapter<TagsRVAdapter.ViewHolder>()
 {
     private var tags=ArrayList<String>()
+    private var chosenTags=ArrayList<String>()
     class ViewHolder(view: View): RecyclerView.ViewHolder(view)
     {
         val tagName=view.findViewById<CheckBox>(R.id.recipeTag)
@@ -31,6 +32,10 @@ class TagsRVAdapter(val context: Context, val connector: TagOnSelectedListener):
             else
                 connector.deselectTag(holder.tagName.text.toString())
         }
+        if(chosenTags.contains(holder.tagName.text)) {
+            holder.tagName.isChecked = true
+            connector.onSelectTag(holder.tagName.text.toString())
+        }
     }
 
     override fun getItemCount(): Int {
@@ -40,5 +45,10 @@ class TagsRVAdapter(val context: Context, val connector: TagOnSelectedListener):
     fun setTags(list:ArrayList<String>)
     {
         tags=list
+    }
+
+    fun setChosen(chosenList:ArrayList<String>)
+    {
+        chosenTags=chosenList
     }
 }

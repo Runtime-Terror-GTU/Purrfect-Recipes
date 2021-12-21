@@ -31,13 +31,19 @@ class FilterViewModel: ViewModel(), FilterVMRepConnector
 
     fun setHomeTags(tags:ArrayList<String>)
     {
-        chosenTagsHome.value=ArrayList()
+        chosenTagsHome.value?.clear()
         chosenTagsHome.value?.addAll(tags)
     }
 
     fun setHomeDifficulties(diffs:ArrayList<String>)
     {
-        chosenDifficultiesHome.value=ArrayList()
+        chosenDifficultiesHome.value?.clear()
         chosenDifficultiesHome.value?.addAll(diffs)
+    }
+
+    fun resetFilter()
+    {
+        chosenDifficultiesHome.value?.clear()
+        chosenTagsHome.value?.clear()
     }
 }

@@ -27,6 +27,7 @@ class GuestActivity : AppCompatActivity() {
 
     private val recipesViewModel:RecipesHomeViewModel by viewModels()
     private val sortViewModel: SortViewModel by viewModels()
+    private val filterViewModel:FilterViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,6 +69,8 @@ class GuestActivity : AppCompatActivity() {
             else if(recipesViewModel.getFilter().value!=null && recipesViewModel.getFilter().value==false){
                 navController.popBackStack(R.id.homeFragment, false)
                 navigationBarGuest.visibility=View.VISIBLE
+                filterViewModel.tempTags.clear()
+                filterViewModel.tempDifficulties.clear()
             }
         })
     }

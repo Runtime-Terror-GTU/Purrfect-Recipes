@@ -74,6 +74,8 @@ class FilterFragment : Fragment(R.layout.fragment_filter), TagOnSelectedListener
         {
             cancelButton.setOnClickListener {
                 homeViewModel.setFilter(false)
+                viewModel.tempTags.clear()
+                viewModel.tempDifficulties.clear()
                 Hawk.delete(Constants.FILTER_DIRECTION)
             }
 
@@ -88,9 +90,38 @@ class FilterFragment : Fragment(R.layout.fragment_filter), TagOnSelectedListener
                 else
                     viewModel.setHomeDifficulties(viewModel.tempDifficulties)
 
+                viewModel.tempTags.clear()
+                viewModel.tempDifficulties.clear()
                 homeViewModel.setFilter(false)
                 Hawk.delete(Constants.FILTER_DIRECTION)
             }
+
+            viewModel.getChosenTagsHome().observe(viewLifecycleOwner,{
+                if(viewModel.getChosenTagsHome().value!=null && viewModel.getChosenTagsHome().value!!.size!=0 &&
+                    viewModel.getChosenTagsHome().value!!.size!=viewModel.getTags().value!!.size)
+                {
+                    tagsRVAdapter?.setChosen(viewModel.getChosenTagsHome().value!!)
+                    tagsRVAdapter?.notifyDataSetChanged()
+                }
+            })
+
+            viewModel.getChosenDifficultiesHome().observe(viewLifecycleOwner, {
+                if(viewModel.getChosenDifficultiesHome().value!=null && viewModel.getChosenDifficultiesHome().value!!.contains("Easy") &&
+                    viewModel.getChosenDifficultiesHome().value!!.size!=3) {
+                    easyOption.isChecked = true
+                    viewModel.tempDifficulties.add("Easy")
+                }
+                if(viewModel.getChosenDifficultiesHome().value!=null && viewModel.getChosenDifficultiesHome().value!!.contains("Medium") &&
+                    viewModel.getChosenDifficultiesHome().value!!.size!=3) {
+                    mediumOption.isChecked = true
+                    viewModel.tempDifficulties.add("Medium")
+                }
+                if(viewModel.getChosenDifficultiesHome().value!=null && viewModel.getChosenDifficultiesHome().value!!.contains("Hard") &&
+                    viewModel.getChosenDifficultiesHome().value!!.size!=3) {
+                    hardOption.isChecked = true
+                    viewModel.tempDifficulties.add("Hard")
+                }
+            })
         }
     }
 
