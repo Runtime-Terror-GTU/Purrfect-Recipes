@@ -26,6 +26,7 @@ class CustomerActivity : AppCompatActivity() {
     private val whatViewModel:WhatHomeViewModel by viewModels()
     private val sortViewModel:SortViewModel by viewModels()
     private val filterViewModel:FilterViewModel by viewModels()
+    private val editIngredientViewModel:EditIngredientsViewModel by viewModels()
 
     var navHostFragment:NavHostFragment?=null
     var navController: NavController?=null
@@ -93,6 +94,21 @@ class CustomerActivity : AppCompatActivity() {
             }
             else if(whatViewModel.getEditWanted().value!=null && whatViewModel.getEditWanted().value==false){
                 navController?.popBackStack(R.id.homeFragment, false)
+                editIngredientViewModel.resetTemp()
+                navigationBarCustomer.visibility=View.VISIBLE
+            }
+        })
+
+        whatViewModel.getEditNotWanted().observe(this, {
+            if(whatViewModel.getEditNotWanted().value!=null && whatViewModel.getEditNotWanted().value==true)
+            {
+                navController?.popBackStack(R.id.editIngredientsFragment, true)
+                navigationBarCustomer.visibility=View.GONE
+                navController?.navigate(R.id.action_homeFragment_to_editIngredientsFragment)
+            }
+            else if(whatViewModel.getEditNotWanted().value!=null && whatViewModel.getEditNotWanted().value==false){
+                navController?.popBackStack(R.id.homeFragment, false)
+                editIngredientViewModel.resetTemp()
                 navigationBarCustomer.visibility=View.VISIBLE
             }
         })
@@ -109,6 +125,9 @@ class CustomerActivity : AppCompatActivity() {
         }
         else if(whatViewModel.getEditWanted().value!=null && whatViewModel.getEditWanted().value==true) {
             whatViewModel.setEditWanted(false)
+        }
+        else if(whatViewModel.getEditNotWanted().value!=null && whatViewModel.getEditNotWanted().value==true) {
+            whatViewModel.setEditNotWanted(false)
         }
         else
             super.onBackPressed()

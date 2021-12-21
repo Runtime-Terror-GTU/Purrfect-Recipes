@@ -7,10 +7,11 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.purrfectrecipes.Connectors.IngredientOnSelectedListener
 import com.example.purrfectrecipes.Connectors.TagOnSelectedListener
 import com.example.purrfectrecipes.R
 
-class IngredientsRVAdapter(val context: Context): RecyclerView.Adapter<IngredientsRVAdapter.ViewHolder>()
+class IngredientsRVAdapter(val context: Context, val listener:IngredientOnSelectedListener): RecyclerView.Adapter<IngredientsRVAdapter.ViewHolder>()
 {
     private var ingredients=ArrayList<String>()
     private var chosenIngredients=ArrayList<String>()
@@ -31,10 +32,18 @@ class IngredientsRVAdapter(val context: Context): RecyclerView.Adapter<Ingredien
             if(holder.chooseOption.isChecked)
             {
                 holder.chooseOption.text="Chosen"
+                listener.onSelectIngredient(holder.ingredientName.text.toString())
             }
             else{
                 holder.chooseOption.text="Choose"
+                listener.deselectIngredient(holder.ingredientName.text.toString())
             }
+        }
+
+        if(chosenIngredients.contains(holder.ingredientName.text.toString()))
+        {
+            holder.chooseOption.isChecked=true
+            listener.onSelectIngredient(holder.ingredientName.text.toString())
         }
 
     }

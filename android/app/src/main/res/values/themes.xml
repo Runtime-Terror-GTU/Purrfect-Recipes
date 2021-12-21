@@ -77,4 +77,9 @@
         <item name="android:gravity">center</item>
     </style>
 
+    <style name="AppSearchView" parent="Widget.AppCompat.SearchView" >
+        <item name="android:fontFamily">@font/josefin_slab</item>
+        <item name="android:textSize">21sp</item>
+    </style>
+
 </resources>

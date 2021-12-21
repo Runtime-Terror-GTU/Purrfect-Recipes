@@ -28,7 +28,7 @@
             android:id="@+id/chooseOption"
             android:layout_width="0sp"
             android:layout_weight="1.2"
-            android:layout_height="27sp"
+            android:layout_height="30sp"
             android:background="@drawable/check_box_bg_selector"
             android:button="@color/transparent"
             android:fontFamily="@font/josefin_slab"

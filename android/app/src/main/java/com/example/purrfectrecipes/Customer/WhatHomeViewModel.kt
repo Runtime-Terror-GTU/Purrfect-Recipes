@@ -11,14 +11,27 @@ class WhatHomeViewModel: ViewModel()
         fun getView(): LiveData<View?> {return view}
     private val editWanted=MutableLiveData<Boolean?>()
         fun getEditWanted():LiveData<Boolean?>{return editWanted}
+    private val editNotWanted=MutableLiveData<Boolean?>()
+        fun getEditNotWanted():LiveData<Boolean?>{return editNotWanted}
+
+    init{
+        editWanted.value=false
+        editNotWanted.value=false
+    }
 
     fun setEditWanted(bool:Boolean)
     {
         editWanted.value=bool
     }
 
+    fun setEditNotWanted(bool:Boolean)
+    {
+        editNotWanted.value=bool
+    }
+
     fun setView(newView: View?)
     {
         view.value=newView
     }
+
 }

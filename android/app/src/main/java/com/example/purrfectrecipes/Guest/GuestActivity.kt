@@ -20,6 +20,7 @@ import com.example.purrfectrecipes.*
 import com.example.purrfectrecipes.Customer.HomeFragment
 import com.example.purrfectrecipes.Customer.HomeFragmentViewModel
 import com.example.purrfectrecipes.Customer.RecipesHomeViewModel
+import com.example.purrfectrecipes.Customer.WhatHomeViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.orhanobut.hawk.Hawk
 
@@ -28,6 +29,8 @@ class GuestActivity : AppCompatActivity() {
     private val recipesViewModel:RecipesHomeViewModel by viewModels()
     private val sortViewModel: SortViewModel by viewModels()
     private val filterViewModel:FilterViewModel by viewModels()
+    private val whatViewModel: WhatHomeViewModel by viewModels()
+    private val editIngredientViewModel:EditIngredientsViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,6 +76,34 @@ class GuestActivity : AppCompatActivity() {
                 filterViewModel.tempDifficulties.clear()
             }
         })
+
+        whatViewModel.getEditWanted().observe(this, {
+            if(whatViewModel.getEditWanted().value!=null && whatViewModel.getEditWanted().value==true)
+            {
+                navController?.popBackStack(R.id.editIngredientsFragment, true)
+                navigationBarGuest.visibility=View.GONE
+                navController?.navigate(R.id.action_homeFragment_to_editIngredientsFragment)
+            }
+            else if(whatViewModel.getEditWanted().value!=null && whatViewModel.getEditWanted().value==false){
+                navController?.popBackStack(R.id.homeFragment, false)
+                editIngredientViewModel.resetTemp()
+                navigationBarGuest.visibility=View.VISIBLE
+            }
+        })
+
+        whatViewModel.getEditNotWanted().observe(this, {
+            if(whatViewModel.getEditNotWanted().value!=null && whatViewModel.getEditNotWanted().value==true)
+            {
+                navController?.popBackStack(R.id.editIngredientsFragment, true)
+                navigationBarGuest.visibility=View.GONE
+                navController?.navigate(R.id.action_homeFragment_to_editIngredientsFragment)
+            }
+            else if(whatViewModel.getEditNotWanted().value!=null && whatViewModel.getEditNotWanted().value==false){
+                navController?.popBackStack(R.id.homeFragment, false)
+                editIngredientViewModel.resetTemp()
+                navigationBarGuest.visibility=View.VISIBLE
+            }
+        })
     }
 
     override fun onBackPressed() {
@@ -83,6 +114,12 @@ class GuestActivity : AppCompatActivity() {
         }
         else if(recipesViewModel.getFilter().value!=null && recipesViewModel.getFilter().value==true)
             recipesViewModel.setFilter(false)
+        else if(whatViewModel.getEditWanted().value!=null && whatViewModel.getEditWanted().value==true) {
+            whatViewModel.setEditWanted(false)
+        }
+        else if(whatViewModel.getEditNotWanted().value!=null && whatViewModel.getEditNotWanted().value==true) {
+            whatViewModel.setEditNotWanted(false)
+        }
         else
             super.onBackPressed()
     }

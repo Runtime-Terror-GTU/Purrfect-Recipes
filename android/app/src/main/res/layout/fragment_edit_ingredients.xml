@@ -13,7 +13,7 @@
         android:id="@+id/topFrame">
 
         <ImageView
-            android:id="@+id/cancelSort"
+            android:id="@+id/cancelEditIngredients"
             android:layout_width="29dp"
             android:layout_height="30sp"
             android:layout_gravity="right"
@@ -37,7 +37,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/enterSortButton"
+        android:layout_above="@id/doneButton"
         android:layout_below="@id/topFrame"
         android:layout_marginLeft="10sp"
         android:layout_marginTop="8dp"
@@ -46,10 +46,13 @@
         android:background="@drawable/main_bg"
         android:orientation="vertical">
 
-        <SearchView
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/ingredientSearchBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/main_bg" />
+            android:background="@drawable/main_bg"
+            app:theme="@style/AppSearchView"
+            android:tooltipText="dfg" />
 
         <ProgressBar
             android:id="@+id/loadingBar"
@@ -72,7 +75,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/enterSortButton"
+        android:id="@+id/doneButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10sp"
