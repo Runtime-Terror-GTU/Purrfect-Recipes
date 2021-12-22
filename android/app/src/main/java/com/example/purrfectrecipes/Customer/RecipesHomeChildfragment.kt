@@ -94,7 +94,7 @@ class RecipesHomeChildfragment: Fragment(R.layout.childfragment_home_recipes)
             {
                 viewModel.setView(view)
                 sortViewModel.resetHomeSort()
-                filterViewModel.resetFilter()
+                filterViewModel.resetHomeFilter()
                 viewModel.resetRecipeArray()
                 sortViewModel.setHomeSortId(-1)
                 super.onViewCreated(view, savedInstanceState)

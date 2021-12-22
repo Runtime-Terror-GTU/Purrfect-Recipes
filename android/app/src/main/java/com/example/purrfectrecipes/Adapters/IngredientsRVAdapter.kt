@@ -1,6 +1,7 @@
 package com.example.purrfectrecipes.Adapters
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,10 +33,14 @@ class IngredientsRVAdapter(val context: Context, val listener:IngredientOnSelect
             if(holder.chooseOption.isChecked)
             {
                 holder.chooseOption.text="Chosen"
-                listener.onSelectIngredient(holder.ingredientName.text.toString())
+                if(!chosenIngredients.contains(holder.ingredientName.text.toString())) {
+                    listener.onSelectIngredient(holder.ingredientName.text.toString())
+                    chosenIngredients.add(holder.ingredientName.text.toString())
+                }
             }
             else{
                 holder.chooseOption.text="Choose"
+                chosenIngredients.remove(holder.ingredientName.text.toString())
                 listener.deselectIngredient(holder.ingredientName.text.toString())
             }
         }
@@ -43,7 +48,12 @@ class IngredientsRVAdapter(val context: Context, val listener:IngredientOnSelect
         if(chosenIngredients.contains(holder.ingredientName.text.toString()))
         {
             holder.chooseOption.isChecked=true
-            listener.onSelectIngredient(holder.ingredientName.text.toString())
+            holder.chooseOption.text="Chosen"
+        }
+        else if(!chosenIngredients.contains(holder.ingredientName.text.toString()))
+        {
+            holder.chooseOption.isChecked=false
+            holder.chooseOption.text="Choose"
         }
 
     }

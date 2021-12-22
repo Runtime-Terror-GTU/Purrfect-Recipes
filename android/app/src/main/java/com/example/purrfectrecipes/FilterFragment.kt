@@ -2,6 +2,7 @@ package com.example.purrfectrecipes
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.fragment.app.Fragment
@@ -12,11 +13,13 @@ import com.example.purrfectrecipes.Adapters.HomePageRVAdapter
 import com.example.purrfectrecipes.Adapters.TagsRVAdapter
 import com.example.purrfectrecipes.Connectors.TagOnSelectedListener
 import com.example.purrfectrecipes.Customer.RecipesHomeViewModel
+import com.example.purrfectrecipes.Customer.WhatresHomeViewModel
 import com.orhanobut.hawk.Hawk
 
 class FilterFragment : Fragment(R.layout.fragment_filter), TagOnSelectedListener {
 
     private val homeViewModel: RecipesHomeViewModel by activityViewModels()
+    private val whatResViewModel: WhatresHomeViewModel by activityViewModels()
     private val viewModel:FilterViewModel by activityViewModels()
     private var tagsRVAdapter: TagsRVAdapter?=null
 
@@ -118,6 +121,59 @@ class FilterFragment : Fragment(R.layout.fragment_filter), TagOnSelectedListener
                 }
                 if(viewModel.getChosenDifficultiesHome().value!=null && viewModel.getChosenDifficultiesHome().value!!.contains("Hard") &&
                     viewModel.getChosenDifficultiesHome().value!!.size!=3) {
+                    hardOption.isChecked = true
+                    viewModel.tempDifficulties.add("Hard")
+                }
+            })
+        }
+        else if(direction==Constants.WHAT_TO_FILTER)
+        {
+            cancelButton.setOnClickListener {
+                whatResViewModel.setFilter(false)
+                viewModel.tempTags.clear()
+                viewModel.tempDifficulties.clear()
+                Hawk.delete(Constants.FILTER_DIRECTION)
+            }
+
+            enterButton.setOnClickListener {
+                if(viewModel.tempTags.size==0)
+                    viewModel.setWhatTags(viewModel.getTags().value!!)
+                else
+                    viewModel.setWhatTags(viewModel.tempTags)
+
+                if(viewModel.tempDifficulties.size==0)
+                    viewModel.setWhatDifficulties(diffArray)
+                else
+                    viewModel.setWhatDifficulties(viewModel.tempDifficulties)
+
+                viewModel.tempTags.clear()
+                viewModel.tempDifficulties.clear()
+                whatResViewModel.setFilter(false)
+                Hawk.delete(Constants.FILTER_DIRECTION)
+            }
+
+            viewModel.getChosenTagsWhat().observe(viewLifecycleOwner,{
+                if(viewModel.getChosenTagsWhat().value!=null && viewModel.getChosenTagsWhat().value!!.size!=0 &&
+                    viewModel.getChosenTagsWhat().value!!.size!=viewModel.getTags().value!!.size)
+                {
+                    tagsRVAdapter?.setChosen(viewModel.getChosenTagsWhat().value!!)
+                    tagsRVAdapter?.notifyDataSetChanged()
+                }
+            })
+
+            viewModel.getChosenDifficultiesWhat().observe(viewLifecycleOwner, {
+                if(viewModel.getChosenDifficultiesWhat().value!=null && viewModel.getChosenDifficultiesWhat().value!!.contains("Easy") &&
+                    viewModel.getChosenDifficultiesWhat().value!!.size!=3) {
+                    easyOption.isChecked = true
+                    viewModel.tempDifficulties.add("Easy")
+                }
+                if(viewModel.getChosenDifficultiesWhat().value!=null && viewModel.getChosenDifficultiesWhat().value!!.contains("Medium") &&
+                    viewModel.getChosenDifficultiesWhat().value!!.size!=3) {
+                    mediumOption.isChecked = true
+                    viewModel.tempDifficulties.add("Medium")
+                }
+                if(viewModel.getChosenDifficultiesWhat().value!=null && viewModel.getChosenDifficultiesWhat().value!!.contains("Hard") &&
+                    viewModel.getChosenDifficultiesWhat().value!!.size!=3) {
                     hardOption.isChecked = true
                     viewModel.tempDifficulties.add("Hard")
                 }

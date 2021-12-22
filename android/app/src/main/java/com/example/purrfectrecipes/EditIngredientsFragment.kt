@@ -53,15 +53,17 @@ class EditIngredientsFragment : Fragment(R.layout.fragment_edit_ingredients), In
                 }
 
                 enterButton.setOnClickListener {
-                    viewModel.setWantedIngredients(viewModel.tempIngredients)
+                    whatHomeViewModel.setWantedIngredients(viewModel.tempIngredients)
                     viewModel.tempIngredients.clear()
                     whatHomeViewModel.setEditWanted(false)
                 }
 
-                viewModel.getWantedIngredients().observe(viewLifecycleOwner,{
-                    if(viewModel.getWantedIngredients().value!=null && viewModel.getWantedIngredients().value!!.size!=0)
+                whatHomeViewModel.getWantedIngredients().observe(viewLifecycleOwner,{
+                    if(whatHomeViewModel.getWantedIngredients().value!=null && whatHomeViewModel.getWantedIngredients().value!!.size!=0)
                     {
-                        ingredientsRVAdapter?.setChosen(viewModel.getWantedIngredients().value!!)
+                        for(ingredient in whatHomeViewModel.getWantedIngredients().value!!)
+                            onSelectIngredient(ingredient)
+                        ingredientsRVAdapter?.setChosen(whatHomeViewModel.getWantedIngredients().value!!)
                         ingredientsRVAdapter?.notifyDataSetChanged()
                     }
                 })
@@ -75,14 +77,17 @@ class EditIngredientsFragment : Fragment(R.layout.fragment_edit_ingredients), In
                 }
 
                 enterButton.setOnClickListener {
-                    viewModel.setNotWantedIngredients(viewModel.tempIngredients)
+                    whatHomeViewModel.setNotWantedIngredients(viewModel.tempIngredients)
                     viewModel.tempIngredients.clear()
                     whatHomeViewModel.setEditNotWanted(false)
                 }
 
-                viewModel.getNotWantedIngredients().observe(viewLifecycleOwner, {
-                    if (viewModel.getNotWantedIngredients().value != null && viewModel.getNotWantedIngredients().value!!.size != 0) {
-                        ingredientsRVAdapter?.setChosen(viewModel.getNotWantedIngredients().value!!)
+                whatHomeViewModel.getNotWantedIngredients().observe(viewLifecycleOwner, {
+                    if (whatHomeViewModel.getNotWantedIngredients().value != null && whatHomeViewModel.getNotWantedIngredients().value!!.size != 0) {
+
+                        for(ingredient in whatHomeViewModel.getNotWantedIngredients().value!!)
+                            onSelectIngredient(ingredient)
+                        ingredientsRVAdapter?.setChosen(whatHomeViewModel.getNotWantedIngredients().value!!)
                         ingredientsRVAdapter?.notifyDataSetChanged()
                     }
                 })
@@ -139,8 +144,6 @@ class EditIngredientsFragment : Fragment(R.layout.fragment_edit_ingredients), In
 
     }
 
-
-
     fun setRVAdapter()
     {
         val recipeTypes = view?.findViewById<RecyclerView>(R.id.ingredientsList)
@@ -150,7 +153,8 @@ class EditIngredientsFragment : Fragment(R.layout.fragment_edit_ingredients), In
     }
 
     override fun onSelectIngredient(selectedIngredient: String) {
-        viewModel.tempIngredients.add(selectedIngredient)
+        if(!viewModel.tempIngredients.contains(selectedIngredient))
+            viewModel.tempIngredients.add(selectedIngredient)
     }
 
     override fun deselectIngredient(deSelectedIngredient: String) {
