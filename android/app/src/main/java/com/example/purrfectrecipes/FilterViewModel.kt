@@ -19,10 +19,18 @@ class FilterViewModel: ViewModel(), FilterVMRepConnector
     private val chosenTagsHome=MutableLiveData<ArrayList<String>>()
         fun getChosenTagsHome():LiveData<ArrayList<String>>{return chosenTagsHome}
 
+    private val chosenDifficultiesWhat=MutableLiveData<ArrayList<String>>()
+        fun getChosenDifficultiesWhat():LiveData<ArrayList<String>>{return chosenDifficultiesWhat}
+    private val chosenTagsWhat=MutableLiveData<ArrayList<String>>()
+        fun getChosenTagsWhat():LiveData<ArrayList<String>>{return chosenTagsWhat}
+
     init{
         repository.retrieveTags()
         chosenTagsHome.value= ArrayList()
         chosenDifficultiesHome.value= ArrayList()
+        chosenTagsWhat.value= ArrayList()
+        chosenDifficultiesWhat.value= ArrayList()
+
     }
 
     override fun onTagsRetrieved(tags: ArrayList<String>) {
@@ -41,9 +49,27 @@ class FilterViewModel: ViewModel(), FilterVMRepConnector
         chosenDifficultiesHome.value?.addAll(diffs)
     }
 
-    fun resetFilter()
+    fun resetHomeFilter()
     {
         chosenDifficultiesHome.value?.clear()
         chosenTagsHome.value?.clear()
+    }
+
+    fun setWhatTags(tags:ArrayList<String>)
+    {
+        chosenTagsWhat.value?.clear()
+        chosenTagsWhat.value?.addAll(tags)
+    }
+
+    fun setWhatDifficulties(diffs:ArrayList<String>)
+    {
+        chosenDifficultiesWhat.value?.clear()
+        chosenDifficultiesWhat.value?.addAll(diffs)
+    }
+
+    fun resetWhatFilter()
+    {
+        chosenDifficultiesWhat.value?.clear()
+        chosenTagsWhat.value?.clear()
     }
 }

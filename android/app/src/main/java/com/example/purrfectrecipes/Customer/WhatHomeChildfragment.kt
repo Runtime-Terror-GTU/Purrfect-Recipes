@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -20,7 +21,7 @@ import com.example.purrfectrecipes.R
 class WhatHomeChildfragment: Fragment(R.layout.childfragment_home_what)
 {
     private val viewModel: WhatHomeViewModel by activityViewModels()
-    private val editIngredientsViewModel:EditIngredientsViewModel by activityViewModels()
+    private val whatresViewModel:WhatresHomeViewModel by activityViewModels()
 
     private var wantedIngredientsRVAdapter:ChosenIngredientsRVAdapter?=null
     private var notWantedIngredientsRVAdapter:ChosenIngredientsRVAdapter?=null
@@ -32,8 +33,10 @@ class WhatHomeChildfragment: Fragment(R.layout.childfragment_home_what)
                 super.onViewCreated(viewModel.getView().value!!, savedInstanceState)
             else
             {
+                whatresViewModel.setView(null)
+                viewModel.setShowResult(false)
                 viewModel.setView(view)
-                editIngredientsViewModel.resetIngredients()
+                viewModel.resetIngredients()
                 super.onViewCreated(view, savedInstanceState)
             }
         })
@@ -49,21 +52,29 @@ class WhatHomeChildfragment: Fragment(R.layout.childfragment_home_what)
             viewModel.setEditNotWanted(true)
         }
 
-        editIngredientsViewModel.getWantedIngredients().observe(viewLifecycleOwner,{
-            if(editIngredientsViewModel.getWantedIngredients().value!=null)
+        viewModel.getWantedIngredients().observe(viewLifecycleOwner,{
+            if(viewModel.getWantedIngredients().value!=null)
             {
-                wantedIngredientsRVAdapter?.setIngredients(editIngredientsViewModel.getWantedIngredients().value!!)
+                wantedIngredientsRVAdapter?.setIngredients(viewModel.getWantedIngredients().value!!)
                 wantedIngredientsRVAdapter?.notifyDataSetChanged()
             }
         })
 
-        editIngredientsViewModel.getNotWantedIngredients().observe(viewLifecycleOwner,{
-            if(editIngredientsViewModel.getNotWantedIngredients().value!=null)
+        viewModel.getNotWantedIngredients().observe(viewLifecycleOwner,{
+            if(viewModel.getNotWantedIngredients().value!=null)
             {
-                notWantedIngredientsRVAdapter?.setIngredients(editIngredientsViewModel.getNotWantedIngredients().value!!)
+                notWantedIngredientsRVAdapter?.setIngredients(viewModel.getNotWantedIngredients().value!!)
                 notWantedIngredientsRVAdapter?.notifyDataSetChanged()
             }
         })
+
+        val showRecipesButton=view.findViewById<LinearLayout>(R.id.showRecipes)
+        showRecipesButton.setOnClickListener {
+            if(viewModel.getWantedIngredients().value!!.size==0 && viewModel.getNotWantedIngredients().value!!.size==0)
+                Toast.makeText(requireContext(), "You need to have chosen at least one wanted ingredient to continue.", Toast.LENGTH_SHORT).show()
+            else
+                viewModel.setShowResult(true)
+        }
     }
 
     fun setRVAdapter()

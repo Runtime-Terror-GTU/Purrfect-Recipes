@@ -49,7 +49,7 @@ class RecipesHomeRepository(val connector: RecipesHomeVMRepConnector)
                         override fun onDataChange(snapshot: DataSnapshot) {
                             recipe.recipeOwner=snapshot.child(Constants.R_USERNAME).value.toString()
                             i++
-                            if(i==recipesArray.size-1)
+                            if(i==recipesArray.size)
                                 getRecipeOfTheDay(recipesArray)
                         }
 

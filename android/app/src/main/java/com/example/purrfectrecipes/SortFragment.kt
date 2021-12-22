@@ -14,6 +14,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProviders
 import com.example.purrfectrecipes.Customer.CustomerActivity
 import com.example.purrfectrecipes.Customer.RecipesHomeViewModel
+import com.example.purrfectrecipes.Customer.WhatresHomeViewModel
 import com.example.purrfectrecipes.Guest.GuestActivity
 import com.example.purrfectrecipes.User.User
 import com.orhanobut.hawk.Hawk
@@ -21,6 +22,7 @@ import com.orhanobut.hawk.Hawk
 class SortFragment: Fragment(R.layout.fragment_sort) {
 
     private val homeViewModel:RecipesHomeViewModel by activityViewModels()
+    private val whatResViewModel: WhatresHomeViewModel by activityViewModels()
     private val viewModel:SortViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
@@ -44,6 +46,19 @@ class SortFragment: Fragment(R.layout.fragment_sort) {
                 else if(viewModel.getHomeSortId().value==2)
                     popMin.isChecked=true
                 else if(viewModel.getHomeSortId().value==3)
+                    popMax.isChecked=true
+            }
+        })
+
+        viewModel.getWhatSortId().observe(viewLifecycleOwner,{
+            if(viewModel.getWhatSortId().value!=-1 && sortMethod.checkedRadioButtonId==-1) {
+                if(viewModel.getWhatSortId().value==0)
+                    diffHardest.isChecked=true
+                else if(viewModel.getWhatSortId().value==1)
+                    diffEasiest.isChecked=true
+                else if(viewModel.getWhatSortId().value==2)
+                    popMin.isChecked=true
+                else if(viewModel.getWhatSortId().value==3)
                     popMax.isChecked=true
             }
         })
@@ -85,6 +100,46 @@ class SortFragment: Fragment(R.layout.fragment_sort) {
                 else
                 {
                     homeViewModel.setSort(false)
+                    Hawk.delete(Constants.SORT_DIRECTION)
+                }
+            }
+        }
+        else if(direction==Constants.WHAT_TO_SORT)
+        {
+            diffHardest.setOnClickListener {
+                viewModel.setPopWhatSort(null)
+                viewModel.setDiffWhatSort(SortMethods.difMaxtoMin)
+                viewModel.setWhatSortId(0)
+            }
+            diffEasiest.setOnClickListener {
+                viewModel.setPopWhatSort(null)
+                viewModel.setDiffWhatSort(SortMethods.difMintoMax)
+                viewModel.setWhatSortId(1)
+            }
+            popMax.setOnClickListener {
+                viewModel.setDiffWhatSort(null)
+                viewModel.setPopWhatSort(SortMethods.popMaxtoMin)
+                viewModel.setWhatSortId(3)
+            }
+            popMin.setOnClickListener {
+                viewModel.setDiffWhatSort(null)
+                viewModel.setPopWhatSort(SortMethods.popMintoMax)
+                viewModel.setWhatSortId(2)
+            }
+
+            cancelButton.setOnClickListener {
+                viewModel.resetWhatSort()
+                whatResViewModel.setSort(false)
+                Hawk.delete(Constants.SORT_DIRECTION)
+            }
+
+            enterButton.setOnClickListener {
+                if(sortMethod.checkedRadioButtonId==-1) {
+                    Toast.makeText(requireContext(), "Choose a sort method first.", Toast.LENGTH_SHORT).show()
+                }
+                else
+                {
+                    whatResViewModel.setSort(false)
                     Hawk.delete(Constants.SORT_DIRECTION)
                 }
             }

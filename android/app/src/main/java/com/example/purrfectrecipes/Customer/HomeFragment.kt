@@ -41,6 +41,18 @@ class HomeFragment: Fragment(R.layout.fragment_home)
             }
         }
 
+        whatViewModel.getShowResults().observe(viewLifecycleOwner,{
+            val current= navHostFragment?.childFragmentManager?.fragments?.get(0)
+            if(whatViewModel.getShowResults().value!=null && whatViewModel.getShowResults().value==true && current is WhatHomeChildfragment)
+            {
+                navController?.popBackStack(R.id.whatresHomeChildfragment, true)
+                navController?.navigate(R.id.action_whatHomeChildfragment_to_whatresHomeChildfragment)
+            }
+            else if(whatViewModel.getShowResults().value!=null && whatViewModel.getShowResults().value==false){
+                navController?.popBackStack(R.id.whatHomeChildfragment, false)
+            }
+        })
+
         viewModel.getView().observe(viewLifecycleOwner, {
             if(viewModel.getView().value!=null)
                 super.onViewCreated(viewModel.getView().value!!, savedInstanceState)
@@ -50,7 +62,6 @@ class HomeFragment: Fragment(R.layout.fragment_home)
                 super.onViewCreated(view, savedInstanceState)
             }
         })
-
     }
 
 }

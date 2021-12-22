@@ -29,5 +29,7 @@ object Constants
     const val FILTER_DIRECTION="Filter_Direction"
     const val MAIN_TO_SORT="Main_to_Sort"
     const val MAIN_TO_FILTER="Main_to_Filter"
+    const val WHAT_TO_SORT="What_to_Sort"
+    const val WHAT_TO_FILTER="What_to_Filter"
 
 }

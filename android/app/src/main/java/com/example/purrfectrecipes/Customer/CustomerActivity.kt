@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.example.purrfectrecipes.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -24,6 +25,7 @@ class CustomerActivity : AppCompatActivity() {
 
     private val recipesViewModel:RecipesHomeViewModel by viewModels()
     private val whatViewModel:WhatHomeViewModel by viewModels()
+    private val whatResViewModel:WhatresHomeViewModel by viewModels()
     private val sortViewModel:SortViewModel by viewModels()
     private val filterViewModel:FilterViewModel by viewModels()
     private val editIngredientViewModel:EditIngredientsViewModel by viewModels()
@@ -85,6 +87,33 @@ class CustomerActivity : AppCompatActivity() {
             }
         })
 
+        whatResViewModel.getSort().observe(this,{
+            if(whatResViewModel.getSort().value!=null && whatResViewModel.getSort().value==true)
+            {
+                navController?.popBackStack(R.id.sortFragment, true)
+                navigationBarCustomer.visibility=View.GONE
+                navController?.navigate(R.id.action_homeFragment_to_sortFragment)
+            }
+            else if(whatResViewModel.getSort().value!=null && whatResViewModel.getSort().value==false){
+                navController?.popBackStack(R.id.homeFragment, false)
+                navigationBarCustomer.visibility=View.VISIBLE
+            }
+        })
+        whatResViewModel.getFilter().observe(this, {
+            if(whatResViewModel.getFilter().value!=null && whatResViewModel.getFilter().value==true)
+            {
+                navController?.popBackStack(R.id.filterFragment, true)
+                navigationBarCustomer.visibility=View.GONE
+                navController?.navigate(R.id.action_homeFragment_to_filterFragment)
+            }
+            else if(whatResViewModel.getFilter().value!=null && whatResViewModel.getFilter().value==false){
+                navController?.popBackStack(R.id.homeFragment, false)
+                navigationBarCustomer.visibility=View.VISIBLE
+                filterViewModel.tempTags.clear()
+                filterViewModel.tempDifficulties.clear()
+            }
+        })
+
         whatViewModel.getEditWanted().observe(this, {
             if(whatViewModel.getEditWanted().value!=null && whatViewModel.getEditWanted().value==true)
             {
@@ -114,6 +143,7 @@ class CustomerActivity : AppCompatActivity() {
         })
     }
     override fun onBackPressed() {
+        val current= navHostFragment?.childFragmentManager?.fragments?.get(0)?.childFragmentManager?.findFragmentById(R.id.nav_host_fragment)?.childFragmentManager?.fragments?.get(0)
 
         if(recipesViewModel.getSort().value!=null && recipesViewModel.getSort().value==true) {
                 sortViewModel.resetHomeSort()
@@ -122,12 +152,25 @@ class CustomerActivity : AppCompatActivity() {
         }
         else if(recipesViewModel.getFilter().value!=null && recipesViewModel.getFilter().value==true) {
                 recipesViewModel.setFilter(false)
+            Hawk.delete(Constants.FILTER_DIRECTION)
+        }
+        else if(whatResViewModel.getSort().value!=null && whatResViewModel.getSort().value==true) {
+            sortViewModel.resetWhatSort()
+            whatResViewModel.setSort(false)
+            Hawk.delete(Constants.SORT_DIRECTION)
+        }
+        else if(whatResViewModel.getFilter().value!=null && whatResViewModel.getFilter().value==true) {
+            whatResViewModel.setFilter(false)
+            Hawk.delete(Constants.FILTER_DIRECTION)
         }
         else if(whatViewModel.getEditWanted().value!=null && whatViewModel.getEditWanted().value==true) {
             whatViewModel.setEditWanted(false)
         }
         else if(whatViewModel.getEditNotWanted().value!=null && whatViewModel.getEditNotWanted().value==true) {
             whatViewModel.setEditNotWanted(false)
+        }
+        else if(whatViewModel.getShowResults().value!=null && whatViewModel.getShowResults().value==true && current is WhatresHomeChildfragment) {
+            whatViewModel.setShowResult(false)
         }
         else
             super.onBackPressed()

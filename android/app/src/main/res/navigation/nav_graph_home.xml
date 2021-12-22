@@ -13,15 +13,11 @@
         android:name="com.example.purrfectrecipes.Customer.WhatHomeChildfragment"
         android:label="WhatHomeChildfragment" >
         <action
-            android:id="@+id/action_whatHomeChildfragment2_to_whatresHomeChildfragment"
+            android:id="@+id/action_whatHomeChildfragment_to_whatresHomeChildfragment"
             app:destination="@id/whatresHomeChildfragment" />
     </fragment>
     <fragment
         android:id="@+id/whatresHomeChildfragment"
         android:name="com.example.purrfectrecipes.Customer.WhatresHomeChildfragment"
-        android:label="WhatresHomeChildfragment" >
-        <action
-            android:id="@+id/action_whatresHomeChildfragment_to_whatHomeChildfragment2"
-            app:destination="@id/whatHomeChildfragment" />
-    </fragment>
+        android:label="WhatresHomeChildfragment" />
 </navigation>
