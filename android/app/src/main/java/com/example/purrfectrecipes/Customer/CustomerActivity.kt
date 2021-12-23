@@ -31,6 +31,7 @@ class CustomerActivity : AppCompatActivity() {
     private val sortViewModel:SortViewModel by viewModels()
     private val filterViewModel:FilterViewModel by viewModels()
     private val editIngredientViewModel:EditIngredientsViewModel by viewModels()
+    private val recipeViewModel:RecipeViewModel by viewModels()
 
     var navHostFragment:NavHostFragment?=null
     var navController: NavController?=null
@@ -208,9 +209,11 @@ class CustomerActivity : AppCompatActivity() {
         }
         else if(recipesViewModel.getShownRecipe().value!=null) {
             recipesViewModel.setShownRecipe(null)
+            recipeViewModel.resetRecipe()
         }
         else if(whatResViewModel.getShownRecipe().value!=null) {
             whatResViewModel.setShownRecipe(null)
+            recipeViewModel.resetRecipe()
         }
         else
             super.onBackPressed()

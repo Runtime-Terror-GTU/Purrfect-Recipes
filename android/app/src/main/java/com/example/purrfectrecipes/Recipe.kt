@@ -3,7 +3,7 @@ package com.example.purrfectrecipes
 import com.example.purrfectrecipes.User.CustomerStatus
 import java.util.stream.Collectors
 
-class Recipe(id:String, name:String, owner:String, difficulty:String, likes: Int, pictureURL:String=" ", overview:String="No Ingredients Overview"):Comparable<Recipe>
+class Recipe(id:String, name:String, owner:String, difficulty:String, likes: Int, pictureURL:String=" ", overview:String?="No Ingredients Overview"):Comparable<Recipe>
 {
     private var recipeId:String=id
         fun getRecipeID(): String {return recipeId}
@@ -11,13 +11,20 @@ class Recipe(id:String, name:String, owner:String, difficulty:String, likes: Int
     var recipeOwner:String=owner
     var recipeDifficulty:String=difficulty
     var recipeLikes:Int=likes
-    var recipeIngredientsOverview:String=overview
+    var recipeIngredientsOverview:String?=null
     var recipePictureURL:String=pictureURL
 
     private val recipeTags=HashSet<String>()
     private val recipeIngredients=HashSet<String>()
     private val recipeStages=ArrayList<String>()
     private val recipeComments=HashSet<String>()
+
+    init{
+        if(overview==null)
+            recipeIngredientsOverview="No Ingredients Overview"
+        else
+            recipeIngredientsOverview=overview
+    }
 
     fun isRecipeTag(element:String):Boolean{
         return recipeTags?.contains(element)!!
@@ -77,6 +84,10 @@ class Recipe(id:String, name:String, owner:String, difficulty:String, likes: Int
 
     fun getRecipeComments():ArrayList<String> {
         return recipeComments.stream().collect(Collectors.toList()) as (ArrayList<String>)
+    }
+
+    fun getRecipeStages():ArrayList<String> {
+        return recipeStages
     }
 
     fun getStage(stageNo:Int):String {

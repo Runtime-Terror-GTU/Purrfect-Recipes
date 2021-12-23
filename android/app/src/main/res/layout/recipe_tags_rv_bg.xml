@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/transparent"
+    android:orientation="horizontal">
+
+    <CheckBox
+        android:id="@+id/recipeTag"
+        android:layout_width="85sp"
+        android:layout_height="30sp"
+        android:layout_gravity="center"
+        android:layout_marginRight="3sp"
+        android:background="@color/main"
+        android:fontFamily="@font/josefin_slab"
+        android:gravity="center"
+        android:button="@color/transparent"
+        android:text="Lactose-free"
+        android:textColor="@color/white"
+        android:textSize="14sp" />
+
+</LinearLayout>

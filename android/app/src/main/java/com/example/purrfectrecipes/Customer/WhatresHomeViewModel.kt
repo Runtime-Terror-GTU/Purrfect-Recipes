@@ -5,7 +5,7 @@ import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.purrfectrecipes.Connectors.RecipeRetrievedListener
+import com.example.purrfectrecipes.Connectors.RecipesRetrievedListener
 import com.example.purrfectrecipes.DifficultyComparator
 import com.example.purrfectrecipes.HeapSort
 import com.example.purrfectrecipes.PopularityComparator
@@ -13,7 +13,7 @@ import com.example.purrfectrecipes.Recipe
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
-class WhatresHomeViewModel: ViewModel(), RecipeRetrievedListener
+class WhatresHomeViewModel: ViewModel(), RecipesRetrievedListener
 {
     private var view= MutableLiveData<View?>()
         fun getView(): LiveData<View?> {return view}

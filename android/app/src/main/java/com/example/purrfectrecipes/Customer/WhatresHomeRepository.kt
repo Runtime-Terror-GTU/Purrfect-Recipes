@@ -1,12 +1,12 @@
 package com.example.purrfectrecipes.Customer
 
 import android.util.Log
-import com.example.purrfectrecipes.Connectors.RecipeRetrievedListener
+import com.example.purrfectrecipes.Connectors.RecipesRetrievedListener
 import com.example.purrfectrecipes.Constants
 import com.example.purrfectrecipes.Recipe
 import com.google.firebase.database.*
 
-class WhatresHomeRepository(val connector: RecipeRetrievedListener)
+class WhatresHomeRepository(val connector: RecipesRetrievedListener)
 {
     private val recipesRef: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Recipes")
     private val usersRef: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users")
