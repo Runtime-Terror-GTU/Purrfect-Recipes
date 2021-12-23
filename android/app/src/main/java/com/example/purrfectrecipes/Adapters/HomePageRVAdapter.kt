@@ -6,12 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.purrfectrecipes.Connectors.RecipeOnClickListener
 import com.example.purrfectrecipes.R
 import com.example.purrfectrecipes.Recipe
 
-class HomePageRVAdapter(val context: Context): RecyclerView.Adapter<HomePageRVAdapter.ViewHolder>()
+class HomePageRVAdapter(val context: Context, val listener:RecipeOnClickListener): RecyclerView.Adapter<HomePageRVAdapter.ViewHolder>()
 {
     private var recipes=ArrayList<Recipe>()
     class ViewHolder(view: View): RecyclerView.ViewHolder(view)
@@ -22,6 +24,7 @@ class HomePageRVAdapter(val context: Context): RecyclerView.Adapter<HomePageRVAd
         val recipeLikes=view.findViewById<TextView>(R.id.recipeLikesRV)
         val recipeDifficulty=view.findViewById<TextView>(R.id.recipeDifficultyRV)
         val recipeType=view.findViewById<TextView>(R.id.recipeTypeRV)
+        val purrfectButton=view.findViewById<CardView>(R.id.purrfectButtonRV)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -43,6 +46,14 @@ class HomePageRVAdapter(val context: Context): RecyclerView.Adapter<HomePageRVAd
             Glide.with(context)
                 .load(recipes.get(position).recipePictureURL)
                 .into(holder.recipePic)
+        }
+
+        holder.recipePic.setOnClickListener {
+            listener.onRecipeClick(recipes.get(position).getRecipeID())
+        }
+
+        holder.purrfectButton.setOnClickListener {
+
         }
     }
 

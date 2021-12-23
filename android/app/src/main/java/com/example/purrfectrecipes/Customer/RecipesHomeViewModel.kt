@@ -28,12 +28,20 @@ class RecipesHomeViewModel: ViewModel(), RecipesHomeVMRepConnector
     private val filter=MutableLiveData<Boolean?>()
         fun getFilter():LiveData<Boolean?>{return filter}
 
+    private val shownRecipe=MutableLiveData<String?>()
+        fun getShownRecipe():LiveData<String?>{return shownRecipe}
+
     private val heapSort=HeapSort<Recipe>()
     private val diffComparator=DifficultyComparator()
     private val popComparator=PopularityComparator()
 
     init{
         repository.retrieveRecipes()
+    }
+
+    fun setShownRecipe(id:String?)
+    {
+        shownRecipe.value=id
     }
 
     fun setSort(bool:Boolean)

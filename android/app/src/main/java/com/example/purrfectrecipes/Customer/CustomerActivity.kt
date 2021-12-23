@@ -8,6 +8,8 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentContainer
+import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -141,6 +143,38 @@ class CustomerActivity : AppCompatActivity() {
                 navigationBarCustomer.visibility=View.VISIBLE
             }
         })
+
+        recipesViewModel.getShownRecipe().observe(this,{
+            if(recipesViewModel.getShownRecipe().value!=null)
+            {
+                navController?.popBackStack(R.id.recipeFragment, true)
+                navigationBarCustomer.visibility=View.GONE
+                navController?.navigate(R.id.action_homeFragment_to_recipeFragment)
+            }
+            else
+            {
+                navController?.popBackStack(R.id.homeFragment, false)
+                editIngredientViewModel.resetTemp()
+                navigationBarCustomer.visibility=View.VISIBLE
+            }
+        })
+
+        whatResViewModel.getShownRecipe().observe(this,{
+            if(whatResViewModel.getShownRecipe().value!=null)
+            {
+                navController?.popBackStack(R.id.recipeFragment, true)
+                navigationBarCustomer.visibility=View.GONE
+                navController?.navigate(R.id.action_homeFragment_to_recipeFragment)
+            }
+            else
+            {
+                navController?.popBackStack(R.id.homeFragment, false)
+                editIngredientViewModel.resetTemp()
+                navigationBarCustomer.visibility=View.VISIBLE
+            }
+        })
+
+
     }
     override fun onBackPressed() {
         val current= navHostFragment?.childFragmentManager?.fragments?.get(0)?.childFragmentManager?.findFragmentById(R.id.nav_host_fragment)?.childFragmentManager?.fragments?.get(0)
@@ -171,6 +205,12 @@ class CustomerActivity : AppCompatActivity() {
         }
         else if(whatViewModel.getShowResults().value!=null && whatViewModel.getShowResults().value==true && current is WhatresHomeChildfragment) {
             whatViewModel.setShowResult(false)
+        }
+        else if(recipesViewModel.getShownRecipe().value!=null) {
+            recipesViewModel.setShownRecipe(null)
+        }
+        else if(whatResViewModel.getShownRecipe().value!=null) {
+            whatResViewModel.setShownRecipe(null)
         }
         else
             super.onBackPressed()

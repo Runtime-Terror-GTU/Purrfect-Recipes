@@ -133,6 +133,36 @@ class GuestActivity : AppCompatActivity() {
                 navigationBarGuest.visibility=View.VISIBLE
             }
         })
+
+        recipesViewModel.getShownRecipe().observe(this,{
+            if(recipesViewModel.getShownRecipe().value!=null)
+            {
+                navController?.popBackStack(R.id.recipeFragment, true)
+                navigationBarGuest.visibility=View.GONE
+                navController?.navigate(R.id.action_homeFragment_to_recipeFragment)
+            }
+            else
+            {
+                navController?.popBackStack(R.id.homeFragment, false)
+                editIngredientViewModel.resetTemp()
+                navigationBarGuest.visibility=View.VISIBLE
+            }
+        })
+
+        whatResViewModel.getShownRecipe().observe(this,{
+            if(whatResViewModel.getShownRecipe().value!=null)
+            {
+                navController?.popBackStack(R.id.recipeFragment, true)
+                navigationBarGuest.visibility=View.GONE
+                navController?.navigate(R.id.action_homeFragment_to_recipeFragment)
+            }
+            else
+            {
+                navController?.popBackStack(R.id.homeFragment, false)
+                editIngredientViewModel.resetTemp()
+                navigationBarGuest.visibility=View.VISIBLE
+            }
+        })
     }
 
     override fun onBackPressed() {
@@ -161,6 +191,12 @@ class GuestActivity : AppCompatActivity() {
         }
         else if(whatViewModel.getShowResults().value!=null && whatViewModel.getShowResults().value==true && current is WhatresHomeChildfragment) {
             whatViewModel.setShowResult(false)
+        }
+        else if(recipesViewModel.getShownRecipe().value!=null) {
+            recipesViewModel.setShownRecipe(null)
+        }
+        else if(whatResViewModel.getShownRecipe().value!=null) {
+            whatResViewModel.setShownRecipe(null)
         }
         else
             super.onBackPressed()

@@ -10,9 +10,10 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.purrfectrecipes.*
 import com.example.purrfectrecipes.Adapters.HomePageRVAdapter
+import com.example.purrfectrecipes.Connectors.RecipeOnClickListener
 import com.orhanobut.hawk.Hawk
 
-class WhatresHomeChildfragment: Fragment(R.layout.childfragment_home_whatres)
+class WhatresHomeChildfragment: Fragment(R.layout.childfragment_home_whatres), RecipeOnClickListener
 {
     val viewModel:WhatresHomeViewModel by activityViewModels()
     val whatHomeViewModel:WhatHomeViewModel by activityViewModels()
@@ -29,6 +30,7 @@ class WhatresHomeChildfragment: Fragment(R.layout.childfragment_home_whatres)
             else
             {
                 viewModel.setView(view)
+                viewModel.setShownRecipe(null)
                 sortViewModel.resetWhatSort()
                 filterViewModel.resetWhatFilter()
                 viewModel.resetRecipeArray()
@@ -95,7 +97,7 @@ class WhatresHomeChildfragment: Fragment(R.layout.childfragment_home_whatres)
     {
         val recipesGridView = view?.findViewById<RecyclerView>(R.id.recipesGridView)
         recipesGridView?.layoutManager = GridLayoutManager(requireActivity(), 2)
-        recipesRVAdapter = HomePageRVAdapter(requireContext())
+        recipesRVAdapter = HomePageRVAdapter(requireContext(), this)
         recipesGridView?.adapter = recipesRVAdapter
     }
 
@@ -128,6 +130,10 @@ class WhatresHomeChildfragment: Fragment(R.layout.childfragment_home_whatres)
             viewModel.sortPopMax()
         else if(sortViewModel.getPopWhatSort().value!=null && sortViewModel.getPopWhatSort().value== SortMethods.popMintoMax)
             viewModel.sortPopMin()
+    }
+
+    override fun onRecipeClick(recipeId: String) {
+        viewModel.setShownRecipe(recipeId)
     }
 
 }

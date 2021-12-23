@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_homeFragment_to_editIngredientsFragment"
             app:destination="@id/editIngredientsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_recipeFragment"
+            app:destination="@id/recipeFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -40,4 +43,8 @@
         android:id="@+id/editIngredientsFragment"
         android:name="com.example.purrfectrecipes.EditIngredientsFragment"
         android:label="EditIngredientsFragment" />
+    <fragment
+        android:id="@+id/recipeFragment"
+        android:name="com.example.purrfectrecipes.RecipeFragment"
+        android:label="RecipeFragment" />
 </navigation>

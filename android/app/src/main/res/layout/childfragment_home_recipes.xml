@@ -52,6 +52,7 @@
                     android:layout_height="wrap_content">
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/recipeOfTheDay"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:cardCornerRadius="8dp">
@@ -67,11 +68,11 @@
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/purrfectButton"
-                        android:layout_width="40dp"
-                        android:layout_height="39dp"
+                        android:layout_width="50dp"
+                        android:layout_height="49dp"
                         android:layout_gravity="bottom"
-                        android:layout_marginLeft="105sp"
-                        app:cardCornerRadius="20dp">
+                        android:layout_marginLeft="98sp"
+                        app:cardCornerRadius="30dp">
 
                         <ImageView
                             android:layout_width="match_parent"
@@ -164,7 +165,7 @@
                 android:textSize="13sp"
                 android:layout_marginTop="2sp"
                 android:textColor="@color/black"
-                android:layout_marginLeft="130sp"
+                android:layout_marginLeft="132sp"
                 android:layout_marginBottom="3sp"/>
 
         </LinearLayout>

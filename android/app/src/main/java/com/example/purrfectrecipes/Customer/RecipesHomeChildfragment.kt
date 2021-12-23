@@ -26,15 +26,17 @@ import java.io.File
 import java.io.FileInputStream
 import android.graphics.BitmapFactory
 import android.widget.*
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.activityViewModels
 import com.bumptech.glide.Glide
 import com.example.purrfectrecipes.*
+import com.example.purrfectrecipes.Connectors.RecipeOnClickListener
 import com.example.purrfectrecipes.Guest.GuestActivity
 import com.orhanobut.hawk.Hawk
 import java.io.ByteArrayInputStream
 
 
-class RecipesHomeChildfragment: Fragment(R.layout.childfragment_home_recipes)
+class RecipesHomeChildfragment: Fragment(R.layout.childfragment_home_recipes), RecipeOnClickListener
 {
     private val viewModel: RecipesHomeViewModel by activityViewModels()
     private var recipesRVAdapter:HomePageRVAdapter?=null
@@ -93,6 +95,7 @@ class RecipesHomeChildfragment: Fragment(R.layout.childfragment_home_recipes)
             else
             {
                 viewModel.setView(view)
+                viewModel.setShownRecipe(null)
                 sortViewModel.resetHomeSort()
                 filterViewModel.resetHomeFilter()
                 viewModel.resetRecipeArray()
@@ -177,6 +180,16 @@ class RecipesHomeChildfragment: Fragment(R.layout.childfragment_home_recipes)
             redoOperations()
         })
 
+        val recipeOfTheDay=view.findViewById<CardView>(R.id.recipeOfTheDay)
+        recipeOfTheDay.setOnClickListener {
+            onRecipeClick(viewModel.getRecipeOfTheDay().value!!.getRecipeID())
+        }
+
+        val purrfectButton=view.findViewById<CardView>(R.id.purrfectButton)
+        purrfectButton.setOnClickListener {
+
+        }
+
     }
     fun resourceToUri(context:Context, resID:Int):Uri
     {
@@ -190,7 +203,7 @@ class RecipesHomeChildfragment: Fragment(R.layout.childfragment_home_recipes)
     {
         val recipesGridView = view?.findViewById<RecyclerView>(R.id.recipesGridView)
         recipesGridView?.layoutManager = GridLayoutManager(requireActivity(), 2)
-        recipesRVAdapter = HomePageRVAdapter(requireContext())
+        recipesRVAdapter = HomePageRVAdapter(requireContext(), this)
         recipesGridView?.adapter = recipesRVAdapter
     }
 
@@ -224,6 +237,10 @@ class RecipesHomeChildfragment: Fragment(R.layout.childfragment_home_recipes)
             viewModel.sortPopMax()
         else if(sortViewModel.getPopHomeSort().value!=null && sortViewModel.getPopHomeSort().value==SortMethods.popMintoMax)
             viewModel.sortPopMin()
+    }
+
+    override fun onRecipeClick(recipeId: String) {
+        viewModel.setShownRecipe(recipeId)
     }
 
 }
