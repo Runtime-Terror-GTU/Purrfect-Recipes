@@ -30,6 +30,7 @@ class GuestActivity : AppCompatActivity() {
     private val whatViewModel: WhatHomeViewModel by viewModels()
     private val whatResViewModel:WhatresHomeViewModel by viewModels()
     private val editIngredientViewModel:EditIngredientsViewModel by viewModels()
+    private val recipeViewModel:RecipeViewModel by viewModels()
 
     var navHostFragment:NavHostFragment?=null
     var navController: NavController?=null
@@ -194,9 +195,11 @@ class GuestActivity : AppCompatActivity() {
         }
         else if(recipesViewModel.getShownRecipe().value!=null) {
             recipesViewModel.setShownRecipe(null)
+            recipeViewModel.resetRecipe()
         }
         else if(whatResViewModel.getShownRecipe().value!=null) {
             whatResViewModel.setShownRecipe(null)
+            recipeViewModel.resetRecipe()
         }
         else
             super.onBackPressed()

@@ -24,6 +24,8 @@ object Constants
     const val R_RECIPEINGREDIENTSOVERVIEW="R_RecipeIngredientsOverview"
     const val R_RECIPEPREPARATION="R_RecipePreparation"
     const val R_RECIPECOMMENTS="R_RecipeComments"
+    const val R_COMMENTCONTENT="Comment Content"
+    const val R_COMMENTOWNER="Comment Owner"
 
     const val SORT_DIRECTION="Sort_Direction"
     const val FILTER_DIRECTION="Filter_Direction"
