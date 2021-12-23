@@ -1,10 +1,10 @@
 import React from 'react'
-import {FormInput,Container,FormWrap,FormContent,Form} from './searchbarElments';
+import {FormInput,FormWrap,FormContent,Form} from './searchbarElments';
 
 const SearchBar = () => {
     return (
         <>
-            <Container>
+            
                 <FormWrap>
                     <FormContent>
                         <Form action='#'>
@@ -15,7 +15,7 @@ const SearchBar = () => {
                         </Form>
                     </FormContent>
                 </FormWrap>
-            </Container>
+            
         </>
     )
 }

@@ -33,14 +33,9 @@ export const Main = () => {
             <MainSideBar isOpen={isOpen} toggle={toggle} />
             <MainNavBar toggle={toggle} />
             <SearchBar/>
-            <h1>selam naber ess</h1>
-            <h1>selam naber ess</h1>
-            <h1>selam naber ess</h1>
-            <h1>selam naber ess</h1>
-            <h1>selam naber ess</h1>
-            <h1>selam naber ess</h1>
-            <h1>selam naber ess</h1>
-            <h1>selam naber ess</h1>
+            <h1>as nejdet</h1>
+            <h1>sa sevval</h1>
+            <h1>as ess</h1>
             <RecipeBoxes recipes={recipes} />
             <Footer />
         </div>
