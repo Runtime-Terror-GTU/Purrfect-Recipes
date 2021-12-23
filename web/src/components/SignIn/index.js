@@ -27,13 +27,13 @@ const onSubmit = async (e)=> {
         }
 
         let userSignIn = await signIn(user, document.getElementById("passwordInput").value);
-
+    /*    
         if ( userSignIn === true){
             window.location.href = "/mainpage";
         } else{
             window.location.href = "/signin";
         }
-
+    */    
     } else{
         console.log("login - something empty");
     }
