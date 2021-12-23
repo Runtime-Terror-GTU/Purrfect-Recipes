@@ -1,8 +1,12 @@
 import './Comment';
+import { ref, set, get, query, orderByChild, equalTo } from "firebase/database";
+import { database } from "./firebase";
+
 /* 
 Recipe class implementation
 */
-let Recipe = class{
+class Recipe{
+
     constructor(){
         //Hold Recipe' ID(sorr yeşime)
         this.RecipeID="";
@@ -14,7 +18,7 @@ let Recipe = class{
         this.R_RecipeOwner="";
 
         //hold comments
-        Comments = new Comment();
+       // Comments = new Comment();
 
         //Hold Picture' firebase link(adresi işte)
         this.R_RecipePicture="";
@@ -111,16 +115,17 @@ let Recipe = class{
 
     //Check Recipe Have This Tag If It Have Return True Else Return False
     isRecipeTag(Tag){
-        return noName ?true : false;
+       // return noName ?true : false;
     }
 
     //Check Recipe Have This Ingredient If It Have Return True Else Return False
     isRecipesIngredients(Ingredient){
-        return noName ?true : false;
+        //return noName ?true : false;
     }
 
     //Check Recipe Have This Comment If It Have Return True Else Return False
     isRecipesIngredients(commentID){
-        return noName ?true : false;
+       // return noName ?true : false;
     }
 }
+

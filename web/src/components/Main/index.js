@@ -4,7 +4,7 @@ import MainNavBar from '../MainNavBar';
 import MainSideBar from '../MainSideBar';
 
 import Footer from '../Footer';
-import { getRecipes } from '../../backend/RecipeService';
+import { getRecipes } from '../../backend/RecipeValueListener';
 
 
 //Footer'daki Purrfect Recipes'a basınca homescreen'e gidiyor

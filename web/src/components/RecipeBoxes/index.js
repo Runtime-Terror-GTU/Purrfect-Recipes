@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Grid } from 'semantic-ui-react';
-import { getRecipes } from '../../backend/RecipeService';
+import { getRecipes } from '../../backend/RecipeValueListener';
 import RecipeBox  from '../RecipeBox';
 
 
