@@ -34,10 +34,11 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/purrfectButtonRV"
-                    android:layout_width="35dp"
-                    android:layout_height="33dp"
+                    android:layout_width="40dp"
+                    android:layout_height="38dp"
                     android:layout_gravity="bottom|right"
-                    app:cardCornerRadius="20dp">
+                    app:cardCornerRadius="25dp"
+                    android:background="@color/white">
 
                     <ImageView
                         android:layout_width="match_parent"
@@ -58,7 +59,7 @@
             android:textSize="10sp"
             android:layout_marginTop="2sp"
             android:textColor="@color/black"
-            android:layout_marginRight="10sp"
+            android:layout_marginRight="11sp"
             android:layout_gravity="bottom|right"/>
 
         <TextView
