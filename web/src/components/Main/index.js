@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import RecipeBoxes from '../RecipeBoxes';
 import MainNavBar from '../MainNavBar';
 import MainSideBar from '../MainSideBar';
+import SearchBar from '../SearchBar';
 
 import Footer from '../Footer';
 import { getRecipes } from '../../backend/RecipeValueListener';
@@ -31,6 +32,7 @@ export const Main = () => {
         <div>
             <MainSideBar isOpen={isOpen} toggle={toggle} />
             <MainNavBar toggle={toggle} />
+            <SearchBar/>
             <h1>selam naber ess</h1>
             <h1>selam naber ess</h1>
             <h1>selam naber ess</h1>

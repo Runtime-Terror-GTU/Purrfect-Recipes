@@ -43,6 +43,7 @@ const printtrecipeINfo= async (data_) => {
     console.log(data_.R_RecipeDifficulty);
     console.log(data_.R_Recipe_Tags);
 }
+
 //Call all Recipes from firebase database
 const findRecipes = async () => {
     var recipes = await get(query(ref(database, "Recipes")))
