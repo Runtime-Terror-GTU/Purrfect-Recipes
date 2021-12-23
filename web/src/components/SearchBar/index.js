@@ -9,7 +9,7 @@ const SearchBar = () => {
                     <FormContent>
                         <Form action='#'>
                             
-                            <FormInput id='passwordInput' type="Search..." placeholder="Search..." required/>
+                            <FormInput id='searchinput' type="Search..." placeholder="Search..." required/>
                             
                             
                         </Form>
