@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { Link as LinkR } from 'react-router-dom';
 import { Link as LinkS } from 'react-scroll'; //scroll
-import { FaTimes } from 'react-icons/fa';
 
 //B38A9B pembe
 //F9C5D5 pembe diğer

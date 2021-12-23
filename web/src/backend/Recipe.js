@@ -1,6 +1,6 @@
 import './Comment';
-import { ref, set, get, query, orderByChild, equalTo } from "firebase/database";
-import { database } from "./firebase";
+//import { ref, set, get, query, orderByChild, equalTo } from "firebase/database";
+//import { database } from "./firebase";
 
 /* 
 Recipe class implementation

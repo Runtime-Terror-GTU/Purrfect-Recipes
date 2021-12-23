@@ -30,7 +30,6 @@ export const FormWrap = styled.div`
     }
 `;
 
-
 export const FormContent = styled.div`
     height: 100%;
     display: flex;

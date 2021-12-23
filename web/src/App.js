@@ -6,6 +6,7 @@ import SignInPage from './pages/signin';
 import SignUpPage from './pages/signup';
 import MainPage from './pages/main';
 
+//recipe duzenlenecek
 function App(){
   return (
     <Router>
@@ -14,6 +15,8 @@ function App(){
         <Route path="/signin" component={SignInPage} exact />
         <Route path="/signup" component={SignUpPage} exact />
         <Route path="/mainpage" component={MainPage} exact />
+        <Route path="/recipe"  exact />
+
       </Switch>
     </Router>
   )

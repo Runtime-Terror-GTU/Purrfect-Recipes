@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export const RecipeBoxContainer = styled.div`
     height: 175px;
@@ -39,7 +40,7 @@ export const RecipeBoxWrapper = styled.div`
     }
 `;
 
-export const RecipeBoxCardContainer = styled.div`
+export const RecipeBoxCardContainer = styled(Link)`
     background: #fff;
     display: flex;
     flex-direction: row;
@@ -58,7 +59,13 @@ export const RecipeBoxCardContainer = styled.div`
         transition: all 0.2s ease-in-out;
         cursor: pointer;
     }
-    
+//    white-space: nowrap;
+    color: #010606;
+    font-size: 16px;
+    outline: none;
+    border: none;
+    text-decoration: none;
+
     @media screen and (max-width: 1000px) {
         //grid-template-columns: 1fr 1fr;
         width: 400px;
@@ -96,7 +103,9 @@ export const RecipeBoxCardWrapper = styled.div`
 export const RecipeBoxIcon = styled.img`
     height: 100px;
     width: 100px;
-    margin-bottom: 10px;
+    border-radius: 5px;
+
+    //margin-bottom: 10px;
     @media screen and (max-width: 1000px) {
         height: 75px;
         width: 75px;

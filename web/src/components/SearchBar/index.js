@@ -1,5 +1,5 @@
 import React from 'react'
-import {FormInput,FormWrap,FormContent,Form} from './searchbarElments';
+import {FormInput,FormWrap,FormContent,Form} from './searchbarElements';
 
 const SearchBar = () => {
     return (

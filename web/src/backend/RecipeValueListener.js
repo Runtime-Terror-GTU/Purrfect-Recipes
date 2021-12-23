@@ -26,12 +26,13 @@ const getRecipes = async () => {
         recipesArray[i].R_RecipeDifficulty=recipes[recipesObjects[i]].R_RecipeDifficulty;
         recipesArray[i].R_Recipe_Tags=recipes[recipesObjects[i]].R_Recipe_Tags;
 
-        printtrecipeINfo(recipesArray[i]);
+        //printtrecipeINfo(recipesArray[i]);
         
     }
-
+    console.log(recipesArray)
     return recipesArray;
 }
+
 //test function for print recipe information
 const printtrecipeINfo= async (data_) => {
     console.log( data_.RecipeID );
@@ -49,4 +50,5 @@ const findRecipes = async () => {
     var recipes = await get(query(ref(database, "Recipes")))
     return recipes.val();
 }
+
 export {getRecipes};

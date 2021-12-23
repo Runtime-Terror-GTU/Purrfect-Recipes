@@ -1,6 +1,4 @@
 import React from 'react';
-import Icon1 from '../../images/svg-4.svg';
-
 import {
     RecipeBoxContainer,
     RecipeBoxWrapper,
@@ -11,34 +9,25 @@ import {
     RecipeBoxCardWrapper
 } from './RecipeBoxElements';
 
-
-
 //üstüne tıklayınca gitmesi lazım mlsfki
 //Recipe Box Container main'e tasinmali mi ????
 const RecipeBox = ({recipe}) => {
 
-    console.log("recipe icinde");
-    console.log(recipe.recipeName);
     return (
         <RecipeBoxContainer>
-
             <RecipeBoxWrapper>
-                
-                <RecipeBoxCardContainer>
-
+                <RecipeBoxCardContainer to="/recipe">
+                    
                     <RecipeBoxCardWrapper>
-                        <RecipeBoxIcon src={Icon1}/>
+                        <RecipeBoxIcon src={recipe.R_RecipePicture} />
                     </RecipeBoxCardWrapper>
                     <RecipeBoxCardWrapper>
-                        <RecipeBoxH2> {recipe.recipeName}  </RecipeBoxH2>
-                        <RecipeBoxP>by ESS</RecipeBoxP>   
+                        <RecipeBoxH2> {recipe.R_RecipeName}  </RecipeBoxH2>
+                        <RecipeBoxP> by {recipe.R_RecipeOwner} </RecipeBoxP>
                     </RecipeBoxCardWrapper>
-
+                    
                 </RecipeBoxCardContainer>
-
-
             </RecipeBoxWrapper>
-
         </RecipeBoxContainer>
     )
 }
