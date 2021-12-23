@@ -13,7 +13,7 @@ import {
 import { signUp } from "../../backend/UserService"
 import { v4 as uuidv4 } from 'uuid';
 
-const onSubmit = async (e)=> {
+const onSubmit = async (e) => {
     //TODO: show warning
     //sanırım toast deniyormus
     //KOD SORUN CIKARIRSA BUTTON TYPEINI SUBMIT YERİNE BUTTON YAP 

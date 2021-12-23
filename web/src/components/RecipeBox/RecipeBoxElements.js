@@ -10,11 +10,11 @@ export const RecipeBoxContainer = styled.div`
     auto-size: false;
     
     @media screen and (max-width: 768px) {
-        height: 1100px;
+        height: 100px;
     }
 
     @media screen and (max-width: 480px) {
-        height: 1300px;
+        height: 100px;
     }
 `;
 

@@ -11,11 +11,16 @@ import {
     RecipeBoxCardWrapper
 } from './RecipeBoxElements';
 
+
+
 //üstüne tıklayınca gitmesi lazım mlsfki
 //Recipe Box Container main'e tasinmali mi ????
-const RecipeBox = () => {
+const RecipeBox = ({recipe}) => {
+
+    console.log("recipe icinde");
+    console.log(recipe.recipeName);
     return (
-        <RecipeBoxContainer id="RecipeBox">
+        <RecipeBoxContainer>
 
             <RecipeBoxWrapper>
                 
@@ -25,7 +30,7 @@ const RecipeBox = () => {
                         <RecipeBoxIcon src={Icon1}/>
                     </RecipeBoxCardWrapper>
                     <RecipeBoxCardWrapper>
-                       <RecipeBoxH2>Mercimek Corbasi </RecipeBoxH2>
+                        <RecipeBoxH2> {recipe.recipeName}  </RecipeBoxH2>
                         <RecipeBoxP>by ESS</RecipeBoxP>   
                     </RecipeBoxCardWrapper>
 
