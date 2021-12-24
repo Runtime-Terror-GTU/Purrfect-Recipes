@@ -20,7 +20,7 @@ class RecipeRepository(val connector: RecipeRetrievedListener)
     {
         if(Hawk.get<String>(Constants.LOGGEDIN_USERID)!=null) {
             usersRef.child(Hawk.get(Constants.LOGGEDIN_USERID))
-                .addValueEventListener(object : ValueEventListener {
+                .addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
                         var currentUser: Customer? = null
                         val currentUserId = Hawk.get<String>(Constants.LOGGEDIN_USERID)
@@ -56,7 +56,6 @@ class RecipeRepository(val connector: RecipeRetrievedListener)
 
                         for (pRecipe in snapshot.child(Constants.R_PURRFECTEDRECIPES).children)
                             currentUser.addPurrfectedRecipe(pRecipe.key.toString())
-
                         connector.onUserRetrieved(currentUser)
                     }
 
@@ -74,6 +73,7 @@ class RecipeRepository(val connector: RecipeRetrievedListener)
         recipesRef.child(recipeId).addValueEventListener(object: ValueEventListener {
             override fun onDataChange(ds: DataSnapshot) {
                 val id=ds.key.toString()
+                retrieveUser()
                 val name=ds.child(Constants.R_RECIPENAME).value.toString()
                 val ownerId=ds.child(Constants.R_RECIPEOWNER).value.toString()
                 val difficulty=ds.child(Constants.R_RECIPEDIFFICULTY).value.toString()
@@ -91,7 +91,7 @@ class RecipeRepository(val connector: RecipeRetrievedListener)
                 for(commentId in ds.child(Constants.R_RECIPECOMMENTS).children)
                     recipe.addComment(commentId.key.toString())
 
-                usersRef.child(recipe.recipeOwner).addValueEventListener(object :
+                usersRef.child(recipe.recipeOwner).addListenerForSingleValueEvent(object :
                     ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
                         val ownerId=recipe.recipeOwner
@@ -118,7 +118,7 @@ class RecipeRepository(val connector: RecipeRetrievedListener)
                             connector.onRecipeRetrieved(recipe, owner, comments)
                         for(commentId in recipe.getRecipeComments())
                         {
-                            commentsRef.child(commentId).addValueEventListener(object: ValueEventListener{
+                            commentsRef.child(commentId).addListenerForSingleValueEvent(object: ValueEventListener{
                                 override fun onDataChange(ds: DataSnapshot) {
                                     val commentOwnerId=ds.child(Constants.R_COMMENTOWNER).value
                                     val commentContent=ds.child(Constants.R_COMMENTCONTENT).value
@@ -131,7 +131,7 @@ class RecipeRepository(val connector: RecipeRetrievedListener)
                                         var i=0
                                         for(comment in comments)
                                         {
-                                            usersRef.child(comment.getOwnerId()).addValueEventListener(object :ValueEventListener{
+                                            usersRef.child(comment.getOwnerId()).addListenerForSingleValueEvent(object :ValueEventListener{
                                                 override fun onDataChange(snapshot: DataSnapshot) {
                                                     comment.ownerName=snapshot.child(Constants.R_USERNAME).value.toString()
                                                     if(snapshot.child(Constants.R_USERSTATUS).value.toString()==CustomerStatus.UNVERIFIED.text)
@@ -142,8 +142,9 @@ class RecipeRepository(val connector: RecipeRetrievedListener)
                                                         comment.ownerStatus=CustomerStatus.PREMIUM
                                                     comment.ownerPicURL=snapshot.child(Constants.R_USERPICTURE).value.toString()
                                                     i++
-                                                    if(i==comments.size)
+                                                    if(i==comments.size) {
                                                         connector.onRecipeRetrieved(recipe, owner, comments)
+                                                    }
                                                 }
 
                                                 override fun onCancelled(error: DatabaseError) {
@@ -196,7 +197,7 @@ class RecipeRepository(val connector: RecipeRetrievedListener)
             commentsRef.child(commentId).removeValue()
 
         usersRef.child(deletedRecipe.recipeOwner).child(Constants.R_ADDEDRECIPES).child(deletedRecipe.getRecipeID()).removeValue()
-        usersRef.addValueEventListener(object:ValueEventListener{
+        usersRef.addListenerForSingleValueEvent(object:ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 for(ds in snapshot.children)
                 {
@@ -207,12 +208,12 @@ class RecipeRepository(val connector: RecipeRetrievedListener)
                 TODO("Not yet implemented")
             }
         })
-        dayRecipeRef.addValueEventListener(object :ValueEventListener{
+        dayRecipeRef.addListenerForSingleValueEvent(object :ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 for(ds in snapshot.children)
                 {
                     if(ds.value.toString()==deletedRecipe.getRecipeID()){
-                        recipesRef.addValueEventListener(object :ValueEventListener{
+                        recipesRef.addListenerForSingleValueEvent(object :ValueEventListener{
                             override fun onDataChange(snapshot: DataSnapshot) {
                                 for(recipe in snapshot.children)
                                 {

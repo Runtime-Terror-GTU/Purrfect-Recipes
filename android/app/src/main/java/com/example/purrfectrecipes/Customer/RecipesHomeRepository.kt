@@ -51,9 +51,9 @@ class RecipesHomeRepository(val connector: RecipesHomeVMRepConnector)
                 var i=0
                 var owner: Customer?=null
                 for(recipe in recipesArray) {
-                    usersRef.child(recipe.recipeOwner).addValueEventListener(object : ValueEventListener {
+                    usersRef.child(recipe.recipeOwner).addListenerForSingleValueEvent(object : ValueEventListener {
                         override fun onDataChange(snapshot: DataSnapshot) {
-                            if(Hawk.get<String>(Constants.LOGGEDIN_USERID)==recipe.recipeOwner)
+                            if(owner==null && Hawk.get<String>(Constants.LOGGEDIN_USERID)==recipe.recipeOwner)
                             {
                                 val ownerId=recipe.recipeOwner
                                 val ownerName=snapshot.child(Constants.R_USERNAME).value
@@ -93,7 +93,7 @@ class RecipesHomeRepository(val connector: RecipesHomeVMRepConnector)
 
     fun getRecipeOfTheDay(recipesArray:ArrayList<Recipe>, owner:Customer?)
     {
-        dayRecipeRef.addValueEventListener(object: ValueEventListener{
+        dayRecipeRef.addListenerForSingleValueEvent(object: ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 val format: DateFormat = SimpleDateFormat("dd MM yyyy", Locale.ENGLISH)
                 val c: Calendar = Calendar.getInstance(TimeZone.getTimeZone("GMT+3"))
