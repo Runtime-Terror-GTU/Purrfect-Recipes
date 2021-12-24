@@ -13,6 +13,8 @@ object Constants
     const val R_USERPICTURE="R_UserPicture"
     const val R_USERBIO="R_UserBio"
     const val R_USERSTATUS="R_User_Status"
+    const val R_ADDEDRECIPES="R_AddedRecipes"
+    const val R_PURRFECTEDRECIPES="R_PurrfectedRecipes"
 
     const val R_RECIPENAME="R_RecipeName"
     const val R_RECIPEOWNER="R_RecipeOwner"

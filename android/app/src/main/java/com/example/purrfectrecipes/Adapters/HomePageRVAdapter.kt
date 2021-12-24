@@ -12,10 +12,12 @@ import com.bumptech.glide.Glide
 import com.example.purrfectrecipes.Connectors.RecipeOnClickListener
 import com.example.purrfectrecipes.R
 import com.example.purrfectrecipes.Recipe
+import com.example.purrfectrecipes.User.Customer
 
 class HomePageRVAdapter(val context: Context, val listener:RecipeOnClickListener): RecyclerView.Adapter<HomePageRVAdapter.ViewHolder>()
 {
     private var recipes=ArrayList<Recipe>()
+    private var user:Customer?=null
     class ViewHolder(view: View): RecyclerView.ViewHolder(view)
     {
         val recipePic=view.findViewById<ImageView>(R.id.recipePicRV)
@@ -48,6 +50,7 @@ class HomePageRVAdapter(val context: Context, val listener:RecipeOnClickListener
                 .into(holder.recipePic)
         }
 
+
         holder.recipePic.setOnClickListener {
             listener.onRecipeClick(recipes.get(position).getRecipeID())
         }
@@ -64,6 +67,11 @@ class HomePageRVAdapter(val context: Context, val listener:RecipeOnClickListener
     fun setRecipes(list:ArrayList<Recipe>)
     {
         recipes=list
+    }
+
+    fun setUser(user: Customer)
+    {
+        this.user=user
     }
 
 

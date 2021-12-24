@@ -1,21 +1,26 @@
 package com.example.purrfectrecipes
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.View
 import android.widget.*
+import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.toColor
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.purrfectrecipes.Adapters.*
+import com.example.purrfectrecipes.Connectors.CommentChangeListener
 import com.example.purrfectrecipes.Customer.RecipesHomeViewModel
 import com.example.purrfectrecipes.Customer.WhatresHomeViewModel
 import com.example.purrfectrecipes.User.CustomerStatus
 import com.example.purrfectrecipes.User.User
 import com.orhanobut.hawk.Hawk
 
-class RecipeFragment : Fragment(R.layout.fragment_recipe)
+class RecipeFragment : Fragment(R.layout.fragment_recipe), CommentChangeListener
 {
     private val viewModel:RecipeViewModel by activityViewModels()
     private val recipesHomeViewModel:RecipesHomeViewModel by activityViewModels()
@@ -37,6 +42,7 @@ class RecipeFragment : Fragment(R.layout.fragment_recipe)
         val ownerPic=view.findViewById<ImageView>(R.id.ownerPic)
 
         val deleteRecipeButton=view.findViewById<ImageView>(R.id.deleteRecipeButton)
+        val purrfectButton=view.findViewById<CardView>(R.id.purrfectButton)
         val premiumSymbol=view.findViewById<ImageView>(R.id.premiumSymbol)
         val addCommentLayout=view.findViewById<LinearLayout>(R.id.addCommentLayout)
 
@@ -88,7 +94,7 @@ class RecipeFragment : Fragment(R.layout.fragment_recipe)
                 else
                     premiumSymbol.visibility=View.GONE
 
-                if(viewModel.recipeOwner?.getUserID()==Hawk.get(Constants.LOGGEDIN_USERID) || Hawk.get<CustomerStatus>(Constants.LOGGEDIN_USER_STATUS).text==UserStates.MODERATOR.text)
+                if(viewModel.recipeOwner?.getUserID()==Hawk.get(Constants.LOGGEDIN_USERID) || Hawk.get<CustomerStatus>(Constants.LOGGEDIN_USER_STATUS)==CustomerStatus.MODERATOR)
                     deleteRecipeButton.visibility=View.VISIBLE
                 else
                     deleteRecipeButton.visibility=View.GONE
@@ -99,11 +105,14 @@ class RecipeFragment : Fragment(R.layout.fragment_recipe)
                 else
                     addCommentLayout.visibility=View.GONE
 
+                if(viewModel.recipeOwner!!.isPurrfectedRecipe(viewModel.getRecipe().value!!.getRecipeID()))
+                    purrfectButton.setCardBackgroundColor(ContextCompat.getColor(requireContext(), R.color.secondary))
+
                 loadingBar.visibility=View.GONE
                 mainLayout.visibility=View.VISIBLE
             }
         })
-        
+
         viewModel.getComments().observe(viewLifecycleOwner,{
             if(viewModel.getComments().value!=null)
             {
@@ -111,6 +120,42 @@ class RecipeFragment : Fragment(R.layout.fragment_recipe)
                 commentsRVAdapter?.notifyDataSetChanged()
             }
         })
+
+        val addedComment=view.findViewById<EditText>(R.id.addedComment)
+        val addCommentButton=view.findViewById<Button>(R.id.addCommentButton)
+        addCommentButton.setOnClickListener {
+            if(addedComment.text.isNullOrEmpty())
+                Toast.makeText(requireContext(), "Please enter a comment first.", Toast.LENGTH_SHORT).show()
+            else {
+                viewModel.addComment(addedComment.text.toString())
+                addedComment.setText("")
+                addedComment.clearFocus()
+            }
+        }
+
+        deleteRecipeButton.setOnClickListener {
+            viewModel.deleteRecipe()
+
+            if(recipesHomeViewModel.getShownRecipe().value!=null)
+                recipesHomeViewModel.setShownRecipe(null)
+            if(whatresViewModel.getShownRecipe().value!=null)
+                whatresViewModel.setShownRecipe(null)
+            viewModel.resetRecipe()
+        }
+
+        purrfectButton.setOnClickListener {
+            if(!viewModel.recipeOwner!!.isPurrfectedRecipe(viewModel.getRecipe().value!!.getRecipeID()))
+            {
+                viewModel.purrfectRecipe()
+                purrfectButton.setCardBackgroundColor(ContextCompat.getColor(requireContext(), R.color.secondary))
+            }
+            else
+            {
+                viewModel.unPurrfectRecipe()
+                purrfectButton.setCardBackgroundColor(ContextCompat.getColor(requireContext(), R.color.white))
+            }
+        }
+
     }
 
     fun setRVAdapter()
@@ -127,7 +172,11 @@ class RecipeFragment : Fragment(R.layout.fragment_recipe)
 
         val recipeComments = view?.findViewById<RecyclerView>(R.id.recipeComments)
         recipeComments?.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        commentsRVAdapter = CommentsRVAdapter(requireContext())
+        commentsRVAdapter = CommentsRVAdapter(requireContext(), this)
         recipeComments?.adapter = commentsRVAdapter
+    }
+
+    override fun onDeleteComment(commentId: String) {
+        viewModel.deleteComment(commentId)
     }
 }

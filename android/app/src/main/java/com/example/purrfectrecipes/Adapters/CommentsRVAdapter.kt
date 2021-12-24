@@ -10,12 +10,14 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.purrfectrecipes.Comment
+import com.example.purrfectrecipes.Connectors.CommentChangeListener
 import com.example.purrfectrecipes.Constants
 import com.example.purrfectrecipes.R
 import com.example.purrfectrecipes.User.CustomerStatus
+import com.example.purrfectrecipes.UserStates
 import com.orhanobut.hawk.Hawk
 
-class CommentsRVAdapter (val context: Context): RecyclerView.Adapter<CommentsRVAdapter.ViewHolder>() {
+class CommentsRVAdapter (val context: Context, val listener:CommentChangeListener): RecyclerView.Adapter<CommentsRVAdapter.ViewHolder>() {
     private var comments = ArrayList<Comment>()
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -48,10 +50,15 @@ class CommentsRVAdapter (val context: Context): RecyclerView.Adapter<CommentsRVA
         else
             holder.premiumSymbol.visibility=View.GONE
 
-        if(Hawk.get<String>(Constants.LOGGEDIN_USERID)==comments.get(position).getOwnerId())
+        if(Hawk.get<String>(Constants.LOGGEDIN_USERID)==comments.get(position).getOwnerId() ||
+            Hawk.get<CustomerStatus>(Constants.LOGGEDIN_USER_STATUS)==CustomerStatus.MODERATOR)
             holder.deleteButton.visibility=View.VISIBLE
         else
             holder.deleteButton.visibility=View.GONE
+
+        holder.deleteButton.setOnClickListener {
+            listener.onDeleteComment(comments.get(position).getId())
+        }
     }
 
     override fun getItemCount(): Int {

@@ -29,7 +29,7 @@
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="200sp"
+                android:layout_height="220sp"
                 app:cardCornerRadius="8dp"
                 android:layout_marginTop="-4sp">
 
@@ -50,7 +50,7 @@
                         android:layout_height="64dp"
                         android:layout_gravity="bottom|right"
                         app:cardCornerRadius="50dp"
-                        android:background="@color/white">
+                        app:cardBackgroundColor="@color/white">
 
                         <ImageView
                             android:layout_width="match_parent"

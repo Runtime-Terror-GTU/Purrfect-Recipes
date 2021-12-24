@@ -67,12 +67,13 @@
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/purrfectButton"
+                        android:id="@+id/purrfectDayButton"
                         android:layout_width="50dp"
                         android:layout_height="49dp"
                         android:layout_gravity="bottom"
                         android:layout_marginLeft="98sp"
-                        app:cardCornerRadius="30dp">
+                        app:cardCornerRadius="30dp"
+                        app:cardBackgroundColor="@color/white">
 
                         <ImageView
                             android:layout_width="match_parent"

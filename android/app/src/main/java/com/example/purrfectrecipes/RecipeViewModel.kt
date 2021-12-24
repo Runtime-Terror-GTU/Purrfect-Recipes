@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.purrfectrecipes.Connectors.RecipeRetrievedListener
 import com.example.purrfectrecipes.User.Customer
+import com.orhanobut.hawk.Hawk
 
 class RecipeViewModel : ViewModel(), RecipeRetrievedListener
 {
@@ -24,6 +25,31 @@ class RecipeViewModel : ViewModel(), RecipeRetrievedListener
     fun resetRecipe()
     {
         recipe.value=null
+    }
+
+    fun addComment(commentText:String)
+    {
+        repository.saveComment(commentText, recipe.value!!.getRecipeID(), Hawk.get<String>(Constants.LOGGEDIN_USERID))
+    }
+
+    fun deleteComment(commentId:String)
+    {
+        repository.removeComment(commentId, recipe.value!!.getRecipeID())
+    }
+
+    fun deleteRecipe()
+    {
+        repository.removeRecipe(recipe.value!!)
+    }
+
+    fun purrfectRecipe()
+    {
+        repository.increasePurrfectedCount(recipe.value!!.getRecipeID(), recipe.value!!.recipeLikes, Hawk.get<String>(Constants.LOGGEDIN_USERID))
+    }
+
+    fun unPurrfectRecipe()
+    {
+        repository.decreasePurrfectedCount(recipe.value!!.getRecipeID(), recipe.value!!.recipeLikes, Hawk.get<String>(Constants.LOGGEDIN_USERID))
     }
 
     override fun onRecipeRetrieved(recipe: Recipe, recipeOwner:Customer, comments:ArrayList<Comment>) {

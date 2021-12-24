@@ -13,6 +13,7 @@ class RecipeRepository(val connector: RecipeRetrievedListener)
     private val recipesRef: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Recipes")
     private val usersRef: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users")
     private val commentsRef: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Comments")
+    private val dayRecipeRef: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Recipe of The Day")
 
     fun retrieveRecipe(recipeId:String)
     {
@@ -54,6 +55,9 @@ class RecipeRepository(val connector: RecipeRetrievedListener)
                             owner=Customer(ownerId, ownerName as String, ownerEmail as String, status=CustomerStatus.VERIFIED, pic=ownerPic as String)
                         else
                             owner=Customer(ownerId, ownerName as String, ownerEmail as String, status=CustomerStatus.PREMIUM, pic=ownerPic as String)
+
+                        for(pRecipe in snapshot.child(Constants.R_PURRFECTEDRECIPES).children)
+                            owner.addPurrfectedRecipe(pRecipe.key.toString())
 
                         val comments=ArrayList<Comment>()
                         var j=0
@@ -116,5 +120,78 @@ class RecipeRepository(val connector: RecipeRetrievedListener)
                 Log.e("ERROR", error.message)
             }
         })
+    }
+
+    fun saveComment(commentText:String, recipeId:String, ownerId:String)
+    {
+        val newCommentId=UUID.randomUUID().toString()
+        recipesRef.child(recipeId).child(Constants.R_RECIPECOMMENTS).child(newCommentId).setValue("true")
+        commentsRef.child(newCommentId).child(Constants.R_COMMENTCONTENT).setValue(commentText)
+        commentsRef.child(newCommentId).child(Constants.R_COMMENTOWNER).setValue(ownerId)
+
+    }
+
+    fun removeComment(commentId:String, recipeId:String)
+    {
+        recipesRef.child(recipeId).child(Constants.R_RECIPECOMMENTS).child(commentId).removeValue()
+        commentsRef.child(commentId).removeValue()
+    }
+
+    fun removeRecipe(deletedRecipe:Recipe)
+    {
+        for(commentId in deletedRecipe.getRecipeComments())
+            commentsRef.child(commentId).removeValue()
+
+        usersRef.child(deletedRecipe.recipeOwner).child(Constants.R_ADDEDRECIPES).child(deletedRecipe.getRecipeID()).removeValue()
+        usersRef.addValueEventListener(object:ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for(ds in snapshot.children)
+                {
+                    ds.child(Constants.R_PURRFECTEDRECIPES).child(deletedRecipe.getRecipeID()).ref.removeValue()
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
+        dayRecipeRef.addValueEventListener(object :ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for(ds in snapshot.children)
+                {
+                    if(ds.value.toString()==deletedRecipe.getRecipeID()){
+                        recipesRef.addValueEventListener(object :ValueEventListener{
+                            override fun onDataChange(snapshot: DataSnapshot) {
+                                for(recipe in snapshot.children)
+                                {
+                                    ds.ref.setValue(recipe.key.toString())
+                                    break
+                                }
+                            }
+
+                            override fun onCancelled(error: DatabaseError) {
+                                TODO("Not yet implemented")
+                            }
+                        })
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
+    }
+
+    fun increasePurrfectedCount(recipeId:String, currentCount:Int, userId:String)
+    {
+        recipesRef.child(recipeId).child(Constants.R_RECIPEPURRFECTEDCOUNT).setValue((currentCount+1).toString())
+        usersRef.child(userId).child(Constants.R_PURRFECTEDRECIPES).child(recipeId).setValue(true)
+    }
+
+    fun decreasePurrfectedCount(recipeId:String, currentCount:Int, userId:String)
+    {
+        recipesRef.child(recipeId).child(Constants.R_RECIPEPURRFECTEDCOUNT).setValue((currentCount-1).toString())
+        usersRef.child(userId).child(Constants.R_PURRFECTEDRECIPES).child(recipeId).removeValue()
     }
 }

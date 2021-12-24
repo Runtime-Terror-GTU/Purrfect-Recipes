@@ -16,10 +16,7 @@ import com.example.purrfectrecipes.Admin.AdminActivity
 import com.example.purrfectrecipes.Customer.CustomerActivity
 import com.example.purrfectrecipes.Guest.GuestActivity
 import com.example.purrfectrecipes.Moderator.ModeratorActivity
-import com.example.purrfectrecipes.User.Admin
-import com.example.purrfectrecipes.User.Customer
-import com.example.purrfectrecipes.User.Moderator
-import com.example.purrfectrecipes.User.User
+import com.example.purrfectrecipes.User.*
 import com.google.android.material.textfield.TextInputLayout
 import com.orhanobut.hawk.Hawk
 import java.util.*
@@ -164,6 +161,7 @@ class StartActivity : AppCompatActivity() {
 
     private fun startAdminActivity()
     {
+        Hawk.put(Constants.LOGGEDIN_USER_STATUS, CustomerStatus.ADMIN)
         val intent= Intent(this, AdminActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
@@ -173,6 +171,7 @@ class StartActivity : AppCompatActivity() {
 
     private fun startModeratorActivity()
     {
+        Hawk.put(Constants.LOGGEDIN_USER_STATUS, CustomerStatus.MODERATOR)
         val intent= Intent(this, ModeratorActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 

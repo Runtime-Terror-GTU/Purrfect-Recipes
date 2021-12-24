@@ -27,6 +27,7 @@ import java.io.FileInputStream
 import android.graphics.BitmapFactory
 import android.widget.*
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import com.bumptech.glide.Glide
 import com.example.purrfectrecipes.*
@@ -44,7 +45,7 @@ class RecipesHomeChildfragment: Fragment(R.layout.childfragment_home_recipes), R
     private val filterViewModel:FilterViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val recipesRef: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Recipes")
+        /*val recipesRef: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Recipes")
         val usersRef: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users")
         val dayRecipeRef: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Recipe of The Day")
         val storageRef=FirebaseStorage.getInstance().getReference().child("Recipe Pictures")
@@ -87,7 +88,9 @@ class RecipesHomeChildfragment: Fragment(R.layout.childfragment_home_recipes), R
         recipesRef.child(id5).child(Constants.R_RECIPEDIFFICULTY).setValue("Hard")
         recipesRef.child(id5).child(Constants.R_RECIPEPURRFECTEDCOUNT).setValue("106")
         uri=resourceToUri(requireContext(), R.drawable.brownie)
-        //storageRef.child(id5).putFile(uri)
+        //storageRef.child(id5).putFile(uri)*/
+
+        val purrfectDayRecipeButton=view.findViewById<CardView>(R.id.purrfectDayButton)
 
         viewModel.getView().observe(viewLifecycleOwner, {
             if(viewModel.getView().value!=null)
@@ -108,8 +111,18 @@ class RecipesHomeChildfragment: Fragment(R.layout.childfragment_home_recipes), R
 
         viewModel.getRecipes().observe(viewLifecycleOwner, {
             if(viewModel.getRecipes().value!=null) {
+                if(viewModel.user!=null && viewModel.user!!.isPurrfectedRecipe(viewModel.getRecipeOfTheDay().value!!.getRecipeID())) {
+                    purrfectDayRecipeButton.setCardBackgroundColor(ContextCompat.getColor(requireContext(), R.color.secondary))
+                    recipesRVAdapter?.setUser(viewModel.user!!)
+                }
                 recipesRVAdapter?.setRecipes(viewModel.getRecipes().value!!)
                 recipesRVAdapter?.notifyDataSetChanged()
+
+                val homePage=view.findViewById<LinearLayout>(R.id.homePage)
+                val loadingBar=view.findViewById<ProgressBar>(R.id.loadingBar)
+
+                loadingBar.visibility=View.GONE
+                homePage.visibility=View.VISIBLE
             }
         })
 
@@ -133,10 +146,6 @@ class RecipesHomeChildfragment: Fragment(R.layout.childfragment_home_recipes), R
                         .load(viewModel.getRecipeOfTheDay().value?.recipePictureURL)
                         .into(recipePic)
                 }
-                val homePage=view.findViewById<LinearLayout>(R.id.homePage)
-                val loadingBar=view.findViewById<ProgressBar>(R.id.loadingBar)
-                loadingBar.visibility=View.GONE
-                homePage.visibility=View.VISIBLE
             }
         })
 
@@ -185,9 +194,17 @@ class RecipesHomeChildfragment: Fragment(R.layout.childfragment_home_recipes), R
             onRecipeClick(viewModel.getRecipeOfTheDay().value!!.getRecipeID())
         }
 
-        val purrfectButton=view.findViewById<CardView>(R.id.purrfectButton)
-        purrfectButton.setOnClickListener {
-
+        purrfectDayRecipeButton.setOnClickListener {
+            if(viewModel.user!=null && !viewModel.user!!.isPurrfectedRecipe(viewModel.getRecipeOfTheDay().value!!.getRecipeID()))
+            {
+                viewModel.purrfectDayRecipe()
+                purrfectDayRecipeButton.setCardBackgroundColor(ContextCompat.getColor(requireContext(), R.color.secondary))
+            }
+            else if(viewModel.user!=null)
+            {
+                viewModel.unPurrfectDayRecipe()
+                purrfectDayRecipeButton.setCardBackgroundColor(ContextCompat.getColor(requireContext(), R.color.white))
+            }
         }
 
     }

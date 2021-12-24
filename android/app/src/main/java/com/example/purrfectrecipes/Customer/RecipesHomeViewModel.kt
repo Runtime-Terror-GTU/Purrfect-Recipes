@@ -9,6 +9,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.purrfectrecipes.*
 import com.example.purrfectrecipes.Connectors.RecipesHomeVMRepConnector
+import com.example.purrfectrecipes.User.Customer
+import com.orhanobut.hawk.Hawk
 
 class RecipesHomeViewModel: ViewModel(), RecipesHomeVMRepConnector
 {
@@ -21,6 +23,8 @@ class RecipesHomeViewModel: ViewModel(), RecipesHomeVMRepConnector
     private val repository=RecipesHomeRepository(this)
     private var recipeOfTheDay=MutableLiveData<Recipe>()
         fun getRecipeOfTheDay():LiveData<Recipe> {return recipeOfTheDay}
+
+    var user: Customer?=null
 
     private val sort=MutableLiveData<Boolean?>()
         fun getSort():LiveData<Boolean?>{return sort}
@@ -143,9 +147,20 @@ class RecipesHomeViewModel: ViewModel(), RecipesHomeVMRepConnector
         recipes.value=allRecipes.value
     }
 
+    fun purrfectDayRecipe()
+    {
+        repository.increaseDayPurrfectedCount(recipeOfTheDay.value!!.getRecipeID(), recipeOfTheDay.value!!.recipeLikes, Hawk.get<String>(Constants.LOGGEDIN_USERID))
+    }
 
-    override fun onRecipesRetrieved(list: ArrayList<Recipe>?) {
+    fun unPurrfectDayRecipe()
+    {
+        repository.decreaseDayPurrfectedCount(recipeOfTheDay.value!!.getRecipeID(), recipeOfTheDay.value!!.recipeLikes, Hawk.get<String>(Constants.LOGGEDIN_USERID))
+    }
+
+
+    override fun onRecipesRetrieved(list: ArrayList<Recipe>?, owner:Customer?) {
         if(list!=null) {
+            user=owner
             recipes.value = list
             allRecipes.value=list
         }
