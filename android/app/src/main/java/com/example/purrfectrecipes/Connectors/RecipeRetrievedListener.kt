@@ -6,4 +6,5 @@ import com.example.purrfectrecipes.User.Customer
 
 interface RecipeRetrievedListener {
     fun onRecipeRetrieved(recipe: Recipe, recipeOwner:Customer, comments:ArrayList<Comment>)
+    fun onUserRetrieved(user:Customer?)
 }

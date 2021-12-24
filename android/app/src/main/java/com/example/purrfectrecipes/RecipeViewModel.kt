@@ -1,5 +1,6 @@
 package com.example.purrfectrecipes
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,10 +13,15 @@ class RecipeViewModel : ViewModel(), RecipeRetrievedListener
     private var recipe= MutableLiveData<Recipe?>()
         fun getRecipe(): LiveData<Recipe?> {return recipe}
     var recipeOwner:Customer?=null
+    var user:Customer?=null
     private var comments= MutableLiveData<ArrayList<Comment>>()
         fun getComments(): LiveData<ArrayList<Comment>> {return comments}
 
     private val repository=RecipeRepository(this)
+
+    init{
+        repository.retrieveUser()
+    }
 
     fun setRecipe(id: String)
     {
@@ -50,6 +56,11 @@ class RecipeViewModel : ViewModel(), RecipeRetrievedListener
     fun unPurrfectRecipe()
     {
         repository.decreasePurrfectedCount(recipe.value!!.getRecipeID(), recipe.value!!.recipeLikes, Hawk.get<String>(Constants.LOGGEDIN_USERID))
+    }
+
+    override fun onUserRetrieved(user:Customer?)
+    {
+        this.user=user
     }
 
     override fun onRecipeRetrieved(recipe: Recipe, recipeOwner:Customer, comments:ArrayList<Comment>) {

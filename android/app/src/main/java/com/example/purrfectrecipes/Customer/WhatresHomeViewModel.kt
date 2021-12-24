@@ -5,13 +5,12 @@ import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.purrfectrecipes.*
 import com.example.purrfectrecipes.Connectors.RecipesRetrievedListener
-import com.example.purrfectrecipes.DifficultyComparator
-import com.example.purrfectrecipes.HeapSort
-import com.example.purrfectrecipes.PopularityComparator
-import com.example.purrfectrecipes.Recipe
+import com.example.purrfectrecipes.User.Customer
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.orhanobut.hawk.Hawk
 
 class WhatresHomeViewModel: ViewModel(), RecipesRetrievedListener
 {
@@ -24,6 +23,9 @@ class WhatresHomeViewModel: ViewModel(), RecipesRetrievedListener
         fun getAllRecipes(): LiveData<ArrayList<Recipe>?> {return allRecipes}
     private var recipes=MutableLiveData<ArrayList<Recipe>?>()
         fun getRecipes(): LiveData<ArrayList<Recipe>?> {return recipes}
+
+    var user: Customer?=null
+    var change=false
 
     private val sort=MutableLiveData<Boolean?>()
         fun getSort():LiveData<Boolean?>{return sort}
@@ -170,8 +172,19 @@ class WhatresHomeViewModel: ViewModel(), RecipesRetrievedListener
         recipes.value=tempArray
     }
 
-    override fun onRecipesRetrieved(list: ArrayList<Recipe>?) {
+    fun purrfectRecipe(recipeId:String, currentLikes:Int)
+    {
+        repository.increaseDayPurrfectedCount(recipeId, currentLikes, Hawk.get<String>(Constants.LOGGEDIN_USERID))
+    }
+
+    fun unPurrfectRecipe(recipeId:String, currentLikes: Int)
+    {
+        repository.decreaseDayPurrfectedCount(recipeId, currentLikes, Hawk.get<String>(Constants.LOGGEDIN_USERID))
+    }
+
+    override fun onRecipesRetrieved(list: ArrayList<Recipe>?, user:Customer?) {
         if(list!=null) {
+            this.user=user
             totalRecipes.value=list
         }
     }

@@ -111,12 +111,21 @@ class RecipesHomeChildfragment: Fragment(R.layout.childfragment_home_recipes), R
 
         viewModel.getRecipes().observe(viewLifecycleOwner, {
             if(viewModel.getRecipes().value!=null) {
-                if(viewModel.user!=null && viewModel.user!!.isPurrfectedRecipe(viewModel.getRecipeOfTheDay().value!!.getRecipeID())) {
-                    purrfectDayRecipeButton.setCardBackgroundColor(ContextCompat.getColor(requireContext(), R.color.secondary))
+                if(viewModel.user!=null) {
+                    if(viewModel.user!!.isPurrfectedRecipe(viewModel.getRecipeOfTheDay().value!!.getRecipeID()))
+                        purrfectDayRecipeButton.setCardBackgroundColor(ContextCompat.getColor(requireContext(), R.color.secondary))
+                    else
+                        purrfectDayRecipeButton.setCardBackgroundColor(ContextCompat.getColor(requireContext(), R.color.white))
                     recipesRVAdapter?.setUser(viewModel.user!!)
                 }
                 recipesRVAdapter?.setRecipes(viewModel.getRecipes().value!!)
                 recipesRVAdapter?.notifyDataSetChanged()
+
+                if(viewModel.change==true)
+                {
+                    viewModel.change=false
+                    redoOperations(false)
+                }
 
                 val homePage=view.findViewById<LinearLayout>(R.id.homePage)
                 val loadingBar=view.findViewById<ProgressBar>(R.id.loadingBar)
@@ -153,12 +162,12 @@ class RecipesHomeChildfragment: Fragment(R.layout.childfragment_home_recipes), R
         val searchCancelButton=view.findViewById<ImageView>(R.id.cancelSearchButton)
         val searchText=view.findViewById<EditText>(R.id.searchText)
         searchDoneButton.setOnClickListener{
-            redoOperations()
+            redoOperations(true)
         }
         searchCancelButton.setOnClickListener {
             searchText.setText("")
             searchText.clearFocus()
-            redoOperations()
+            redoOperations(true)
         }
 
         val sortButton=view.findViewById<Button>(R.id.sortButton)
@@ -174,19 +183,19 @@ class RecipesHomeChildfragment: Fragment(R.layout.childfragment_home_recipes), R
         }
 
         sortViewModel.getDiffHomeSort().observe(viewLifecycleOwner, {
-            redoOperations()
+            redoOperations(true)
         })
 
         sortViewModel.getPopHomeSort().observe(viewLifecycleOwner,{
-            redoOperations()
+            redoOperations(true)
         })
 
         filterViewModel.getChosenTagsHome().observe(viewLifecycleOwner, {
-            redoOperations()
+            redoOperations(true)
         })
 
         filterViewModel.getChosenDifficultiesHome().observe(viewLifecycleOwner, {
-            redoOperations()
+            redoOperations(true)
         })
 
         val recipeOfTheDay=view.findViewById<CardView>(R.id.recipeOfTheDay)
@@ -197,12 +206,12 @@ class RecipesHomeChildfragment: Fragment(R.layout.childfragment_home_recipes), R
         purrfectDayRecipeButton.setOnClickListener {
             if(viewModel.user!=null && !viewModel.user!!.isPurrfectedRecipe(viewModel.getRecipeOfTheDay().value!!.getRecipeID()))
             {
-                viewModel.purrfectDayRecipe()
+                viewModel.purrfectRecipe(viewModel.getRecipeOfTheDay().value!!.getRecipeID(), viewModel.getRecipeOfTheDay().value!!.recipeLikes)
                 purrfectDayRecipeButton.setCardBackgroundColor(ContextCompat.getColor(requireContext(), R.color.secondary))
             }
             else if(viewModel.user!=null)
             {
-                viewModel.unPurrfectDayRecipe()
+                viewModel.unPurrfectRecipe(viewModel.getRecipeOfTheDay().value!!.getRecipeID(), viewModel.getRecipeOfTheDay().value!!.recipeLikes)
                 purrfectDayRecipeButton.setCardBackgroundColor(ContextCompat.getColor(requireContext(), R.color.white))
             }
         }
@@ -224,9 +233,10 @@ class RecipesHomeChildfragment: Fragment(R.layout.childfragment_home_recipes), R
         recipesGridView?.adapter = recipesRVAdapter
     }
 
-    fun redoOperations()
+    fun redoOperations(reset:Boolean)
     {
-        viewModel.resetRecipeArray()
+        if(reset)
+            viewModel.resetRecipeArray()
 
         val byName=view?.findViewById<RadioButton>(R.id.byName)
         val byUsername=view?.findViewById<RadioButton>(R.id.byUsername)
@@ -258,6 +268,16 @@ class RecipesHomeChildfragment: Fragment(R.layout.childfragment_home_recipes), R
 
     override fun onRecipeClick(recipeId: String) {
         viewModel.setShownRecipe(recipeId)
+    }
+
+    override fun onPurrfect(recipeId: String, recipeLikes:Int) {
+        viewModel.change=true
+        viewModel.purrfectRecipe(recipeId, recipeLikes)
+    }
+
+    override fun unPurrfect(recipeId: String, recipeLikes:Int) {
+        viewModel.change=true
+        viewModel.unPurrfectRecipe(recipeId, recipeLikes)
     }
 
 }

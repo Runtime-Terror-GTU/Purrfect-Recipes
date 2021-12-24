@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.purrfectrecipes.Connectors.RecipeOnClickListener
@@ -18,6 +19,7 @@ class HomePageRVAdapter(val context: Context, val listener:RecipeOnClickListener
 {
     private var recipes=ArrayList<Recipe>()
     private var user:Customer?=null
+
     class ViewHolder(view: View): RecyclerView.ViewHolder(view)
     {
         val recipePic=view.findViewById<ImageView>(R.id.recipePicRV)
@@ -50,13 +52,26 @@ class HomePageRVAdapter(val context: Context, val listener:RecipeOnClickListener
                 .into(holder.recipePic)
         }
 
-
         holder.recipePic.setOnClickListener {
             listener.onRecipeClick(recipes.get(position).getRecipeID())
         }
 
-        holder.purrfectButton.setOnClickListener {
+        if(user!=null) {
+            holder.purrfectButton.setOnClickListener {
+                if (!user!!.isPurrfectedRecipe(recipes.get(position).getRecipeID())) {
+                    holder.purrfectButton.setCardBackgroundColor(ContextCompat.getColor(context, R.color.secondary))
+                    listener.onPurrfect(recipes.get(position).getRecipeID(), recipes.get(position).recipeLikes)
+                } else {
+                    holder.purrfectButton.setCardBackgroundColor(ContextCompat.getColor(context, R.color.white))
+                    listener.unPurrfect(recipes.get(position).getRecipeID(), recipes.get(position).recipeLikes)
+                }
+            }
 
+            if (user!!.isPurrfectedRecipe(recipes.get(position).getRecipeID())) {
+                holder.purrfectButton.setCardBackgroundColor(ContextCompat.getColor(context, R.color.secondary))
+            } else if (!user!!.isPurrfectedRecipe(recipes.get(position).getRecipeID())) {
+                holder.purrfectButton.setCardBackgroundColor(ContextCompat.getColor(context, R.color.white))
+            }
         }
     }
 

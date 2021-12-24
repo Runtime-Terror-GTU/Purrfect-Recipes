@@ -5,6 +5,7 @@ import com.example.purrfectrecipes.Connectors.RecipeRetrievedListener
 import com.example.purrfectrecipes.User.Customer
 import com.example.purrfectrecipes.User.CustomerStatus
 import com.google.firebase.database.*
+import com.orhanobut.hawk.Hawk
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -15,11 +16,63 @@ class RecipeRepository(val connector: RecipeRetrievedListener)
     private val commentsRef: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Comments")
     private val dayRecipeRef: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Recipe of The Day")
 
+    fun retrieveUser()
+    {
+        if(Hawk.get<String>(Constants.LOGGEDIN_USERID)!=null) {
+            usersRef.child(Hawk.get(Constants.LOGGEDIN_USERID))
+                .addValueEventListener(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        var currentUser: Customer? = null
+                        val currentUserId = Hawk.get<String>(Constants.LOGGEDIN_USERID)
+                        val currentUserName = snapshot.child(Constants.R_USERNAME).value
+                        val currentUserStatus = snapshot.child(Constants.R_USERSTATUS).value
+                        val currentUserPic = snapshot.child(Constants.R_USERPICTURE).value
+                        val currentUserEmail = snapshot.child(Constants.R_USEREMAIL).value
+
+                        if (currentUserStatus == CustomerStatus.UNVERIFIED.text)
+                            currentUser = Customer(
+                                currentUserId,
+                                currentUserName as String,
+                                currentUserEmail as String,
+                                status = CustomerStatus.UNVERIFIED,
+                                pic = currentUserPic as String
+                            )
+                        else if (currentUserStatus == CustomerStatus.VERIFIED.text)
+                            currentUser = Customer(
+                                currentUserId,
+                                currentUserName as String,
+                                currentUserEmail as String,
+                                status = CustomerStatus.VERIFIED,
+                                pic = currentUserPic as String
+                            )
+                        else
+                            currentUser = Customer(
+                                currentUserId,
+                                currentUserName as String,
+                                currentUserEmail as String,
+                                status = CustomerStatus.PREMIUM,
+                                pic = currentUserPic as String
+                            )
+
+                        for (pRecipe in snapshot.child(Constants.R_PURRFECTEDRECIPES).children)
+                            currentUser.addPurrfectedRecipe(pRecipe.key.toString())
+
+                        connector.onUserRetrieved(currentUser)
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        TODO("Not yet implemented")
+                    }
+                })
+        }
+        else
+            connector.onUserRetrieved(null)
+    }
+
     fun retrieveRecipe(recipeId:String)
     {
         recipesRef.child(recipeId).addValueEventListener(object: ValueEventListener {
             override fun onDataChange(ds: DataSnapshot) {
-
                 val id=ds.key.toString()
                 val name=ds.child(Constants.R_RECIPENAME).value.toString()
                 val ownerId=ds.child(Constants.R_RECIPEOWNER).value.toString()

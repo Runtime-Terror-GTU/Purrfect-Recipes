@@ -17,7 +17,6 @@ import com.orhanobut.hawk.Hawk
 
 class InfoProfileChildfragment: Fragment(R.layout.childfragment_profile_info)
 {
-    private var fragmentView:View?=null
     private val viewModel: InfoProfileViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -31,7 +30,8 @@ class InfoProfileChildfragment: Fragment(R.layout.childfragment_profile_info)
             }
         })
 
-        val logoutButton=fragmentView?.findViewById<ImageView>(R.id.logoutButton)
+        val logoutButton=view.findViewById<ImageView>(R.id.logoutButton)
+        Log.i("here", logoutButton.toString())
         logoutButton?.setOnClickListener {
             Hawk.delete(Constants.LOGGEDIN_USERID)
             Hawk.delete(Constants.LOGGEDIN_USER_STATUS)

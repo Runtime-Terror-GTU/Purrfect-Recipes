@@ -105,7 +105,7 @@ class RecipeFragment : Fragment(R.layout.fragment_recipe), CommentChangeListener
                 else
                     addCommentLayout.visibility=View.GONE
 
-                if(viewModel.recipeOwner!!.isPurrfectedRecipe(viewModel.getRecipe().value!!.getRecipeID()))
+                if(viewModel.user!=null && viewModel.user!!.isPurrfectedRecipe(viewModel.getRecipe().value!!.getRecipeID()))
                     purrfectButton.setCardBackgroundColor(ContextCompat.getColor(requireContext(), R.color.secondary))
 
                 loadingBar.visibility=View.GONE
@@ -144,17 +144,18 @@ class RecipeFragment : Fragment(R.layout.fragment_recipe), CommentChangeListener
         }
 
         purrfectButton.setOnClickListener {
-            if(!viewModel.recipeOwner!!.isPurrfectedRecipe(viewModel.getRecipe().value!!.getRecipeID()))
+            if(viewModel.user!=null && (!viewModel.user!!.isPurrfectedRecipe(viewModel.getRecipe().value!!.getRecipeID())))
             {
                 viewModel.purrfectRecipe()
                 purrfectButton.setCardBackgroundColor(ContextCompat.getColor(requireContext(), R.color.secondary))
             }
-            else
+            else if (viewModel.user!=null)
             {
                 viewModel.unPurrfectRecipe()
                 purrfectButton.setCardBackgroundColor(ContextCompat.getColor(requireContext(), R.color.white))
             }
         }
+
 
     }
 

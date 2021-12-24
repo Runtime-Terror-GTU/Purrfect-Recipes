@@ -32,6 +32,8 @@ class RecipesHomeViewModel: ViewModel(), RecipesHomeVMRepConnector
     private val filter=MutableLiveData<Boolean?>()
         fun getFilter():LiveData<Boolean?>{return filter}
 
+    var change=false
+
     private val shownRecipe=MutableLiveData<String?>()
         fun getShownRecipe():LiveData<String?>{return shownRecipe}
 
@@ -147,22 +149,22 @@ class RecipesHomeViewModel: ViewModel(), RecipesHomeVMRepConnector
         recipes.value=allRecipes.value
     }
 
-    fun purrfectDayRecipe()
+    fun purrfectRecipe(recipeId:String, currentLikes:Int)
     {
-        repository.increaseDayPurrfectedCount(recipeOfTheDay.value!!.getRecipeID(), recipeOfTheDay.value!!.recipeLikes, Hawk.get<String>(Constants.LOGGEDIN_USERID))
+        repository.increaseDayPurrfectedCount(recipeId, currentLikes, Hawk.get<String>(Constants.LOGGEDIN_USERID))
     }
 
-    fun unPurrfectDayRecipe()
+    fun unPurrfectRecipe(recipeId:String, currentLikes: Int)
     {
-        repository.decreaseDayPurrfectedCount(recipeOfTheDay.value!!.getRecipeID(), recipeOfTheDay.value!!.recipeLikes, Hawk.get<String>(Constants.LOGGEDIN_USERID))
+        repository.decreaseDayPurrfectedCount(recipeId, currentLikes, Hawk.get<String>(Constants.LOGGEDIN_USERID))
     }
 
 
     override fun onRecipesRetrieved(list: ArrayList<Recipe>?, owner:Customer?) {
         if(list!=null) {
             user=owner
-            recipes.value = list
             allRecipes.value=list
+            recipes.value = list
         }
     }
 

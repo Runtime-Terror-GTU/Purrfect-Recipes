@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.*
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
@@ -40,15 +41,26 @@ class WhatresHomeChildfragment: Fragment(R.layout.childfragment_home_whatres), R
         })
 
         viewModel.getTotalRecipes().observe(viewLifecycleOwner,{
-            if(viewModel.getTotalRecipes().value!=null)
+            if(viewModel.getTotalRecipes().value!=null) {
                 viewModel.setRecipes(whatHomeViewModel.getWantedIngredients().value!!, whatHomeViewModel.getNotWantedIngredients().value!!)
+            }
         })
 
         setRVAdapter()
         viewModel.getRecipes().observe(viewLifecycleOwner, {
             if(viewModel.getRecipes().value!=null) {
+                if(viewModel.user!=null) {
+                    recipesRVAdapter?.setUser(viewModel.user!!)
+                }
+
                 recipesRVAdapter?.setRecipes(viewModel.getRecipes().value!!)
                 recipesRVAdapter?.notifyDataSetChanged()
+
+                if(viewModel.change==true)
+                {
+                    viewModel.change=false
+                    redoOperations(false)
+                }
             }
         })
 
@@ -56,12 +68,12 @@ class WhatresHomeChildfragment: Fragment(R.layout.childfragment_home_whatres), R
         val searchCancelButton=view.findViewById<ImageView>(R.id.cancelSearchButton)
         val searchText=view.findViewById<EditText>(R.id.searchText)
         searchDoneButton.setOnClickListener{
-            redoOperations()
+            redoOperations(true)
         }
         searchCancelButton.setOnClickListener {
             searchText.setText("")
             searchText.clearFocus()
-            redoOperations()
+            redoOperations(true)
         }
 
         val sortButton=view.findViewById<Button>(R.id.sortButton)
@@ -77,19 +89,19 @@ class WhatresHomeChildfragment: Fragment(R.layout.childfragment_home_whatres), R
         }
 
         sortViewModel.getDiffWhatSort().observe(viewLifecycleOwner, {
-            redoOperations()
+            redoOperations(true)
         })
 
         sortViewModel.getPopWhatSort().observe(viewLifecycleOwner,{
-            redoOperations()
+            redoOperations(true)
         })
 
         filterViewModel.getChosenTagsWhat().observe(viewLifecycleOwner, {
-            redoOperations()
+            redoOperations(true)
         })
 
         filterViewModel.getChosenDifficultiesWhat().observe(viewLifecycleOwner, {
-            redoOperations()
+            redoOperations(true)
         })
     }
 
@@ -101,9 +113,10 @@ class WhatresHomeChildfragment: Fragment(R.layout.childfragment_home_whatres), R
         recipesGridView?.adapter = recipesRVAdapter
     }
 
-    fun redoOperations()
+    fun redoOperations(reset:Boolean)
     {
-        viewModel.resetRecipeArray()
+        if(reset)
+            viewModel.resetRecipeArray()
 
         val byName=view?.findViewById<RadioButton>(R.id.byName)
         val byUsername=view?.findViewById<RadioButton>(R.id.byUsername)
@@ -134,6 +147,16 @@ class WhatresHomeChildfragment: Fragment(R.layout.childfragment_home_whatres), R
 
     override fun onRecipeClick(recipeId: String) {
         viewModel.setShownRecipe(recipeId)
+    }
+
+    override fun onPurrfect(recipeId: String, recipeLikes:Int) {
+        viewModel.change=true
+        viewModel.purrfectRecipe(recipeId, recipeLikes)
+    }
+
+    override fun unPurrfect(recipeId: String, recipeLikes:Int) {
+        viewModel.change=true
+        viewModel.unPurrfectRecipe(recipeId, recipeLikes)
     }
 
 }
