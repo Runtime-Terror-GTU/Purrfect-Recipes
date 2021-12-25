@@ -45,7 +45,7 @@ class WhatresHomeRepository(val connector: RecipesRetrievedListener)
                 var i=0
                 var owner: Customer?=null
                 for(recipe in recipesArray) {
-                    usersRef.child(recipe.recipeOwner).addValueEventListener(object :
+                    usersRef.child(recipe.recipeOwner).addListenerForSingleValueEvent(object :
                         ValueEventListener {
                         override fun onDataChange(snapshot: DataSnapshot) {
                             if(Hawk.get<String>(Constants.LOGGEDIN_USERID)==recipe.recipeOwner)

@@ -178,7 +178,7 @@ class RecipeRepository(val connector: RecipeRetrievedListener)
 
     fun saveComment(commentText:String, recipeId:String, ownerId:String)
     {
-        val newCommentId=UUID.randomUUID().toString()
+        val newCommentId=System.currentTimeMillis().toString()
         recipesRef.child(recipeId).child(Constants.R_RECIPECOMMENTS).child(newCommentId).setValue("true")
         commentsRef.child(newCommentId).child(Constants.R_COMMENTCONTENT).setValue(commentText)
         commentsRef.child(newCommentId).child(Constants.R_COMMENTOWNER).setValue(ownerId)
