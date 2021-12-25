@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import RecipeBoxes from '../RecipeBoxes';
 import IngredientButtons from './IngredientButtons';
-
 import SearchBar from '../SearchBar';
 import Footer from '../HomePage/Footer';
 import { getRecipes, getIngredients } from '../../backend/RecipeValueListener';
@@ -11,39 +10,45 @@ import {
     SearchWrapper,
     RecipeWrapper,
     OtherWrapper,
-    MainIcon,
-    MainH2,
-    MainP,
-    SearchCard
+    SearchCard,
+    OtherCard,
+    SortButtons,
+    SortButton
 } from './MainElements';
-
+import { getRecipeOfTheDay } from '../../backend/RecipeOfTheDayServices';
+import RecipeOfTheDay from './RecipeOfTheDay';
 //Footer'daki Purrfect Recipes'a basınca homescreen'e gidiyor
 export const Main = () => {
     
     const [recipes, setRecipes] = useState([]);
     const [ingredients, setIngredients] = useState([]);
+    const [recipeOfTheDay, setRecipeOfTheDay] = useState([]);
 
     const fetchRecipes = async() => {
         const data = await getRecipes();
-        console.log("data");
-        console.log(data);
         return data;
     }
 
     const fetchIngredients = async() => {
         const data = await getIngredients();
-        console.log("data");
-        console.log(data);
         return data;
+    }
+
+    const fetchRecipeOfTheDay = async() => {
+        const data = await getRecipeOfTheDay();
+        return data
     }
 
     useEffect(() => {
         (async function() {
             try {
-                const data = await fetchRecipes();
-                setRecipes(data);
-                const ingredient = await fetchIngredients();
-                setIngredients(ingredient)
+                const recipes = await fetchRecipes();
+                setRecipes(recipes);
+                const ingredients = await fetchIngredients();
+                setIngredients(ingredients)
+                const recipeOfTheDay = await fetchRecipeOfTheDay();
+                setRecipeOfTheDay(recipeOfTheDay);
+                console.log(recipeOfTheDay)
             } catch (e) {
                 console.error(e);
             }
@@ -75,12 +80,13 @@ export const Main = () => {
 
                     <RecipeWrapper>
                         <RecipeBoxes recipes={recipes} />
-
                     </RecipeWrapper>
 
                     <OtherWrapper>
-                        <MainH2> esss  </MainH2>
-                        <MainP> by ess </MainP>
+                        <OtherCard> 
+                            <RecipeOfTheDay recipe={recipeOfTheDay} />
+                        </OtherCard>
+                        <OtherCard> ADVERTISEMENT </OtherCard>
                     </OtherWrapper>    
 
                 </MainWrapper>
