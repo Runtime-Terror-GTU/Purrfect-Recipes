@@ -6,7 +6,7 @@ import {
     SidebarWrapper, 
     SideBtnWrap, 
     SidebarRoute 
-} from '../Sidebar/SidebarElements';
+} from '../../HomePage/Sidebar/SidebarElements';
 
 
 const Sidebar = ({isOpen, toggle}) => {
@@ -18,6 +18,9 @@ const Sidebar = ({isOpen, toggle}) => {
             </Icon>
 
             <SidebarWrapper>
+                <SideBtnWrap>
+                    <SidebarRoute to="/profile">Profile</SidebarRoute>
+                </SideBtnWrap>
                 <SideBtnWrap>
                     <SidebarRoute to="/profile">Profile</SidebarRoute>
                 </SideBtnWrap>

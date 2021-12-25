@@ -10,7 +10,7 @@ import {
     MobileIcon, 
     NavBtn, 
     NavBtnLink 
-} from '../Navbar/NavbarElements';
+} from '../../HomePage/Navbar/NavbarElements';
 
 const MainNavBar = ({toggle}) => {
     const [scrollNav, setScrollNav] = useState(false);
@@ -44,6 +44,10 @@ const MainNavBar = ({toggle}) => {
                         <MobileIcon onClick={toggle}>
                             <FaBars />
                         </MobileIcon>
+                        
+                        <NavBtn>
+                            <NavBtnLink to="/addrecipe">Add a Purrfect Recipe</NavBtnLink>
+                        </NavBtn>
 
                         <NavBtn>
                             <NavBtnLink to="/profile">Profile</NavBtnLink>

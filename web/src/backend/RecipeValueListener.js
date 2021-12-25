@@ -51,4 +51,27 @@ const findRecipes = async () => {
     return recipes.val();
 }
 
-export {getRecipes};
+
+const getIngredients = async () => {
+    
+    let ingredients = await findIngredients();
+    var countIngredients = Object.keys(ingredients).length;
+    //console.log(ingredients)
+    let ingredientsObjects = Object.keys(ingredients);
+    //console.log(ingredientsObjects)
+
+    var ingredientsArray = [];
+    for(let i=0; i<countIngredients; i++){
+        ingredientsArray[i] = {};
+        ingredientsArray[i].IngredientName = ingredientsObjects[i];        
+    }
+    //console.log(ingredientsArray)
+    return ingredientsArray;
+}
+
+//Call all Recipes from firebase database
+const findIngredients = async () => {
+    var ingredients = await get(query(ref(database, "Ingredients")))
+    return ingredients.val();
+}
+export {getRecipes, getIngredients};

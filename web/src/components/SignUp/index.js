@@ -56,7 +56,7 @@ const SignUp = () => {
                             <FormLabel htmlFor='for'>Password</FormLabel>
                             <FormInput id='passwordInput' type='password' placeholder="Password" required/>
                             
-                            <FormButton type='submit' onClick={onSubmit}>Let's cook!</FormButton>
+                            <FormButton type='button' onClick={onSubmit}>Let's cook!</FormButton>
                             <Button to = "/signin">
                                 Do you have already an account? 
                             </Button>
