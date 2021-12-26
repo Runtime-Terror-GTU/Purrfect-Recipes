@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { MdKeyboardArrowRight, MdArrowForward } from 'react-icons/md';
-import img from '../../images/bg-1.png';
+import img from '../../../images/bg-1.png';
 //B38A9B pembe
 //F9C5D5 pembe diğer
 export const HeroContainer = styled.div`

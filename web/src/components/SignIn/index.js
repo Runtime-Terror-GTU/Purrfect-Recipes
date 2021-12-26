@@ -57,7 +57,7 @@ const SignIn = () => {
                             <Text to = "/forgot">
                                  Forgot your password?
                             </Text>
-                            <FormButton type='submit' onClick={onSubmit}>Let's cook!</FormButton>
+                            <FormButton type='button' onClick={onSubmit}>Let's cook!</FormButton>
                             <Button to = "/signup">
                                 Don't you have an account? Create a Purrfect account! 
                             </Button>

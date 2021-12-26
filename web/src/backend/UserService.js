@@ -2,7 +2,7 @@ import { ref, set, get, query, orderByChild, equalTo } from "firebase/database";
 import { database } from "./firebase";
 
 
-const signUp = async (user)=> {
+const signUp = async (user) => {
     let users = await findUser(user);
     console.log(users);
     if(users === null) {
