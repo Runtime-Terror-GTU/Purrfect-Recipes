@@ -45,17 +45,17 @@ class RecipesHomeChildfragment: Fragment(R.layout.childfragment_home_recipes), R
     private val filterViewModel:FilterViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        /*val recipesRef: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Recipes")
-        val usersRef: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users")
+        val recipesRef: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Recipes")
+        /*val usersRef: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users")
         val dayRecipeRef: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Recipe of The Day")
-        val storageRef=FirebaseStorage.getInstance().getReference().child("Recipe Pictures")
+        val storageRef=FirebaseStorage.getInstance().getReference().child("Recipe Pictures")*/
 
         val id1="7686f73a-7a30-4e90-96d3-5ddda964fbcd"
         val id2="1098788c-f571-4f8a-ab5f-1d84ead8123a"
         val id3="cbb7f974-af8f-4ba8-af10-73813e61fcc0"
         val id4="6e92e147-450c-4fae-bcbe-875c7f86e80e"
         val id5="9f827e72-b637-4628-91ce-0ca9990e1c1e"
-        recipesRef.child(id1).child(Constants.R_RECIPENAME).setValue("Cinnamon Buns")
+       /* recipesRef.child(id1).child(Constants.R_RECIPENAME).setValue("Cinnamon Buns")
         recipesRef.child(id1).child(Constants.R_RECIPEOWNER).setValue("858d37eb-b52c-416c-b3b0-398cf5818d64")
         recipesRef.child(id1).child(Constants.R_RECIPEDIFFICULTY).setValue("Medium")
         recipesRef.child(id1).child(Constants.R_RECIPEPURRFECTEDCOUNT).setValue("13")
@@ -74,16 +74,16 @@ class RecipesHomeChildfragment: Fragment(R.layout.childfragment_home_recipes), R
         recipesRef.child(id3).child(Constants.R_RECIPEDIFFICULTY).setValue("Hard")
         recipesRef.child(id3).child(Constants.R_RECIPEPURRFECTEDCOUNT).setValue("35")
         uri=resourceToUri(requireContext(), R.drawable.cheesecake)
-        //storageRef.child(id3).putFile(uri)
+        //storageRef.child(id3).putFile(uri)*/
 
         recipesRef.child(id4).child(Constants.R_RECIPENAME).setValue("Lemonade")
         recipesRef.child(id4).child(Constants.R_RECIPEOWNER).setValue("14e7855c-a9ba-4b99-9cab-1233b2d9c6be")
         recipesRef.child(id4).child(Constants.R_RECIPEDIFFICULTY).setValue("Easy")
         recipesRef.child(id4).child(Constants.R_RECIPEPURRFECTEDCOUNT).setValue("15")
-        uri=resourceToUri(requireContext(), R.drawable.lemonade)
+        //uri=resourceToUri(requireContext(), R.drawable.lemonade)
         //storageRef.child(id4).putFile(uri)
 
-        recipesRef.child(id5).child(Constants.R_RECIPENAME).setValue("Brownie")
+        /*recipesRef.child(id5).child(Constants.R_RECIPENAME).setValue("Brownie")
         recipesRef.child(id5).child(Constants.R_RECIPEOWNER).setValue("858d37eb-b52c-416c-b3b0-398cf5818d64")
         recipesRef.child(id5).child(Constants.R_RECIPEDIFFICULTY).setValue("Hard")
         recipesRef.child(id5).child(Constants.R_RECIPEPURRFECTEDCOUNT).setValue("106")
@@ -127,11 +127,6 @@ class RecipesHomeChildfragment: Fragment(R.layout.childfragment_home_recipes), R
                     redoOperations(false)
                 }
 
-                val homePage=view.findViewById<LinearLayout>(R.id.homePage)
-                val loadingBar=view.findViewById<ProgressBar>(R.id.loadingBar)
-
-                loadingBar.visibility=View.GONE
-                homePage.visibility=View.VISIBLE
             }
         })
 
@@ -155,6 +150,12 @@ class RecipesHomeChildfragment: Fragment(R.layout.childfragment_home_recipes), R
                         .load(viewModel.getRecipeOfTheDay().value?.recipePictureURL)
                         .into(recipePic)
                 }
+
+                val homePage=view.findViewById<LinearLayout>(R.id.homePage)
+                val loadingBar=view.findViewById<ProgressBar>(R.id.loadingBar)
+
+                loadingBar.visibility=View.GONE
+                homePage.visibility=View.VISIBLE
             }
         })
 
