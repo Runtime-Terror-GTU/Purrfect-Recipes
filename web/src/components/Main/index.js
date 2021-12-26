@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import RecipeBoxes from '../RecipeBoxes';
 import SearchBar from '../SearchBar';
 import Footer from '../HomePage/Footer';
-import { getRecipes, getIngredients } from '../../backend/RecipeValueListener';
+import { getRecipes } from '../../backend/RecipeValueListener';
 import {
     MainContainer,
     MainWrapper,
@@ -28,10 +28,7 @@ export const Main = () => {
         return data;
     }
 
-    const fetchIngredients = async() => {
-        const data = await getIngredients();
-        return data;
-    }
+
 
     const fetchRecipeOfTheDay = async() => {
         const data = await getRecipeOfTheDay();
@@ -43,8 +40,6 @@ export const Main = () => {
             try {
                 const recipes = await fetchRecipes();
                 setRecipes(recipes);
-                const ingredients = await fetchIngredients();
-                setIngredients(ingredients)
                 const recipeOfTheDay = await fetchRecipeOfTheDay();
                 setRecipeOfTheDay(recipeOfTheDay);
                 console.log(recipeOfTheDay)
