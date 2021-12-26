@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import RecipeBoxes from '../RecipeBoxes';
-import IngredientButtons from './IngredientButtons';
 import SearchBar from '../SearchBar';
 import Footer from '../HomePage/Footer';
 import { getRecipes, getIngredients } from '../../backend/RecipeValueListener';
