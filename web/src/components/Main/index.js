@@ -65,7 +65,7 @@ export const Main = () => {
     
     const fetchRecipes = async() => {
         
-        const data = await getRecipes();
+        let data = await getRecipes();
         /*
             This part for data selection if 2 of them are false we did not click any sort button 
            
@@ -84,7 +84,6 @@ export const Main = () => {
         else if(popularityVariable == "true")
             data=sortWithPopularity(data);
 
-    
         return data;
     }
 
@@ -132,19 +131,25 @@ export const Main = () => {
                         <SearchCard>
                             <SearchBar searchType="Search by Recipe Name" />
                         </SearchCard>
+                   
 
+                    
                         <SearchCard>
                             <SearchBar searchType="Search by Recipe Owner" />
                         </SearchCard>
+                
 
+                  
                         <SearchCard>
                             <SearchBar searchType="Search by Ingredient" />                       
                         </SearchCard>
+                   
 
+                    
                         <SearchCard>
                             <h1>deneme</h1>                       
                         </SearchCard>
-                    </SearchWrapper>
+                        </SearchWrapper>
 
                     <RecipeWrapper>
                     <SortMenu>
