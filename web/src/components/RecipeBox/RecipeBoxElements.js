@@ -11,11 +11,11 @@ export const RecipeBoxContainer = styled.div`
     auto-size: false;
     
     @media screen and (max-width: 768px) {
-        height: 100px;
+        height: 110px;
     }
 
     @media screen and (max-width: 480px) {
-        height: 100px;
+        height: 130px;
     }
 `;
 
@@ -69,12 +69,14 @@ export const RecipeBoxCardContainer = styled(Link)`
     @media screen and (max-width: 1000px) {
         //grid-template-columns: 1fr 1fr;
         width: 400px;
+        height: 100px;
     }
 
     @media screen and (max-width: 768px) {
         //grid-template-columns: 1fr;
         padding: 0 20px;
         width: 350px;
+        height: 100px;
     }
 `;
 
@@ -88,7 +90,6 @@ export const RecipeBoxCardWrapper = styled.div`
     grid-gap: 16px;
     padding: 0 50px;
     auto-size: false;
-
 
     @media screen and (max-width: 1000px) {
         //grid-template-columns: 1fr 1fr;
@@ -107,13 +108,13 @@ export const RecipeBoxIcon = styled.img`
 
     //margin-bottom: 10px;
     @media screen and (max-width: 1000px) {
-        height: 75px;
-        width: 75px;
+        height: 80px;
+        width: 80px;
     }
 
     @media screen and (max-width: 768px) {
-        height: 50px;
-        width: 50px;
+        height: 60px;
+        width: 60px;
     }
 `;
 

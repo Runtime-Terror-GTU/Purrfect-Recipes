@@ -77,7 +77,6 @@ export const RecipeWrapper = styled.div`
     display: grid;
     flex-direction: left;
     align-items: top;
-    //grid-gap: 16px;
     background: #B38A9B;
     @media screen and (max-width: 1000px) {
         grid-template-columns: 1fr;
@@ -98,12 +97,12 @@ export const OtherWrapper = styled.div`
     background: #B38A9B;
 
     @media screen and (max-width: 1000px) {
-        grid-template-columns: 1fr;
+        width: 400px;
     }
 
     @media screen and (max-width: 768px) {
-        grid-template-columns: 1fr;
         padding: 0 20px;
+        width: 350px;
     }
 `;
 
@@ -113,16 +112,13 @@ export const OtherCard = styled.div`
     justify-content: flex-start;
     align-items: center;
     background: #B38A9B;
-
 `;
-
 
 export const MainIcon = styled.img`
     height: 100px;
     width: 100px;
     border-radius: 5px;
 
-    //margin-bottom: 10px;
     @media screen and (max-width: 1000px) {
         height: 75px;
         width: 75px;
@@ -145,34 +141,59 @@ export const MainP = styled.p`
 `;
 
 export const SortMenu = styled.ul`
-    display: flex;
     align-items: center;
     list-style: none;
     text-align: center;
-    margin-right: -22px;
     margin-top: 20px;
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+
+    @media screen and (max-width: 1000px) {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+    }
 
     @media screen and (max-width: 768px) {
-        display: none;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr 1fr 1fr;
     }
 `;
 
 export const SortBar = styled.li`
-    height: 80px;
+    height: 90px;
+    @media screen and (max-width: 1000px) {
+       height: 80px;
+    }
+
+    @media screen and (max-width: 768px) {
+        height: 70px;
+    }
 `;
 
 export const SortButton = styled.button`
-    background: #000000;
-    padding: 16px 0;
+    background: #F9C5D5;
+    padding: 32px 0px;
     //border: 2px solid palevioletred;
-    margin-left: 8px;
+    margin-left: 20px;
     border: none;
     border-radius: 25px;
     text-align: center;
-    color: #fff;
-    font-size: 18px;
+    color: #000;
+    font-size: 14px;
     cursor: pointer;
-    
+
+    @media screen and (max-width: 1000px) {
+        padding: 16px 0px;
+        margin-left: 20px;
+        width: 100px;
+    }
+
+    @media screen and (max-width: 768px) {
+        padding: 16px 0px;
+        margin-left: 20px;
+        width: 100px;
+    }
 `;
 /*
 export const SortButtons = styled.div`

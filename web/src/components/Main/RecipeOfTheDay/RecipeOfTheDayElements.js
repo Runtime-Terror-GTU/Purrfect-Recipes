@@ -8,11 +8,9 @@ export const RecipeBoxContainer = styled.div`
     align-items: center;
 
     @media screen and (max-width: 768px) {
-        height: 100px;
     }
 
     @media screen and (max-width: 480px) {
-        height: 100px;
     }
 `;
 
@@ -21,11 +19,10 @@ export const RecipeBoxWrapper = styled.div`
     background: #B38A9B;
     align-items: center;
     @media screen and (max-width: 1000px) {
-        //grid-template-columns: 1fr 1fr;
+        padding: 0 50px;
     }
 
     @media screen and (max-width: 768px) {
-        //grid-template-columns: 1fr;
         padding: 0 20px;
     }
 `;
@@ -33,10 +30,9 @@ export const RecipeBoxWrapper = styled.div`
 export const RecipeBoxCardContainer = styled(Link)`
     background: #fff;
     display: center;
-    margin: auto;
+    /margin: auto;
     padding: 10px 10px;
     flex-direction: column;
-    //justify-content: flex-start;
     align-items: center;
     border-radius: 10px;
     box-shadow: 0 1px 3 px rgba(0,0,0,0.2);
@@ -45,7 +41,6 @@ export const RecipeBoxCardContainer = styled(Link)`
     box-sizing: content-box;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr;
-    //    white-space: nowrap;
     color: #010606;
     font-size: 16px;
     outline: none;
@@ -53,12 +48,19 @@ export const RecipeBoxCardContainer = styled(Link)`
     text-decoration: none;
 
     @media screen and (max-width: 1000px) {
-        grid-template-columns: 1fr;
+        grid-template-rows: 1fr;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        align-items: center;
+        margin-bottom: 10px;   
+        width: 400px;
+        padding: 30px;
     }
 
     @media screen and (max-width: 768px) {
-        grid-template-columns: 1fr;
+        grid-template-rows: 1fr;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
         padding: 0 20px;
+        width: 350px;
     }
 `;
 
@@ -69,13 +71,12 @@ export const RecipeBoxCardWrapper = styled.div`
     grid-gap: 16px;
     auto-size: false;
 
-
-    @media screen and (max-width: 1000px) {
-        //grid-template-columns: 1fr 1fr;
+    @media screen and (max-width: 1000px) {    
+        align-items: center;
+        padding: 0 20px;
     }
 
     @media screen and (max-width: 768px) {
-        //grid-template-columns: 1fr;
         padding: 0 20px;
     }
 `;
@@ -85,16 +86,23 @@ export const RecipeBoxIcon = styled.img`
     width: 280px;
 
     border-radius: 100px;
-
-    //margin-bottom: 10px;
+    align-items: center;
+    margin-bottom: 10px;
     @media screen and (max-width: 1000px) {
-        height: 75px;
-        width: 75px;
+        height: 300px;
+        width: 280px;
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: 100px;
+        align-items: center;
+        margin-bottom: 10px;
+        padding: 0 20px;
     }
 
     @media screen and (max-width: 768px) {
-        height: 50px;
-        width: 50px;
+        height: 200px;
+        width: 200px;
+        padding: 0 20px;
     }
 `;
 

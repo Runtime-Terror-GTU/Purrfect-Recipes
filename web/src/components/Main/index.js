@@ -219,66 +219,52 @@ export const Main = () => {
                         <SearchCard>
                             <SearchBar searchType="Search by Recipe Name" />
                         </SearchCard>
-                   
 
-                    
                         <SearchCard>
                             <SearchBar searchType="Search by Recipe Owner" />
                         </SearchCard>
                 
-
-                  
                         <SearchCard>
                             <SearchBar searchType="Search by Ingredient" />                       
                         </SearchCard>
-                   
-
                     
                         <SearchCard>
                             <h1>deneme</h1>                       
                         </SearchCard>
-                        </SearchWrapper>
+                    </SearchWrapper>
 
                     <RecipeWrapper>
-                    <SortMenu>
-                        <SortBar>
-
-                            <SortButton 
-                            type='button' 
-                            onClick={easytohard}>
-                           Easiest to Hardest
-                            </SortButton>
-
-                        </SortBar>
-                        <SortBar>
-
-                            <SortButton 
-                            type='button' 
-                            onClick={hardtoeasy}>
-                            Hardest to Easiest
-                            </SortButton>
-
-                        </SortBar>
-                        <SortBar>
-
-                            <SortButton 
-                            type='button' 
-                            onClick={mosttoless}>
-                            Most Popularity
-                            </SortButton>
-
-                        </SortBar>
-                        <SortBar>
-
-                            <SortButton 
-                            type='button' 
-                            onClick={lesstomost}>
-                            Less Popularity
-                            </SortButton>
-
-                        </SortBar>
+                        <SortMenu>
+                            <SortBar>
+                                <SortButton 
+                                type='button' 
+                                onClick={easytohard}>
+                                Easiest to Hardest
+                                </SortButton>
+                            </SortBar>
+                            <SortBar>
+                                <SortButton 
+                                type='button' 
+                                onClick={hardtoeasy}>
+                                Hardest to Easiest
+                                </SortButton>
+                            </SortBar>
+                            <SortBar>
+                                <SortButton 
+                                type='button' 
+                                onClick={mosttoless}>
+                                Most Popularity
+                                </SortButton>
+                            </SortBar>
+                            <SortBar>
+                                <SortButton 
+                                type='button' 
+                                onClick={lesstomost}>
+                                Less Popularity
+                                </SortButton>
+                            </SortBar>
+                        </SortMenu>
                         
-                    </SortMenu>
                         <RecipeBoxes recipes={recipes} />
                     </RecipeWrapper>
 
