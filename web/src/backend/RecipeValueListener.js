@@ -38,7 +38,7 @@ const getRecipes = async () => {
         recipesArray[i].R_Recipe_Tags=recipes[recipesObjects[i]].R_Recipe_Tags;
         //printtrecipeINfo(recipesArray[i]);
     }
-    console.log(recipesArray)
+    //console.log(recipesArray)
     return recipesArray;
 }
 

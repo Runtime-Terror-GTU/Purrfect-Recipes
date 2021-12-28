@@ -143,7 +143,31 @@ export const MainP = styled.p`
     font-size: 1rem;
     text-align: left;
 `;
+export const SortMenu = styled.ul`
+    display: flex;
+    align-items: center;
+    list-style: none;
+    text-align: center;
+    margin-right: -22px;
 
+    @media screen and (max-width: 768px) {
+        display: none;
+    }
+`;
+export const SortBar = styled.li`
+    height: 80px;
+`;
+export const SortButton = styled.button`
+    background: #B38A9B;
+    padding: 16px 0;
+    margin-left: 120px;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+`;
+/*
 export const SortButtons = styled.div`
     white-space: nowrap;
 
@@ -187,3 +211,5 @@ export const SortButton = styled(Link)`
         background: ${({primary}) => (primary ? '#fff' : '#B38A9B')};
     }
 `;
+
+*/

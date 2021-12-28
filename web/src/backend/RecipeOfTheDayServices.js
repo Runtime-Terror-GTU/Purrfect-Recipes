@@ -12,7 +12,7 @@ const getRecipeOfTheDay = async () => {
     let data = await findRecipeOfTheDay(today)
     let recipeOfTheDayObject;
     let recipeID;
-    console.log("data: ", data)
+    //console.log("data: ", data)
     if( data !== null ){ //already exists in firebase 
         //get the recipe's id
         recipeID = data[today];

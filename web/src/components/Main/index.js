@@ -11,38 +11,112 @@ import {
     OtherWrapper,
     SearchCard,
     OtherCard,
-    SortButtons,
-    SortButton
+    SortBar,
+    SortButton,
+    SortMenu
 } from './MainElements';
 import { getRecipeOfTheDay } from '../../backend/RecipeOfTheDayServices';
 import RecipeOfTheDay from './RecipeOfTheDay';
+import { Button } from 'semantic-ui-react';
+
+let difficultyVariable = "false";
+let popularityVariable = "false";
+//After click on Sort by Difficulty
+const difficultySort = async (e) => {
+    //first click
+    if(popularityVariable == "true")
+        popularityVariable = "false";
+    //second click on same buton
+    if(difficultyVariable == "true")
+        difficultyVariable = "false";
+    else
+        difficultyVariable = "true";
+    
+    saveSortElements();
+    window.location.reload();
+   
+}
+//save locally
+const saveSortElements= async (e) =>{
+    localStorage.setItem("differentSort", difficultyVariable);
+    localStorage.setItem("popularitySort",popularityVariable);
+}
+//After click on Sort by Popularity
+const popularitySort = async (e) => {
+     //first click
+    if(difficultyVariable == "true")
+        difficultyVariable = "false";
+    //second click on same buton
+    if(popularityVariable == "true")
+        popularityVariable = "false";
+    else
+        popularityVariable = "true";
+
+        saveSortElements();
+        window.location.reload();
+
+}
 //Footer'daki Purrfect Recipes'a basınca homescreen'e gidiyor
 export const Main = () => {
     
     const [recipes, setRecipes] = useState([]);
     const [ingredients, setIngredients] = useState([]);
     const [recipeOfTheDay, setRecipeOfTheDay] = useState([]);
-
+    
     const fetchRecipes = async() => {
+        
         const data = await getRecipes();
+        /*
+            This part for data selection if 2 of them are false we did not click any sort button 
+           
+            My popularitySort (line 45) and difficultySort (line 25) methods do not allow situation that 
+            my variables' value can not be same.
+
+            Line 91 and line 96 includes empty method block. 
+
+        */
+        if(difficultyVariable == "false" && popularityVariable =="false" )
+            return data;  
+
+        else if(difficultyVariable == "true")
+            data=sortWithDifficulty(data);
+
+        else if(popularityVariable == "true")
+            data=sortWithPopularity(data);
+
+    
         return data;
     }
 
+    const sortWithPopularity= async(data) => {
+        //some code for sorting
+        return data;
+    }
+    //sort with difficulty
+    const sortWithDifficulty = async(data) => {
+        //some code for sorting
+        return data;
+    }
 
-
+    //load sort element' from local 
+    const loadSortElemetns = async() => {
+        difficultyVariable = localStorage.getItem("differentSort");
+        popularityVariable = localStorage.getItem("popularitySort");
+    }
     const fetchRecipeOfTheDay = async() => {
         const data = await getRecipeOfTheDay();
         return data
     }
-
+    
     useEffect(() => {
         (async function() {
             try {
+                loadSortElemetns();
                 const recipes = await fetchRecipes();
                 setRecipes(recipes);
                 const recipeOfTheDay = await fetchRecipeOfTheDay();
                 setRecipeOfTheDay(recipeOfTheDay);
-                console.log(recipeOfTheDay)
+                //console.log(recipeOfTheDay)
             } catch (e) {
                 console.error(e);
             }
@@ -73,6 +147,27 @@ export const Main = () => {
                     </SearchWrapper>
 
                     <RecipeWrapper>
+                    <SortMenu>
+                        <SortBar>
+
+                            <SortButton 
+                            type='button' 
+                            onClick={difficultySort}>
+                            Sort by Difficult
+                            </SortButton>
+
+                        </SortBar>
+                        <SortBar>
+
+                            <SortButton 
+                            type='button' 
+                            onClick={popularitySort}>
+                            Sort by Popularity
+                            </SortButton>
+
+                        </SortBar>
+                        
+                    </SortMenu>
                         <RecipeBoxes recipes={recipes} />
                     </RecipeWrapper>
 
