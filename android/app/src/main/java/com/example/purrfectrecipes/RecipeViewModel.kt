@@ -35,12 +35,30 @@ class RecipeViewModel : ViewModel(), RecipeRetrievedListener
 
     fun addComment(commentText:String)
     {
-        repository.saveComment(commentText, recipe.value!!.getRecipeID(), Hawk.get<String>(Constants.LOGGEDIN_USERID))
+        val newCommentId=System.currentTimeMillis().toString()
+        val newComment=Comment(newCommentId, Hawk.get<String>(Constants.LOGGEDIN_USERID), commentText)
+        newComment.ownerName=user?.getUsername()
+        newComment.ownerPicURL=user?.getUserPic()
+        newComment.ownerStatus=user?.getUserStatus()
+        comments.value?.add(newComment)
+        recipe.value?.addComment(newCommentId)
+        repository.saveComment(newComment, recipe.value!!.getRecipeID())
+        comments.value=comments.value
     }
 
     fun deleteComment(commentId:String)
     {
-        repository.removeComment(commentId, recipe.value!!.getRecipeID())
+        var deletedComment:Comment?=null
+        for(comment in comments.value!!)
+            if(comment.getId()==commentId)
+                deletedComment=comment
+        deletedComment?.ownerName=user?.getUsername()
+        deletedComment?.ownerPicURL=user?.getUserPic()
+        deletedComment?.ownerStatus=user?.getUserStatus()
+        comments.value!!.remove(deletedComment)
+        recipe.value?.removeComment(deletedComment!!.getId())
+        repository.removeComment(deletedComment, recipe.value!!.getRecipeID())
+        comments.value=comments.value
     }
 
     fun deleteRecipe()
@@ -51,11 +69,17 @@ class RecipeViewModel : ViewModel(), RecipeRetrievedListener
     fun purrfectRecipe()
     {
         repository.increasePurrfectedCount(recipe.value!!.getRecipeID(), recipe.value!!.recipeLikes, Hawk.get<String>(Constants.LOGGEDIN_USERID))
+        recipe.value!!.recipeLikes=recipe.value!!.recipeLikes+1
+        user?.addPurrfectedRecipe(recipe.value!!.getRecipeID())
+        recipe.value=recipe.value
     }
 
     fun unPurrfectRecipe()
     {
         repository.decreasePurrfectedCount(recipe.value!!.getRecipeID(), recipe.value!!.recipeLikes, Hawk.get<String>(Constants.LOGGEDIN_USERID))
+        recipe.value!!.recipeLikes=recipe.value!!.recipeLikes-1
+        user?.removePurrfectedRecipe(recipe.value!!.getRecipeID())
+        recipe.value=recipe.value
     }
 
     override fun onUserRetrieved(user:Customer?)

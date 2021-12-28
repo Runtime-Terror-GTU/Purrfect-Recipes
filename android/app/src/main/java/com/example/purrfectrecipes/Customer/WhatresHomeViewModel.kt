@@ -174,11 +174,23 @@ class WhatresHomeViewModel: ViewModel(), RecipesRetrievedListener
 
     fun purrfectRecipe(recipeId:String, currentLikes:Int)
     {
+        for(recipe in recipes.value!!)
+            if(recipe.getRecipeID()==recipeId) {
+                recipe.recipeLikes = currentLikes + 1
+                recipes.value=recipes.value
+                user?.addPurrfectedRecipe(recipeId)
+            }
         repository.increaseDayPurrfectedCount(recipeId, currentLikes, Hawk.get<String>(Constants.LOGGEDIN_USERID))
     }
 
     fun unPurrfectRecipe(recipeId:String, currentLikes: Int)
     {
+        for(recipe in recipes.value!!)
+            if(recipe.getRecipeID()==recipeId) {
+                recipe.recipeLikes = currentLikes - 1
+                recipes.value=recipes.value
+                user?.removePurrfectedRecipe(recipeId)
+            }
         repository.decreaseDayPurrfectedCount(recipeId, currentLikes, Hawk.get<String>(Constants.LOGGEDIN_USERID))
     }
 

@@ -151,11 +151,33 @@ class RecipesHomeViewModel: ViewModel(), RecipesHomeVMRepConnector
 
     fun purrfectRecipe(recipeId:String, currentLikes:Int)
     {
+        for(recipe in recipes.value!!)
+            if(recipe.getRecipeID()==recipeId) {
+                recipe.recipeLikes = currentLikes + 1
+                recipes.value=recipes.value
+                user?.addPurrfectedRecipe(recipeId)
+                if(recipeId==recipeOfTheDay.value!!.getRecipeID())
+                {
+                    recipeOfTheDay.value!!.recipeLikes=currentLikes + 1
+                    recipeOfTheDay.value=recipeOfTheDay.value
+                }
+            }
         repository.increaseDayPurrfectedCount(recipeId, currentLikes, Hawk.get<String>(Constants.LOGGEDIN_USERID))
     }
 
     fun unPurrfectRecipe(recipeId:String, currentLikes: Int)
     {
+        for(recipe in recipes.value!!)
+            if(recipe.getRecipeID()==recipeId) {
+                recipe.recipeLikes = currentLikes - 1
+                recipes.value=recipes.value
+                user?.removePurrfectedRecipe(recipeId)
+                if(recipeId==recipeOfTheDay.value!!.getRecipeID())
+                {
+                    recipeOfTheDay.value!!.recipeLikes=currentLikes - 1
+                    recipeOfTheDay.value=recipeOfTheDay.value
+                }
+            }
         repository.decreaseDayPurrfectedCount(recipeId, currentLikes, Hawk.get<String>(Constants.LOGGEDIN_USERID))
     }
 

@@ -70,7 +70,7 @@ class RecipeRepository(val connector: RecipeRetrievedListener)
 
     fun retrieveRecipe(recipeId:String)
     {
-        recipesRef.child(recipeId).addValueEventListener(object: ValueEventListener {
+        recipesRef.child(recipeId).addListenerForSingleValueEvent(object: ValueEventListener {
             override fun onDataChange(ds: DataSnapshot) {
                 val id=ds.key.toString()
                 retrieveUser()
@@ -176,19 +176,17 @@ class RecipeRepository(val connector: RecipeRetrievedListener)
         })
     }
 
-    fun saveComment(commentText:String, recipeId:String, ownerId:String)
+    fun saveComment(comment:Comment, recipeId: String)
     {
-        val newCommentId=System.currentTimeMillis().toString()
-        recipesRef.child(recipeId).child(Constants.R_RECIPECOMMENTS).child(newCommentId).setValue("true")
-        commentsRef.child(newCommentId).child(Constants.R_COMMENTCONTENT).setValue(commentText)
-        commentsRef.child(newCommentId).child(Constants.R_COMMENTOWNER).setValue(ownerId)
-
+        recipesRef.child(recipeId).child(Constants.R_RECIPECOMMENTS).child(comment.getId()).setValue("true")
+        commentsRef.child(comment.getId()).child(Constants.R_COMMENTCONTENT).setValue(comment.getCommentContent())
+        commentsRef.child(comment.getId()).child(Constants.R_COMMENTOWNER).setValue(comment.getOwnerId())
     }
 
-    fun removeComment(commentId:String, recipeId:String)
+    fun removeComment(comment:Comment?, recipeId: String)
     {
-        recipesRef.child(recipeId).child(Constants.R_RECIPECOMMENTS).child(commentId).removeValue()
-        commentsRef.child(commentId).removeValue()
+        recipesRef.child(recipeId).child(Constants.R_RECIPECOMMENTS).child(comment!!.getId()).removeValue()
+        commentsRef.child(comment!!.getId()).removeValue()
     }
 
     fun removeRecipe(deletedRecipe:Recipe)
@@ -208,6 +206,7 @@ class RecipeRepository(val connector: RecipeRetrievedListener)
                 TODO("Not yet implemented")
             }
         })
+        recipesRef.child(deletedRecipe.getRecipeID()).removeValue()
         dayRecipeRef.addListenerForSingleValueEvent(object :ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 for(ds in snapshot.children)
