@@ -158,11 +158,13 @@ export const SortBar = styled.li`
     height: 80px;
 `;
 export const SortButton = styled.button`
-    background: #B38A9B;
+    background: #000000;
     padding: 16px 0;
+    //border: 2px solid palevioletred;
     margin-left: 120px;
     border: none;
-    border-radius: 4px;
+    border-radius: 25px;
+    text-align: center;
     color: #fff;
     font-size: 20px;
     cursor: pointer;
