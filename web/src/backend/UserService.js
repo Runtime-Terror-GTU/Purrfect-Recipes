@@ -31,7 +31,6 @@ const signIn = async (user, password) => {
 
 const findUser = async (user) => {
     var search = await get(query(ref(database, "Users"), orderByChild("R_Username"), equalTo(user.username)))
-
     return search.val();
 }
 

@@ -1,11 +1,11 @@
 import './Recipe';
-import { ref, set, get, query, orderByKey, equalTo } from "firebase/database";
+import { ref, get, query, orderByKey, equalTo } from "firebase/database";
 import { database } from "./firebase";
 import { getRecipeOfTheDay } from './RecipeOfTheDayServices';
 
 const getRecipes = async () => {
     //call recipe of the day method
-    getRecipeOfTheDay();
+    //getRecipeOfTheDay();
 
     //hold recipes
     let recipes = await findRecipes();

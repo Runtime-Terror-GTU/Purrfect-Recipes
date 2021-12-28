@@ -143,6 +143,7 @@ export const MainP = styled.p`
     font-size: 1rem;
     text-align: left;
 `;
+
 export const SortMenu = styled.ul`
     display: flex;
     align-items: center;
@@ -155,9 +156,11 @@ export const SortMenu = styled.ul`
         display: none;
     }
 `;
+
 export const SortBar = styled.li`
     height: 80px;
 `;
+
 export const SortButton = styled.button`
     background: #000000;
     padding: 16px 0;
@@ -169,6 +172,7 @@ export const SortButton = styled.button`
     color: #fff;
     font-size: 18px;
     cursor: pointer;
+    
 `;
 /*
 export const SortButtons = styled.div`

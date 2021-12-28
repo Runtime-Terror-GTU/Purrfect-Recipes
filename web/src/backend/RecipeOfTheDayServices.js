@@ -1,22 +1,34 @@
-import { ref, set, get, query, orderByKey, equalTo } from "firebase/database";
+import { ref, set, get, query, orderByKey, equalTo,remove } from "firebase/database";
 import { database } from "./firebase";
 //finds recipe of the day and returns
 const getRecipeOfTheDay = async () => {
     //find current date
-    var today = new Date();
-    var dd = String(today.getDate()).padStart(2, '0');
-    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-    var yyyy = today.getFullYear();
-    today = dd + ' ' + mm + ' ' + yyyy;
+    var todayObject = new Date();
+    var dd = String(todayObject.getDate()).padStart(2, '0');
+    var mm = String(todayObject.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = todayObject.getFullYear();
+    var today = dd + ' ' + mm + ' ' + yyyy;
     //finds the Recipe of The Date object that holds recipe id and date
     let data = await findRecipeOfTheDay(today)
     let recipeOfTheDayObject;
     let recipeID;
-    //console.log("data: ", data)
     if( data !== null ){ //already exists in firebase 
         //get the recipe's id
         recipeID = data[today];
     } else{//there is no recipe of the day at firebase so we'll choose it
+        //and we'll delete last recipe of the day because it is useless anymore
+        var todayNew = new Date();
+        //find the date of yesterday
+        var tempYesterday = todayObject - 1000 * 60 * 60 * 24 * 1;
+        var yesterdayObject  =new Date(tempYesterday);
+        var ddYesterday = String(yesterdayObject.getDate()).padStart(2, '0');
+        var mmYesterday = String(yesterdayObject.getMonth() + 1).padStart(2, '0'); 
+        var yyyyYesterday = yesterdayObject.getFullYear();
+        var yesterday = ddYesterday + ' ' + mmYesterday + ' ' + yyyyYesterday;
+        console.log(yesterday);
+        //delete the recipe of yesterday from firebase
+        remove(ref(database,"Recipe of The Day/"));
+        //create new recipe of the day and write it to firebase
         //get all recipes and create objects
         let recipes = await findRecipes();
         let recipesObjects = Object.keys(recipes);
