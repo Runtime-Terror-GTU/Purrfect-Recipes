@@ -126,12 +126,11 @@ export const Main = () => {
         
         let data = await getRecipes();
         /*
-            This part for data selection if 2 of them are false we did not click any sort button 
+            This part for data selection if 4 of them are false we did not click any sort button 
            
-            My popularitySort (line 45) and difficultySort (line 25) methods do not allow situation that 
-            my variables' value can not be same.
+            Methods which start on line 29-49-68-88, do not allow situations that  variable's value can be same.
 
-            Line 91 and line 96 includes empty method block. 
+            Line 155-159-164-169 includes empty method block. 183 is optionaly if you do not use you can delete that method block
 
         */
         if(easytohardVariable == "false" || hardtoeasyVariable == "false" || lesstomostVariable == "false" || mosttolessVariable == "false")
