@@ -153,7 +153,7 @@ export const Main = () => {
                             <SortButton 
                             type='button' 
                             onClick={difficultySort}>
-                            Sort by Difficult
+                            Sort by Difficulty
                             </SortButton>
 
                         </SortBar>
