@@ -149,6 +149,7 @@ export const SortMenu = styled.ul`
     list-style: none;
     text-align: center;
     margin-right: -22px;
+    margin-top: 20px;
 
     @media screen and (max-width: 768px) {
         display: none;
@@ -161,12 +162,12 @@ export const SortButton = styled.button`
     background: #000000;
     padding: 16px 0;
     //border: 2px solid palevioletred;
-    margin-left: 120px;
+    margin-left: 8px;
     border: none;
     border-radius: 25px;
     text-align: center;
     color: #fff;
-    font-size: 20px;
+    font-size: 18px;
     cursor: pointer;
 `;
 /*

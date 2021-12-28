@@ -19,43 +19,102 @@ import { getRecipeOfTheDay } from '../../backend/RecipeOfTheDayServices';
 import RecipeOfTheDay from './RecipeOfTheDay';
 import { Button } from 'semantic-ui-react';
 
-let difficultyVariable = "false";
-let popularityVariable = "false";
-//After click on Sort by Difficulty
-const difficultySort = async (e) => {
+let easytohardVariable = "false";
+let hardtoeasyVariable = "false";
+let lesstomostVariable = "false";
+let mosttolessVariable = "false";
+
+
+//for difficulty easiest to hardest
+const easytohard = async (e) => {
+    //other button's variables
+    if( hardtoeasyVariable == "true" || lesstomostVariable == "true" || mosttolessVariable == "true" ){
+        hardtoeasyVariable = "false";
+        lesstomostVariable = "false";
+        mosttolessVariable = "false";
+    }
+        
+   //second click on same buton
+    if(easytohardVariable == "true")
+        easytohardVariable = "false";
     //first click
-    if(popularityVariable == "true")
-        popularityVariable = "false";
-    //second click on same buton
-    if(difficultyVariable == "true")
-        difficultyVariable = "false";
     else
-        difficultyVariable = "true";
-    
+        easytohardVariable = "true";
+        
     saveSortElements();
     window.location.reload();
-   
+
 }
+//for difficulty hardest to easiest
+const hardtoeasy = async (e) => {
+    //other button's variables
+    if(easytohardVariable == "true" || lesstomostVariable == "true" || mosttolessVariable == "true"){
+        easytohardVariable = "false";
+        lesstomostVariable = "false";
+        mosttolessVariable = "false";
+    }
+   
+    //second click on same buton
+    if(hardtoeasyVariable == "true")
+        hardtoeasyVariable = "false";
+    //first click
+    else
+        hardtoeasyVariable = "true";
+    
+   saveSortElements();
+   window.location.reload();
+}
+//for popularity min to max
+const lesstomost = async (e) => {
+    //other button's avriables
+    if(easytohardVariable == "true" || hardtoeasyVariable == "true" || mosttolessVariable == "true"){
+        easytohardVariable = "false";
+        hardtoeasyVariable = "false";
+        mosttolessVariable = "false";
+    }
+       
+    //second click on same buton
+    if(lesstomostVariable == "true")
+        lesstomostVariable = "false";
+    //first click
+    else
+        lesstomostVariable = "true";
+
+    saveSortElements();
+    window.location.reload();
+
+}
+//for popularity max to min 
+const mosttoless = async (e) => {
+    //other buttp's variables
+    if(easytohardVariable == "true" || hardtoeasyVariable == "true" || lesstomostVariable == "true"){
+        easytohardVariable = "false";
+        hardtoeasyVariable = "false";
+        lesstomostVariable = "false";
+    }
+      
+    //second click on same buton
+    if(mosttolessVariable == "true")
+        mosttolessVariable = "false";
+    //first click
+    else
+        mosttolessVariable = "true";
+        
+    saveSortElements();
+    window.location.reload();
+
+}
+
+
 //save locally
 const saveSortElements= async (e) =>{
-    localStorage.setItem("differentSort", difficultyVariable);
-    localStorage.setItem("popularitySort",popularityVariable);
+    localStorage.setItem("easytohard", easytohardVariable);
+    localStorage.setItem("hardtoeasy", hardtoeasyVariable);
+    localStorage.setItem("lesstomost", lesstomostVariable);
+    localStorage.setItem("mosttoless", mosttolessVariable);
 }
-//After click on Sort by Popularity
-const popularitySort = async (e) => {
-     //first click
-    if(difficultyVariable == "true")
-        difficultyVariable = "false";
-    //second click on same buton
-    if(popularityVariable == "true")
-        popularityVariable = "false";
-    else
-        popularityVariable = "true";
 
-        saveSortElements();
-        window.location.reload();
 
-}
 //Footer'daki Purrfect Recipes'a basınca homescreen'e gidiyor
 export const Main = () => {
     
@@ -75,32 +134,62 @@ export const Main = () => {
             Line 91 and line 96 includes empty method block. 
 
         */
-        if(difficultyVariable == "false" && popularityVariable =="false" )
+        if(easytohardVariable == "false" || hardtoeasyVariable == "false" || lesstomostVariable == "false" || mosttolessVariable == "false")
             return data;  
 
-        else if(difficultyVariable == "true")
-            data=sortWithDifficulty(data);
+        else if(easytohardVariable == "true")
+            data = sortEasytoHard(data);
 
-        else if(popularityVariable == "true")
-            data=sortWithPopularity(data);
+        else if(hardtoeasyVariable == "true")
+            data = sortHardtoEasy(data);
+
+        else if(lesstomostVariable == "true")
+            data = sortLesstoMost(data);
+
+        else if(mosttolessVariable == "true")
+            data = sortMosttoLess(data);
 
         return data;
     }
-
-    const sortWithPopularity= async(data) => {
+    //for sorting easy to hard
+    const sortEasytoHard= async(data) => {
         //some code for sorting
         return data;
     }
-    //sort with difficulty
-    const sortWithDifficulty = async(data) => {
+   //for sorting hardiest to easiest
+    const sortHardtoEasy = async(data) => {
         //some code for sorting
         return data;
     }
+    //for sorting min to max
+    const sortLesstoMost = async(data) => {
+        //some code for sorting
+        return data;
+    }
+    //for sorting max to min 
+    const sortMosttoLess = async(data) => {
 
+        //some code for sorting
+
+        /* 
+        That is Only an Example
+        data = sortLesstoMost(data);
+        data = reverse(data);
+        */
+        
+        
+        return data;
+    }
+    const reverse = async(data) => {
+        //for reversing
+        return data;
+    }
     //load sort element' from local 
     const loadSortElemetns = async() => {
-        difficultyVariable = localStorage.getItem("differentSort");
-        popularityVariable = localStorage.getItem("popularitySort");
+        easytohardVariable = localStorage.getItem("easytohard");
+        hardtoeasyVariable = localStorage.getItem("hardtoeasy");
+        lesstomostVariable = localStorage.getItem("lesstomost");
+        mosttolessVariable = localStorage.getItem("mosttoless"); 
     }
     const fetchRecipeOfTheDay = async() => {
         const data = await getRecipeOfTheDay();
@@ -157,8 +246,8 @@ export const Main = () => {
 
                             <SortButton 
                             type='button' 
-                            onClick={difficultySort}>
-                            Sort by Difficulty
+                            onClick={easytohard}>
+                           Easiest to Hardest
                             </SortButton>
 
                         </SortBar>
@@ -166,8 +255,26 @@ export const Main = () => {
 
                             <SortButton 
                             type='button' 
-                            onClick={popularitySort}>
-                            Sort by Popularity
+                            onClick={hardtoeasy}>
+                            Hardest to Easiest
+                            </SortButton>
+
+                        </SortBar>
+                        <SortBar>
+
+                            <SortButton 
+                            type='button' 
+                            onClick={mosttoless}>
+                            Most Popularity
+                            </SortButton>
+
+                        </SortBar>
+                        <SortBar>
+
+                            <SortButton 
+                            type='button' 
+                            onClick={lesstomost}>
+                            Less Popularity
                             </SortButton>
 
                         </SortBar>
