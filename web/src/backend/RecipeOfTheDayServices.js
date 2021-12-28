@@ -17,15 +17,6 @@ const getRecipeOfTheDay = async () => {
         recipeID = data[today];
     } else{//there is no recipe of the day at firebase so we'll choose it
         //and we'll delete last recipe of the day because it is useless anymore
-        var todayNew = new Date();
-        //find the date of yesterday
-        var tempYesterday = todayObject - 1000 * 60 * 60 * 24 * 1;
-        var yesterdayObject  =new Date(tempYesterday);
-        var ddYesterday = String(yesterdayObject.getDate()).padStart(2, '0');
-        var mmYesterday = String(yesterdayObject.getMonth() + 1).padStart(2, '0'); 
-        var yyyyYesterday = yesterdayObject.getFullYear();
-        var yesterday = ddYesterday + ' ' + mmYesterday + ' ' + yyyyYesterday;
-        console.log(yesterday);
         //delete the recipe of yesterday from firebase
         remove(ref(database,"Recipe of The Day/"));
         //create new recipe of the day and write it to firebase
