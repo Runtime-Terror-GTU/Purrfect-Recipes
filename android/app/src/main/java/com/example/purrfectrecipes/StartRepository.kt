@@ -59,11 +59,12 @@ class StartRepository(val connector: StartVMRepConnector)
                 }
                 else
                 {
+                    val defaultPicUrl="https://firebasestorage.googleapis.com/v0/b/purrfect-recipes.appspot.com/o/User%20Pictures%2Fdefault_pic1.png?alt=media&token=9c1dc943-b8f7-4afc-acd2-d8385f431601"
                     usersRef.child(user.getUserID()).child(Constants.R_USERNAME).setValue(user.getUsername())
                     usersRef.child(user.getUserID()).child(Constants.R_USEREMAIL).setValue(user.getUserEmail())
                     usersRef.child(user.getUserID()).child(Constants.R_USERPASS).setValue(user.getUserPassword())
                     usersRef.child(user.getUserID()).child(Constants.R_USERBIO).setValue(user.getUserBio())
-                    usersRef.child(user.getUserID()).child(Constants.R_USERPICTURE).setValue(user.getUserPic())
+                    usersRef.child(user.getUserID()).child(Constants.R_USERPICTURE).setValue(defaultPicUrl)
                     usersRef.child(user.getUserID()).child(Constants.R_USERSTATUS).setValue(user.getUserStatus())
 
                     connector.onUserRetrieved(user)
