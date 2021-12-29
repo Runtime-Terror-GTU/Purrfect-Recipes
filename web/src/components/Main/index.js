@@ -151,7 +151,7 @@ export const Main = () => {
     }
 
     //data1 data2 den zorsa true döner
-    const compareDifficulty= async(data1,data2) => {
+    function compareDifficulty(data1,data2) {
 
             if(data2.R_RecipeDifficulty==="Easy"){
                 if(data1.R_RecipeDifficulty==="Easy") return false;
@@ -166,82 +166,85 @@ export const Main = () => {
             }
 
     }
+    
     //for sorting easy to hard
     const sortEasytoHard= async(data) => {
-        //some code for sorting
 
-       // console.log(compareDifficulty(data[0],data[1]));
-      //  console.log(data[0].R_RecipeDifficulty + data[1].R_RecipeDifficulty);
-        let temp;
-        let j;
-        for (let i = 1; i < data.length; i++) {
-            j = i;         
-            temp = data[i];
-            let compare = Boolean(compareDifficulty(data[j - 1],temp));
-            while (j > 0 && compare===true) {
-                compare = Boolean(compareDifficulty(data[j - 1],temp));
-                data[j] = data[j - 1];
-                j--;
-                
-                
-                //while icine girmiyoooooooooooooooooooooo
-                //console.log("1"+data[j-1].R_RecipeDifficulty);
-                //console.log("2"+temp.R_RecipeDifficulty);
+            let temp;
+            let j;
+            for (let i = 1; i < data.length; i++) {
+                j = i;         
+                temp = data[i];
+                let compare =compareDifficulty(data[j - 1],temp);
+                while (j > 0 && compare===true) {
+                    compare = compareDifficulty(data[j - 1],temp);
+                    data[j] = data[j - 1];
+                    j--;
+                }
+                data[j] = temp;
             }
-            data[j] = temp;
-        }
-
-        for(let i = 0; i < data.length; i++){
-            console.log(data[i].R_RecipeDifficulty);
-        }
-        return data;
+            return data;
     }
 
    //for sorting hardest to easiest
     const sortHardtoEasy = async(data) => {
-        data = await sortEasytoHard(data);
-        data= await reverse(data);
-
-        return data;
-
+            let temp;
+            let j;
+            for (let i = 1; i < data.length; i++) {
+                j = i;         
+                temp = data[i];
+                let compare =compareDifficulty(data[j - 1],temp);
+                while (j > 0 && compare===false) {
+                    compare = compareDifficulty(data[j - 1],temp);
+                    data[j] = data[j - 1];
+                    j--;
+                }
+                data[j] = temp;
+            }
+            return data;
     }
+
     //for sorting min to max
     const sortLesstoMost = async(data) => {
-        //some code for sorting
-        let temp;
-        
-        for (let i = 1; i < data.length; i++) {
-            let j = i;
-            temp = data[i];
-            while (j > 0 && data[j - 1].R_RecipePurrfected > temp.R_RecipePurrfected) {
-                data[j] = data[j - 1];
-                j--;
+
+            let temp;
+            let j;
+            let compare;
+            
+            for (let i = 1; i < data.length; i++) {
+                j = i;
+                temp = data[i];
+                compare= Number(data[j - 1].R_RecipePurrfectedCount)>Number(temp.R_RecipePurrfectedCount);
+
+                while (j > 0 && compare===true ){
+                    data[j] = data[j - 1];
+                    j--;
+                    if(j>0) compare= Number(data[j - 1].R_RecipePurrfectedCount)>Number(temp.R_RecipePurrfectedCount);
+                }
+                data[j] = temp;
             }
-            data[j] = temp;
-        }
-        
-        return data;
+
+            return data;
     }
 
     //for sorting max to min 
     const sortMosttoLess = async(data) => {
-        data = await sortLesstoMost(data);
-        data= await reverse(data);
-
-        return data;
-
-       
-    }
-
-
-     //for reversing 
-     const reverse = async(data) => {
             let temp;
-            temp =data;
-            let j=data.length-1;
-            for(let i=0 ; i<data.length; i++)
-                    data[i]=temp[j--];
+            let j;
+            let compare;
+            
+            for (let i = 1; i < data.length; i++) {
+                j = i;
+                temp = data[i];
+                compare= Number(data[j - 1].R_RecipePurrfectedCount)<Number(temp.R_RecipePurrfectedCount);
 
+                while (j > 0 && compare===true ){
+                    data[j] = data[j - 1];
+                    j--;
+                    if(j>0) compare= Number(data[j - 1].R_RecipePurrfectedCount)<Number(temp.R_RecipePurrfectedCount);
+                }
+                data[j] = temp;
+            }
             return data;
     }
 
