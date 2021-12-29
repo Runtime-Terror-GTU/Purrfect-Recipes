@@ -181,9 +181,10 @@ export const Main = () => {
             temp = data[i];
             let compare = Boolean(compareDifficulty(data[j - 1],temp));
             while (j > 0 && compare===true) {
+                compare = Boolean(compareDifficulty(data[j - 1],temp));
                 data[j] = data[j - 1];
                 j--;
-                //compare = Boolean(compareDifficulty(data[j - 1],temp));
+                
                 console.log("asd");
                 //while icine girmiyoooooooooooooooooooooo
                 //console.log("1"+data[j-1].R_RecipeDifficulty);
@@ -280,19 +281,7 @@ export const Main = () => {
         
                     <SearchWrapper>
                         <SearchCard>
-                            <SearchBar searchType="Search by Recipe Name" />
-                        </SearchCard>
-
-                        <SearchCard>
-                            <SearchBar searchType="Search by Recipe Owner" />
-                        </SearchCard>
-                
-                        <SearchCard>
-                            <SearchBar searchType="Search by Ingredient" />                       
-                        </SearchCard>
-                    
-                        <SearchCard>
-                            <h1>deneme</h1>                       
+                            <SearchBar placeholder={"Search by Recipe Name"} />
                         </SearchCard>
                     </SearchWrapper>
 
