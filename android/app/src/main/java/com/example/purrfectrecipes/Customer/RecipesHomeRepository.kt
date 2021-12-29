@@ -45,8 +45,6 @@ class RecipesHomeRepository(val connector: RecipesHomeVMRepConnector)
                     for(tag in ds.child(Constants.R_RECIPETAGS).children)
                         recipe.addTag(tag.key.toString())
 
-                    Log.i("here", "********")
-                    Log.i("here", likes)
                     recipesArray.add(recipe)
                 }
 
@@ -73,7 +71,6 @@ class RecipesHomeRepository(val connector: RecipesHomeVMRepConnector)
                                 for(pRecipe in snapshot.child(Constants.R_PURRFECTEDRECIPES).children)
                                     owner!!.addPurrfectedRecipe(pRecipe.key.toString())
                             }
-                            Log.i("here", recipe.recipeLikes.toString())
                             recipe.recipeOwner=snapshot.child(Constants.R_USERNAME).value.toString()
                             i++
                             if(i==recipesArray.size)

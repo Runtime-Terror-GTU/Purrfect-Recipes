@@ -76,10 +76,10 @@ class RecipesHomeChildfragment: Fragment(R.layout.childfragment_home_recipes), R
         uri=resourceToUri(requireContext(), R.drawable.cheesecake)
         //storageRef.child(id3).putFile(uri)*/
 
-        recipesRef.child(id4).child(Constants.R_RECIPENAME).setValue("Lemonade")
+        //recipesRef.child(id4).child(Constants.R_RECIPENAME).setValue("Lemonade")
         recipesRef.child(id4).child(Constants.R_RECIPEOWNER).setValue("14e7855c-a9ba-4b99-9cab-1233b2d9c6be")
-        recipesRef.child(id4).child(Constants.R_RECIPEDIFFICULTY).setValue("Easy")
-        recipesRef.child(id4).child(Constants.R_RECIPEPURRFECTEDCOUNT).setValue("15")
+        //recipesRef.child(id4).child(Constants.R_RECIPEDIFFICULTY).setValue("Easy")
+        //recipesRef.child(id4).child(Constants.R_RECIPEPURRFECTEDCOUNT).setValue("15")
         //uri=resourceToUri(requireContext(), R.drawable.lemonade)
         //storageRef.child(id4).putFile(uri)
 

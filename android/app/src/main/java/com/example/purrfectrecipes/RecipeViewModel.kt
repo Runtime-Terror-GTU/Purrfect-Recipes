@@ -68,18 +68,24 @@ class RecipeViewModel : ViewModel(), RecipeRetrievedListener
 
     fun purrfectRecipe()
     {
-        repository.increasePurrfectedCount(recipe.value!!.getRecipeID(), recipe.value!!.recipeLikes, Hawk.get<String>(Constants.LOGGEDIN_USERID))
-        recipe.value!!.recipeLikes=recipe.value!!.recipeLikes+1
+        val currentLikes=recipe.value!!.recipeLikes
+
+        recipe.value!!.recipeLikes=currentLikes+1
         user?.addPurrfectedRecipe(recipe.value!!.getRecipeID())
         recipe.value=recipe.value
+
+        repository.increasePurrfectedCount(recipe.value!!.getRecipeID(), currentLikes, Hawk.get<String>(Constants.LOGGEDIN_USERID))
     }
 
     fun unPurrfectRecipe()
     {
-        repository.decreasePurrfectedCount(recipe.value!!.getRecipeID(), recipe.value!!.recipeLikes, Hawk.get<String>(Constants.LOGGEDIN_USERID))
-        recipe.value!!.recipeLikes=recipe.value!!.recipeLikes-1
+        val currentLikes=recipe.value!!.recipeLikes
+
+        recipe.value!!.recipeLikes=currentLikes-1
         user?.removePurrfectedRecipe(recipe.value!!.getRecipeID())
         recipe.value=recipe.value
+
+        repository.decreasePurrfectedCount(recipe.value!!.getRecipeID(), currentLikes, Hawk.get<String>(Constants.LOGGEDIN_USERID))
     }
 
     override fun onUserRetrieved(user:Customer?)
