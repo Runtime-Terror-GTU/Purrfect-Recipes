@@ -147,7 +147,6 @@ export const Main = () => {
 
         else if(mosttolessVariable === "true")
             data = sortMosttoLess(data);
-
         return data;
     }
 
@@ -173,7 +172,6 @@ export const Main = () => {
 
        // console.log(compareDifficulty(data[0],data[1]));
       //  console.log(data[0].R_RecipeDifficulty + data[1].R_RecipeDifficulty);
-        
         let temp;
         let j;
         for (let i = 1; i < data.length; i++) {
@@ -185,7 +183,7 @@ export const Main = () => {
                 data[j] = data[j - 1];
                 j--;
                 
-                console.log("asd");
+                
                 //while icine girmiyoooooooooooooooooooooo
                 //console.log("1"+data[j-1].R_RecipeDifficulty);
                 //console.log("2"+temp.R_RecipeDifficulty);
@@ -201,16 +199,17 @@ export const Main = () => {
 
    //for sorting hardest to easiest
     const sortHardtoEasy = async(data) => {
-      
-        data = sortEasytoHard(data);
-        data = reverse(data);
-        
+        data = await sortEasytoHard(data);
+        data= await reverse(data);
+
         return data;
+
     }
     //for sorting min to max
     const sortLesstoMost = async(data) => {
         //some code for sorting
         let temp;
+        
         for (let i = 1; i < data.length; i++) {
             let j = i;
             temp = data[i];
@@ -226,11 +225,12 @@ export const Main = () => {
 
     //for sorting max to min 
     const sortMosttoLess = async(data) => {
-
-        data = sortLesstoMost(data);
-        data = reverse(data);
+        data = await sortLesstoMost(data);
+        data= await reverse(data);
 
         return data;
+
+       
     }
 
 
@@ -239,10 +239,9 @@ export const Main = () => {
             let temp;
             temp =data;
             let j=data.length-1;
-            for(let i=0 ; i>data.length; i++){
-                    data[i]=temp[j];
-                    j--;
-            }
+            for(let i=0 ; i<data.length; i++)
+                    data[i]=temp[j--];
+
             return data;
     }
 
