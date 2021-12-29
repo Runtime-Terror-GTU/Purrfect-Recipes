@@ -28,14 +28,14 @@ let mosttolessVariable = "false";
 //for difficulty easiest to hardest
 const easytohard = async (e) => {
     //other button's variables
-    if( hardtoeasyVariable == "true" || lesstomostVariable == "true" || mosttolessVariable == "true" ){
+    if( hardtoeasyVariable === "true" || lesstomostVariable === "true" || mosttolessVariable === "true" ){
         hardtoeasyVariable = "false";
         lesstomostVariable = "false";
         mosttolessVariable = "false";
     }
         
    //second click on same buton
-    if(easytohardVariable == "true")
+    if(easytohardVariable === "true")
         easytohardVariable = "false";
     //first click
     else
@@ -48,14 +48,14 @@ const easytohard = async (e) => {
 //for difficulty hardest to easiest
 const hardtoeasy = async (e) => {
     //other button's variables
-    if(easytohardVariable == "true" || lesstomostVariable == "true" || mosttolessVariable == "true"){
+    if(easytohardVariable === "true" || lesstomostVariable === "true" || mosttolessVariable === "true"){
         easytohardVariable = "false";
         lesstomostVariable = "false";
         mosttolessVariable = "false";
     }
    
     //second click on same buton
-    if(hardtoeasyVariable == "true")
+    if(hardtoeasyVariable === "true")
         hardtoeasyVariable = "false";
     //first click
     else
@@ -67,14 +67,14 @@ const hardtoeasy = async (e) => {
 //for popularity min to max
 const lesstomost = async (e) => {
     //other button's avriables
-    if(easytohardVariable == "true" || hardtoeasyVariable == "true" || mosttolessVariable == "true"){
+    if(easytohardVariable === "true" || hardtoeasyVariable === "true" || mosttolessVariable === "true"){
         easytohardVariable = "false";
         hardtoeasyVariable = "false";
         mosttolessVariable = "false";
     }
        
     //second click on same buton
-    if(lesstomostVariable == "true")
+    if(lesstomostVariable === "true")
         lesstomostVariable = "false";
     //first click
     else
@@ -87,14 +87,14 @@ const lesstomost = async (e) => {
 //for popularity max to min 
 const mosttoless = async (e) => {
     //other buttp's variables
-    if(easytohardVariable == "true" || hardtoeasyVariable == "true" || lesstomostVariable == "true"){
+    if(easytohardVariable === "true" || hardtoeasyVariable === "true" || lesstomostVariable === "true"){
         easytohardVariable = "false";
         hardtoeasyVariable = "false";
         lesstomostVariable = "false";
     }
       
     //second click on same buton
-    if(mosttolessVariable == "true")
+    if(mosttolessVariable === "true")
         mosttolessVariable = "false";
     //first click
     else
@@ -133,31 +133,77 @@ export const Main = () => {
             Line 155-159-164-169 includes empty method block. 183 is optionaly if you do not use you can delete that method block
 
         */
-        if(easytohardVariable == "false" || hardtoeasyVariable == "false" || lesstomostVariable == "false" || mosttolessVariable == "false")
+        if(easytohardVariable === "false" && hardtoeasyVariable === "false" && lesstomostVariable === "false" && mosttolessVariable === "false")
             return data;  
 
-        else if(easytohardVariable == "true")
+        else if(easytohardVariable === "true")
             data = sortEasytoHard(data);
 
-        else if(hardtoeasyVariable == "true")
+        else if(hardtoeasyVariable === "true")
             data = sortHardtoEasy(data);
 
-        else if(lesstomostVariable == "true")
+        else if(lesstomostVariable === "true")
             data = sortLesstoMost(data);
 
-        else if(mosttolessVariable == "true")
+        else if(mosttolessVariable === "true")
             data = sortMosttoLess(data);
 
         return data;
     }
+
+    //data1 data2 den zorsa true döner
+    const compareDifficulty= async(data1,data2) => {
+
+            if(data2.R_RecipeDifficulty==="Easy"){
+                if(data1.R_RecipeDifficulty==="Easy") return false;
+                else return true;
+            }
+            else if(data2.R_RecipeDifficulty==="Medium"){
+                if(data1.R_RecipeDifficulty==="Hard") return true;
+                else return false;
+            }
+            else if(data2.R_RecipeDifficulty==="Hard"){
+                return false;
+            }
+
+    }
     //for sorting easy to hard
     const sortEasytoHard= async(data) => {
         //some code for sorting
+
+       // console.log(compareDifficulty(data[0],data[1]));
+      //  console.log(data[0].R_RecipeDifficulty + data[1].R_RecipeDifficulty);
+        
+        let temp;
+        let j;
+        for (let i = 1; i < data.length; i++) {
+            j = i;         
+            temp = data[i];
+
+            console.log(j);
+
+            while (j > 0 && (compareDifficulty(data[j - 1],temp) === true )) {
+                data[j] = data[j - 1];
+                j--;
+                //while icine girmiyoooooooooooooooooooooo
+                console.log("1"+data[j-1].R_RecipeDifficulty);
+                console.log("2"+temp.R_RecipeDifficulty);
+            }
+            data[j] = temp;
+        }
+
+        for(let i = 0; i < data.length; i++){
+        console.log(data[i].R_RecipeDifficulty);
+        }
         return data;
     }
-   //for sorting hardiest to easiest
+
+   //for sorting hardest to easiest
     const sortHardtoEasy = async(data) => {
-        //some code for sorting
+      
+        data = sortEasytoHard(data);
+        data = data.reverse(data);
+        
         return data;
     }
     //for sorting min to max
@@ -168,21 +214,19 @@ export const Main = () => {
     //for sorting max to min 
     const sortMosttoLess = async(data) => {
 
-        //some code for sorting
-
-        /* 
-        That is Only an Example
         data = sortLesstoMost(data);
-        data = reverse(data);
-        */
-        
-        
+        data = data.reverse(data);
+
         return data;
     }
-    const reverse = async(data) => {
+
+     //hazir fonku var bunun
+    /*const reverse = async(data) => {
         //for reversing
+
         return data;
-    }
+    }*/
+
     //load sort element' from local 
     const loadSortElemetns = async() => {
         easytohardVariable = localStorage.getItem("easytohard");
