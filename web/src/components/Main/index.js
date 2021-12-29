@@ -179,11 +179,12 @@ export const Main = () => {
         for (let i = 1; i < data.length; i++) {
             j = i;         
             temp = data[i];
-            let deneme = Boolean(compareDifficulty(data[j - 1],temp));
-            while (j > 0 && deneme===true) {
+            let compare = Boolean(compareDifficulty(data[j - 1],temp));
+            while (j > 0 && compare===true) {
                 data[j] = data[j - 1];
                 j--;
-                //console.log("asd");
+                //compare = Boolean(compareDifficulty(data[j - 1],temp));
+                console.log("asd");
                 //while icine girmiyoooooooooooooooooooooo
                 //console.log("1"+data[j-1].R_RecipeDifficulty);
                 //console.log("2"+temp.R_RecipeDifficulty);
@@ -191,9 +192,9 @@ export const Main = () => {
             data[j] = temp;
         }
 
-        /*for(let i = 0; i < data.length; i++){
+        for(let i = 0; i < data.length; i++){
             console.log(data[i].R_RecipeDifficulty);
-        }*/
+        }
         return data;
     }
 
@@ -236,7 +237,7 @@ export const Main = () => {
      const reverse = async(data) => {
             let temp;
             temp =data;
-            let j=data.length;
+            let j=data.length-1;
             for(let i=0 ; i>data.length; i++){
                     data[i]=temp[j];
                     j--;
@@ -254,7 +255,7 @@ export const Main = () => {
     }
     const fetchRecipeOfTheDay = async() => {
         const data = await getRecipeOfTheDay();
-        return data
+        return data;
     }
     
     useEffect(() => {
