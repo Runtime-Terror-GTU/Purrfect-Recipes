@@ -183,7 +183,7 @@ export const Main = () => {
             while (j > 0 && deneme===true) {
                 data[j] = data[j - 1];
                 j--;
-                console.log("asd");
+                //console.log("asd");
                 //while icine girmiyoooooooooooooooooooooo
                 //console.log("1"+data[j-1].R_RecipeDifficulty);
                 //console.log("2"+temp.R_RecipeDifficulty);
@@ -201,30 +201,49 @@ export const Main = () => {
     const sortHardtoEasy = async(data) => {
       
         data = sortEasytoHard(data);
-        //data = data.reverse(data);
+        data = reverse(data);
         
         return data;
     }
     //for sorting min to max
     const sortLesstoMost = async(data) => {
         //some code for sorting
+        let temp;
+        for (let i = 1; i < data.length; i++) {
+            let j = i;
+            temp = data[i];
+            while (j > 0 && data[j - 1].R_RecipePurrfected > temp.R_RecipePurrfected) {
+                data[j] = data[j - 1];
+                j--;
+            }
+            data[j] = temp;
+        }
+        
         return data;
     }
+
     //for sorting max to min 
     const sortMosttoLess = async(data) => {
 
         data = sortLesstoMost(data);
-        //data = data.reverse(data);
+        data = reverse(data);
 
         return data;
     }
 
-     //hazir fonku var bunun
-    /*const reverse = async(data) => {
-        //for reversing
 
-        return data;
-    }*/
+     //for reversing 
+     const reverse = async(data) => {
+            let temp;
+            temp =data;
+            let j=data.length;
+            for(let i=0 ; i>data.length; i++){
+                    data[i]=temp[j];
+                    j--;
+            }
+            return data;
+    }
+
 
     //load sort element' from local 
     const loadSortElemetns = async() => {
