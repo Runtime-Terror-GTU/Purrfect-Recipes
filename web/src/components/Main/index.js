@@ -179,22 +179,21 @@ export const Main = () => {
         for (let i = 1; i < data.length; i++) {
             j = i;         
             temp = data[i];
-
-            console.log(j);
-
-            while (j > 0 && (compareDifficulty(data[j - 1],temp) === true )) {
+            let deneme = Boolean(compareDifficulty(data[j - 1],temp));
+            while (j > 0 && deneme===true) {
                 data[j] = data[j - 1];
                 j--;
+                console.log("asd");
                 //while icine girmiyoooooooooooooooooooooo
-                console.log("1"+data[j-1].R_RecipeDifficulty);
-                console.log("2"+temp.R_RecipeDifficulty);
+                //console.log("1"+data[j-1].R_RecipeDifficulty);
+                //console.log("2"+temp.R_RecipeDifficulty);
             }
             data[j] = temp;
         }
 
-        for(let i = 0; i < data.length; i++){
-        console.log(data[i].R_RecipeDifficulty);
-        }
+        /*for(let i = 0; i < data.length; i++){
+            console.log(data[i].R_RecipeDifficulty);
+        }*/
         return data;
     }
 
@@ -202,7 +201,7 @@ export const Main = () => {
     const sortHardtoEasy = async(data) => {
       
         data = sortEasytoHard(data);
-        data = data.reverse(data);
+        //data = data.reverse(data);
         
         return data;
     }
@@ -215,7 +214,7 @@ export const Main = () => {
     const sortMosttoLess = async(data) => {
 
         data = sortLesstoMost(data);
-        data = data.reverse(data);
+        //data = data.reverse(data);
 
         return data;
     }
