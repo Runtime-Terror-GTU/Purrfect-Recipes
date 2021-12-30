@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import RecipeBoxes from '../RecipeBoxes';
-import SearchBar from '../SearchBar';
+import SearchBar from '../SearchBarV2';
 import Footer from '../HomePage/Footer';
 import { getRecipes } from '../../backend/RecipeValueListener';
 import {
@@ -318,7 +318,7 @@ export const Main = () => {
                                 </SortButton>
                             </SortBar>
                         </SortMenu>
-                        
+            
                         <RecipeBoxes recipes={recipes} />
                     </RecipeWrapper>
 
