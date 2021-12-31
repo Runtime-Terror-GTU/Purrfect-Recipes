@@ -92,7 +92,8 @@ export const OtherWrapper = styled.div`
     //align-items: center;
     //padding: 0 -50px;
     background: #B38A9B;
-
+    overflow: hidden;
+    overflow-y: auto;
     @media screen and (max-width: 1000px) {
         width: 400px;
     }

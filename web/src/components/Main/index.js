@@ -18,6 +18,7 @@ import {
 import { getRecipeOfTheDay } from '../../backend/RecipeOfTheDayServices';
 import RecipeOfTheDay from './RecipeOfTheDay';
 import { Button } from 'semantic-ui-react';
+import './overflow.css';
 
 let easytohardVariable = "false";
 let hardtoeasyVariable = "false";
@@ -319,10 +320,13 @@ export const Main = () => {
                                 </SortButton>
                             </SortBar>
                         </SortMenu>
-            
-                        <RecipeBoxes recipes={recipes} />
+                        
+                        <div className='Recipes'>
+                            <RecipeBoxes recipes={recipes} />
+                        </div>
+                        
                     </RecipeWrapper>
-
+                    
                     <OtherWrapper>
                         <OtherCard> 
                             <RecipeOfTheDay recipe={recipeOfTheDay} />
