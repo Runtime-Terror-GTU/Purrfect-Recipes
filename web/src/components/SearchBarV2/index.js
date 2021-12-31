@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import "./SearchBar.css";
 import AddIcon from '@mui/icons-material/Add';
 
-
-function SearchBar({ placeholder, data }) {
+import FormLabel from '@mui/material/FormLabel';
+import RowRadioButtonsGroup from './radioButton';
+import  CheckboxLabels from './checkBox';
+function SearchBar({ placeholder}) {
   
   const [input, setInput] = useState("");
 
@@ -37,10 +39,34 @@ function SearchBar({ placeholder, data }) {
             //Belki yazı yazılırken search şeklini değiştirmek isteriz
             <AddIcon onClick={handleFilter} />
           )}
+          
         </div>
       </div>
+
+
+      <RowRadioButtonsGroup />
+      <CheckboxLabels/>
+
+      <div className="allOfit">
+    
+        <div className="label">
+          <label>Ingredients</label>
+        </div>
+
+        <div className="Ingredients">
+            <CheckboxLabels/>
+            <CheckboxLabels/>
+        </div>
+      
+      </div>
+      
     </div>
+    
+    
+    
   );
+   
+  
 }
 
 export default SearchBar;

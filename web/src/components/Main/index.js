@@ -285,8 +285,9 @@ export const Main = () => {
                         <SearchCard>
                             <SearchBar placeholder={"Search by Recipe Name"} />
                         </SearchCard>
+                        
                     </SearchWrapper>
-
+                   
                     <RecipeWrapper>
                         <SortMenu>
                             <SortBar>

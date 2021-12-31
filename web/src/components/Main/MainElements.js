@@ -36,6 +36,7 @@ export const SearchWrapper = styled.div`
     display: grid;
     grid-gap: 0px;
     padding: 1px;
+    margin-top: 250px;
     flex-direction: left;
     align-items: top;
     grid-template-rows: repeat(4, 80px);
@@ -66,11 +67,7 @@ export const SearchCard = styled.div`
     transtion: all 0.2s ease-in-out;
     background: #B38A9B;
 
-    &:hover {
-        transform: scale(1.02);
-        transition: all 0.2s ease-in-out;
-        cursor: pointer;
-    }
+    
 `;
 
 export const RecipeWrapper = styled.div`
@@ -112,6 +109,7 @@ export const OtherCard = styled.div`
     justify-content: flex-start;
     align-items: center;
     background: #B38A9B;
+    
 `;
 
 export const MainIcon = styled.img`
