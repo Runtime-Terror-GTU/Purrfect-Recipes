@@ -79,7 +79,7 @@ class RecipeFragment : Fragment(R.layout.fragment_recipe), CommentChangeListener
                 recipeName.text=viewModel.getRecipe().value!!.recipeName
                 recipeLikes.text=viewModel.getRecipe().value!!.recipeLikes.toString()
                 recipeIngredientsOverview.text=viewModel.getRecipe().value!!.recipeIngredientsOverview
-                recipeIngredientsOverview.text=recipeIngredientsOverview.text!!.toString().replace("/n", "\n")
+                recipeIngredientsOverview.text=recipeIngredientsOverview.text!!.toString().replace("\\n", "\n")
                 Glide.with(requireContext())
                     .load(viewModel.getRecipe().value?.recipePictureURL)
                     .into(recipePic)
