@@ -72,7 +72,7 @@ class RecipesRVAdapter2(val context: Context, val listener: RecipeOnClickListene
         }
 
         holder.deleteRecipeButton.setOnClickListener {
-            listener.onDelete(recipes.get(position).getRecipeID())
+            listener.onDelete(recipes.get(position))
         }
 
         holder.editRecipeButton.setOnClickListener {

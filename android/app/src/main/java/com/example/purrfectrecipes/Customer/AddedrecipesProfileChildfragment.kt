@@ -18,6 +18,7 @@ import com.example.purrfectrecipes.Connectors.RecipeOnClickListener
 import com.example.purrfectrecipes.Connectors.RecipeOnClickListener2
 import com.example.purrfectrecipes.Moderator.ModeratorFragmentViewModel
 import com.example.purrfectrecipes.R
+import com.example.purrfectrecipes.Recipe
 import com.example.purrfectrecipes.SortMethods
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -113,8 +114,8 @@ class AddedrecipesProfileChildfragment: Fragment(R.layout.childfragment_profile_
         viewModel.unPurrfectRecipe(recipeId, recipeLikes)
     }
 
-    override fun onDelete(recipeId: String) {
-        TODO("Not yet implemented")
+    override fun onDelete(recipe: Recipe) {
+        viewModel.deleteRecipe(recipe)
     }
 
 }

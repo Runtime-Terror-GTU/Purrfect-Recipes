@@ -65,6 +65,11 @@ class AddedrecipesProfileViewModel: ViewModel(), RecipesRetrievedListener
         repository.decreaseDayPurrfectedCount(recipeId, currentLikes, Hawk.get<String>(Constants.LOGGEDIN_USERID))
     }
 
+    fun deleteRecipe(recipe:Recipe)
+    {
+        repository.removeRecipe(recipe)
+    }
+
     override fun onRecipesRetrieved(list: ArrayList<Recipe>?, user:Customer?) {
         if(list!=null) {
             this.user=user

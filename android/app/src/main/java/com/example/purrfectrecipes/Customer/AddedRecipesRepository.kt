@@ -18,6 +18,8 @@ class AddedRecipesRepository(val connector: RecipesRetrievedListener)
     private val recipesRef: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Recipes")
     private val usersRef: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users")
     private val addedRecipesRef: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(Hawk.get(Constants.LOGGEDIN_USERID)).child(Constants.R_ADDEDRECIPES)
+    private val commentsRef: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Comments")
+    private val dayRecipeRef: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Recipe of The Day")
 
     var seed = Random().nextLong()
 
@@ -85,6 +87,53 @@ class AddedRecipesRepository(val connector: RecipesRetrievedListener)
                             TODO("Not yet implemented")
                         }
                     })
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
+    }
+
+    fun removeRecipe(deletedRecipe:Recipe)
+    {
+        for(commentId in deletedRecipe.getRecipeComments())
+            commentsRef.child(commentId).removeValue()
+
+        usersRef.child(Hawk.get(Constants.LOGGEDIN_USERID)).child(Constants.R_ADDEDRECIPES).child(deletedRecipe.getRecipeID()).removeValue()
+        usersRef.addListenerForSingleValueEvent(object:ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for(ds in snapshot.children)
+                {
+                    ds.child(Constants.R_PURRFECTEDRECIPES).child(deletedRecipe.getRecipeID()).ref.removeValue()
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
+        recipesRef.child(deletedRecipe.getRecipeID()).removeValue()
+        dayRecipeRef.addListenerForSingleValueEvent(object :ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for(ds in snapshot.children)
+                {
+                    if(ds.value.toString()==deletedRecipe.getRecipeID()){
+                        recipesRef.addListenerForSingleValueEvent(object :ValueEventListener{
+                            override fun onDataChange(snapshot: DataSnapshot) {
+                                for(recipe in snapshot.children)
+                                {
+                                    ds.ref.setValue(recipe.key.toString())
+                                    break
+                                }
+                            }
+
+                            override fun onCancelled(error: DatabaseError) {
+                                TODO("Not yet implemented")
+                            }
+                        })
+                    }
                 }
             }
 
