@@ -2,8 +2,7 @@ package com.example.purrfectrecipes.Customer
 
 import android.os.Bundle
 import android.view.View
-import android.widget.EditText
-import android.widget.RadioButton
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -12,21 +11,24 @@ import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.purrfectrecipes.*
 import com.example.purrfectrecipes.Adapters.HomePageRVAdapter
 import com.example.purrfectrecipes.Adapters.RecipesRVAdapter2
 import com.example.purrfectrecipes.Connectors.RecipeOnClickListener
 import com.example.purrfectrecipes.Connectors.RecipeOnClickListener2
 import com.example.purrfectrecipes.Moderator.ModeratorFragmentViewModel
-import com.example.purrfectrecipes.R
-import com.example.purrfectrecipes.Recipe
-import com.example.purrfectrecipes.SortMethods
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.orhanobut.hawk.Hawk
 
 class AddedrecipesProfileChildfragment: Fragment(R.layout.childfragment_profile_addedrecipes), RecipeOnClickListener2
 {
     private var recipesRVAdapter:RecipesRVAdapter2?=null
 
     private val viewModel: AddedrecipesProfileViewModel by activityViewModels()
+
+    private val sortViewModel: SortViewModel by activityViewModels()
+    private val filterViewModel: FilterViewModel by activityViewModels()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         viewModel.getView().observe(viewLifecycleOwner, {
@@ -36,6 +38,10 @@ class AddedrecipesProfileChildfragment: Fragment(R.layout.childfragment_profile_
             {
                 viewModel.setView(view)
                 viewModel.setShownRecipe(null)
+                sortViewModel.resetAddedSort()
+                filterViewModel.resetAddedFilter()
+                viewModel.resetRecipeArray()
+                sortViewModel.setAddedSortId(-1)
                 super.onViewCreated(view, savedInstanceState)
             }
         })
@@ -58,6 +64,46 @@ class AddedrecipesProfileChildfragment: Fragment(R.layout.childfragment_profile_
             }
         })
 
+        val searchDoneButton=view.findViewById<Button>(R.id.searchDoneButton)
+        val searchCancelButton=view.findViewById<ImageView>(R.id.cancelSearchButton)
+        val searchText=view.findViewById<EditText>(R.id.searchText)
+        searchDoneButton.setOnClickListener{
+            redoOperations(true)
+        }
+        searchCancelButton.setOnClickListener {
+            searchText.setText("")
+            searchText.clearFocus()
+            redoOperations(true)
+        }
+
+        val sortButton=view.findViewById<Button>(R.id.sortButton)
+        sortButton.setOnClickListener {
+            Hawk.put(Constants.SORT_DIRECTION, Constants.ADDED_TO_SORT)
+            viewModel.setSort(true)
+        }
+
+        val filterButton=view.findViewById<Button>(R.id.filterButton)
+        filterButton.setOnClickListener{
+            Hawk.put(Constants.FILTER_DIRECTION, Constants.ADDED_TO_FILTER)
+            viewModel.setFilter(true)
+        }
+
+        sortViewModel.getDiffAddedSort().observe(viewLifecycleOwner, {
+            redoOperations(true)
+        })
+
+        sortViewModel.getPopAddedSort().observe(viewLifecycleOwner,{
+            redoOperations(true)
+        })
+
+        filterViewModel.getChosenTagsAdded().observe(viewLifecycleOwner, {
+            redoOperations(true)
+        })
+
+        filterViewModel.getChosenDifficultiesAdded().observe(viewLifecycleOwner, {
+            redoOperations(true)
+        })
+
     }
 
     fun setRVAdapter()
@@ -70,7 +116,7 @@ class AddedrecipesProfileChildfragment: Fragment(R.layout.childfragment_profile_
 
     fun redoOperations(reset:Boolean)
     {
-        /*if(reset)
+        if(reset)
             viewModel.resetRecipeArray()
 
         val byName=view?.findViewById<RadioButton>(R.id.byName)
@@ -84,20 +130,20 @@ class AddedrecipesProfileChildfragment: Fragment(R.layout.childfragment_profile_
             viewModel.searchByUsername(searchText?.text.toString())
 
         //Redo filter
-        if(filterViewModel.getChosenTagsWhat().value!= null && filterViewModel.getChosenTagsWhat().value!!.size!=0)
-            viewModel.applyTagFilters(filterViewModel.getChosenTagsWhat().value!!)
-        if(filterViewModel.getChosenDifficultiesWhat().value!= null && filterViewModel.getChosenDifficultiesWhat().value!!.size!=0)
-            viewModel.applyDifficultyFilters(filterViewModel.getChosenDifficultiesWhat().value!!)
+        if(filterViewModel.getChosenTagsAdded().value!= null && filterViewModel.getChosenTagsAdded().value!!.size!=0)
+            viewModel.applyTagFilters(filterViewModel.getChosenTagsAdded().value!!)
+        if(filterViewModel.getChosenDifficultiesAdded().value!= null && filterViewModel.getChosenDifficultiesAdded().value!!.size!=0)
+            viewModel.applyDifficultyFilters(filterViewModel.getChosenDifficultiesAdded().value!!)
 
         //Redo sort
-        if(sortViewModel.getDiffWhatSort().value!=null && sortViewModel.getDiffWhatSort().value== SortMethods.difMintoMax)
+        if(sortViewModel.getDiffAddedSort().value!=null && sortViewModel.getDiffAddedSort().value== SortMethods.difMintoMax)
             viewModel.sortDiffMin()
-        else if(sortViewModel.getDiffWhatSort().value!=null && sortViewModel.getDiffWhatSort().value== SortMethods.difMaxtoMin)
+        else if(sortViewModel.getDiffAddedSort().value!=null && sortViewModel.getDiffAddedSort().value== SortMethods.difMaxtoMin)
             viewModel.sortDiffMax()
-        if(sortViewModel.getPopWhatSort().value!=null && sortViewModel.getPopWhatSort().value== SortMethods.popMaxtoMin)
+        if(sortViewModel.getPopAddedSort().value!=null && sortViewModel.getPopAddedSort().value== SortMethods.popMaxtoMin)
             viewModel.sortPopMax()
-        else if(sortViewModel.getPopWhatSort().value!=null && sortViewModel.getPopWhatSort().value== SortMethods.popMintoMax)
-            viewModel.sortPopMin()*/
+        else if(sortViewModel.getPopAddedSort().value!=null && sortViewModel.getPopAddedSort().value== SortMethods.popMintoMax)
+            viewModel.sortPopMin()
     }
 
     override fun onRecipeClick(recipeId: String) {

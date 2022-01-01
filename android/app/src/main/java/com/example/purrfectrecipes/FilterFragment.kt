@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.purrfectrecipes.Adapters.HomePageRVAdapter
 import com.example.purrfectrecipes.Adapters.TagsRVAdapter
 import com.example.purrfectrecipes.Connectors.TagOnSelectedListener
+import com.example.purrfectrecipes.Customer.AddedrecipesProfileViewModel
 import com.example.purrfectrecipes.Customer.RecipesHomeViewModel
 import com.example.purrfectrecipes.Customer.WhatresHomeViewModel
 import com.orhanobut.hawk.Hawk
@@ -20,6 +21,7 @@ class FilterFragment : Fragment(R.layout.fragment_filter), TagOnSelectedListener
 
     private val homeViewModel: RecipesHomeViewModel by activityViewModels()
     private val whatResViewModel: WhatresHomeViewModel by activityViewModels()
+    private val addedRecipesViewModel:AddedrecipesProfileViewModel by activityViewModels()
     private val viewModel:FilterViewModel by activityViewModels()
     private var tagsRVAdapter: TagsRVAdapter?=null
 
@@ -174,6 +176,59 @@ class FilterFragment : Fragment(R.layout.fragment_filter), TagOnSelectedListener
                 }
                 if(viewModel.getChosenDifficultiesWhat().value!=null && viewModel.getChosenDifficultiesWhat().value!!.contains("Hard") &&
                     viewModel.getChosenDifficultiesWhat().value!!.size!=3) {
+                    hardOption.isChecked = true
+                    viewModel.tempDifficulties.add("Hard")
+                }
+            })
+        }
+        else if(direction==Constants.ADDED_TO_FILTER)
+        {
+            cancelButton.setOnClickListener {
+                addedRecipesViewModel.setFilter(false)
+                viewModel.tempTags.clear()
+                viewModel.tempDifficulties.clear()
+                Hawk.delete(Constants.FILTER_DIRECTION)
+            }
+
+            enterButton.setOnClickListener {
+                if(viewModel.tempTags.size==0)
+                    viewModel.setAddedTags(viewModel.getTags().value!!)
+                else
+                    viewModel.setAddedTags(viewModel.tempTags)
+
+                if(viewModel.tempDifficulties.size==0)
+                    viewModel.setAddedDifficulties(diffArray)
+                else
+                    viewModel.setAddedDifficulties(viewModel.tempDifficulties)
+
+                viewModel.tempTags.clear()
+                viewModel.tempDifficulties.clear()
+                addedRecipesViewModel.setFilter(false)
+                Hawk.delete(Constants.FILTER_DIRECTION)
+            }
+
+            viewModel.getChosenTagsAdded().observe(viewLifecycleOwner,{
+                if(viewModel.getChosenTagsAdded().value!=null && viewModel.getChosenTagsAdded().value!!.size!=0 &&
+                    viewModel.getChosenTagsAdded().value!!.size!=viewModel.getTags().value!!.size)
+                {
+                    tagsRVAdapter?.setChosen(viewModel.getChosenTagsAdded().value!!)
+                    tagsRVAdapter?.notifyDataSetChanged()
+                }
+            })
+
+            viewModel.getChosenDifficultiesAdded().observe(viewLifecycleOwner, {
+                if(viewModel.getChosenDifficultiesAdded().value!=null && viewModel.getChosenDifficultiesAdded().value!!.contains("Easy") &&
+                    viewModel.getChosenDifficultiesAdded().value!!.size!=3) {
+                    easyOption.isChecked = true
+                    viewModel.tempDifficulties.add("Easy")
+                }
+                if(viewModel.getChosenDifficultiesAdded().value!=null && viewModel.getChosenDifficultiesAdded().value!!.contains("Medium") &&
+                    viewModel.getChosenDifficultiesAdded().value!!.size!=3) {
+                    mediumOption.isChecked = true
+                    viewModel.tempDifficulties.add("Medium")
+                }
+                if(viewModel.getChosenDifficultiesAdded().value!=null && viewModel.getChosenDifficultiesAdded().value!!.contains("Hard") &&
+                    viewModel.getChosenDifficultiesAdded().value!!.size!=3) {
                     hardOption.isChecked = true
                     viewModel.tempDifficulties.add("Hard")
                 }

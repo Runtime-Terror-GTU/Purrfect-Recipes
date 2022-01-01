@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
@@ -118,6 +119,33 @@ class CustomerActivity : AppCompatActivity() {
             }
         })
 
+        addedRecipesViewModel.getSort().observe(this,{
+            if(addedRecipesViewModel.getSort().value!=null && addedRecipesViewModel.getSort().value==true)
+            {
+                navController?.popBackStack(R.id.sortFragment, true)
+                navigationBarCustomer.visibility=View.GONE
+                navController?.navigate(R.id.action_profileFragment_to_sortFragment)
+            }
+            else if(addedRecipesViewModel.getSort().value!=null && addedRecipesViewModel.getSort().value==false){
+                navController?.popBackStack(R.id.profileFragment, false)
+                navigationBarCustomer.visibility=View.VISIBLE
+            }
+        })
+        addedRecipesViewModel.getFilter().observe(this, {
+            if(addedRecipesViewModel.getFilter().value!=null && addedRecipesViewModel.getFilter().value==true)
+            {
+                navController?.popBackStack(R.id.filterFragment, true)
+                navigationBarCustomer.visibility=View.GONE
+                navController?.navigate(R.id.action_profileFragment_to_filterFragment)
+            }
+            else if(addedRecipesViewModel.getFilter().value!=null && addedRecipesViewModel.getFilter().value==false){
+                navController?.popBackStack(R.id.profileFragment, false)
+                navigationBarCustomer.visibility=View.VISIBLE
+                filterViewModel.tempTags.clear()
+                filterViewModel.tempDifficulties.clear()
+            }
+        })
+
         whatViewModel.getEditWanted().observe(this, {
             if(whatViewModel.getEditWanted().value!=null && whatViewModel.getEditWanted().value==true)
             {
@@ -209,6 +237,15 @@ class CustomerActivity : AppCompatActivity() {
         }
         else if(whatResViewModel.getFilter().value!=null && whatResViewModel.getFilter().value==true) {
             whatResViewModel.setFilter(false)
+            Hawk.delete(Constants.FILTER_DIRECTION)
+        }
+        else if(addedRecipesViewModel.getSort().value!=null && addedRecipesViewModel.getSort().value==true) {
+            sortViewModel.resetAddedSort()
+            addedRecipesViewModel.setSort(false)
+            Hawk.delete(Constants.SORT_DIRECTION)
+        }
+        else if(addedRecipesViewModel.getFilter().value!=null && addedRecipesViewModel.getFilter().value==true) {
+            addedRecipesViewModel.setFilter(false)
             Hawk.delete(Constants.FILTER_DIRECTION)
         }
         else if(whatViewModel.getEditWanted().value!=null && whatViewModel.getEditWanted().value==true) {

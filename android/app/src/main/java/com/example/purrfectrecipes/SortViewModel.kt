@@ -13,6 +13,8 @@ class SortViewModel: ViewModel()
         fun getHomeSortId(): LiveData<Int> {return checkHomeSortId}
     private var checkWhatSortId= MutableLiveData<Int>()
         fun getWhatSortId(): LiveData<Int> {return checkWhatSortId}
+    private var checkAddedSortId= MutableLiveData<Int>()
+        fun getAddedSortId(): LiveData<Int> {return checkAddedSortId}
 
     private val diffHomeSort=MutableLiveData<SortMethods?>()
         fun getDiffHomeSort():LiveData<SortMethods?> {return diffHomeSort}
@@ -23,6 +25,11 @@ class SortViewModel: ViewModel()
         fun getDiffWhatSort():LiveData<SortMethods?> {return diffWhatSort}
     private val popWhatSort=MutableLiveData<SortMethods?>()
         fun getPopWhatSort():LiveData<SortMethods?> {return popWhatSort}
+
+    private val diffAddedSort=MutableLiveData<SortMethods?>()
+        fun getDiffAddedSort():LiveData<SortMethods?> {return diffAddedSort}
+    private val popAddedSort=MutableLiveData<SortMethods?>()
+        fun getPopAddedSort():LiveData<SortMethods?> {return popAddedSort}
 
     init{
         checkHomeSortId.value=-1
@@ -70,6 +77,28 @@ class SortViewModel: ViewModel()
     {
         diffWhatSort.value=null
         popWhatSort.value=null
+    }
+
+    fun setAddedSortId(newId: Int)
+    {
+        if(checkAddedSortId.value!=newId)
+            checkAddedSortId.value=newId
+    }
+
+    fun setDiffAddedSort(method:SortMethods?)
+    {
+        diffAddedSort.value=method
+    }
+
+    fun setPopAddedSort(method:SortMethods?)
+    {
+        popAddedSort.value=method
+    }
+
+    fun resetAddedSort()
+    {
+        diffAddedSort.value=null
+        popAddedSort.value=null
     }
 
 }

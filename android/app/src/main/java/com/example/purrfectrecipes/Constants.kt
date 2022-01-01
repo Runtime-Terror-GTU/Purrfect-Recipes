@@ -35,5 +35,7 @@ object Constants
     const val MAIN_TO_FILTER="Main_to_Filter"
     const val WHAT_TO_SORT="What_to_Sort"
     const val WHAT_TO_FILTER="What_to_Filter"
+    const val ADDED_TO_SORT="Added_to_Sort"
+    const val ADDED_TO_FILTER="Added_to_Filter"
 
 }
