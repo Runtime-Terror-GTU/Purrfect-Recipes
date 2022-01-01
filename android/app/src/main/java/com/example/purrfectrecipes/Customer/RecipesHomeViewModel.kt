@@ -156,6 +156,7 @@ class RecipesHomeViewModel: ViewModel(), RecipesHomeVMRepConnector
             if(recipe.getRecipeID()==recipeId) {
                 recipe.recipeLikes = currentLikes + 1
                 recipes.value=recipes.value
+                change=true
                 user?.addPurrfectedRecipe(recipeId)
                 if(recipeId==recipeOfTheDay.value!!.getRecipeID())
                 {
@@ -172,6 +173,7 @@ class RecipesHomeViewModel: ViewModel(), RecipesHomeVMRepConnector
             if(recipe.getRecipeID()==recipeId) {
                 recipe.recipeLikes = currentLikes - 1
                 recipes.value=recipes.value
+                change=true
                 user?.removePurrfectedRecipe(recipeId)
                 if(recipeId==recipeOfTheDay.value!!.getRecipeID())
                 {

@@ -179,6 +179,7 @@ class WhatresHomeViewModel: ViewModel(), RecipesRetrievedListener
             if(recipe.getRecipeID()==recipeId) {
                 recipe.recipeLikes = currentLikes + 1
                 recipes.value=recipes.value
+                change=true
                 user?.addPurrfectedRecipe(recipeId)
             }
         repository.increaseDayPurrfectedCount(recipeId, currentLikes, Hawk.get<String>(Constants.LOGGEDIN_USERID))
@@ -190,6 +191,7 @@ class WhatresHomeViewModel: ViewModel(), RecipesRetrievedListener
             if(recipe.getRecipeID()==recipeId) {
                 recipe.recipeLikes = currentLikes - 1
                 recipes.value=recipes.value
+                change=true
                 user?.removePurrfectedRecipe(recipeId)
             }
         repository.decreaseDayPurrfectedCount(recipeId, currentLikes, Hawk.get<String>(Constants.LOGGEDIN_USERID))
