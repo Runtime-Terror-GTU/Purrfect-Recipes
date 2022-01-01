@@ -15,7 +15,8 @@ const RecipeOfTheDay = ({recipe}) => {
     return (
         <RecipeBoxContainer>
             <RecipeBoxWrapper>
-                <RecipeBoxCardContainer to="/recipe">
+                <RecipeBoxCardContainer to="/recipe"
+                onClick={(e) => localStorage.setItem("currentRecipe", JSON.stringify(recipe))}>
                     <RecipeBoxCardWrapper>
                         <RecipeBoxP> RECIPE OF THE DAY  </RecipeBoxP>
                     </RecipeBoxCardWrapper>

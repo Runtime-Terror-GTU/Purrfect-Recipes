@@ -34,8 +34,19 @@ const getRecipes = async () => {
         recipesArray[i].R_RecipePicture= recipes[recipesObjects[i]].R_RecipePicture;
         recipesArray[i].R_RecipePurrfectedCount=recipes[recipesObjects[i]].R_RecipePurrfectedCount;
         recipesArray[i].R_RecipeIngredients=recipes[recipesObjects[i]].R_RecipeIngredients;
+        recipesArray[i].R_RecipeIngredientsOverview=recipes[recipesObjects[i]].R_RecipeIngredientsOverview;
+        /*
+        console.log("cildirmamak")
+        console.log(recipes[recipesObjects[i]].R_RecipeIngredientsOverview)
+        console.log("elde")
+        console.log(recipesArray[i].R_RecipeIngredientsOverview)
+        console.log("degil")
+        */
         recipesArray[i].R_RecipeDifficulty=recipes[recipesObjects[i]].R_RecipeDifficulty;
         recipesArray[i].R_Recipe_Tags=recipes[recipesObjects[i]].R_Recipe_Tags;
+        recipesArray[i].R_RecipeComments=recipes[recipesObjects[i]].R_RecipeComments;
+        recipesArray[i].R_RecipePreparation=recipes[recipesObjects[i]].R_RecipePreparation;
+
         //printtrecipeINfo(recipesArray[i]);
     }
     //console.log(recipesArray)

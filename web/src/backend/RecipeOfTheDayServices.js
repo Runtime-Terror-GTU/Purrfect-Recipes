@@ -10,7 +10,7 @@ const getRecipeOfTheDay = async () => {
     var today = dd + ' ' + mm + ' ' + yyyy;
     //finds the Recipe of The Date object that holds recipe id and date
     let data = await findRecipeOfTheDay(today)
-    let recipeOfTheDayObject;
+    let recipeOfTheDayObject = [];
     let recipeID;
     if( data !== null ){ //already exists in firebase 
         //get the recipe's id
@@ -43,10 +43,22 @@ const getRecipeOfTheDay = async () => {
     let recipeOwnerID = recipeOfTheDay[recipeID].R_RecipeOwner;
     let recipeOwner = await findRecipeOwner(recipeOfTheDay[recipeID].R_RecipeOwner);
     //create recipe object
-    recipeOfTheDayObject = {R_RecipeName: recipeOfTheDay[recipeID].R_RecipeName, 
+    recipeOfTheDayObject = {R_RecipeName: recipeOfTheDay[recipeID].R_RecipeName,
+                            RecipeID: recipeID,
+                            R_RecipeOwnerID: recipeOfTheDay[recipeID].R_RecipeOwner,
                             R_RecipeOwner: recipeOwner[recipeOwnerID].R_Username, 
-                            R_RecipePicture: recipeOfTheDay[recipeID].R_RecipePicture};
+                            R_RecipePicture: recipeOfTheDay[recipeID].R_RecipePicture,
+                            R_RecipePurrfectedCount: recipeOfTheDay[recipeID].R_RecipePurrfectedCount,
+                            R_RecipeIngredients: recipeOfTheDay[recipeID].R_RecipeIngredients,
+                            R_RecipeIngredientsOverview: recipeOfTheDay[recipeID].R_RecipeIngredientsOverview,
+                            R_RecipeDifficulty: recipeOfTheDay[recipeID].R_RecipeDifficulty,
+                            R_Recipe_Tags: recipeOfTheDay[recipeID].R_Recipe_Tags,
+                            R_RecipeComments:  recipeOfTheDay[recipeID].R_RecipeComments,
+                            R_RecipePreparation:  recipeOfTheDay[recipeID].R_RecipePreparation
+                        };
+                        
     //returns the recipe
+    //console.log("recipeofthedayid: ", recipeID);
     return recipeOfTheDayObject;
 }
 //Call all Recipes from firebase database

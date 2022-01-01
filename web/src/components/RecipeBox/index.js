@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react'
 import {
     RecipeBoxContainer,
     RecipeBoxWrapper,
@@ -16,7 +16,8 @@ const RecipeBox = ({recipe}) => {
     return (
         <RecipeBoxContainer>
             <RecipeBoxWrapper>
-                <RecipeBoxCardContainer to="/recipe">
+                <RecipeBoxCardContainer to="/recipe" 
+                onClick={(e) => localStorage.setItem("currentRecipe", JSON.stringify(recipe))}>
                     <RecipeBoxCardWrapper>
                         <RecipeBoxIcon src={recipe.R_RecipePicture} />
                     </RecipeBoxCardWrapper>

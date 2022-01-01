@@ -17,7 +17,6 @@ import {
 } from './MainElements';
 import { getRecipeOfTheDay } from '../../backend/RecipeOfTheDayServices';
 import RecipeOfTheDay from './RecipeOfTheDay';
-import { Button } from 'semantic-ui-react';
 import './overflow.css';
 
 let easytohardVariable = "false";

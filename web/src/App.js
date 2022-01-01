@@ -5,6 +5,7 @@ import Home from './pages';
 import SignInPage from './pages/signin';
 import SignUpPage from './pages/signup';
 import MainPage from './pages/main';
+import RecipePage from './pages/recipe';
 
 //recipe duzenlenecek
 function App(){
@@ -15,8 +16,7 @@ function App(){
         <Route path="/signin" component={SignInPage} exact />
         <Route path="/signup" component={SignUpPage} exact />
         <Route path="/mainpage" component={MainPage} exact />
-        <Route path="/recipe"  exact />
-
+        <Route path="/recipe" component={RecipePage} exact />
       </Switch>
     </Router>
   )
