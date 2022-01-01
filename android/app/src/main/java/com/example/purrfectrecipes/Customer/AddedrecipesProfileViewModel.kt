@@ -29,10 +29,13 @@ class AddedrecipesProfileViewModel: ViewModel(), RecipesRetrievedListener
     var change=false
 
     private val sort=MutableLiveData<Boolean?>()
-    fun getSort():LiveData<Boolean?>{return sort}
+        fun getSort():LiveData<Boolean?>{return sort}
 
     private val filter=MutableLiveData<Boolean?>()
-    fun getFilter():LiveData<Boolean?>{return filter}
+        fun getFilter():LiveData<Boolean?>{return filter}
+
+    private val getVerified=MutableLiveData<Boolean?>()
+        fun getGetVerified():LiveData<Boolean?>{return getVerified}
 
     private val heapSort= HeapSort<Recipe>()
     private val diffComparator= DifficultyComparator()
@@ -62,6 +65,11 @@ class AddedrecipesProfileViewModel: ViewModel(), RecipesRetrievedListener
     fun setFilter(bool:Boolean)
     {
         filter.value=bool
+    }
+
+    fun setGetVerified(bool:Boolean)
+    {
+        getVerified.value=bool
     }
 
     fun applyDifficultyFilters(diffs:ArrayList<String>)

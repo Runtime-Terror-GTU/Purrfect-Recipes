@@ -118,6 +118,11 @@ class AddedrecipesProfileChildfragment: Fragment(R.layout.childfragment_profile_
             redoOperations(true)
         })
 
+        val goToGetVerifiedButton=view.findViewById<LinearLayout>(R.id.goToGetVerifiedButton)
+        goToGetVerifiedButton.setOnClickListener {
+            viewModel.setGetVerified(true)
+        }
+
     }
 
     fun setRVAdapter()

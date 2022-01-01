@@ -216,6 +216,15 @@ class CustomerActivity : AppCompatActivity() {
             }
         })
 
+        addedRecipesViewModel.getGetVerified().observe(this, {
+            if(addedRecipesViewModel.getGetVerified().value!=null && addedRecipesViewModel.getGetVerified().value==true)
+            {
+                navController?.popBackStack(R.id.profileFragment, true)
+                navController?.navigate(R.id.settingsFragment)
+                addedRecipesViewModel.setGetVerified(false)
+            }
+        })
+
 
     }
     override fun onBackPressed() {
