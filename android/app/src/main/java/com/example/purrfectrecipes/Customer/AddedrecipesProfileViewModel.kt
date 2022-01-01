@@ -5,8 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.purrfectrecipes.Connectors.RecipesRetrievedListener
+import com.example.purrfectrecipes.Constants
 import com.example.purrfectrecipes.Recipe
 import com.example.purrfectrecipes.User.Customer
+import com.orhanobut.hawk.Hawk
 
 class AddedrecipesProfileViewModel: ViewModel(), RecipesRetrievedListener
 {
@@ -20,6 +22,9 @@ class AddedrecipesProfileViewModel: ViewModel(), RecipesRetrievedListener
     private var recipes=MutableLiveData<ArrayList<Recipe>?>()
         fun getRecipes(): LiveData<ArrayList<Recipe>?> {return recipes}
 
+    private val shownRecipe=MutableLiveData<String?>()
+        fun getShownRecipe():LiveData<String?>{return shownRecipe}
+
     var user: Customer?=null
     var change=false
 
@@ -30,6 +35,34 @@ class AddedrecipesProfileViewModel: ViewModel(), RecipesRetrievedListener
     fun setView(newView: View?)
     {
         view.value=newView
+    }
+
+    fun setShownRecipe(id:String?)
+    {
+        shownRecipe.value=id
+        repository.retrieveRecipes()
+    }
+
+    fun purrfectRecipe(recipeId:String, currentLikes:Int)
+    {
+        for(recipe in recipes.value!!)
+            if(recipe.getRecipeID()==recipeId) {
+                recipe.recipeLikes = currentLikes + 1
+                recipes.value=recipes.value
+                user?.addPurrfectedRecipe(recipeId)
+            }
+        repository.increaseDayPurrfectedCount(recipeId, currentLikes, Hawk.get<String>(Constants.LOGGEDIN_USERID))
+    }
+
+    fun unPurrfectRecipe(recipeId:String, currentLikes: Int)
+    {
+        for(recipe in recipes.value!!)
+            if(recipe.getRecipeID()==recipeId) {
+                recipe.recipeLikes = currentLikes - 1
+                recipes.value=recipes.value
+                user?.removePurrfectedRecipe(recipeId)
+            }
+        repository.decreaseDayPurrfectedCount(recipeId, currentLikes, Hawk.get<String>(Constants.LOGGEDIN_USERID))
     }
 
     override fun onRecipesRetrieved(list: ArrayList<Recipe>?, user:Customer?) {

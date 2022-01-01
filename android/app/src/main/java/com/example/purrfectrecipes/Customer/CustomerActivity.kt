@@ -32,6 +32,7 @@ class CustomerActivity : AppCompatActivity() {
     private val filterViewModel:FilterViewModel by viewModels()
     private val editIngredientViewModel:EditIngredientsViewModel by viewModels()
     private val recipeViewModel:RecipeViewModel by viewModels()
+    private val addedRecipesViewModel:AddedrecipesProfileViewModel by viewModels()
 
     var navHostFragment:NavHostFragment?=null
     var navController: NavController?=null
@@ -155,7 +156,6 @@ class CustomerActivity : AppCompatActivity() {
             else
             {
                 navController?.popBackStack(R.id.homeFragment, false)
-                editIngredientViewModel.resetTemp()
                 navigationBarCustomer.visibility=View.VISIBLE
             }
         })
@@ -170,7 +170,20 @@ class CustomerActivity : AppCompatActivity() {
             else
             {
                 navController?.popBackStack(R.id.homeFragment, false)
-                editIngredientViewModel.resetTemp()
+                navigationBarCustomer.visibility=View.VISIBLE
+            }
+        })
+
+        addedRecipesViewModel.getShownRecipe().observe(this,{
+            if(addedRecipesViewModel.getShownRecipe().value!=null)
+            {
+                navController?.popBackStack(R.id.recipeFragment, true)
+                navigationBarCustomer.visibility=View.GONE
+                navController?.navigate(R.id.action_profileFragment_to_recipeFragment)
+            }
+            else
+            {
+                navController?.popBackStack(R.id.profileFragment, false)
                 navigationBarCustomer.visibility=View.VISIBLE
             }
         })
@@ -213,6 +226,10 @@ class CustomerActivity : AppCompatActivity() {
         }
         else if(whatResViewModel.getShownRecipe().value!=null) {
             whatResViewModel.setShownRecipe(null)
+            recipeViewModel.resetRecipe()
+        }
+        else if(addedRecipesViewModel.getShownRecipe().value!=null) {
+            addedRecipesViewModel.setShownRecipe(null)
             recipeViewModel.resetRecipe()
         }
         else

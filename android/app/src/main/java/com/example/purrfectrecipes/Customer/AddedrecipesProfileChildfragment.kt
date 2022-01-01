@@ -14,12 +14,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.purrfectrecipes.Adapters.HomePageRVAdapter
 import com.example.purrfectrecipes.Adapters.RecipesRVAdapter2
+import com.example.purrfectrecipes.Connectors.RecipeOnClickListener
+import com.example.purrfectrecipes.Connectors.RecipeOnClickListener2
 import com.example.purrfectrecipes.Moderator.ModeratorFragmentViewModel
 import com.example.purrfectrecipes.R
 import com.example.purrfectrecipes.SortMethods
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class AddedrecipesProfileChildfragment: Fragment(R.layout.childfragment_profile_addedrecipes)
+class AddedrecipesProfileChildfragment: Fragment(R.layout.childfragment_profile_addedrecipes), RecipeOnClickListener2
 {
     private var recipesRVAdapter:RecipesRVAdapter2?=null
 
@@ -32,6 +34,7 @@ class AddedrecipesProfileChildfragment: Fragment(R.layout.childfragment_profile_
             else
             {
                 viewModel.setView(view)
+                viewModel.setShownRecipe(null)
                 super.onViewCreated(view, savedInstanceState)
             }
         })
@@ -60,7 +63,7 @@ class AddedrecipesProfileChildfragment: Fragment(R.layout.childfragment_profile_
     {
         val recipesGridView = view?.findViewById<RecyclerView>(R.id.recipesGridView)
         recipesGridView?.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        recipesRVAdapter = RecipesRVAdapter2(requireContext())
+        recipesRVAdapter = RecipesRVAdapter2(requireContext(), this)
         recipesGridView?.adapter = recipesRVAdapter
     }
 
@@ -94,6 +97,24 @@ class AddedrecipesProfileChildfragment: Fragment(R.layout.childfragment_profile_
             viewModel.sortPopMax()
         else if(sortViewModel.getPopWhatSort().value!=null && sortViewModel.getPopWhatSort().value== SortMethods.popMintoMax)
             viewModel.sortPopMin()*/
+    }
+
+    override fun onRecipeClick(recipeId: String) {
+        viewModel.setShownRecipe(recipeId)
+    }
+
+    override fun onPurrfect(recipeId: String, recipeLikes: Int) {
+        viewModel.change=true
+        viewModel.purrfectRecipe(recipeId, recipeLikes)
+    }
+
+    override fun unPurrfect(recipeId: String, recipeLikes: Int) {
+        viewModel.change=true
+        viewModel.unPurrfectRecipe(recipeId, recipeLikes)
+    }
+
+    override fun onDelete(recipeId: String) {
+        TODO("Not yet implemented")
     }
 
 }
