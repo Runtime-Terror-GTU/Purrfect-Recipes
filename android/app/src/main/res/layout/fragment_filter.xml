@@ -158,11 +158,11 @@
             android:id="@+id/enterFilterButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:layout_marginLeft="10sp"
             android:layout_marginRight="10sp"
             android:layout_marginBottom="15sp"
             android:background="@drawable/button_bg2"
-            android:layout_alignParentBottom="true"
             android:clickable="true">
 
             <TextView

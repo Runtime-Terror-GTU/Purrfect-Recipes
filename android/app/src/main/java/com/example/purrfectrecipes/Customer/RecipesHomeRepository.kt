@@ -27,6 +27,58 @@ class RecipesHomeRepository(val connector: RecipesHomeVMRepConnector)
 
     var seed = Random().nextLong()
 
+    fun retrieveUser()
+    {
+        if(Hawk.get<String>(Constants.LOGGEDIN_USERID)!=null) {
+            usersRef.child(Hawk.get(Constants.LOGGEDIN_USERID))
+                .addValueEventListener(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        var currentUser: Customer? = null
+                        val currentUserId = Hawk.get<String>(Constants.LOGGEDIN_USERID)
+                        val currentUserName = snapshot.child(Constants.R_USERNAME).value
+                        val currentUserStatus = snapshot.child(Constants.R_USERSTATUS).value
+                        val currentUserPic = snapshot.child(Constants.R_USERPICTURE).value
+                        val currentUserEmail = snapshot.child(Constants.R_USEREMAIL).value
+
+                        if (currentUserStatus == CustomerStatus.UNVERIFIED.text)
+                            currentUser = Customer(
+                                currentUserId,
+                                currentUserName as String,
+                                currentUserEmail as String,
+                                status = CustomerStatus.UNVERIFIED,
+                                pic = currentUserPic as String
+                            )
+                        else if (currentUserStatus == CustomerStatus.VERIFIED.text)
+                            currentUser = Customer(
+                                currentUserId,
+                                currentUserName as String,
+                                currentUserEmail as String,
+                                status = CustomerStatus.VERIFIED,
+                                pic = currentUserPic as String
+                            )
+                        else
+                            currentUser = Customer(
+                                currentUserId,
+                                currentUserName as String,
+                                currentUserEmail as String,
+                                status = CustomerStatus.PREMIUM,
+                                pic = currentUserPic as String
+                            )
+
+                        for (pRecipe in snapshot.child(Constants.R_PURRFECTEDRECIPES).children)
+                            currentUser.addPurrfectedRecipe(pRecipe.key.toString())
+                        connector.onUserRetrieved(currentUser)
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        TODO("Not yet implemented")
+                    }
+                })
+        }
+        else
+            connector.onUserRetrieved(null)
+    }
+
     fun retrieveRecipes()
     {
         recipesRef.addValueEventListener(object: ValueEventListener {
@@ -49,32 +101,14 @@ class RecipesHomeRepository(val connector: RecipesHomeVMRepConnector)
                 }
 
                 var i=0
-                var owner: Customer?=null
                 for(recipe in recipesArray) {
                     usersRef.child(recipe.recipeOwner).addListenerForSingleValueEvent(object : ValueEventListener {
                         override fun onDataChange(snapshot: DataSnapshot) {
-                            if(owner==null && Hawk.get<String>(Constants.LOGGEDIN_USERID)==recipe.recipeOwner)
-                            {
-                                val ownerId=recipe.recipeOwner
-                                val ownerName=snapshot.child(Constants.R_USERNAME).value
-                                val ownerStatus=snapshot.child(Constants.R_USERSTATUS).value
-                                val ownerPic=snapshot.child(Constants.R_USERPICTURE).value
-                                val ownerEmail=snapshot.child(Constants.R_USEREMAIL).value
 
-                                if(ownerStatus== CustomerStatus.UNVERIFIED.text)
-                                    owner= Customer(ownerId, ownerName as String, ownerEmail as String, status= CustomerStatus.UNVERIFIED, pic=ownerPic as String)
-                                else if(ownerStatus== CustomerStatus.VERIFIED.text)
-                                    owner= Customer(ownerId, ownerName as String, ownerEmail as String, status= CustomerStatus.VERIFIED, pic=ownerPic as String)
-                                else
-                                    owner= Customer(ownerId, ownerName as String, ownerEmail as String, status= CustomerStatus.PREMIUM, pic=ownerPic as String)
-
-                                for(pRecipe in snapshot.child(Constants.R_PURRFECTEDRECIPES).children)
-                                    owner!!.addPurrfectedRecipe(pRecipe.key.toString())
-                            }
                             recipe.recipeOwner=snapshot.child(Constants.R_USERNAME).value.toString()
                             i++
                             if(i==recipesArray.size)
-                                getRecipeOfTheDay(recipesArray, owner)
+                                getRecipeOfTheDay(recipesArray)
                         }
 
                         override fun onCancelled(error: DatabaseError) {
@@ -90,7 +124,7 @@ class RecipesHomeRepository(val connector: RecipesHomeVMRepConnector)
         })
     }
 
-    fun getRecipeOfTheDay(recipesArray:ArrayList<Recipe>, owner:Customer?)
+    fun getRecipeOfTheDay(recipesArray:ArrayList<Recipe>)
     {
         dayRecipeRef.addValueEventListener(object: ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -125,7 +159,7 @@ class RecipesHomeRepository(val connector: RecipesHomeVMRepConnector)
                 }
 
                 recipesArray.shuffle(Random(seed))
-                connector.onRecipesRetrieved(recipesArray, owner)
+                connector.onRecipesRetrieved(recipesArray)
             }
 
             override fun onCancelled(error: DatabaseError) {

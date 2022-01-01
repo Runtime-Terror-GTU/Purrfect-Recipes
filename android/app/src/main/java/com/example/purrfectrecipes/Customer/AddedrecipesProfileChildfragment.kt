@@ -17,6 +17,7 @@ import com.example.purrfectrecipes.Adapters.RecipesRVAdapter2
 import com.example.purrfectrecipes.Connectors.RecipeOnClickListener
 import com.example.purrfectrecipes.Connectors.RecipeOnClickListener2
 import com.example.purrfectrecipes.Moderator.ModeratorFragmentViewModel
+import com.example.purrfectrecipes.User.CustomerStatus
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.orhanobut.hawk.Hawk
 
@@ -45,6 +46,19 @@ class AddedrecipesProfileChildfragment: Fragment(R.layout.childfragment_profile_
                 super.onViewCreated(view, savedInstanceState)
             }
         })
+
+        val verifiedLayout=view.findViewById<LinearLayout>(R.id.verifiedLayout)
+        val unverifiedLayout=view.findViewById<RelativeLayout>(R.id.unverifiedLayout)
+        if(Hawk.get<CustomerStatus>(Constants.LOGGEDIN_USER_STATUS)==CustomerStatus.VERIFIED || Hawk.get<CustomerStatus>(Constants.LOGGEDIN_USER_STATUS)==CustomerStatus.PREMIUM)
+        {
+            unverifiedLayout.visibility=View.GONE
+            verifiedLayout.visibility=View.VISIBLE
+        }
+        else
+        {
+            unverifiedLayout.visibility=View.VISIBLE
+            verifiedLayout.visibility=View.GONE
+        }
 
         setRVAdapter()
         viewModel.getRecipes().observe(viewLifecycleOwner, {

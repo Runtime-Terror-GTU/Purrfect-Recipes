@@ -25,6 +25,7 @@ class RecipeViewModel : ViewModel(), RecipeRetrievedListener
 
     fun setRecipe(id: String)
     {
+        repository.retrieveUser()
         repository.retrieveRecipe(id)
     }
 

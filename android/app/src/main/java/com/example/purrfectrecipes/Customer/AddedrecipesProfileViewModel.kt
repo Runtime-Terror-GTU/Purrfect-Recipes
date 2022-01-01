@@ -39,6 +39,7 @@ class AddedrecipesProfileViewModel: ViewModel(), RecipesRetrievedListener
     private val popComparator= PopularityComparator()
 
     init{
+        repository.retrieveUser()
         repository.retrieveRecipes()
     }
 
@@ -174,9 +175,13 @@ class AddedrecipesProfileViewModel: ViewModel(), RecipesRetrievedListener
         repository.removeRecipe(recipe)
     }
 
-    override fun onRecipesRetrieved(list: ArrayList<Recipe>?, user:Customer?) {
+    override fun onUserRetrieved(user:Customer?)
+    {
+        this.user=user
+    }
+
+    override fun onRecipesRetrieved(list: ArrayList<Recipe>?) {
         if(list!=null) {
-            this.user=user
             allRecipes.value=list
             recipes.value=list
         }
