@@ -83,12 +83,12 @@ input:focus {
 .dataItem p {
   margin-left: 10px;
 }
-a {
+.dataItem a {
   text-decoration: none;
 }
 
-a:hover {
-  background-color: #B38A9B;
+.dataItem a:hover {
+  background-color: #F9C5D5;
 }
 
 #clearBtn {

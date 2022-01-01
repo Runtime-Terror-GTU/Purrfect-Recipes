@@ -90,6 +90,9 @@ export const RecipeScreen = () => {
                                     }
                                 })
                             }
+                            <div>
+                                
+                            </div>
                         </Column2>
                     </RecipeColumn>
 
