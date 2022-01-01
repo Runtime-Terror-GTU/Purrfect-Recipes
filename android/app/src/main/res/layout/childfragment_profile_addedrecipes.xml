@@ -12,17 +12,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/text"
+            android:src="@drawable/peeking_cat"
+            android:layout_marginBottom="-3sp"/>
+
         <TextView
+            android:id="@+id/text"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:layout_gravity="center"
             android:layout_marginStart="15sp"
-            android:layout_marginTop="15sp"
             android:layout_marginEnd="15sp"
-            android:layout_marginBottom="15sp"
             android:fontFamily="@font/josefin_slab"
             android:gravity="center"
-            android:layout_above="@id/goToGetVerifiedButton"
             android:text="To be able to add recipes, you need to be a verified user."
             android:textColor="@color/black"
             android:textSize="25sp" />
