@@ -1,0 +1,26 @@
+.leftCheckBox {
+   
+    margin-inline-start: 5%;
+}
+.rightCheckBox{
+    
+    margin-inline-end: 5%;
+}
+.tagName{
+    
+    
+    align-items: center;
+    text-align-last: center;
+    background-color: transparent;
+}
+.allTags{
+    border: black;
+    border: 1px;
+    border-style: solid;
+    border-radius: 10px;
+    margin-bottom: 3%;
+    display: grid;
+    grid-template-columns: 20% 65% 20%;
+    align-items: center;
+   
+}

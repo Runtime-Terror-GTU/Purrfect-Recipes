@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import "./SearchBar.css";
 import AddIcon from '@mui/icons-material/Add';
 
+import IngredientsButtons from "./IngredientsButtons";
 import FormLabel from '@mui/material/FormLabel';
 import RowRadioButtonsGroup from './radioButton';
 import  CheckboxLabels from './checkBox';
+import Tags from "./tags";
 function SearchBar({ placeholder}) {
   
   const [input, setInput] = useState("");
@@ -47,6 +49,7 @@ function SearchBar({ placeholder}) {
       <RowRadioButtonsGroup />
       <CheckboxLabels/>
 
+      
       <div className="allOfit">
     
         <div className="label">
@@ -54,11 +57,23 @@ function SearchBar({ placeholder}) {
         </div>
 
         <div className="Ingredients">
-            <CheckboxLabels/>
-            <CheckboxLabels/>
+            <IngredientsButtons/>
         </div>
       
       </div>
+
+      <div className="allOfit">
+    
+        <div className="label">
+          <label>Tags</label>
+        </div>
+
+        <div className="Ingredients">
+            <Tags/>
+        </div>
+      
+      </div>
+
       
     </div>
     
