@@ -119,8 +119,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginRight="10sp"
-        android:layout_marginLeft="10sp"
-        android:layout_marginBottom="7sp">
+        android:layout_marginLeft="10sp">
 
         <Button
             android:id="@+id/sortButton"
@@ -155,6 +154,22 @@
             android:layout_margin="2sp"/>
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/addRecipeButton"
+        android:layout_width="match_parent"
+        android:layout_height="45sp"
+        android:layout_marginBottom="7sp"
+        android:layout_marginRight="10sp"
+        android:layout_marginLeft="10sp"
+        android:layout_marginTop="-5sp"
+        app:cornerRadius="0sp"
+        android:text="Add Recipe"
+        android:textSize="16sp"
+        android:textAllCaps="false"
+        android:fontFamily="@font/josefin_slab_bold"
+        android:textColor="@color/white"
+        android:layout_gravity="center" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recipesGridView"
