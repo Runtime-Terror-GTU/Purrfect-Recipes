@@ -42,6 +42,7 @@ class RecipesHomeViewModel: ViewModel(), RecipesHomeVMRepConnector
     private val popComparator=PopularityComparator()
 
     init{
+        repository.retrieveUser()
         repository.retrieveRecipes()
     }
 
@@ -155,6 +156,7 @@ class RecipesHomeViewModel: ViewModel(), RecipesHomeVMRepConnector
             if(recipe.getRecipeID()==recipeId) {
                 recipe.recipeLikes = currentLikes + 1
                 recipes.value=recipes.value
+                change=true
                 user?.addPurrfectedRecipe(recipeId)
                 if(recipeId==recipeOfTheDay.value!!.getRecipeID())
                 {
@@ -171,6 +173,7 @@ class RecipesHomeViewModel: ViewModel(), RecipesHomeVMRepConnector
             if(recipe.getRecipeID()==recipeId) {
                 recipe.recipeLikes = currentLikes - 1
                 recipes.value=recipes.value
+                change=true
                 user?.removePurrfectedRecipe(recipeId)
                 if(recipeId==recipeOfTheDay.value!!.getRecipeID())
                 {
@@ -181,10 +184,13 @@ class RecipesHomeViewModel: ViewModel(), RecipesHomeVMRepConnector
         repository.decreaseDayPurrfectedCount(recipeId, currentLikes, Hawk.get<String>(Constants.LOGGEDIN_USERID))
     }
 
+    override fun onUserRetrieved(user:Customer?)
+    {
+        this.user=user
+    }
 
-    override fun onRecipesRetrieved(list: ArrayList<Recipe>?, owner:Customer?) {
+    override fun onRecipesRetrieved(list: ArrayList<Recipe>?) {
         if(list!=null) {
-            user=owner
             allRecipes.value=list
             recipes.value = list
         }

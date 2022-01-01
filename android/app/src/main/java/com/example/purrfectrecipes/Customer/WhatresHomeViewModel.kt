@@ -43,6 +43,7 @@ class WhatresHomeViewModel: ViewModel(), RecipesRetrievedListener
     val repository=WhatresHomeRepository(this)
 
     init{
+        repository.retrieveUser()
         repository.retrieveRecipes()
     }
 
@@ -178,6 +179,7 @@ class WhatresHomeViewModel: ViewModel(), RecipesRetrievedListener
             if(recipe.getRecipeID()==recipeId) {
                 recipe.recipeLikes = currentLikes + 1
                 recipes.value=recipes.value
+                change=true
                 user?.addPurrfectedRecipe(recipeId)
             }
         repository.increaseDayPurrfectedCount(recipeId, currentLikes, Hawk.get<String>(Constants.LOGGEDIN_USERID))
@@ -189,14 +191,19 @@ class WhatresHomeViewModel: ViewModel(), RecipesRetrievedListener
             if(recipe.getRecipeID()==recipeId) {
                 recipe.recipeLikes = currentLikes - 1
                 recipes.value=recipes.value
+                change=true
                 user?.removePurrfectedRecipe(recipeId)
             }
         repository.decreaseDayPurrfectedCount(recipeId, currentLikes, Hawk.get<String>(Constants.LOGGEDIN_USERID))
     }
 
-    override fun onRecipesRetrieved(list: ArrayList<Recipe>?, user:Customer?) {
+    override fun onUserRetrieved(user:Customer?)
+    {
+        this.user=user
+    }
+
+    override fun onRecipesRetrieved(list: ArrayList<Recipe>?) {
         if(list!=null) {
-            this.user=user
             totalRecipes.value=list
         }
     }

@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.purrfectrecipes.Adapters.*
 import com.example.purrfectrecipes.Connectors.CommentChangeListener
+import com.example.purrfectrecipes.Customer.AddedrecipesProfileViewModel
 import com.example.purrfectrecipes.Customer.RecipesHomeViewModel
 import com.example.purrfectrecipes.Customer.WhatresHomeViewModel
 import com.example.purrfectrecipes.User.CustomerStatus
@@ -25,6 +26,7 @@ class RecipeFragment : Fragment(R.layout.fragment_recipe), CommentChangeListener
     private val viewModel:RecipeViewModel by activityViewModels()
     private val recipesHomeViewModel:RecipesHomeViewModel by activityViewModels()
     private val whatresViewModel:WhatresHomeViewModel by activityViewModels()
+    private val addedRecipesViewModel:AddedrecipesProfileViewModel by activityViewModels()
 
     private var commentsRVAdapter:CommentsRVAdapter?=null
     private var stepsRVAdapter:RecipeStepsRVAdapter?=null
@@ -61,6 +63,11 @@ class RecipeFragment : Fragment(R.layout.fragment_recipe), CommentChangeListener
                 viewModel.setRecipe(whatresViewModel.getShownRecipe().value!!)
         })
 
+        addedRecipesViewModel.getShownRecipe().observe(viewLifecycleOwner,{
+            if( addedRecipesViewModel.getShownRecipe().value!=null)
+                viewModel.setRecipe( addedRecipesViewModel.getShownRecipe().value!!)
+        })
+
         viewModel.getRecipe().observe(viewLifecycleOwner,{
             if(viewModel.getRecipe().value==null)
             {
@@ -72,7 +79,7 @@ class RecipeFragment : Fragment(R.layout.fragment_recipe), CommentChangeListener
                 recipeName.text=viewModel.getRecipe().value!!.recipeName
                 recipeLikes.text=viewModel.getRecipe().value!!.recipeLikes.toString()
                 recipeIngredientsOverview.text=viewModel.getRecipe().value!!.recipeIngredientsOverview
-                recipeIngredientsOverview.text=recipeIngredientsOverview.text!!.toString().replace("/n", "\n")
+                recipeIngredientsOverview.text=recipeIngredientsOverview.text!!.toString().replace("\\n", "\n")
                 Glide.with(requireContext())
                     .load(viewModel.getRecipe().value?.recipePictureURL)
                     .into(recipePic)
@@ -140,6 +147,8 @@ class RecipeFragment : Fragment(R.layout.fragment_recipe), CommentChangeListener
                 recipesHomeViewModel.setShownRecipe(null)
             if(whatresViewModel.getShownRecipe().value!=null)
                 whatresViewModel.setShownRecipe(null)
+            if(addedRecipesViewModel.getShownRecipe().value!=null)
+                addedRecipesViewModel.setShownRecipe(null)
             viewModel.resetRecipe()
         }
 

@@ -26,7 +26,20 @@
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.purrfectrecipes.Customer.ProfileFragment"
-        android:label="ProfileFragment" />
+        android:label="ProfileFragment" >
+        <action
+            android:id="@+id/action_profileFragment_to_recipeFragment"
+            app:destination="@id/recipeFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_filterFragment"
+            app:destination="@id/filterFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_editIngredientsFragment"
+            app:destination="@id/editIngredientsFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_sortFragment"
+            app:destination="@id/sortFragment" />
+    </fragment>
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.purrfectrecipes.Customer.SettingsFragment"
