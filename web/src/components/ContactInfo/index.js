@@ -1,57 +1,26 @@
-import React from 'react';
+import React from "react";
+import {HeroH1,HeroP,  HeroContainer,HeroContent} from './contactInfoElements.js';
+//import img from '../../images/bg-1.png';
 
-const contactinfo = () => {
 
-        var form = ('#contact'),
-            submit = form.find('[name="submit"]');
-
-        form.on('submit', function(e) {
-          e.preventDefault();
-          
-          // avoid spamming buttons
-          if (submit.attr('value') !== 'Send')
-            return;
-          
-          var valid = true;
-          form.find('input, textarea').removeClass('invalid').each(function() {
-            if (!this.value) {
-              (this).addClass('invalid');
-              valid = false;
-            }
-          });
-          
-          if (!valid) {
-            form.animate({left: '-3em'},  50)
-                .animate({left:  '3em'}, 100)
-                .animate({left:    '0'},  50);
-          } else {
-            submit.attr('value', 'Sending...')
-                  .css({boxShadow: '0 0 200em 200em rgba(225, 225, 225, 0.6)',
-                        backgroundColor: '#ccc'});
-            // simulate AJAX response
-            setTimeout(function() {
-              // step 1: slide labels and inputs
-              // when AJAX responds with success
-              // no animation for AJAX failure yet
-              form.find('label')
-                  .animate({left: '100%'}, 500)
-                  .animate({opacity: '0'}, 500);
-            }, 1000);
-            setTimeout(function() {
-              // step 2: show thank you message after step 1
-              submit.attr('value', 'Thank you :)')
-                    .css({boxShadow: 'none'});
-            }, 2000);
-            setTimeout(function() {
-              // step 3: reset
-              form.find('input, textarea').val('');
-              form.find('label')
-                  .css({left: '0'})
-                  .animate({opacity: '1'}, 500);
-              submit.attr('value', 'Send')
-                    .css({backgroundColor: ''});
-            }, 4000);
-          }
-        });
+function About() {
+  return (
+        < HeroContainer>
+        <HeroContent>
+        <HeroH1> General Info </HeroH1>
+        <HeroP>
+          This is a platform created for those who have ingredients in their home and don't know what to cook,and those who are wondering what dish can be made with the ingredients they have.
+        </HeroP>
+        <HeroP>
+          You can access Purrfect Recipes via the website and the Android application.
+        </HeroP>
+        <HeroH1> Contact Info </HeroH1>
+        <HeroP>
+          E-Mail: purrfectrecipes@gmail.com
+        </HeroP>
+        </HeroContent>
+        </HeroContainer>
+  );
 }
-export default contactinfo;
+
+export default About;
