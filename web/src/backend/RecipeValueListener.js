@@ -42,6 +42,60 @@ const getRecipes = async () => {
     return recipesArray;
 }
 
+//Return Ingredients
+const IngredientList = async () => {
+
+    let ingredients = await getIngredients();
+    var countIngredients = Object.keys(ingredients).length;
+   
+    let ingredientsObjects = Object.keys(ingredients);
+    
+
+    var ingredientsArray = [];
+    for(let i=0; i<countIngredients; i++){
+        ingredientsArray[i] = {};
+        ingredientsArray[i].ingredientName = ingredientsObjects[i];        
+    }
+    
+    return ingredientsArray;
+
+}
+
+//Read Ingredients From firebase
+const getIngredients = async () => {
+
+    var ingredients = await get(query(ref(database, "Ingredients")));
+    
+    return ingredients.val();
+
+    
+}
+
+//Return Tags
+const TagList = async () => {
+    let tags = await getTags();
+    var countTags = Object.keys(tags).length;
+   
+    let tagsObjects = Object.keys(tags);
+    
+
+    var tagsArray = [];
+    for(let i=0; i<countTags; i++){
+        tagsArray[i] = {};
+        tagsArray[i].tagName = tagsObjects[i];        
+    }
+    
+    return tagsArray;
+}
+
+//Read Tags from Firebase
+const getTags = async () => {
+    var tags = await get(query(ref(database, "Tags")));
+    
+    return tags.val();
+}
+
+
 //test function for print recipe information
 const printtrecipeINfo= async (data_) => {
     console.log( data_.RecipeID );
@@ -66,4 +120,4 @@ const findRecipeOwner = async (userID) => {
     return search.val();
 }
 
-export {getRecipes};
+export {getRecipes,IngredientList,TagList};

@@ -36,7 +36,7 @@ export const SearchWrapper = styled.div`
     display: grid;
     grid-gap: 0px;
     padding: 1px;
-    margin-top: 250px;
+    margin-top: 370px;
     flex-direction: left;
     align-items: top;
     grid-template-rows: repeat(4, 80px);
