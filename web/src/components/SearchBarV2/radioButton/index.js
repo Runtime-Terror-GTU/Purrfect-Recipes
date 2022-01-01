@@ -10,9 +10,8 @@ export default function RowRadioButtonsGroup() {
     <FormControl component="fieldset">
       <FormLabel  component="legend">Search by</FormLabel>
       <RadioGroup row aria-label="Search by" name="row-radio-buttons-group">
-        <FormControlLabel value="Recipe Name" control={ <Radio  color="default" />} label="Name" />
+        <FormControlLabel value="Recipe Name" control={ <Radio  color="default" />} label="Recipe Name" />
         <FormControlLabel value="Username" control={ <Radio  color="default" />} label="Username" />
-        <FormControlLabel value="Ingredient" control={ <Radio color="default" />} label="Ingredient" />
       </RadioGroup>
     </FormControl>
   );
