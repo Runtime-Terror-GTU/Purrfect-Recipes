@@ -11,7 +11,10 @@ import {
     Column2, 
     Heading,
     TopLine,
-    IngredientsWrapper
+    PurrfectedRow,
+    PurrfectedIcon,
+    PurrfectedColumn1,
+    PurrfectedColumn2
 } from './RecipeScreenElements';
 
 export const RecipeScreen = () => {
@@ -90,9 +93,15 @@ export const RecipeScreen = () => {
                                     }
                                 })
                             }
-                            <div>
-                                
-                            </div>
+                            <PurrfectedRow>
+                                <PurrfectedColumn1>
+                                    <PurrfectedIcon />
+                                </PurrfectedColumn1>
+                                <PurrfectedColumn2>
+                                    <h1> {recipe.R_RecipePurrfectedCount} </h1>
+                                </PurrfectedColumn2>
+
+                            </PurrfectedRow>
                         </Column2>
                     </RecipeColumn>
 

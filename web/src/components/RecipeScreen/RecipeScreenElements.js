@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { FaPaw } from 'react-icons/fa';
 
 export const RecipeContainer = styled.div`
     color: #fff;
@@ -109,8 +110,33 @@ export const Img = styled.img`
     }
 `;
 
+export const PurrfectedRow = styled.div`
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: left;
+    grid-template-areas: ${({imgStart}) => (imgStart ? `'col2 col1'` : `'col1 col2'`)};
+    margin-top: 50px;
+    @media screen and (max-width: 1000px) {
+        grid-template-columns: 75px 75px;
+    }
+`;
 
+export const PurrfectedIcon = styled(FaPaw)`
+    font-size: 50px;
+    color: #F9C5D5;
+`;
 
+export const PurrfectedColumn1 = styled.div`
+    margin-bottom: 15px;
+    padding: 0 15px;
+    grid-area: col1;
+`;
+
+export const PurrfectedColumn2 = styled.div`
+    margin-top: 5px;
+    padding: 0 15px;
+    grid-area: col2;
+`;
 
 //eğer yaparsak :,)
 export const UserIcon = styled.img`
