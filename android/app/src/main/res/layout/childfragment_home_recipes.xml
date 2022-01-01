@@ -110,7 +110,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="by Purrfect Recipes"
-                        android:layout_marginBottom="15sp"
+                        android:layout_marginBottom="12sp"
                         android:layout_gravity="center"
                         android:textColor="@color/black"
                         android:textSize="13sp"
@@ -121,6 +121,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
+                        android:layout_marginBottom="3sp"
                         android:layout_gravity="center">
 
                         <TextView

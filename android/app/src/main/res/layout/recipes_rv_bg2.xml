@@ -5,14 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
-    android:orientation="horizontal">
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:background="@drawable/main_bg"
-        android:layout_marginBottom="7sp"
         android:layout_marginRight="7sp">
 
         <LinearLayout
@@ -33,8 +32,8 @@
                     app:cardCornerRadius="8dp">
 
                     <ImageView
-                        android:id="@+id/dayRecipePic"
-                        android:layout_width="140sp"
+                        android:id="@+id/recipePic"
+                        android:layout_width="130sp"
                         android:layout_height="120sp"
                         android:src="@drawable/cinnamon_roll"
                         android:scaleType="centerCrop"/>
@@ -42,11 +41,11 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/purrfectDayButton"
-                    android:layout_width="50dp"
-                    android:layout_height="49dp"
+                    android:id="@+id/purrfectButton"
+                    android:layout_width="45dp"
+                    android:layout_height="44dp"
                     android:layout_gravity="bottom"
-                    android:layout_marginLeft="98sp"
+                    android:layout_marginLeft="92sp"
                     app:cardCornerRadius="30dp"
                     app:cardBackgroundColor="@color/white">
 
@@ -64,31 +63,31 @@
                 android:orientation="vertical"
                 android:layout_marginTop="7sp"
                 android:gravity="center"
-                android:layout_marginBottom="7sp"
                 android:layout_marginRight="8sp"
+                android:layout_marginBottom="7sp"
                 android:layout_marginLeft="5sp">
 
                 <TextView
-                    android:id="@+id/dayRecipeName"
+                    android:id="@+id/recipeName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="Cinnamon Roll Cupcake"
                     android:textColor="@color/black"
                     android:textSize="20sp"
-                    android:layout_marginBottom="5sp"
+                    android:layout_marginBottom="4sp"
                     android:fontFamily="@font/josefin_slab_bold"
                     android:gravity="center"/>
 
                 <TextView
-                    android:id="@+id/dayRecipeOwner"
+                    android:id="@+id/recipeOwner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="by Purrfect Recipes"
-                    android:layout_marginBottom="15sp"
+                    android:layout_marginBottom="7sp"
                     android:layout_gravity="center"
                     android:textColor="@color/black"
-                    android:textSize="13sp"
+                    android:textSize="14sp"
                     android:fontFamily="@font/josefin_slab"
                     android:gravity="center"/>
 
@@ -96,31 +95,32 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
+                    android:layout_marginBottom="2sp"
                     android:layout_gravity="center">
 
                     <TextView
-                        android:id="@+id/dayRecipeDifficulty"
+                        android:id="@+id/recipeDifficulty"
                         android:layout_width="0dp"
                         android:layout_gravity="center"
-                        android:layout_height="30sp"
+                        android:layout_height="32sp"
                         android:layout_weight="1"
                         android:text="Easy"
                         android:layout_margin="2sp"
                         android:background="@color/main"
-                        android:textSize="12sp"
+                        android:textSize="11sp"
                         android:gravity="center"
                         android:textColor="@color/white"
                         android:fontFamily="@font/josefin_slab" />
 
                     <TextView
-                        android:id="@+id/dayRecipeType"
+                        android:id="@+id/recipeType"
                         android:layout_width="0dp"
-                        android:layout_height="30sp"
+                        android:layout_height="32sp"
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         android:layout_margin="2sp"
                         android:text="Savoury"
-                        android:textSize="12sp"
+                        android:textSize="11sp"
                         android:gravity="center"
                         android:background="@color/main"
                         android:textColor="@color/white"
@@ -141,23 +141,35 @@
 
             <ImageView
                 android:id="@+id/deleteRecipeButton"
-                android:layout_width="45sp"
-                android:layout_height="45sp"
+                android:layout_width="42sp"
+                android:layout_height="42sp"
                 android:src="@drawable/trash_box"
-                android:layout_marginBottom="5sp"/>
+                android:layout_marginBottom="5sp"
+                android:layout_gravity="center"/>
 
             <ImageView
                 android:id="@+id/editRecipeButton"
-                android:layout_width="33sp"
-                android:layout_height="33sp"
+                android:layout_width="31sp"
+                android:layout_height="31sp"
                 android:src="@drawable/edit_icon"
                 android:layout_marginTop="5sp"
                 android:layout_marginBottom="3sp"
-                android:layout_gravity="right"
-                android:layout_marginRight="9sp"/>
+                android:layout_gravity="center" />
 
         </LinearLayout>
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/recipeLikes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="13"
+        android:fontFamily="@font/josefin_slab"
+        android:textColor="@color/black"
+        android:layout_marginLeft="111sp"
+        android:layout_marginBottom="1sp"
+        android:layout_marginTop="-1sp"
+        android:textSize="11sp"/>
 
 </LinearLayout>
