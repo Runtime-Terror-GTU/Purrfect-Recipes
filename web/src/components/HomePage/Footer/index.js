@@ -28,8 +28,7 @@ const Footer = () => {
                     <FooterLinksWrapper>
                         <FooterLinkItems>
                             <FooterLinkTitle>About us</FooterLinkTitle>
-                            <FooterLink to='/generalinfo'>General Info</FooterLink>
-                            <FooterLink to='/contactinfo'>Contact Info</FooterLink>
+                            <FooterLink to='/contactinfo'>  Contact</FooterLink>
                         </FooterLinkItems>
                     </FooterLinksWrapper>
                 </FooterLinksContainer>
