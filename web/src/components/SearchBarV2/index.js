@@ -22,7 +22,22 @@ function SearchBar({ placeholder}) {
   };
 
   
+  /*
+  
+  line 40 search container
+  line 42 arama yazılan yer 
+  line 50 o + nın olduğu yer
+  line 58 search barın sonu 
+  line 62 search by radio buttonları 
+  line 63 easy medium hard check box larını çağırmak için 
+  line 66 ingerdients ın başladığı yer
+  line 68 border içinde(çerçeve içindeki) ingredients yazısı
+  line 72 ingerdients buttons ve ingredients yazısı(label ı) container başlangıcı .scroll'un css i 
+  line 73 ingredients butonlarının çağrıldığı yer
 
+  line 80 tags buttons ve tags yazısı (label ı) conteiner ı başlangıcı
+
+  */
   return (
     <div className="search">
       <div className="searchInputs">
@@ -45,7 +60,7 @@ function SearchBar({ placeholder}) {
         </div>
       </div>
 
-
+           
       <RowRadioButtonsGroup />
       <CheckboxLabels/>
 

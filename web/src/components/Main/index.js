@@ -283,7 +283,7 @@ export const Main = () => {
         
                     <SearchWrapper>
                         <SearchCard>
-                            <SearchBar placeholder={"Search by Recipe Name"} />
+                            <SearchBar/* search component lerin hepsini çaıran satır*/ placeholder={"Search by Recipe Name"} />
                         </SearchCard>
                         
                     </SearchWrapper>
