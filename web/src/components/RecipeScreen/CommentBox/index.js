@@ -38,7 +38,6 @@ export const CommentBox = (commentID) => {
                 <CommentContents>{commentInfo.CommentContent}</CommentContents>
             </TextContainer>
         </CommentContainer>
-
         </>
     )
 }

@@ -32,14 +32,19 @@ export const RecipeScreen = () => {
         tags[i] = Object.keys(recipe.R_Recipe_Tags)[i]; 
     }
     let comments = [];
-    for(let i=0; i<Object.keys(recipe.R_RecipeComments).length; i++){
-        comments[i] = {};
-        comments[i] = Object.keys(recipe.R_RecipeComments)[i]; 
+    if (typeof(recipe.R_RecipeComments) !== 'undefined' && recipe.R_RecipeComments != null) {
+        for(let i=0; i<Object.keys(recipe.R_RecipeComments).length; i++){
+            comments[i] = {};
+            comments[i] = Object.keys(recipe.R_RecipeComments)[i]; 
+        }
+    } else {
+        console.log('Undefined or Null')
     }
+
 
             
         console.log("cildirmamak")
-        console.log(recipe.R_RecipeComments)
+        console.log(comments)
         console.log("elde")
         console.log("degil")
         
@@ -112,25 +117,37 @@ export const RecipeScreen = () => {
 
             <CommentsContainer>
                 <Heading> Comments </Heading>
-                <CommentsWrapper>
-
-                    <CommentsColumn>
-                        {
-                        comments.map((comment, i) => {
-                            if( comment != null ){
-                                return(
-                                    <div key={i}>
-                                        <CommentBox commentID={comment}/>
-                                    </div>
-                                )
-                            }
-                        })
-                        }
-                    </CommentsColumn>
-
-                    <AddComment commentID={"34"}/>
- 
-                </CommentsWrapper>
+                {(() => {
+                if( comments.length <= 0 ){
+                    return(
+                        <CommentsWrapper>
+                            <CommentsColumn>
+                                <h1>no comments</h1>
+                            </CommentsColumn>
+                            <AddComment commentID={"34"}/>
+                        </CommentsWrapper>                   
+                    )
+                } else{
+                    return(
+                        <CommentsWrapper>
+                            <CommentsColumn>
+                                {
+                                comments.map((comment, i) => {
+                                    if( comment !== null ){
+                                        return(
+                                            <div key={i}>
+                                                <CommentBox commentID={comment}/>
+                                            </div>
+                                        )
+                                    }
+                                })
+                                }
+                            </CommentsColumn>
+                            <AddComment commentID={"34"}/>
+                        </CommentsWrapper>
+                    )
+                }                
+                })()}
             </CommentsContainer>
 
             <Footer />

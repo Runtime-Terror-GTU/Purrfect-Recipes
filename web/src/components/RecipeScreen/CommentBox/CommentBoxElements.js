@@ -42,7 +42,6 @@ export const Img = styled.img`
 `;
 
 export const TextContainer = styled.div`
-
     color: #B38A9B;
     background: #F9C5D5;
 
@@ -63,5 +62,4 @@ export const CommentContents = styled.p`
     font-size: 18px;
     line-height: 24px;
     color: grey;
-
 `; 
