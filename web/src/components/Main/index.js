@@ -114,16 +114,14 @@ const saveSortElements= async (e) =>{
     localStorage.setItem("mosttoless", mosttolessVariable);
 }
 
-
 //Footer'daki Purrfect Recipes'a basınca homescreen'e gidiyor
 export const Main = () => {
-    
+
     const [recipes, setRecipes] = useState([]);
     const [ingredients, setIngredients] = useState([]);
     const [recipeOfTheDay, setRecipeOfTheDay] = useState([]);
     
     const fetchRecipes = async() => {
-        
         let data = await getRecipes();
         /*
             This part for data selection if 4 of them are false we did not click any sort button 
@@ -152,7 +150,6 @@ export const Main = () => {
 
     //data1 data2 den zorsa true döner
     function compareDifficulty(data1,data2) {
-
             if(data2.R_RecipeDifficulty==="Easy"){
                 if(data1.R_RecipeDifficulty==="Easy") return false;
                 else return true;
@@ -164,12 +161,10 @@ export const Main = () => {
             else if(data2.R_RecipeDifficulty==="Hard"){
                 return false;
             }
-
     }
     
     //for sorting easy to hard
     const sortEasytoHard= async(data) => {
-
             let temp;
             let j;
             for (let i = 1; i < data.length; i++) {
@@ -206,7 +201,6 @@ export const Main = () => {
 
     //for sorting min to max
     const sortLesstoMost = async(data) => {
-
             let temp;
             let j;
             let compare;
@@ -337,7 +331,10 @@ export const Main = () => {
             </MainContainer>
 
             <Footer />
+
+
         </>
+        
     )
 }
 

@@ -30,6 +30,7 @@ const onSubmit = async (e) => {
         }
         let userSignUp = await signUp(user)
         if ( userSignUp === true){
+            window.localStorage.clear();
             window.location.href = "/mainpage"
         } else{
             window.location.href = "/signup"

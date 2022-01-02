@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Box from '@mui/material/Box';
-import Checkbox from '@mui/material/Checkbox';
 import { 
     RecipeContainer, 
     RecipeWrapper,
@@ -14,24 +12,34 @@ import {
     PurrfectedRow,
     PurrfectedIcon,
     PurrfectedColumn1,
-    PurrfectedColumn2
+    PurrfectedColumn2,
+    CommentsContainer,
+    CommentsWrapper,
+    CommentsColumn,
 } from './RecipeScreenElements';
+import Footer from '../HomePage/Footer';
+import CommentBox from './CommentBox';
+import AddComment from './AddComment';
 
 export const RecipeScreen = () => {
     let stringRecipe = localStorage.getItem("currentRecipe");
     //alert("The Value Received is " + b);
     let recipe = JSON.parse(stringRecipe);
-    console.log(typeof(recipe.R_Recipe_Tags));
+
     let tags = [];
     for(let i=0; i<Object.keys(recipe.R_Recipe_Tags).length; i++){
         tags[i] = {};
-        tags[i].tag = Object.keys(recipe.R_Recipe_Tags)[i]; 
+        tags[i] = Object.keys(recipe.R_Recipe_Tags)[i]; 
     }
-
+    let comments = [];
+    for(let i=0; i<Object.keys(recipe.R_RecipeComments).length; i++){
+        comments[i] = {};
+        comments[i] = Object.keys(recipe.R_RecipeComments)[i]; 
+    }
 
             
         console.log("cildirmamak")
-        console.log(recipe.R_RecipeIngredientsOverview)
+        console.log(recipe.R_RecipeComments)
         console.log("elde")
         console.log("degil")
         
@@ -50,10 +58,7 @@ export const RecipeScreen = () => {
                     <ImgWrap>
                         <Img src={recipe.R_RecipePicture} alt="Recipe Picture" />
                     </ImgWrap>
-
-
                     <RecipeColumn>
-
                         <Column1>
                             <Heading> {recipe.R_RecipeName} </Heading>
                             <TopLine> Ingredients </TopLine>
@@ -61,7 +66,6 @@ export const RecipeScreen = () => {
                                 recipe.R_RecipeIngredientsOverview.toString().split("\\n").map((ingredient, i) => (
                                     <div key={i}>
                                         <li> {ingredient} </li>
-                                        {console.log(ingredient)}
                                     </div>
                                 ))
                             }
@@ -87,7 +91,7 @@ export const RecipeScreen = () => {
                                     if( tag != null ){
                                         return(
                                             <div key={i}>
-                                                <li> {tag.tag} </li>
+                                                <li> {tag} </li>
                                             </div>
                                         )
                                     }
@@ -100,17 +104,35 @@ export const RecipeScreen = () => {
                                 <PurrfectedColumn2>
                                     <h1> {recipe.R_RecipePurrfectedCount} </h1>
                                 </PurrfectedColumn2>
-
                             </PurrfectedRow>
                         </Column2>
                     </RecipeColumn>
-
                 </RecipeWrapper>
-
             </RecipeContainer>
-            <div>
-                <h1>yorumlar</h1>
-            </div>
+
+            <CommentsContainer>
+                <Heading> Comments </Heading>
+                <CommentsWrapper>
+                    <CommentsColumn>
+                        {
+                        comments.map((comment, i) => {
+                            if( comment != null ){
+                                return(
+                                    <div key={i}>
+                                        <CommentBox commentID={comment}/>
+                                    </div>
+                                )
+                            }
+                        })
+                        }
+                    <AddComment commentID={"34"}/>
+ 
+                    </CommentsColumn>
+
+                </CommentsWrapper>
+            </CommentsContainer>
+
+            <Footer />
             </>
         )   
     }

@@ -7,7 +7,7 @@ export const RecipeContainer = styled.div`
     margin-top: 80px;
 
     @media screen and (max-width: 768px) {
-        padding: 100px 0;
+        padding: 10px 0;
     }
 `;
 
@@ -45,12 +45,6 @@ export const Column2 = styled.div`
     grid-area: col2;
 `;
 
-export const IngredientsWrapper = styled.div`
-    max-width: 540px;
-    padding-top: 0;
-    padding-bottom: 60px;
-`;
-
 export const TopLine = styled.p`
     color: white;
     font-size: 16px;
@@ -72,19 +66,6 @@ export const Heading = styled.h1`
     @media screen and (max-width: 480px) {
         font-size: 32px;
     }
-`;
-
-export const Subtitle = styled.p`
-    max-width: 440px;
-    margin-bottom: 35px;
-    font-size: 18px;
-    line-height: 24px;
-    color: ${({darkText}) => (darkText ? '#010606' : '#fff')};
-`; 
-
-export const BtnWrap = styled.div`
-    display: flex;
-    justify-content: flex-start;
 `;
 
 export const ImgWrap = styled.div`
@@ -137,6 +118,45 @@ export const PurrfectedColumn2 = styled.div`
     padding: 0 15px;
     grid-area: col2;
 `;
+
+export const CommentsContainer = styled.div`
+    color: #fff;
+    background: #B38A9B;
+    align-items: flex-start;
+    width: %100;
+
+    text-align: center;
+    //padding: 50px 0;
+    @media screen and (max-width: 768px) {
+    }
+`;
+
+export const CommentsWrapper = styled.div`
+    display: flex;
+    align-items: center;
+    margin-top: 50px;
+    grid-template-columns: 1fr;
+    width: %100;
+
+    @media screen and (max-width: 1000px) {
+        grid-template-rows: 1fr 1fr;
+        grid-template-columns: 1fr;
+    }
+`;
+
+export const CommentsColumn = styled.div`
+    align-items: flex-start;
+    margin-bottom: 15px;
+    padding: 0 15px;
+`;
+
+
+
+
+
+
+
+
 
 //eğer yaparsak :,)
 export const UserIcon = styled.img`
