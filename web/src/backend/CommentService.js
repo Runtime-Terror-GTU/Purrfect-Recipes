@@ -3,9 +3,7 @@ import { database } from "./firebase";
 
 const getComment = async (commentID) => {
     let commentFromFirebase = await findComment(commentID);
-    console.log("commentFromFirebase[commentID]")
     let userFromFirebase = await findRecipeOwner(commentFromFirebase[commentID]["Comment Owner"]);
-    console.log(userFromFirebase)
 
     let comment = [];
     comment = {

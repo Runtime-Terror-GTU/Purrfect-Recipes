@@ -113,6 +113,7 @@ export const RecipeScreen = () => {
             <CommentsContainer>
                 <Heading> Comments </Heading>
                 <CommentsWrapper>
+
                     <CommentsColumn>
                         {
                         comments.map((comment, i) => {
@@ -125,10 +126,10 @@ export const RecipeScreen = () => {
                             }
                         })
                         }
-                    <AddComment commentID={"34"}/>
- 
                     </CommentsColumn>
 
+                    <AddComment commentID={"34"}/>
+ 
                 </CommentsWrapper>
             </CommentsContainer>
 

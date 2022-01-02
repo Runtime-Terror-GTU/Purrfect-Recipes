@@ -120,23 +120,23 @@ export const PurrfectedColumn2 = styled.div`
 `;
 
 export const CommentsContainer = styled.div`
+    display: grid;
     color: #fff;
     background: #B38A9B;
-    align-items: flex-start;
-    width: %100;
-
     text-align: center;
-    //padding: 50px 0;
+    grid-template-rows: 1fr 10fr;
+
     @media screen and (max-width: 768px) {
     }
 `;
-
+//B38A9B pembe
+//F9C5D5 pembe diğer
 export const CommentsWrapper = styled.div`
-    display: flex;
+    display: grid;
     align-items: center;
-    margin-top: 50px;
-    grid-template-columns: 1fr;
+    margin-top: -60px;
     width: %100;
+    grid-template-rows: 1fr 1fr;
 
     @media screen and (max-width: 1000px) {
         grid-template-rows: 1fr 1fr;
@@ -145,9 +145,9 @@ export const CommentsWrapper = styled.div`
 `;
 
 export const CommentsColumn = styled.div`
-    align-items: flex-start;
+    align-items: center;
     margin-bottom: 15px;
-    padding: 0 15px;
+    padding: 0 250px;
 `;
 
 

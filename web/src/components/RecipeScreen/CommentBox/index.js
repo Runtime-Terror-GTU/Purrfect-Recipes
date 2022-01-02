@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Comment, CommentContent, Form } from 'semantic-ui-react';
 import { getComment } from '../../../backend/CommentService';
 import { 
     CommentContainer, 
@@ -10,7 +9,6 @@ import {
 } from './CommentBoxElements';
 
 export const CommentBox = (commentID) => {
-    {console.log(commentID.commentID)}
     const [commentInfo, setCommentInfo] = useState([]);
 
     const fetchComment = async() => {
