@@ -199,10 +199,4 @@ class RecipesHomeViewModel: ViewModel(), RecipesHomeVMRepConnector
     override fun onSelectRecipeOfTheDay(recipe: Recipe) {
         recipeOfTheDay.value=recipe
     }
-
-    override fun onCleared() {
-        super.onCleared()
-        Log.i("here", "dsf")
-        Log.i("here", recipeOfTheDay.value?.recipeName.toString())
-    }
 }

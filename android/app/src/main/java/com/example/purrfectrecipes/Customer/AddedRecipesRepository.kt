@@ -28,6 +28,8 @@ class AddedRecipesRepository(val connector: RecipesRetrievedListener)
             usersRef.child(Hawk.get(Constants.LOGGEDIN_USERID))
                 .addValueEventListener(object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
+                        if(Hawk.get<String>(Constants.LOGGEDIN_USERID)==null)
+                            return
                         var currentUser: Customer? = null
                         val currentUserId = Hawk.get<String>(Constants.LOGGEDIN_USERID)
                         val currentUserName = snapshot.child(Constants.R_USERNAME).value
