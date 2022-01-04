@@ -12,8 +12,10 @@ class MainRepository(val connector: MainVMRepConnector)
     {
         usersRef.child(userID).addValueEventListener(object: ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
-                if(!snapshot.exists())
+                if(!snapshot.exists()) {
                     connector.onUserRetrieved(null)
+                    return
+                }
                 val username=snapshot.child(Constants.R_USERNAME).value.toString()
                 val password=snapshot.child(Constants.R_USERPASS).value.toString()
                 val email=snapshot.child(Constants.R_USEREMAIL).value.toString()

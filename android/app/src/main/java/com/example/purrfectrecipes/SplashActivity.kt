@@ -3,6 +3,7 @@ package com.example.purrfectrecipes
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Display
 import androidx.activity.viewModels
 import com.example.purrfectrecipes.Admin.AdminActivity
@@ -30,7 +31,9 @@ class SplashActivity : AppCompatActivity()
 
         viewModel.getRetrievedUser().observe(this, {
 
-            Hawk.put(Constants.LOGGEDIN_USERID, viewModel.getRetrievedUser().value!!.getUserID())
+            Log.i("here", viewModel.getRetrievedUser().value.toString())
+            if(viewModel.getRetrievedUser().value!=null)
+                Hawk.put(Constants.LOGGEDIN_USERID, viewModel.getRetrievedUser().value!!.getUserID())
 
             if(viewModel.getRetrievedUser().value is Customer)
                 startCustomerActivity()
@@ -38,6 +41,15 @@ class SplashActivity : AppCompatActivity()
                 startAdminActivity()
             else if(viewModel.getRetrievedUser().value is Moderator)
                 startModeratorActivity()
+            else if(viewModel.getRetrievedUser().value==null)
+            {
+                val intent= Intent(this, StartActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+
+                startActivity(intent)
+                finish()
+            }
         })
 
     }
