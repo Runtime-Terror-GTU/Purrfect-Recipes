@@ -30,7 +30,7 @@ const getRecipes = async () => {
         
         //finds the recipe owner's username and put the array
         recipesArray[i].R_RecipeOwner = recipeOwner[recipesArray[i].R_RecipeOwnerID].R_Username;
-
+        recipesArray[i].R_RecipeOwnerStatus = recipeOwner[recipesArray[i].R_RecipeOwnerID].R_User_Status;
         recipesArray[i].R_RecipePicture= recipes[recipesObjects[i]].R_RecipePicture;
         recipesArray[i].R_RecipePurrfectedCount=recipes[recipesObjects[i]].R_RecipePurrfectedCount;
         recipesArray[i].R_RecipeIngredients=recipes[recipesObjects[i]].R_RecipeIngredients;

@@ -127,3 +127,18 @@ export const RecipeBoxP = styled.p`
     font-size: 1rem;
     text-align: left;
 `;
+
+export const Img = styled.img`
+    width: 40px;
+    height: 30px;
+    margin-top: 10px;
+    @media screen and (max-width: 1000px) {
+        width: 40px;
+        height: 30px;
+    }
+
+    @media screen and (max-width: 768px) {
+        width: 30px;
+        height: 20px;
+    }
+`;

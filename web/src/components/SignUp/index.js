@@ -31,6 +31,7 @@ const onSubmit = async (e) => {
         let userSignUp = await signUp(user)
         if ( userSignUp === true){
             window.localStorage.clear();
+            localStorage.setItem("currentUser", JSON.stringify(user)); //????
             window.location.href = "/mainpage"
         } else{
             window.location.href = "/signup"

@@ -134,9 +134,8 @@ export const CommentsContainer = styled.div`
 export const CommentsWrapper = styled.div`
     display: grid;
     align-items: center;
-    margin-top: -60px;
     width: %100;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 250px 250px;
 
     @media screen and (max-width: 1000px) {
         grid-template-rows: 1fr 1fr;
@@ -146,21 +145,24 @@ export const CommentsWrapper = styled.div`
 
 export const CommentsColumn = styled.div`
     align-items: center;
-    margin-bottom: 15px;
     padding: 0 250px;
 `;
 
+export const AddCommentColumn = styled.div`
+    align-items: center;
+`;
 
+export const PremiumImg = styled.img`
+    width: 50px;
+    height: 40px;
+    margin-top: 10px;
+    @media screen and (max-width: 1000px) {
+        width: 40px;
+        height: 30px;
+    }
 
-
-
-
-
-
-
-//eğer yaparsak :,)
-export const UserIcon = styled.img`
-    height: 160px;
-    width: 160px;
-    margin-bottom: 10px;
+    @media screen and (max-width: 768px) {
+        width: 30px;
+        height: 20px;
+    }
 `;
