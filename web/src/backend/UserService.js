@@ -10,7 +10,7 @@ const signUp = async (user) => {
             R_UserBio: "Insert Bio Here",
             R_UserEmail: user.email,
             R_UserPassword: user.password,
-            R_UserPicture: "Insert Picture URL here",
+            R_UserPicture: "https://firebasestorage.googleapis.com/v0/b/purrfect-recipes.appspot.com/o/User%20Pictures%2Fdefault_pic1.png?alt=media&token=9c1dc943-b8f7-4afc-acd2-d8385f431601",
             R_User_Status: "UNVERIFIED",
             R_Username: user.username
         })
@@ -24,9 +24,9 @@ const signIn = async (user, password) => {
     let uuid = Object.keys(fUser); //read id
     let fPassword = fUser[uuid[0]].R_UserPassword; //read password
     if(user !== null && fPassword === password){
-        return true;
+        return fUser;
     }
-    return false;
+    return null;
 }
 
 const findUser = async (user) => {

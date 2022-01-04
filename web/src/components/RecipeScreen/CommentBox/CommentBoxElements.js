@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { FaPaw } from 'react-icons/fa';
 
 export const CommentContainer = styled.div`
     color: #fff;
@@ -63,3 +62,18 @@ export const CommentContents = styled.p`
     line-height: 24px;
     color: grey;
 `; 
+
+export const PremiumImg = styled.img`
+    width: 50px;
+    height: 40px;
+    margin-top: 10px;
+    @media screen and (max-width: 1000px) {
+        width: 40px;
+        height: 30px;
+    }
+
+    @media screen and (max-width: 768px) {
+        width: 30px;
+        height: 20px;
+    }
+`;

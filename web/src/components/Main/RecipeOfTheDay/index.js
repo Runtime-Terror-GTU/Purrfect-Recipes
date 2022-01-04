@@ -6,11 +6,11 @@ import {
     RecipeBoxIcon,
     RecipeBoxH2,
     RecipeBoxP,
-    RecipeBoxCardWrapper
+    RecipeBoxCardWrapper,
+    PremiumImg
 } from './RecipeOfTheDayElements';
+import PremiumIcon from '../../../images/premium_symbol.png';
 
-//üstüne tıklayınca gitmesi lazım mlsfki
-//Recipe Box Container main'e tasinmali mi ????
 const RecipeOfTheDay = ({recipe}) => {
     return (
         <RecipeBoxContainer>
@@ -24,7 +24,15 @@ const RecipeOfTheDay = ({recipe}) => {
                         <RecipeBoxH2> {recipe.R_RecipeName}  </RecipeBoxH2>
                     </RecipeBoxCardWrapper>
                     <RecipeBoxCardWrapper>
-                        <RecipeBoxP> by {recipe.R_RecipeOwner} </RecipeBoxP>
+                        <RecipeBoxP> by {recipe.R_RecipeOwner} 
+                        {(() => {
+                            if( recipe.R_RecipeOwnerStatus === "PREMIUM" ){
+                                return(
+                                    <PremiumImg src={PremiumIcon}/>         
+                                )
+                            }               
+                        })()}
+                        </RecipeBoxP>
                     </RecipeBoxCardWrapper>
                     <RecipeBoxCardWrapper>
                         <RecipeBoxIcon src={recipe.R_RecipePicture} />

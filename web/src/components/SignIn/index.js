@@ -28,8 +28,9 @@ const onSubmit = async (e) => {
 
         let userSignIn = await signIn(user, document.getElementById("passwordInput").value);
   
-        if ( userSignIn === true){
+        if ( userSignIn !== null ){
             window.localStorage.clear();
+            localStorage.setItem("currentUser", JSON.stringify(userSignIn)); //????
             window.location.href = "/mainpage";
         } else{
             window.location.href = "/signin";
