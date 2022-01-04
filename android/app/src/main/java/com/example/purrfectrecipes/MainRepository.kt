@@ -32,7 +32,6 @@ class MainRepository(val connector: MainVMRepConnector)
                     user= Customer(userID, username, email, password, status=CustomerStatus.UNVERIFIED)
                 else
                     user= Customer(userID, username, email, password, status=CustomerStatus.VERIFIED)
-
                 connector.onUserRetrieved(user)
             }
 

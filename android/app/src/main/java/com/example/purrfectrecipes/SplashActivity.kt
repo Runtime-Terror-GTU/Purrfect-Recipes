@@ -31,7 +31,6 @@ class SplashActivity : AppCompatActivity()
 
         viewModel.getRetrievedUser().observe(this, {
 
-            Log.i("here", viewModel.getRetrievedUser().value.toString())
             if(viewModel.getRetrievedUser().value!=null)
                 Hawk.put(Constants.LOGGEDIN_USERID, viewModel.getRetrievedUser().value!!.getUserID())
 
