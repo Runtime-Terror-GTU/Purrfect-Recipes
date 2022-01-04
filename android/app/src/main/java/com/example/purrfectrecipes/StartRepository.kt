@@ -24,7 +24,6 @@ class StartRepository(val connector: StartVMRepConnector)
                             val email=ds.child(Constants.R_USEREMAIL).value.toString()
                             val status=ds.child(Constants.R_USERSTATUS).value.toString()
 
-                            Log.i("here", status)
                             val user: User?
                             if(status==UserStates.MODERATOR.text)
                                 user= Moderator(id, username, email, password)
