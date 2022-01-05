@@ -5,6 +5,7 @@ import com.example.purrfectrecipes.Connectors.RecipeRetrievedListener
 import com.example.purrfectrecipes.User.Customer
 import com.example.purrfectrecipes.User.CustomerStatus
 import com.google.firebase.database.*
+import com.google.firebase.storage.FirebaseStorage
 import com.orhanobut.hawk.Hawk
 import java.util.*
 import kotlin.collections.ArrayList
@@ -248,6 +249,8 @@ class RecipeRepository(val connector: RecipeRetrievedListener)
             }
 
         })
+        val storageRef= FirebaseStorage.getInstance().getReference().child("Recipe Pictures")
+        storageRef.child(deletedRecipe.getRecipeID()).delete()
     }
 
     fun increasePurrfectedCount(recipeId:String, currentCount:Int, userId:String)

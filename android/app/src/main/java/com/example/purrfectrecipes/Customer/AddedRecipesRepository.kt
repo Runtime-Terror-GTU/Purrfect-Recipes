@@ -7,6 +7,7 @@ import com.example.purrfectrecipes.Recipe
 import com.example.purrfectrecipes.User.Customer
 import com.example.purrfectrecipes.User.CustomerStatus
 import com.google.firebase.database.*
+import com.google.firebase.storage.FirebaseStorage
 import com.orhanobut.hawk.Hawk
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -180,6 +181,8 @@ class AddedRecipesRepository(val connector: RecipesRetrievedListener)
             }
 
         })
+        val storageRef= FirebaseStorage.getInstance().getReference().child("Recipe Pictures")
+        storageRef.child(deletedRecipe.getRecipeID()).delete()
     }
 
     fun increaseDayPurrfectedCount(recipeId:String, currentCount:Int, userId:String)
