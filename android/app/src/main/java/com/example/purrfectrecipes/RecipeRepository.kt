@@ -133,14 +133,28 @@ class RecipeRepository(val connector: RecipeRetrievedListener)
                                         {
                                             usersRef.child(comment.getOwnerId()).addListenerForSingleValueEvent(object :ValueEventListener{
                                                 override fun onDataChange(snapshot: DataSnapshot) {
-                                                    comment.ownerName=snapshot.child(Constants.R_USERNAME).value.toString()
-                                                    if(snapshot.child(Constants.R_USERSTATUS).value.toString()==CustomerStatus.UNVERIFIED.text)
+                                                    if(!snapshot.exists())
+                                                    {
+                                                        val defaultPicUrl="https://firebasestorage.googleapis.com/v0/b/purrfect-recipes.appspot.com/o/User%20Pictures%2Fdefault_pic1.png?alt=media&token=9c1dc943-b8f7-4afc-acd2-d8385f431601"
+                                                        comment.ownerName="Deleted User"
                                                         comment.ownerStatus=CustomerStatus.UNVERIFIED
-                                                    else if(snapshot.child(Constants.R_USERSTATUS).value.toString()==CustomerStatus.VERIFIED.text)
-                                                        comment.ownerStatus=CustomerStatus.VERIFIED
-                                                    else
-                                                        comment.ownerStatus=CustomerStatus.PREMIUM
-                                                    comment.ownerPicURL=snapshot.child(Constants.R_USERPICTURE).value.toString()
+                                                        comment.ownerPicURL=defaultPicUrl
+                                                    }
+                                                    else {
+                                                        comment.ownerName =
+                                                            snapshot.child(Constants.R_USERNAME).value.toString()
+                                                        if (snapshot.child(Constants.R_USERSTATUS).value.toString() == CustomerStatus.UNVERIFIED.text)
+                                                            comment.ownerStatus =
+                                                                CustomerStatus.UNVERIFIED
+                                                        else if (snapshot.child(Constants.R_USERSTATUS).value.toString() == CustomerStatus.VERIFIED.text)
+                                                            comment.ownerStatus =
+                                                                CustomerStatus.VERIFIED
+                                                        else
+                                                            comment.ownerStatus =
+                                                                CustomerStatus.PREMIUM
+                                                        comment.ownerPicURL =
+                                                            snapshot.child(Constants.R_USERPICTURE).value.toString()
+                                                    }
                                                     i++
                                                     if(i==comments.size) {
                                                         connector.onRecipeRetrieved(recipe, owner, comments)
