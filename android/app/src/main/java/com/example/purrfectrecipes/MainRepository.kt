@@ -22,13 +22,13 @@ class MainRepository(val connector: MainVMRepConnector)
                 val status=snapshot.child(Constants.R_USERSTATUS).value.toString()
 
                 val user: User?
-                if(status==UserStates.MODERATOR.text)
+                if(status==CustomerStatus.MODERATOR.text)
                     user= Moderator(userID, username, email, password)
-                else if(status==UserStates.ADMIN.text)
+                else if(status==CustomerStatus.ADMIN.text)
                     user= Admin(userID, username, email, password)
-                else if(status==UserStates.PREMIUM.text)
+                else if(status==CustomerStatus.PREMIUM.text)
                     user= Customer(userID, username, email, password, status=CustomerStatus.PREMIUM)
-                else if(status==UserStates.UNVERIFIED.text)
+                else if(status==CustomerStatus.UNVERIFIED.text)
                     user= Customer(userID, username, email, password, status=CustomerStatus.UNVERIFIED)
                 else
                     user= Customer(userID, username, email, password, status=CustomerStatus.VERIFIED)

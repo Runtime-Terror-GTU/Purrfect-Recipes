@@ -14,7 +14,6 @@ import com.example.purrfectrecipes.Connectors.CommentChangeListener
 import com.example.purrfectrecipes.Constants
 import com.example.purrfectrecipes.R
 import com.example.purrfectrecipes.User.CustomerStatus
-import com.example.purrfectrecipes.UserStates
 import com.orhanobut.hawk.Hawk
 
 class CommentsRVAdapter (val context: Context, val listener:CommentChangeListener): RecyclerView.Adapter<CommentsRVAdapter.ViewHolder>() {
