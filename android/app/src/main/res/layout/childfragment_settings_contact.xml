@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|top"
+        android:layout_marginTop="20sp"
+        android:fontFamily="@font/josefin_slab_bold"
+        android:gravity="center"
+        android:text="General Info"
+        android:textColor="#000000"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10sp"
+        android:layout_marginLeft="15sp"
+        android:layout_marginRight="15sp"
+        android:fontFamily="@font/josefin_slab"
+        android:gravity="center|fill_horizontal"
+        android:text="This is a platform created for those who have ingredients in their home and don't know what to cook, and those who are wondering what dish can be made with the ingredients they have.You can access Purrfect Recipes via the website and the android application."
+        android:textColor="#000000"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|top"
+        android:layout_marginTop="15sp"
+        android:fontFamily="@font/josefin_slab_bold"
+        android:gravity="center"
+        android:text="Contact Info"
+        android:textColor="#000000"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15sp"
+            android:layout_marginLeft="15sp"
+            android:layout_marginTop="10sp"
+            android:fontFamily="@font/josefin_slab"
+            android:gravity="center"
+            android:text="E-Mail: purrfectrecipes@gmail.com"
+            android:textColor="#000000"
+            android:textSize="20sp" />
+
+        ></FrameLayout>
+
+</LinearLayout>

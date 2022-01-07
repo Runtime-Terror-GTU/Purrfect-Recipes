@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ProgressBar
+            android:id="@+id/loadingBar"
+            android:layout_width="60sp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:visibility="visible"/>
+
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/mainLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="220sp"
+                app:cardCornerRadius="8dp"
+                android:layout_marginTop="-4sp">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/recipePic"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/kruvasan"
+                        android:scaleType="centerCrop"/>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/purrfectButton"
+                        android:layout_width="63dp"
+                        android:layout_height="64dp"
+                        android:layout_gravity="bottom|right"
+                        app:cardCornerRadius="50dp"
+                        app:cardBackgroundColor="@color/white">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/purrfect" />
+                    </androidx.cardview.widget.CardView>
+
+                </FrameLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/recipeLikes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="81"
+                    android:fontFamily="@font/josefin_slab"
+                    android:textSize="17sp"
+                    android:textColor="@color/secondary"
+                    android:gravity="right"
+                    android:layout_marginRight="16.5sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/recipeName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Chocolate Croissant"
+                        android:fontFamily="@font/josefin_slab_bold"
+                        android:textSize="27sp"
+                        android:layout_marginTop="10sp"
+                        android:textColor="@color/black"
+                        android:gravity="center"/>
+
+                    <ImageView
+                        android:layout_marginTop="10sp"
+                        android:id="@+id/deleteRecipeButton"
+                        android:layout_width="40sp"
+                        android:layout_height="40sp"
+                        android:src="@drawable/trash_box"/>
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="3sp"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="by"
+                    android:fontFamily="@font/josefin_slab"
+                    android:textSize="20sp"
+                    android:textColor="@color/black"/>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/myCardView"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center|top"
+                    android:layout_marginLeft="4sp"
+                    app:cardCornerRadius="20dp">
+
+                    <ImageView
+                        android:id="@+id/ownerPic"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/profilepic1" />
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/ownerName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Lisa"
+                    android:layout_marginLeft="4sp"
+                    android:fontFamily="@font/josefin_slab"
+                    android:textSize="20sp"
+                    android:textColor="@color/black"/>
+
+                <ImageView
+                    android:id="@+id/premiumSymbol"
+                    android:layout_width="30sp"
+                    android:layout_height="22sp"
+                    android:background="@drawable/premium_symbol"
+                    android:visibility="visible"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:background="@drawable/main_bg"
+                android:orientation="vertical"
+                android:layout_marginLeft="40sp"
+                android:layout_marginRight="40sp"
+                android:layout_marginTop="5sp">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/tagsRV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4sp"
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginBottom="4sp"
+                    android:layout_marginRight="7sp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1sp"
+                android:layout_marginLeft="10sp"
+                android:layout_marginRight="10sp"
+                android:layout_marginTop="5sp"
+                android:background="@color/dark_grey" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="10sp"
+                android:layout_marginLeft="10sp"
+                android:layout_marginRight="10sp"
+                android:background="@drawable/main_bg">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Ingredients"
+                    android:fontFamily="@font/josefin_slab_bold"
+                    android:textColor="@color/black"
+                    android:textSize="23sp"
+                    android:gravity="center"
+                    android:layout_marginTop="10sp"/>
+
+                <TextView
+                    android:id="@+id/ingredientsOverview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="-Dummy text"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/josefin_slab"
+                    android:textSize="19sp"
+                    android:layout_marginTop="8sp"
+                    android:layout_marginRight="15sp"
+                    android:layout_marginLeft="15sp"
+                    android:layout_marginBottom="15sp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="5sp"
+                android:layout_marginLeft="10sp"
+                android:layout_marginRight="10sp"
+                android:background="@drawable/main_bg">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Preparation"
+                    android:fontFamily="@font/josefin_slab_bold"
+                    android:textColor="@color/black"
+                    android:textSize="23sp"
+                    android:gravity="center"
+                    android:layout_marginTop="10sp"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recipeStepsRV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15sp"
+                    android:layout_marginTop="3sp"
+                    android:layout_marginRight="15sp"
+                    android:layout_marginBottom="15sp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10sp"
+                android:text="Comments"
+                android:fontFamily="@font/josefin_slab_bold"
+                android:textColor="@color/black"
+                android:textSize="23sp"
+                android:gravity="center"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recipeComments"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5sp"
+                android:layout_marginRight="10sp"
+                android:layout_marginLeft="10sp"
+                android:layout_marginBottom="10sp"/>
+
+            <LinearLayout
+                android:id="@+id/addCommentLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/main_bg"
+                android:layout_marginTop="5sp"
+                android:layout_marginLeft="20sp"
+                android:layout_marginRight="20sp"
+                android:layout_marginBottom="15sp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="21sp"
+                    android:fontFamily="@font/josefin_slab_bold"
+                    android:text="Add Comment"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="10sp"/>
+
+                <EditText
+                    android:id="@+id/addedComment"
+                    android:layout_width="match_parent"
+                    android:layout_height="80sp"
+                    android:layout_marginRight="15sp"
+                    android:layout_marginLeft="15sp"
+                    android:fontFamily="@font/josefin_slab"
+                    android:gravity="top"
+                    android:textSize="19sp"/>
+
+                <Button
+                    android:id="@+id/addCommentButton"
+                    android:layout_width="60sp"
+                    android:layout_height="40sp"
+                    android:padding="0sp"
+                    android:elevation="0sp"
+                    app:cornerRadius="0sp"
+                    android:text="Add"
+                    android:textSize="15sp"
+                    android:textAllCaps="false"
+                    android:fontFamily="@font/josefin_slab_bold"
+                    android:textColor="@color/white"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="10sp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

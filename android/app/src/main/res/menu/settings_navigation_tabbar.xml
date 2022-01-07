@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/getverifiedSettingsChildfragment"
+        android:enabled="true"
+        android:title="Get\nVerified"/>
+
+    <item
+        android:id="@+id/shopSettingsChildFragment"
+        android:enabled="true"
+        android:title="Shop"/>
+
+    <item
+        android:id="@+id/suggestSettingsChildfragment"
+        android:enabled="true"
+        android:title="Sugest"/>
+
+    <item
+        android:id="@+id/contactSettingsChildfragment"
+        android:enabled="true"
+        android:title="Contact"/>
+</menu>

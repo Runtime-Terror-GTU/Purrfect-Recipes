@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph_home"
+    app:startDestination="@id/recipesHomeChildfragment">
+
+    <fragment
+        android:id="@+id/recipesHomeChildfragment"
+        android:name="com.example.purrfectrecipes.Customer.RecipesHomeChildfragment"
+        android:label="RecipesHomeChildfragment" />
+    <fragment
+        android:id="@+id/whatHomeChildfragment"
+        android:name="com.example.purrfectrecipes.Customer.WhatHomeChildfragment"
+        android:label="WhatHomeChildfragment" >
+        <action
+            android:id="@+id/action_whatHomeChildfragment_to_whatresHomeChildfragment"
+            app:destination="@id/whatresHomeChildfragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/whatresHomeChildfragment"
+        android:name="com.example.purrfectrecipes.Customer.WhatresHomeChildfragment"
+        android:label="WhatresHomeChildfragment" />
+</navigation>

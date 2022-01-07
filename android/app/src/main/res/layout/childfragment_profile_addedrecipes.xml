@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:id="@+id/unverifiedLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/text"
+            android:src="@drawable/peeking_cat"
+            android:layout_marginBottom="-3sp"/>
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:layout_marginStart="15sp"
+            android:layout_marginEnd="15sp"
+            android:fontFamily="@font/josefin_slab"
+            android:gravity="center"
+            android:text="To be able to add recipes, you need to be a verified user."
+            android:textColor="@color/black"
+            android:textSize="25sp" />
+
+        <LinearLayout
+            android:id="@+id/goToGetVerifiedButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="15sp"
+            android:layout_marginRight="15sp"
+            android:layout_marginBottom="15sp"
+            android:background="@drawable/button_bg2"
+            android:clickable="true">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5sp"
+                android:layout_marginTop="5sp"
+                android:layout_marginEnd="5sp"
+                android:layout_marginBottom="5sp"
+                android:fontFamily="@font/josefin_slab_bold"
+                android:gravity="center"
+                android:text="Go To Get Verified Page"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/verifiedLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginRight="10sp"
+            android:layout_marginLeft="10sp"
+            android:layout_marginTop="15sp"
+            android:layout_marginBottom="5sp">
+
+            <LinearLayout
+                android:layout_width="0sp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:background="@drawable/main_bg"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="0sp"
+                    android:layout_height="25sp"
+                    android:layout_weight="1.7"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="5sp"
+                    android:background="@drawable/search_icon"/>
+
+                <EditText
+                    android:id="@+id/searchText"
+                    android:layout_width="0sp"
+                    android:layout_weight="10"
+                    android:layout_height="40sp"
+                    android:fontFamily="@font/josefin_slab_italic"
+                    android:hint="Search"
+                    android:textColorHint="@color/black"
+                    android:textColor="@color/black"
+                    android:textSize="17sp"
+                    android:layout_marginLeft="3sp"
+                    android:background="@android:color/transparent"/>
+
+                <ImageView
+                    android:id="@+id/cancelSearchButton"
+                    android:layout_width="0sp"
+                    android:layout_height="20sp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1.4"
+                    android:layout_marginRight="5sp"
+                    android:background="@drawable/cancel_icon" />
+
+            </LinearLayout>
+
+            <RadioGroup
+                android:id="@+id/searchStyle"
+                android:layout_width="0sp"
+                android:layout_weight="0.45"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RadioButton
+                    android:id="@+id/byName"
+                    android:scaleX="0.7"
+                    android:scaleY="0.7"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="22sp"
+                    android:text="Name"
+                    android:fontFamily="@font/josefin_slab"
+                    android:checked="false"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    android:layout_marginLeft="-13.4sp"/>
+
+                <RadioButton
+                    android:id="@+id/byUsername"
+                    android:scaleX="0.7"
+                    android:scaleY="0.7"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="22sp"
+                    android:layout_gravity="left|center"
+                    android:text="Username"
+                    android:fontFamily="@font/josefin_slab"
+                    android:checked="false"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    android:layout_marginLeft="-13sp"/>
+
+            </RadioGroup>
+
+            <Button
+                android:id="@+id/searchDoneButton"
+                android:layout_width="0sp"
+                android:layout_height="35sp"
+                android:layout_weight="0.25"
+                android:padding="0sp"
+                android:elevation="0sp"
+                app:cornerRadius="0sp"
+                android:text="Done"
+                android:textSize="12sp"
+                android:textAllCaps="false"
+                android:fontFamily="@font/josefin_slab_bold"
+                android:textColor="@color/white"
+                android:layout_gravity="center"
+                android:layout_margin="2sp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginRight="10sp"
+            android:layout_marginLeft="10sp">
+
+            <Button
+                android:id="@+id/sortButton"
+                android:layout_width="0sp"
+                android:layout_height="45sp"
+                android:layout_weight="1"
+                android:padding="0sp"
+                android:elevation="0sp"
+                app:cornerRadius="0sp"
+                android:text="Sort"
+                android:textSize="16sp"
+                android:textAllCaps="false"
+                android:fontFamily="@font/josefin_slab_bold"
+                android:textColor="@color/white"
+                android:layout_gravity="center"
+                android:layout_marginRight="7sp"/>
+
+            <Button
+                android:id="@+id/filterButton"
+                android:layout_width="0sp"
+                android:layout_height="45sp"
+                android:layout_weight="1"
+                android:padding="0sp"
+                android:elevation="0sp"
+                app:cornerRadius="0sp"
+                android:text="Filter"
+                android:textSize="16sp"
+                android:textAllCaps="false"
+                android:fontFamily="@font/josefin_slab_bold"
+                android:textColor="@color/white"
+                android:layout_gravity="center"
+                android:layout_margin="2sp"/>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/addRecipeButton"
+            android:layout_width="match_parent"
+            android:layout_height="45sp"
+            android:layout_marginBottom="7sp"
+            android:layout_marginRight="10sp"
+            android:layout_marginLeft="10sp"
+            android:layout_marginTop="-5sp"
+            app:cornerRadius="0sp"
+            android:text="Add Recipe"
+            android:textSize="16sp"
+            android:textAllCaps="false"
+            android:fontFamily="@font/josefin_slab_bold"
+            android:textColor="@color/white"
+            android:layout_gravity="center" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recipesGridView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="3sp"
+            android:layout_marginLeft="10sp"
+            android:layout_marginBottom="10sp"/>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph_admin_home"
+    app:startDestination="@id/addAdminChildfragment">
+
+    <fragment
+        android:id="@+id/addAdminChildfragment"
+        android:name="com.example.purrfectrecipes.Admin.AddAdminChildfragment"
+        android:label="AddAdminChildfragment" />
+    <fragment
+        android:id="@+id/removeAdminChildfragment"
+        android:name="com.example.purrfectrecipes.Admin.RemoveAdminChildfragment"
+        android:label="RemoveAdminChildfragment" />
+</navigation>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.purrfectrecipes.StickyNestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/main">
+
+            <ImageView
+                android:layout_width="110sp"
+                android:layout_height="81sp"
+                android:background="@drawable/pati_edited2"
+                android:rotation="-180" />
+
+            <ImageView
+                android:layout_width="110sp"
+                android:layout_height="81sp"
+                android:layout_gravity="right"
+                android:background="@drawable/pati_edited2"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|bottom"
+                android:fontFamily="@font/josefin_slab_bold"
+                android:gravity="center"
+                android:text="Contact"
+                android:layout_marginBottom="10sp"
+                android:textColor="@color/white"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/childfragment_contact"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+</com.example.purrfectrecipes.StickyNestedScrollView>

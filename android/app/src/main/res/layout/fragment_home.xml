@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.purrfectrecipes.StickyNestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/topBar"
+            android:visibility="visible">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/main">
+
+                <ImageView
+                    android:layout_width="110sp"
+                    android:layout_height="81sp"
+                    android:background="@drawable/pati_edited2"
+                    android:rotation="-180" />
+
+                <ImageView
+                    android:layout_width="110sp"
+                    android:layout_height="81sp"
+                    android:layout_gravity="right"
+                    android:background="@drawable/pati_edited2"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|bottom"
+                    android:fontFamily="@font/josefin_slab_bold"
+                    android:gravity="center"
+                    android:text="Purrfected Recipes"
+                    android:layout_marginBottom="10sp"
+                    android:textColor="@color/white"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+
+            </FrameLayout>
+
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/navigationTabbarHome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/main"
+                app:elevation="0dp"
+                app:itemRippleColor="@color/white"
+                app:itemBackground="@drawable/radiobutton_bg_selector"
+                app:itemTextAppearanceActive="@style/JosefinSlabTextViewStyleB2"
+                app:itemTextAppearanceInactive="@style/JosefinSlabTextViewStyle2"
+                app:itemTextColor="@color/white"
+                android:theme="@style/BottomNavigationStyle"
+                app:menu="@menu/home_navigation_tabbar"
+                android:tag="sticky"/>
+        </LinearLayout>
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/nav_host_fragment"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:defaultNavHost="true"
+            app:navGraph="@navigation/nav_graph_home"/>
+
+    </LinearLayout>
+
+</com.example.purrfectrecipes.StickyNestedScrollView>

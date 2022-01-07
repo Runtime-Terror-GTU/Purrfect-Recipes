@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph_customer"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.purrfectrecipes.Customer.HomeFragment"
+        android:label="HomeFragment" >
+        <action
+            android:id="@+id/action_homeFragment_to_sortFragment"
+            app:destination="@id/sortFragment"
+            app:enterAnim="@anim/nav_default_enter_anim" />
+        <action
+            android:id="@+id/action_homeFragment_to_filterFragment"
+            app:destination="@id/filterFragment"
+            app:enterAnim="@anim/nav_default_enter_anim" />
+        <action
+            android:id="@+id/action_homeFragment_to_editIngredientsFragment"
+            app:destination="@id/editIngredientsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_recipeFragment"
+            app:destination="@id/recipeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.purrfectrecipes.Customer.ProfileFragment"
+        android:label="ProfileFragment" >
+        <action
+            android:id="@+id/action_profileFragment_to_recipeFragment"
+            app:destination="@id/recipeFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_filterFragment"
+            app:destination="@id/filterFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_editIngredientsFragment"
+            app:destination="@id/editIngredientsFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_sortFragment"
+            app:destination="@id/sortFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.purrfectrecipes.Customer.SettingsFragment"
+        android:label="SettingsFragment" />
+    <fragment
+        android:id="@+id/sortFragment"
+        android:name="com.example.purrfectrecipes.SortFragment"
+        android:label="SortFragment" />
+    <fragment
+        android:id="@+id/filterFragment"
+        android:name="com.example.purrfectrecipes.FilterFragment"
+        android:label="FilterFragment" />
+    <fragment
+        android:id="@+id/editIngredientsFragment"
+        android:name="com.example.purrfectrecipes.EditIngredientsFragment"
+        android:label="EditIngredientsFragment" />
+    <fragment
+        android:id="@+id/recipeFragment"
+        android:name="com.example.purrfectrecipes.RecipeFragment"
+        android:label="RecipeFragment" />
+</navigation>

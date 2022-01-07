@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/transparent"
+    android:orientation="horizontal">
+
+    <CheckBox
+        android:id="@+id/ingredientName"
+        android:layout_width="0dp"
+        android:layout_height="35sp"
+        android:layout_gravity="center"
+        android:layout_marginRight="3sp"
+        android:layout_marginBottom="3sp"
+        android:layout_weight="1"
+        android:background="@color/main"
+        android:fontFamily="@font/josefin_slab"
+        android:gravity="center"
+        android:button="@color/transparent"
+        android:text="Tag"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+
+</LinearLayout>
