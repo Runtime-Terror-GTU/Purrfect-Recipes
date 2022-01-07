@@ -1,6 +1,8 @@
 package com.example.purrfectrecipes.Customer
 
+import android.app.Activity
 import android.widget.EditText
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.ViewModel
 import com.example.purrfectrecipes.Constants
@@ -15,6 +17,7 @@ import com.google.firebase.database.*
 class SettingsRepository(val connector: SettingsVMRepConnector){
     private val userID= Hawk.get<String>(Constants.LOGGEDIN_USERID)
     private val usersRef: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users")
+    val ingredients: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Suggested Ingredients")
 
     fun findUserEmail(){
 
@@ -26,6 +29,33 @@ class SettingsRepository(val connector: SettingsVMRepConnector){
             }
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
+            }
+        })
+    }
+    fun findUserStatus(){
+
+        usersRef.child(userID).addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val status = snapshot.child(Constants.R_USERSTATUS).value.toString()
+                connector.getUserStatus(status)
+                return
+            }
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
+    }
+
+    fun suggestedIngredients(suggestedIngredient:String , activity: Activity){
+        ingredients.addListenerForSingleValueEvent(object :
+            ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                Toast.makeText( activity,"Your suggestion has been received.", Toast.LENGTH_SHORT).show()
+
+                ingredients.child(suggestedIngredient.lowercase()).setValue(true)
+            }
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText( activity,"Your suggestion has not been received."+error, Toast.LENGTH_SHORT).show()
             }
         })
     }

@@ -1,5 +1,6 @@
 package com.example.purrfectrecipes.Customer
 
+import android.app.Activity
 import android.view.View
 import android.widget.EditText
 import androidx.lifecycle.LiveData
@@ -15,13 +16,15 @@ class SettingsSharedViewModel: ViewModel(), SettingsVMRepConnector
 {
     private val repository= SettingsRepository(this)
     private var inputUserEmail= MutableLiveData<String?>()
-        fun getInputUserEmail(): LiveData<String?> {return inputUserEmail}
+    fun getInputUserEmail(): LiveData<String?> {return inputUserEmail}
     private var verifyView= MutableLiveData<View?>()
-        fun getVerifyView(): LiveData<View?> {return verifyView}
+    fun getVerifyView(): LiveData<View?> {return verifyView}
     private var shopView= MutableLiveData<View?>()
-        fun getShopView(): LiveData<View?> {return shopView}
+    fun getShopView(): LiveData<View?> {return shopView}
     private var suggestView= MutableLiveData<View?>()
-        fun getSuggestView(): LiveData<View?> {return suggestView}
+    fun getSuggestView(): LiveData<View?> {return suggestView}
+    private var status= MutableLiveData<String?>()
+    fun getStatus(): LiveData<String?> {return status}
 
 
     fun setVerifyView(newView: View?)
@@ -40,12 +43,18 @@ class SettingsSharedViewModel: ViewModel(), SettingsVMRepConnector
     }
     init{
         repository.findUserEmail()
+        repository.findUserStatus()
     }
     override fun getUserEmail(email:String)  {
 
         inputUserEmail.value = email
-        println(inputUserEmail.value.toString()+"...") //mail görünüyor burada.
 
+    }
+    fun suggestedIngredients(suggestedIngredient:String , activity: Activity){
+        repository.suggestedIngredients(suggestedIngredient,activity)
+    }
+    override fun getUserStatus(userStatus: String){
+        status.value=userStatus
     }
 
 
