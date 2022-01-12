@@ -223,6 +223,18 @@ class CustomerActivity : AppCompatActivity() {
                 addedRecipesViewModel.setGetVerified(false)
             }
         })
+        addedRecipesViewModel.getEditRecipe().observe(this,{
+            if(addedRecipesViewModel.getEditRecipe().value!=null && addedRecipesViewModel.getEditRecipe().value==true)
+            {
+                navController?.popBackStack(R.id.editRecipeFragment, true)
+                navigationBarCustomer.visibility=View.GONE
+                navController?.navigate(R.id.action_profileFragment_to_editRecipeFragment)
+            }
+            else if(addedRecipesViewModel.getEditRecipe().value!=null && addedRecipesViewModel.getEditRecipe().value==false){
+                navController?.popBackStack(R.id.profileFragment, false)
+                navigationBarCustomer.visibility=View.VISIBLE
+            }
+        })
 
 
     }
@@ -276,6 +288,9 @@ class CustomerActivity : AppCompatActivity() {
         else if(addedRecipesViewModel.getShownRecipe().value!=null) {
             addedRecipesViewModel.setShownRecipe(null)
             recipeViewModel.resetRecipe()
+        }
+        else if(addedRecipesViewModel.getEditRecipe().value!=null && addedRecipesViewModel.getEditRecipe().value==true) {
+            addedRecipesViewModel.setEditRecipe(false)
         }
         else
             super.onBackPressed()

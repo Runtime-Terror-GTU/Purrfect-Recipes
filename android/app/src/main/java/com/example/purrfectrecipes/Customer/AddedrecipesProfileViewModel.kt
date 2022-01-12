@@ -37,6 +37,9 @@ class AddedrecipesProfileViewModel: ViewModel(), RecipesRetrievedListener
     private val getVerified=MutableLiveData<Boolean?>()
         fun getGetVerified():LiveData<Boolean?>{return getVerified}
 
+    private val editRecipe=MutableLiveData<Boolean?>()
+        fun getEditRecipe():LiveData<Boolean?>{return editRecipe}
+
     private val heapSort= HeapSort<Recipe>()
     private val diffComparator= DifficultyComparator()
     private val popComparator= PopularityComparator()
@@ -70,6 +73,11 @@ class AddedrecipesProfileViewModel: ViewModel(), RecipesRetrievedListener
     fun setGetVerified(bool:Boolean)
     {
         getVerified.value=bool
+    }
+
+    fun setEditRecipe(bool:Boolean)
+    {
+        editRecipe.value=bool
     }
 
     fun applyDifficultyFilters(diffs:ArrayList<String>)
