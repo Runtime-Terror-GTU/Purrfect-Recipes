@@ -188,4 +188,9 @@ class AddedrecipesProfileChildfragment: Fragment(R.layout.childfragment_profile_
         viewModel.deleteRecipe(recipe)
     }
 
+    override fun onEditRecipe(recipe: Recipe) {
+        viewModel.setEditedRecipe(recipe)
+        viewModel.setEditRecipe(true)
+    }
+
 }

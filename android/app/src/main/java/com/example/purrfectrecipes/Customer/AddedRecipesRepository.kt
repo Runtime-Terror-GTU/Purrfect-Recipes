@@ -97,10 +97,15 @@ class AddedRecipesRepository(val connector: RecipesRetrievedListener)
                             val difficulty=snapshot.child(Constants.R_RECIPEDIFFICULTY).value.toString()
                             val likes=snapshot.child(Constants.R_RECIPEPURRFECTEDCOUNT).value.toString()
                             val pictureUrl=snapshot.child(Constants.R_RECIPEPICTURE).value.toString()
+                            var recipeOverview=snapshot.child(Constants.R_RECIPEINGREDIENTSOVERVIEW).value.toString()
 
-                            val recipe= Recipe(id, name, ownerId, difficulty, likes.toInt(), pictureUrl)
+                            val recipe= Recipe(id, name, ownerId, difficulty, likes.toInt(), pictureUrl, recipeOverview)
                             for(tag in snapshot.child(Constants.R_RECIPETAGS).children)
                                 recipe.addTag(tag.key.toString())
+                            for(ingredient in snapshot.child(Constants.R_RECIPEINGREDIENTS).children)
+                                recipe.addIngredient(ingredient.key.toString())
+                            for(step in snapshot.child(Constants.R_RECIPEPREPARATION).children)
+                                recipe.addStage(step.value.toString())
 
                             recipesArray.add(recipe)
 

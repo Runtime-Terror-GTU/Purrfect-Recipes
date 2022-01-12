@@ -35,7 +35,7 @@
                 android:id="@+id/recipeStepDetails"
                 android:layout_width="0sp"
                 android:layout_weight="7"
-                android:layout_height="60sp"
+                android:layout_height="100sp"
                 android:layout_marginLeft="6sp"
                 android:fontFamily="@font/josefin_slab"
                 android:gravity="top"

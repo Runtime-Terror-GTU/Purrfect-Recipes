@@ -233,6 +233,7 @@ class CustomerActivity : AppCompatActivity() {
             else if(addedRecipesViewModel.getEditRecipe().value!=null && addedRecipesViewModel.getEditRecipe().value==false){
                 navController?.popBackStack(R.id.profileFragment, false)
                 navigationBarCustomer.visibility=View.VISIBLE
+                addedRecipesViewModel.setEditedRecipe(null)
             }
         })
 
