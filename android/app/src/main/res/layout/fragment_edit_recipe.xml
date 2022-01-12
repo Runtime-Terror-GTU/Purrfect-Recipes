@@ -92,6 +92,70 @@
                 android:gravity="top"
                 android:textSize="20sp"/>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/josefin_slab"
+                android:textSize="18sp"
+                android:text="Recipe Difficulty"
+                android:layout_marginLeft="15sp"
+                android:layout_marginTop="10sp"
+                android:textColor="@color/black"/>
+
+            <RadioGroup
+                android:id="@+id/difficultyOptions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15sp"
+                android:layout_marginTop="5sp"
+                android:layout_marginRight="15sp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/easyOption"
+                    android:layout_width="0dp"
+                    android:layout_height="32sp"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="3sp"
+                    android:layout_weight="1"
+                    android:background="@drawable/check_box_bg_selector"
+                    android:button="@color/transparent"
+                    android:fontFamily="@font/josefin_slab"
+                    android:gravity="center"
+                    android:text="Easy"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+
+                <RadioButton
+                    android:id="@+id/mediumOption"
+                    android:layout_width="0dp"
+                    android:layout_height="32sp"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="3sp"
+                    android:layout_weight="1"
+                    android:background="@drawable/check_box_bg_selector"
+                    android:button="@color/transparent"
+                    android:fontFamily="@font/josefin_slab"
+                    android:gravity="center"
+                    android:text="Medium"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+
+                <RadioButton
+                    android:id="@+id/hardOption"
+                    android:layout_width="0dp"
+                    android:layout_height="32sp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:background="@drawable/check_box_bg_selector"
+                    android:button="@color/transparent"
+                    android:fontFamily="@font/josefin_slab"
+                    android:gravity="center"
+                    android:text="Hard"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+            </RadioGroup>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

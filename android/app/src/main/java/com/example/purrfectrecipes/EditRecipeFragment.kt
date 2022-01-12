@@ -43,6 +43,7 @@ class EditRecipeFragment : Fragment(R.layout.fragment_edit_recipe) {
         val recipePic=view.findViewById<ImageView>(R.id.recipePic)
         val recipeName=view.findViewById<EditText>(R.id.recipeName)
         val recipeIngredientDetails=view.findViewById<EditText>(R.id.recipeIngredientDetails)
+        val difficultyOptions=view.findViewById<RadioGroup>(R.id.difficultyOptions)
 
         viewModel.getRecipeSteps().observe(viewLifecycleOwner,{
                 recipeStepsRVAdapter?.setSteps(viewModel.getRecipeSteps().value!!)
@@ -60,6 +61,13 @@ class EditRecipeFragment : Fragment(R.layout.fragment_edit_recipe) {
                 recipeIngredientDetails.setText(viewModel.getRecipe().value?.recipeIngredientsOverview)
                 recipeIngredientDetails.setText(recipeIngredientDetails.text!!.toString().replace("\\n", "\n"))
 
+                if(viewModel.getRecipe().value!!.recipeDifficulty=="Easy")
+                    difficultyOptions.check(R.id.easyOption)
+                else if(viewModel.getRecipe().value!!.recipeDifficulty=="Medium")
+                    difficultyOptions.check(R.id.mediumOption)
+                else if(viewModel.getRecipe().value!!.recipeDifficulty=="Hard")
+                    difficultyOptions.check(R.id.hardOption)
+
                 recipeTagsRVAdapter?.setIngredients(viewModel.getRecipe().value?.getRecipeTags()!!)
                 recipeTagsRVAdapter?.notifyDataSetChanged()
                 recipeIngredientsRVAdapter?.setIngredients(viewModel.getRecipe().value?.getRecipeIngredients()!!)
@@ -74,6 +82,7 @@ class EditRecipeFragment : Fragment(R.layout.fragment_edit_recipe) {
 
                 recipeName.setText("")
                 recipeIngredientDetails.setText("")
+                difficultyOptions.clearCheck()
 
                 recipeTagsRVAdapter?.setIngredients(ArrayList())
                 recipeTagsRVAdapter?.notifyDataSetChanged()
@@ -107,7 +116,7 @@ class EditRecipeFragment : Fragment(R.layout.fragment_edit_recipe) {
 
         val addTag=view.findViewById<Button>(R.id.addTag)
         addTag.setOnClickListener {
-            
+
         }
         val addIngredient=view.findViewById<Button>(R.id.addIngredient)
         addIngredient.setOnClickListener {
@@ -131,6 +140,8 @@ class EditRecipeFragment : Fragment(R.layout.fragment_edit_recipe) {
                 Toast.makeText(requireContext(), "Please add recipe tags first.", Toast.LENGTH_SHORT).show()
             else if(viewModel.getRecipe().value!=null && viewModel.getRecipeSteps().value!!.isEmpty())
                 Toast.makeText(requireContext(), "Please add recipe steps first.", Toast.LENGTH_SHORT).show()
+            else if(difficultyOptions.checkedRadioButtonId==-1)
+                Toast.makeText(requireContext(), "Please choose a difficulty first.", Toast.LENGTH_SHORT).show()
             else
             {
 
