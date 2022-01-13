@@ -109,21 +109,10 @@ class EditRecipeRepository(val connectorTags: FilterVMRepConnector, val connecto
                     }
                 }
         }
-
+        
         val addedRecipesRef: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child(Constants.R_ADDEDRECIPES)
-        addedRecipesRef.child(recipe.getRecipeID()).addListenerForSingleValueEvent(object:ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if(snapshot.exists())
-                {
-                    addedRecipesRef.child(recipe.getRecipeID()).setValue(false)
-                    addedRecipesRef.child(recipe.getRecipeID()).setValue(true)
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-        })
+        addedRecipesRef.child(recipe.getRecipeID()).setValue(false)
+        addedRecipesRef.child(recipe.getRecipeID()).setValue(true)
     }
 
 }
