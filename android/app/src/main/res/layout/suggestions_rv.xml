@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/background_main"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0sp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="7sp"
+            android:layout_marginBottom="7sp"
+            android:orientation="vertical">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/suggestion"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Suggests ingredient: Celery"
+                        android:textColor="@color/black"
+                        android:layout_gravity="left|center"
+                        android:fontFamily="@font/josefin_slab"
+                        android:gravity="left"
+                        android:textSize="20sp"
+                        android:layout_marginLeft="6sp"
+                        android:layout_marginRight="5sp"/>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/approve"
+                        android:layout_width="35dp"
+                        android:layout_height="33dp"
+                        android:layout_gravity="bottom|right"
+                        android:layout_marginRight="40dp">
+
+                        <ImageView
+                            android:id="@+id/approveButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/plus"
+                            android:background="@color/background_main"/>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/deny"
+                        android:layout_width="35dp"
+                        android:layout_height="33dp"
+                        android:layout_gravity="bottom|right">
+
+                        <ImageView
+                            android:id="@+id/denyButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/trash"
+                            android:background="@color/background_main"/>
+                    </androidx.cardview.widget.CardView>
+
+                    <LinearLayout
+                        android:layout_gravity="bottom"
+                        android:layout_width="match_parent"
+                        android:layout_height="1sp"
+                        android:background="@color/dark_grey"
+                        >
+
+                    </LinearLayout>
+                </FrameLayout>
+
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
