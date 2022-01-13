@@ -20,8 +20,15 @@ class AddedRecipesRepository(val connector: RecipesRetrievedListener)
     private val usersRef: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users")
     private val commentsRef: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Comments")
     private val dayRecipeRef: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Recipe of The Day")
+    private var userId:String="null"
 
     var seed = Random().nextLong()
+
+    init{
+        val retrievedID=Hawk.get<String>(Constants.LOGGEDIN_USERID)
+        if(retrievedID!=null)
+            userId=retrievedID
+    }
 
     fun retrieveUser()
     {
@@ -79,9 +86,6 @@ class AddedRecipesRepository(val connector: RecipesRetrievedListener)
 
     fun retrieveRecipes()
     {
-        var userId=Hawk.get<String>(Constants.LOGGEDIN_USERID)
-        if(userId==null)
-            userId="null"
         val addedRecipesRef: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child(Constants.R_ADDEDRECIPES)
         addedRecipesRef.addValueEventListener(object :ValueEventListener{
             override fun onDataChange(addedR: DataSnapshot) {
@@ -194,11 +198,13 @@ class AddedRecipesRepository(val connector: RecipesRetrievedListener)
     {
         recipesRef.child(recipeId).child(Constants.R_RECIPEPURRFECTEDCOUNT).setValue((currentCount+1).toString())
         usersRef.child(userId).child(Constants.R_PURRFECTEDRECIPES).child(recipeId).setValue(true)
+
     }
 
     fun decreaseDayPurrfectedCount(recipeId:String, currentCount:Int, userId:String)
     {
         recipesRef.child(recipeId).child(Constants.R_RECIPEPURRFECTEDCOUNT).setValue((currentCount-1).toString())
         usersRef.child(userId).child(Constants.R_PURRFECTEDRECIPES).child(recipeId).removeValue()
+        
     }
 }

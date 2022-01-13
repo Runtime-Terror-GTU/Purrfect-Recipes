@@ -14,6 +14,13 @@ class PurrfectedRecipesRepository(val connector: RecipesRetrievedListener)
 {
     private val recipesRef: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Recipes")
     private val usersRef: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users")
+    private var userId:String="null"
+
+    init{
+        val retrievedID=Hawk.get<String>(Constants.LOGGEDIN_USERID)
+        if(retrievedID!=null)
+            userId=retrievedID
+    }
 
     var seed = Random().nextLong()
 
@@ -73,12 +80,9 @@ class PurrfectedRecipesRepository(val connector: RecipesRetrievedListener)
 
     fun retrieveRecipes()
     {
-        var userId= Hawk.get<String>(Constants.LOGGEDIN_USERID)
-        if(userId==null)
-            userId="null"
-        val addedRecipesRef: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child(
+        val purrfectedRecipesRef: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child(
             Constants.R_PURRFECTEDRECIPES)
-        addedRecipesRef.addValueEventListener(object : ValueEventListener {
+        purrfectedRecipesRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(addedR: DataSnapshot) {
                 val recipesArray=ArrayList<Recipe>()
                 var i=0
@@ -134,6 +138,49 @@ class PurrfectedRecipesRepository(val connector: RecipesRetrievedListener)
                 TODO("Not yet implemented")
             }
 
+        })
+    }
+
+    fun increaseDayPurrfectedCount(recipeId:String, currentCount:Int, userId:String)
+    {
+        recipesRef.child(recipeId).child(Constants.R_RECIPEPURRFECTEDCOUNT).setValue((currentCount+1).toString())
+        usersRef.child(userId).child(Constants.R_PURRFECTEDRECIPES).child(recipeId).setValue(true)
+
+        val addedRecipesRef: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child(Constants.R_ADDEDRECIPES)
+        addedRecipesRef.child(recipeId).addListenerForSingleValueEvent(object:ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists())
+                {
+                    addedRecipesRef.child(recipeId).setValue(false)
+                    addedRecipesRef.child(recipeId).setValue(true)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
+    }
+
+    fun decreaseDayPurrfectedCount(recipeId:String, currentCount:Int, userId:String)
+    {
+        recipesRef.child(recipeId).child(Constants.R_RECIPEPURRFECTEDCOUNT).setValue((currentCount-1).toString())
+        usersRef.child(userId).child(Constants.R_PURRFECTEDRECIPES).child(recipeId).removeValue()
+
+        val addedRecipesRef: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child(Constants.R_ADDEDRECIPES)
+        addedRecipesRef.child(recipeId).addListenerForSingleValueEvent(object:ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists())
+                {
+                    addedRecipesRef.child(recipeId).setValue(false)
+                    addedRecipesRef.child(recipeId).setValue(true)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
         })
     }
 }

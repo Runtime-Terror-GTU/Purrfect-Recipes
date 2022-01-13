@@ -15,7 +15,13 @@ class EditRecipeRepository(val connectorTags: FilterVMRepConnector, val connecto
     private val recipesRef: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Recipes")
     private val tagsRef: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Tags")
     private val ingredientsRef: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Ingredients")
-    private val usersRef: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users")
+    private var userId:String="null"
+
+    init{
+        val retrievedID=Hawk.get<String>(Constants.LOGGEDIN_USERID)
+        if(retrievedID!=null)
+            userId=retrievedID
+    }
 
     val storageRef= FirebaseStorage.getInstance().getReference().child("Recipe Pictures")
 
@@ -104,12 +110,20 @@ class EditRecipeRepository(val connectorTags: FilterVMRepConnector, val connecto
                 }
         }
 
-        var userId=Hawk.get<String>(Constants.LOGGEDIN_USERID)
-        if(userId==null)
-            userId="null"
         val addedRecipesRef: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child(Constants.R_ADDEDRECIPES)
-        addedRecipesRef.child(recipe.getRecipeID()).setValue(false)
-        addedRecipesRef.child(recipe.getRecipeID()).setValue(true)
+        addedRecipesRef.child(recipe.getRecipeID()).addListenerForSingleValueEvent(object:ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists())
+                {
+                    addedRecipesRef.child(recipe.getRecipeID()).setValue(false)
+                    addedRecipesRef.child(recipe.getRecipeID()).setValue(true)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
     }
 
 }

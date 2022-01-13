@@ -71,11 +71,13 @@ class PurrfectedrecipesProfileChildfragment: Fragment(R.layout.childfragment_pro
     }
 
     override fun onPurrfect(recipeId: String, recipeLikes: Int) {
-        TODO("Not yet implemented")
+        viewModel.change=true
+        viewModel.purrfectRecipe(recipeId, recipeLikes)
     }
 
     override fun unPurrfect(recipeId: String, recipeLikes: Int) {
-        TODO("Not yet implemented")
+        viewModel.change=true
+        viewModel.unPurrfectRecipe(recipeId, recipeLikes)
     }
 
 }
