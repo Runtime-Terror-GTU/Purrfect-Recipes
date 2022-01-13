@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide
 import com.example.purrfectrecipes.Adapters.*
 import com.example.purrfectrecipes.Connectors.CommentChangeListener
 import com.example.purrfectrecipes.Customer.AddedrecipesProfileViewModel
+import com.example.purrfectrecipes.Customer.PurrfectedrecipesProfileViewModel
 import com.example.purrfectrecipes.Customer.RecipesHomeViewModel
 import com.example.purrfectrecipes.Customer.WhatresHomeViewModel
 import com.example.purrfectrecipes.User.CustomerStatus
@@ -27,6 +28,7 @@ class RecipeFragment : Fragment(R.layout.fragment_recipe), CommentChangeListener
     private val recipesHomeViewModel:RecipesHomeViewModel by activityViewModels()
     private val whatresViewModel:WhatresHomeViewModel by activityViewModels()
     private val addedRecipesViewModel:AddedrecipesProfileViewModel by activityViewModels()
+    private val purrfectedRecipesViewModel:PurrfectedrecipesProfileViewModel by activityViewModels()
 
     private var commentsRVAdapter:CommentsRVAdapter?=null
     private var stepsRVAdapter:RecipeStepsRVAdapter?=null
@@ -66,6 +68,11 @@ class RecipeFragment : Fragment(R.layout.fragment_recipe), CommentChangeListener
         addedRecipesViewModel.getShownRecipe().observe(viewLifecycleOwner,{
             if( addedRecipesViewModel.getShownRecipe().value!=null)
                 viewModel.setRecipe( addedRecipesViewModel.getShownRecipe().value!!)
+        })
+
+        purrfectedRecipesViewModel.getShownRecipe().observe(viewLifecycleOwner,{
+            if( purrfectedRecipesViewModel.getShownRecipe().value!=null)
+                viewModel.setRecipe( purrfectedRecipesViewModel.getShownRecipe().value!!)
         })
 
         viewModel.getRecipe().observe(viewLifecycleOwner,{

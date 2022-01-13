@@ -34,6 +34,7 @@ class CustomerActivity : AppCompatActivity() {
     private val editIngredientViewModel:EditIngredientsViewModel by viewModels()
     private val recipeViewModel:RecipeViewModel by viewModels()
     private val addedRecipesViewModel:AddedrecipesProfileViewModel by viewModels()
+    private val purrfectedRecipesViewModel:PurrfectedrecipesProfileViewModel by viewModels()
 
     var navHostFragment:NavHostFragment?=null
     var navController: NavController?=null
@@ -237,6 +238,20 @@ class CustomerActivity : AppCompatActivity() {
             }
         })
 
+        purrfectedRecipesViewModel.getShownRecipe().observe(this,{
+            if(purrfectedRecipesViewModel.getShownRecipe().value!=null)
+            {
+                navController?.popBackStack(R.id.recipeFragment, true)
+                navigationBarCustomer.visibility=View.GONE
+                navController?.navigate(R.id.action_profileFragment_to_recipeFragment)
+            }
+            else
+            {
+                navController?.popBackStack(R.id.profileFragment, false)
+                navigationBarCustomer.visibility=View.VISIBLE
+            }
+        })
+
 
     }
     override fun onBackPressed() {
@@ -292,6 +307,10 @@ class CustomerActivity : AppCompatActivity() {
         }
         else if(addedRecipesViewModel.getEditRecipe().value!=null && addedRecipesViewModel.getEditRecipe().value==true) {
             addedRecipesViewModel.setEditRecipe(false)
+        }
+        else if(purrfectedRecipesViewModel.getShownRecipe().value!=null) {
+            purrfectedRecipesViewModel.setShownRecipe(null)
+            recipeViewModel.resetRecipe()
         }
         else
             super.onBackPressed()
