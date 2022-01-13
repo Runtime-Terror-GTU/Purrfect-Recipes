@@ -15,6 +15,8 @@ class SortViewModel: ViewModel()
         fun getWhatSortId(): LiveData<Int> {return checkWhatSortId}
     private var checkAddedSortId= MutableLiveData<Int>()
         fun getAddedSortId(): LiveData<Int> {return checkAddedSortId}
+    private var checkPurrfectedSortId= MutableLiveData<Int>()
+        fun getPurrfectedSortId(): LiveData<Int> {return checkPurrfectedSortId}
 
     private val diffHomeSort=MutableLiveData<SortMethods?>()
         fun getDiffHomeSort():LiveData<SortMethods?> {return diffHomeSort}
@@ -30,6 +32,11 @@ class SortViewModel: ViewModel()
         fun getDiffAddedSort():LiveData<SortMethods?> {return diffAddedSort}
     private val popAddedSort=MutableLiveData<SortMethods?>()
         fun getPopAddedSort():LiveData<SortMethods?> {return popAddedSort}
+
+    private val diffPurrfectedSort=MutableLiveData<SortMethods?>()
+        fun getDiffPurrfectedSort():LiveData<SortMethods?> {return diffPurrfectedSort}
+    private val popPurrfectedSort=MutableLiveData<SortMethods?>()
+        fun getPopPurrfectedSort():LiveData<SortMethods?> {return popPurrfectedSort}
 
     init{
         checkHomeSortId.value=-1
@@ -55,6 +62,7 @@ class SortViewModel: ViewModel()
     {
         diffHomeSort.value=null
         popHomeSort.value=null
+        checkHomeSortId.value=-1
     }
 
     fun setWhatSortId(newId: Int)
@@ -77,6 +85,7 @@ class SortViewModel: ViewModel()
     {
         diffWhatSort.value=null
         popWhatSort.value=null
+        checkWhatSortId.value=-1
     }
 
     fun setAddedSortId(newId: Int)
@@ -99,6 +108,30 @@ class SortViewModel: ViewModel()
     {
         diffAddedSort.value=null
         popAddedSort.value=null
+        checkAddedSortId.value=-1
+    }
+
+    fun setPurrfectedSortId(newId: Int)
+    {
+        if(checkPurrfectedSortId.value!=newId)
+            checkPurrfectedSortId.value=newId
+    }
+
+    fun setDiffPurrfectedSort(method:SortMethods?)
+    {
+        diffPurrfectedSort.value=method
+    }
+
+    fun setPopPurrfectedSort(method:SortMethods?)
+    {
+        popPurrfectedSort.value=method
+    }
+
+    fun resetPurrfectedSort()
+    {
+        diffPurrfectedSort.value=null
+        popPurrfectedSort.value=null
+        checkPurrfectedSortId.value=-1
     }
 
 }

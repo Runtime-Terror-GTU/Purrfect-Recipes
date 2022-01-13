@@ -147,6 +147,33 @@ class CustomerActivity : AppCompatActivity() {
             }
         })
 
+        purrfectedRecipesViewModel.getSort().observe(this,{
+            if(purrfectedRecipesViewModel.getSort().value!=null && purrfectedRecipesViewModel.getSort().value==true)
+            {
+                navController?.popBackStack(R.id.sortFragment, true)
+                navigationBarCustomer.visibility=View.GONE
+                navController?.navigate(R.id.action_profileFragment_to_sortFragment)
+            }
+            else if(purrfectedRecipesViewModel.getSort().value!=null && purrfectedRecipesViewModel.getSort().value==false){
+                navController?.popBackStack(R.id.profileFragment, false)
+                navigationBarCustomer.visibility=View.VISIBLE
+            }
+        })
+        purrfectedRecipesViewModel.getFilter().observe(this, {
+            if(purrfectedRecipesViewModel.getFilter().value!=null && purrfectedRecipesViewModel.getFilter().value==true)
+            {
+                navController?.popBackStack(R.id.filterFragment, true)
+                navigationBarCustomer.visibility=View.GONE
+                navController?.navigate(R.id.action_profileFragment_to_filterFragment)
+            }
+            else if(purrfectedRecipesViewModel.getFilter().value!=null && purrfectedRecipesViewModel.getFilter().value==false){
+                navController?.popBackStack(R.id.profileFragment, false)
+                navigationBarCustomer.visibility=View.VISIBLE
+                filterViewModel.tempTags.clear()
+                filterViewModel.tempDifficulties.clear()
+            }
+        })
+
         whatViewModel.getEditWanted().observe(this, {
             if(whatViewModel.getEditWanted().value!=null && whatViewModel.getEditWanted().value==true)
             {
@@ -282,6 +309,15 @@ class CustomerActivity : AppCompatActivity() {
         }
         else if(addedRecipesViewModel.getFilter().value!=null && addedRecipesViewModel.getFilter().value==true) {
             addedRecipesViewModel.setFilter(false)
+            Hawk.delete(Constants.FILTER_DIRECTION)
+        }
+        else if(purrfectedRecipesViewModel.getSort().value!=null && purrfectedRecipesViewModel.getSort().value==true) {
+            sortViewModel.resetPurrfectedSort()
+            purrfectedRecipesViewModel.setSort(false)
+            Hawk.delete(Constants.SORT_DIRECTION)
+        }
+        else if(purrfectedRecipesViewModel.getFilter().value!=null && purrfectedRecipesViewModel.getFilter().value==true) {
+            purrfectedRecipesViewModel.setFilter(false)
             Hawk.delete(Constants.FILTER_DIRECTION)
         }
         else if(whatViewModel.getEditWanted().value!=null && whatViewModel.getEditWanted().value==true) {
