@@ -24,4 +24,6 @@
 
     <color name="transparent">#00FFFFFF</color>
 
+    <color name="dialog_bg_colour">#FFEBA8A8</color>
+
 </resources>
