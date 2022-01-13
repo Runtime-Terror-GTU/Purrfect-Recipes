@@ -4,15 +4,18 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.NavigationUI
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.purrfectrecipes.Adapters.IngredientRequestsPageRVAdapter
+import com.example.purrfectrecipes.Connectors.RequestOnClickListener
 import com.example.purrfectrecipes.R
-import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class RequestsModeratorChildfragment: Fragment(R.layout.childfragment_moderator_requests)
+class RequestsModeratorChildfragment: Fragment(R.layout.childfragment_moderator_requests),
+    RequestOnClickListener
+
 {
     private val viewModel: RequestsModeratorViewModel by activityViewModels()
+    private var ingredientRequestsRVAdapter: IngredientRequestsPageRVAdapter?=null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         viewModel.getView().observe(viewLifecycleOwner, {
@@ -24,6 +27,28 @@ class RequestsModeratorChildfragment: Fragment(R.layout.childfragment_moderator_
                 super.onViewCreated(view, savedInstanceState)
             }
         })
+        viewModel.getSuggestions().observe(viewLifecycleOwner, {
+            if(viewModel.getSuggestions().value!=null){
+                ingredientRequestsRVAdapter?.setSuggestions(viewModel.getSuggestions().value!!)
+                ingredientRequestsRVAdapter?.notifyDataSetChanged()
+            }
+        })
+        setRVAdapter()
     }
+    fun setRVAdapter()
+    {
+        val ingredients = view?.findViewById<RecyclerView>(R.id.ingredients)
+        ingredients?.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
+        ingredientRequestsRVAdapter = IngredientRequestsPageRVAdapter(requireContext(),this)
+        ingredients?.adapter = ingredientRequestsRVAdapter
+    }
+
+    override fun onApproveClick(requestID:String){
+        viewModel.suggestionApprove(requestID,requireActivity())
+    }
+    override fun onDenyClick(requestID:String){
+        viewModel.suggestionDeny(requestID,requireActivity())
+    }
+
 
 }
