@@ -5,8 +5,10 @@ import {
     Img, 
     TextContainer, 
     CommentContents, 
-    ImgContainer 
+    ImgContainer,
+    PremiumImg 
 } from './CommentBoxElements';
+import PremiumIcon from '../../../images/premium_symbol.png';
 
 export const CommentBox = (commentID) => {
     const [commentInfo, setCommentInfo] = useState([]);
@@ -32,7 +34,17 @@ export const CommentBox = (commentID) => {
         <CommentContainer>
             <ImgContainer>
                 <Img src={commentInfo.CommentOwnerPic} />
-                <h1>{commentInfo.CommentOwnerUsername}</h1>
+                <h1>{commentInfo.CommentOwnerUsername}
+                {(() => {
+                    console.log(commentInfo)
+                    console.log(commentInfo.CommentOwnerStatus)
+                if( commentInfo.CommentOwnerStatus === "PREMIUM" ){
+                    return(
+                        <PremiumImg src={PremiumIcon}/>         
+                    )
+                }               
+                })()}
+                </h1>
             </ImgContainer>
             <TextContainer>
                 <CommentContents>{commentInfo.CommentContent}</CommentContents>

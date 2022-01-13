@@ -39,6 +39,9 @@
         <action
             android:id="@+id/action_profileFragment_to_sortFragment"
             app:destination="@id/sortFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_editRecipeFragment"
+            app:destination="@id/editRecipeFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
@@ -60,4 +63,8 @@
         android:id="@+id/recipeFragment"
         android:name="com.example.purrfectrecipes.RecipeFragment"
         android:label="RecipeFragment" />
+    <fragment
+        android:id="@+id/editRecipeFragment"
+        android:name="com.example.purrfectrecipes.EditRecipeFragment"
+        android:label="EditRecipeFragment" />
 </navigation>

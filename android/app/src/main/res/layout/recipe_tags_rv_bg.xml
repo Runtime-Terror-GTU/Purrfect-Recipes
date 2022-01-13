@@ -9,7 +9,7 @@
     <CheckBox
         android:id="@+id/recipeTag"
         android:layout_width="85sp"
-        android:layout_height="30sp"
+        android:layout_height="35sp"
         android:layout_gravity="center"
         android:layout_marginRight="3sp"
         android:background="@color/main"

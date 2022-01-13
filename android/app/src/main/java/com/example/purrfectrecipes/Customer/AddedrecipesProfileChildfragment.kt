@@ -123,6 +123,11 @@ class AddedrecipesProfileChildfragment: Fragment(R.layout.childfragment_profile_
             viewModel.setGetVerified(true)
         }
 
+        val addRecipeButton=view.findViewById<Button>(R.id.addRecipeButton)
+        addRecipeButton.setOnClickListener {
+            viewModel.setEditRecipe(true)
+        }
+
     }
 
     fun setRVAdapter()
@@ -181,6 +186,11 @@ class AddedrecipesProfileChildfragment: Fragment(R.layout.childfragment_profile_
 
     override fun onDelete(recipe: Recipe) {
         viewModel.deleteRecipe(recipe)
+    }
+
+    override fun onEditRecipe(recipe: Recipe) {
+        viewModel.setEditedRecipe(recipe)
+        viewModel.setEditRecipe(true)
     }
 
 }

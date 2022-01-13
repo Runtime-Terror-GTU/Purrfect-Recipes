@@ -16,10 +16,13 @@ import {
     CommentsContainer,
     CommentsWrapper,
     CommentsColumn,
+    AddCommentColumn,
+    PremiumImg
 } from './RecipeScreenElements';
 import Footer from '../HomePage/Footer';
 import CommentBox from './CommentBox';
 import AddComment from './AddComment';
+import PremiumIcon from '../../images/premium_symbol.png';
 
 export const RecipeScreen = () => {
     let stringRecipe = localStorage.getItem("currentRecipe");
@@ -44,7 +47,7 @@ export const RecipeScreen = () => {
 
             
         console.log("cildirmamak")
-        console.log(comments)
+        //console.log(comments)
         console.log("elde")
         console.log("degil")
         
@@ -88,7 +91,15 @@ export const RecipeScreen = () => {
                             }
                         </Column1>
                         <Column2>
-                            <h1> by {recipe.R_RecipeOwner} </h1>
+                            <h1> by {recipe.R_RecipeOwner} 
+                            {(() => {
+                            if( recipe.R_RecipeOwnerStatus === "PREMIUM" ){
+                                return(
+                                    <PremiumImg src={PremiumIcon}/>         
+                                )
+                            }               
+                            })()}
+                            </h1>
                             <TopLine> Difficulty: {recipe.R_RecipeDifficulty} </TopLine>
                             <TopLine> Tags </TopLine>
                             {
@@ -124,7 +135,10 @@ export const RecipeScreen = () => {
                             <CommentsColumn>
                                 <h1>no comments</h1>
                             </CommentsColumn>
-                            <AddComment commentID={"34"}/>
+                            <AddCommentColumn>
+                                <AddComment />
+                            </AddCommentColumn>
+
                         </CommentsWrapper>                   
                     )
                 } else{
@@ -143,7 +157,9 @@ export const RecipeScreen = () => {
                                 })
                                 }
                             </CommentsColumn>
-                            <AddComment commentID={"34"}/>
+                            <AddCommentColumn>
+                                <AddComment />
+                            </AddCommentColumn>
                         </CommentsWrapper>
                     )
                 }                

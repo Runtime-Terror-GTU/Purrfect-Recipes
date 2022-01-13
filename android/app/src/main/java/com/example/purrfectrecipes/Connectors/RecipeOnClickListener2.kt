@@ -7,4 +7,5 @@ interface RecipeOnClickListener2 {
     fun onPurrfect(recipeId:String, recipeLikes:Int)
     fun unPurrfect(recipeId: String, recipeLikes: Int)
     fun onDelete(recipe: Recipe)
+    fun onEditRecipe(recipe: Recipe)
 }

@@ -7,6 +7,7 @@ import com.example.purrfectrecipes.Recipe
 import com.example.purrfectrecipes.User.Customer
 import com.example.purrfectrecipes.User.CustomerStatus
 import com.google.firebase.database.*
+import com.google.firebase.storage.FirebaseStorage
 import com.orhanobut.hawk.Hawk
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -28,6 +29,8 @@ class AddedRecipesRepository(val connector: RecipesRetrievedListener)
             usersRef.child(Hawk.get(Constants.LOGGEDIN_USERID))
                 .addValueEventListener(object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
+                        if(Hawk.get<String>(Constants.LOGGEDIN_USERID)==null)
+                            return
                         var currentUser: Customer? = null
                         val currentUserId = Hawk.get<String>(Constants.LOGGEDIN_USERID)
                         val currentUserName = snapshot.child(Constants.R_USERNAME).value
@@ -94,10 +97,15 @@ class AddedRecipesRepository(val connector: RecipesRetrievedListener)
                             val difficulty=snapshot.child(Constants.R_RECIPEDIFFICULTY).value.toString()
                             val likes=snapshot.child(Constants.R_RECIPEPURRFECTEDCOUNT).value.toString()
                             val pictureUrl=snapshot.child(Constants.R_RECIPEPICTURE).value.toString()
+                            var recipeOverview=snapshot.child(Constants.R_RECIPEINGREDIENTSOVERVIEW).value.toString()
 
-                            val recipe= Recipe(id, name, ownerId, difficulty, likes.toInt(), pictureUrl)
+                            val recipe= Recipe(id, name, ownerId, difficulty, likes.toInt(), pictureUrl, recipeOverview)
                             for(tag in snapshot.child(Constants.R_RECIPETAGS).children)
                                 recipe.addTag(tag.key.toString())
+                            for(ingredient in snapshot.child(Constants.R_RECIPEINGREDIENTS).children)
+                                recipe.addIngredient(ingredient.key.toString())
+                            for(step in snapshot.child(Constants.R_RECIPEPREPARATION).children)
+                                recipe.addStage(step.value.toString())
 
                             recipesArray.add(recipe)
 
@@ -178,6 +186,8 @@ class AddedRecipesRepository(val connector: RecipesRetrievedListener)
             }
 
         })
+        val storageRef= FirebaseStorage.getInstance().getReference().child("Recipe Pictures")
+        storageRef.child(deletedRecipe.getRecipeID()).delete()
     }
 
     fun increaseDayPurrfectedCount(recipeId:String, currentCount:Int, userId:String)

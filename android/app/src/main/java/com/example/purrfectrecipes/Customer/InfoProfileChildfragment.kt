@@ -31,7 +31,6 @@ class InfoProfileChildfragment: Fragment(R.layout.childfragment_profile_info)
         })
 
         val logoutButton=view.findViewById<ImageView>(R.id.logoutButton)
-        Log.i("here", logoutButton.toString())
         logoutButton?.setOnClickListener {
             Hawk.delete(Constants.LOGGEDIN_USERID)
             Hawk.delete(Constants.LOGGEDIN_USER_STATUS)
@@ -40,7 +39,7 @@ class InfoProfileChildfragment: Fragment(R.layout.childfragment_profile_info)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
             startActivity(intent)
-            activity?.finish()
+            parentFragment?.activity?.finish()
         }
     }
 

@@ -30,45 +30,99 @@
         android:layout_margin="15sp"
         android:textSize="20sp" />
 
-
-    <EditText
-        android:id="@+id/inputSuggestedIngredient"
-        android:layout_width="match_parent"
-        android:layout_height="43dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:background="@drawable/main_bg"
-        android:hint="Enter ingredient name here"
-        android:fontFamily="@font/josefin_slab_italic"
-        android:textSize="18sp"
-        android:text="">
-
-    </EditText>
-
-
     <LinearLayout
+        android:id="@+id/premiumUser"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="20sp"
-        android:layout_marginLeft="20sp"
-        android:layout_marginTop="20sp"
-        android:layout_marginBottom="20sp"
-        android:clickable="true"
-        android:background="@drawable/button_bg">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:visibility="visible">
 
-        <TextView
-            android:id="@+id/enterSuggestButton"
+
+        <EditText
+            android:id="@+id/inputSuggestedIngredient"
+            android:layout_width="match_parent"
+            android:layout_height="43dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/main_bg"
+            android:hint="Enter ingredient name here"
+            android:fontFamily="@font/josefin_slab_italic"
+            android:textSize="18sp"
+            android:text="">
+
+        </EditText>
+
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Enter"
-            android:layout_margin="5sp"
-            android:textSize="22sp"
-            android:fontFamily="@font/josefin_slab_bold"
-            android:textStyle="bold"
-            android:textColor="@color/light_main"
-            android:gravity="center" />
+            android:layout_marginRight="20sp"
+            android:layout_marginLeft="20sp"
+            android:layout_marginTop="20sp"
+            android:layout_marginBottom="20sp"
+            android:clickable="true"
+            android:background="@drawable/button_bg">
 
+            <TextView
+                android:id="@+id/enterSuggestButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Enter"
+                android:layout_margin="5sp"
+                android:textSize="22sp"
+                android:fontFamily="@font/josefin_slab_bold"
+                android:textStyle="bold"
+                android:textColor="@color/light_main"
+                android:gravity="center" />
+
+        </LinearLayout>
+
+        ></LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/notPremiumUser"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:visibility="gone">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/josefin_slab"
+            android:gravity="center"
+            android:text="If you want to suggest ingredients you have to be premium user."
+            android:textColor="@color/black"
+            android:layout_margin="15sp"
+            android:textSize="20sp" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20sp"
+            android:layout_marginLeft="20sp"
+            android:layout_marginTop="20sp"
+            android:layout_marginBottom="20sp"
+            android:clickable="true"
+            android:background="@drawable/button_bg">
+
+            <TextView
+                android:id="@+id/bePremiumButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Get Premium"
+                android:layout_margin="5sp"
+                android:textSize="22sp"
+                android:fontFamily="@font/josefin_slab_bold"
+                android:textStyle="bold"
+                android:textColor="@color/light_main"
+                android:gravity="center" />
+
+        </LinearLayout>
     </LinearLayout>
-
-
 </LinearLayout>

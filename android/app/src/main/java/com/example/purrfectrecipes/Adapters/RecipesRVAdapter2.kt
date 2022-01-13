@@ -76,7 +76,7 @@ class RecipesRVAdapter2(val context: Context, val listener: RecipeOnClickListene
         }
 
         holder.editRecipeButton.setOnClickListener {
-
+            listener.onEditRecipe(recipes.get(position))
         }
 
     }
