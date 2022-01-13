@@ -3,7 +3,6 @@ import "./SearchBar.css";
 import AddIcon from '@mui/icons-material/Add';
 
 import IngredientsButtons from "./IngredientsButtons";
-import FormLabel from '@mui/material/FormLabel';
 import RowRadioButtonsGroup from './radioButton';
 import  CheckboxLabels from './checkBox';
 import Tags from "./tags";

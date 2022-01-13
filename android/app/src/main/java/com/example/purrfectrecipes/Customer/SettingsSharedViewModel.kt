@@ -2,15 +2,10 @@ package com.example.purrfectrecipes.Customer
 
 import android.app.Activity
 import android.view.View
-import android.widget.EditText
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.purrfectrecipes.Connectors.SettingsVMRepConnector
-import com.example.purrfectrecipes.R
-import com.example.purrfectrecipes.Recipe
-import com.example.purrfectrecipes.StartRepository
-import com.example.purrfectrecipes.User.User
 
 class SettingsSharedViewModel: ViewModel(), SettingsVMRepConnector
 {
@@ -55,6 +50,9 @@ class SettingsSharedViewModel: ViewModel(), SettingsVMRepConnector
     }
     override fun getUserStatus(userStatus: String){
         status.value=userStatus
+    }
+    fun updateUserEmail(Email: String){
+        repository.updateUserEmail(Email)
     }
 
 
