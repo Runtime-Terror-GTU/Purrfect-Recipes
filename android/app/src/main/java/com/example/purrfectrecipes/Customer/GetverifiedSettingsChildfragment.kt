@@ -1,6 +1,8 @@
 package com.example.purrfectrecipes.Customer
 
 import android.os.Bundle
+import android.os.StrictMode
+import android.os.StrictMode.ThreadPolicy
 import android.view.View
 import android.widget.EditText
 import android.widget.LinearLayout
@@ -18,6 +20,9 @@ class GetverifiedSettingsChildfragment: Fragment(R.layout.childfragment_settings
     private val viewModel: SettingsSharedViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val policy = ThreadPolicy.Builder().permitAll().build()
+
+        StrictMode.setThreadPolicy(policy)
 
         viewModel.getVerifyView().observe(viewLifecycleOwner, {
             if(viewModel.getVerifyView().value!=null)
@@ -88,7 +93,7 @@ class GetverifiedSettingsChildfragment: Fragment(R.layout.childfragment_settings
                         gettingVerified.visibility=View.VISIBLE
 
                     }catch (error: Exception){
-                        Toast.makeText(requireActivity(), "Something went wrong. Please try again..", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireActivity(), "Something went wrong. Please try again.."+error, Toast.LENGTH_SHORT).show()
                     }
                 }
                 else{
