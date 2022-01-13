@@ -12,10 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProviders
-import com.example.purrfectrecipes.Customer.AddedrecipesProfileViewModel
-import com.example.purrfectrecipes.Customer.CustomerActivity
-import com.example.purrfectrecipes.Customer.RecipesHomeViewModel
-import com.example.purrfectrecipes.Customer.WhatresHomeViewModel
+import com.example.purrfectrecipes.Customer.*
 import com.example.purrfectrecipes.Guest.GuestActivity
 import com.example.purrfectrecipes.User.User
 import com.orhanobut.hawk.Hawk
@@ -25,6 +22,7 @@ class SortFragment: Fragment(R.layout.fragment_sort) {
     private val homeViewModel:RecipesHomeViewModel by activityViewModels()
     private val whatResViewModel: WhatresHomeViewModel by activityViewModels()
     private val addedRecipesViewModel:AddedrecipesProfileViewModel by activityViewModels()
+    private val purrfectedRecipesViewModel:PurrfectedrecipesProfileViewModel by activityViewModels()
 
     private val viewModel:SortViewModel by activityViewModels()
 
@@ -185,7 +183,7 @@ class SortFragment: Fragment(R.layout.fragment_sort) {
             }
 
             cancelButton.setOnClickListener {
-                viewModel.resetWhatSort()
+                viewModel.resetAddedSort()
                 addedRecipesViewModel.setSort(false)
                 Hawk.delete(Constants.SORT_DIRECTION)
             }
@@ -197,6 +195,59 @@ class SortFragment: Fragment(R.layout.fragment_sort) {
                 else
                 {
                     addedRecipesViewModel.setSort(false)
+                    Hawk.delete(Constants.SORT_DIRECTION)
+                }
+            }
+        }
+        else if(direction==Constants.PURRFECTED_TO_SORT)
+        {
+            viewModel.getPurrfectedSortId().observe(viewLifecycleOwner,{
+                if(viewModel.getPurrfectedSortId().value!=-1 && sortMethod.checkedRadioButtonId==-1) {
+                    if(viewModel.getPurrfectedSortId().value==0)
+                        diffHardest.isChecked=true
+                    else if(viewModel.getPurrfectedSortId().value==1)
+                        diffEasiest.isChecked=true
+                    else if(viewModel.getPurrfectedSortId().value==2)
+                        popMin.isChecked=true
+                    else if(viewModel.getPurrfectedSortId().value==3)
+                        popMax.isChecked=true
+                }
+            })
+
+            diffHardest.setOnClickListener {
+                viewModel.setPopPurrfectedSort(null)
+                viewModel.setDiffPurrfectedSort(SortMethods.difMaxtoMin)
+                viewModel.setPurrfectedSortId(0)
+            }
+            diffEasiest.setOnClickListener {
+                viewModel.setPopPurrfectedSort(null)
+                viewModel.setDiffPurrfectedSort(SortMethods.difMintoMax)
+                viewModel.setPurrfectedSortId(1)
+            }
+            popMax.setOnClickListener {
+                viewModel.setDiffPurrfectedSort(null)
+                viewModel.setPopPurrfectedSort(SortMethods.popMaxtoMin)
+                viewModel.setPurrfectedSortId(3)
+            }
+            popMin.setOnClickListener {
+                viewModel.setDiffPurrfectedSort(null)
+                viewModel.setPopPurrfectedSort(SortMethods.popMintoMax)
+                viewModel.setPurrfectedSortId(2)
+            }
+
+            cancelButton.setOnClickListener {
+                viewModel.resetPurrfectedSort()
+                purrfectedRecipesViewModel.setSort(false)
+                Hawk.delete(Constants.SORT_DIRECTION)
+            }
+
+            enterButton.setOnClickListener {
+                if(sortMethod.checkedRadioButtonId==-1) {
+                    Toast.makeText(requireContext(), "Choose a sort method first.", Toast.LENGTH_SHORT).show()
+                }
+                else
+                {
+                    purrfectedRecipesViewModel.setSort(false)
                     Hawk.delete(Constants.SORT_DIRECTION)
                 }
             }

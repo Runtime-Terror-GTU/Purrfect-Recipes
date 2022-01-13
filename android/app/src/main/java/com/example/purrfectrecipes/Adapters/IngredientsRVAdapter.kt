@@ -69,6 +69,6 @@ class IngredientsRVAdapter(val context: Context, val listener:IngredientOnSelect
 
     fun setChosen(chosenList:ArrayList<String>)
     {
-        chosenIngredients=chosenList
+        chosenIngredients.addAll(chosenList)
     }
 }

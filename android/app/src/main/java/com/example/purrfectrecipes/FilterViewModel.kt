@@ -29,6 +29,11 @@ class FilterViewModel: ViewModel(), FilterVMRepConnector
     private val chosenTagsAdded=MutableLiveData<ArrayList<String>>()
         fun getChosenTagsAdded():LiveData<ArrayList<String>>{return chosenTagsAdded}
 
+    private val chosenDifficultiesPurrfected=MutableLiveData<ArrayList<String>>()
+        fun getChosenDifficultiesPurrfected():LiveData<ArrayList<String>>{return chosenDifficultiesPurrfected}
+    private val chosenTagsPurrfected=MutableLiveData<ArrayList<String>>()
+        fun getChosenTagsPurrfected():LiveData<ArrayList<String>>{return chosenTagsPurrfected}
+
     init{
         repository.retrieveTags()
         chosenTagsHome.value= ArrayList()
@@ -37,6 +42,8 @@ class FilterViewModel: ViewModel(), FilterVMRepConnector
         chosenDifficultiesWhat.value= ArrayList()
         chosenTagsAdded.value= ArrayList()
         chosenDifficultiesAdded.value= ArrayList()
+        chosenTagsPurrfected.value= ArrayList()
+        chosenDifficultiesPurrfected.value= ArrayList()
 
     }
 
@@ -96,5 +103,23 @@ class FilterViewModel: ViewModel(), FilterVMRepConnector
     {
         chosenDifficultiesAdded.value?.clear()
         chosenTagsAdded.value?.clear()
+    }
+
+    fun setPurrfectedTags(tags:ArrayList<String>)
+    {
+        chosenTagsPurrfected.value?.clear()
+        chosenTagsPurrfected.value?.addAll(tags)
+    }
+
+    fun setPurrfectedDifficulties(diffs:ArrayList<String>)
+    {
+        chosenDifficultiesPurrfected.value?.clear()
+        chosenDifficultiesPurrfected.value?.addAll(diffs)
+    }
+
+    fun resetPurrfectedFilter()
+    {
+        chosenDifficultiesPurrfected.value?.clear()
+        chosenTagsPurrfected.value?.clear()
     }
 }

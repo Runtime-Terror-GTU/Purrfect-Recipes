@@ -1,6 +1,5 @@
 package com.example.purrfectrecipes.Customer
 
-import android.util.Log
 import com.example.purrfectrecipes.Connectors.RecipesRetrievedListener
 import com.example.purrfectrecipes.Constants
 import com.example.purrfectrecipes.Recipe
@@ -11,7 +10,7 @@ import com.orhanobut.hawk.Hawk
 import java.util.*
 import kotlin.collections.ArrayList
 
-class WhatresHomeRepository(val connector: RecipesRetrievedListener)
+class PurrfectedRecipesRepository(val connector: RecipesRetrievedListener)
 {
     private val recipesRef: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Recipes")
     private val usersRef: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users")
@@ -81,41 +80,51 @@ class WhatresHomeRepository(val connector: RecipesRetrievedListener)
 
     fun retrieveRecipes()
     {
-        recipesRef.addValueEventListener(object: ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
+        val purrfectedRecipesRef: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child(
+            Constants.R_PURRFECTEDRECIPES)
+        purrfectedRecipesRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(addedR: DataSnapshot) {
                 val recipesArray=ArrayList<Recipe>()
-                for(ds in snapshot.children)
-                {
-                    val id=ds.key.toString()
-                    val name=ds.child(Constants.R_RECIPENAME).value.toString()
-                    val ownerId=ds.child(Constants.R_RECIPEOWNER).value.toString()
-                    val difficulty=ds.child(Constants.R_RECIPEDIFFICULTY).value.toString()
-                    val likes=ds.child(Constants.R_RECIPEPURRFECTEDCOUNT).value.toString()
-                    val pictureUrl=ds.child(Constants.R_RECIPEPICTURE).value.toString()
-
-                    val recipe= Recipe(id, name, ownerId, difficulty, likes.toInt(), pictureUrl)
-                    for(tag in ds.child(Constants.R_RECIPETAGS).children)
-                        recipe.addTag(tag.key.toString())
-                    for(ingredient in ds.child(Constants.R_RECIPEINGREDIENTS).children)
-                        recipe.addIngredient(ingredient.key.toString())
-
-                    recipesArray.add(recipe)
-
-                }
-
                 var i=0
-                var owner: Customer?=null
-                for(recipe in recipesArray) {
-                    usersRef.child(recipe.recipeOwner).addListenerForSingleValueEvent(object :
+                for(ds in addedR.children)
+                {
+                    recipesRef.child(ds.key.toString()).addListenerForSingleValueEvent(object :
                         ValueEventListener {
                         override fun onDataChange(snapshot: DataSnapshot) {
-                            recipe.recipeOwner=snapshot.child(Constants.R_USERNAME).value.toString()
-                            i++
-                            if(i==recipesArray.size)
-                            {
-                                recipesArray.shuffle(Random(seed))
-                                connector.onRecipesRetrieved(recipesArray)
-                            }
+                            val id=snapshot.key.toString()
+                            val name=snapshot.child(Constants.R_RECIPENAME).value.toString()
+                            val ownerId=snapshot.child(Constants.R_RECIPEOWNER).value.toString()
+                            val difficulty=snapshot.child(Constants.R_RECIPEDIFFICULTY).value.toString()
+                            val likes=snapshot.child(Constants.R_RECIPEPURRFECTEDCOUNT).value.toString()
+                            val pictureUrl=snapshot.child(Constants.R_RECIPEPICTURE).value.toString()
+                            var recipeOverview=snapshot.child(Constants.R_RECIPEINGREDIENTSOVERVIEW).value.toString()
+
+                            val recipe= Recipe(id, name, ownerId, difficulty, likes.toInt(), pictureUrl, recipeOverview)
+                            for(tag in snapshot.child(Constants.R_RECIPETAGS).children)
+                                recipe.addTag(tag.key.toString())
+                            for(ingredient in snapshot.child(Constants.R_RECIPEINGREDIENTS).children)
+                                recipe.addIngredient(ingredient.key.toString())
+                            for(step in snapshot.child(Constants.R_RECIPEPREPARATION).children)
+                                recipe.addStage(step.value.toString())
+
+                            recipesArray.add(recipe)
+
+                            usersRef.child(recipe.recipeOwner).addListenerForSingleValueEvent(object :
+                                ValueEventListener {
+                                override fun onDataChange(snapshot: DataSnapshot) {
+                                    recipe.recipeOwner=snapshot.child(Constants.R_USERNAME).value.toString()
+                                    i++
+                                    if(i==addedR.childrenCount.toInt())
+                                    {
+                                        recipesArray.shuffle(Random(seed))
+                                        connector.onRecipesRetrieved(recipesArray)
+                                    }
+                                }
+
+                                override fun onCancelled(error: DatabaseError) {
+                                    TODO("Not yet implemented")
+                                }
+                            })
                         }
 
                         override fun onCancelled(error: DatabaseError) {
@@ -126,8 +135,9 @@ class WhatresHomeRepository(val connector: RecipesRetrievedListener)
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Log.e("ERROR", error.message)
+                TODO("Not yet implemented")
             }
+
         })
     }
 
@@ -149,6 +159,7 @@ class WhatresHomeRepository(val connector: RecipesRetrievedListener)
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
             }
+
         })
     }
 

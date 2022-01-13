@@ -16,6 +16,13 @@ class RecipeRepository(val connector: RecipeRetrievedListener)
     private val usersRef: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users")
     private val commentsRef: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Comments")
     private val dayRecipeRef: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Recipe of The Day")
+    private var userId:String="null"
+
+    init{
+        val retrievedID=Hawk.get<String>(Constants.LOGGEDIN_USERID)
+        if(retrievedID!=null)
+            userId=retrievedID
+    }
 
     fun retrieveUser()
     {
@@ -257,11 +264,41 @@ class RecipeRepository(val connector: RecipeRetrievedListener)
     {
         recipesRef.child(recipeId).child(Constants.R_RECIPEPURRFECTEDCOUNT).setValue((currentCount+1).toString())
         usersRef.child(userId).child(Constants.R_PURRFECTEDRECIPES).child(recipeId).setValue(true)
+
+        val addedRecipesRef: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child(Constants.R_ADDEDRECIPES)
+        addedRecipesRef.child(recipeId).addListenerForSingleValueEvent(object:ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists())
+                {
+                    addedRecipesRef.child(recipeId).setValue(false)
+                    addedRecipesRef.child(recipeId).setValue(true)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
     }
 
     fun decreasePurrfectedCount(recipeId:String, currentCount:Int, userId:String)
     {
         recipesRef.child(recipeId).child(Constants.R_RECIPEPURRFECTEDCOUNT).setValue((currentCount-1).toString())
         usersRef.child(userId).child(Constants.R_PURRFECTEDRECIPES).child(recipeId).removeValue()
+
+        val addedRecipesRef: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child(Constants.R_ADDEDRECIPES)
+        addedRecipesRef.child(recipeId).addListenerForSingleValueEvent(object:ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists())
+                {
+                    addedRecipesRef.child(recipeId).setValue(false)
+                    addedRecipesRef.child(recipeId).setValue(true)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
     }
 }
