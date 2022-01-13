@@ -25,18 +25,24 @@ class ShopSettingsChildFragment: Fragment(R.layout.childfragment_settings_shop)
                 super.onViewCreated(view, savedInstanceState)
             }
         })
-
+        var userStatus= "UNVERIFIED"
         val getInput = view.findViewById<LinearLayout>(R.id.getInput)
         val enterButton = view.findViewById<LinearLayout>(R.id.enterButton)
         val notVerifiedUser = view.findViewById<LinearLayout>(R.id.notVerifiedUser)
         val PremiumUser = view.findViewById<LinearLayout>(R.id.PremiumUser)
-        val userStatus =  Hawk.get<CustomerStatus>(Constants.LOGGEDIN_USER_STATUS)
-        pageView(userStatus,PremiumUser,notVerifiedUser,getInput,enterButton)
+
+        viewModel.getStatus().observe(viewLifecycleOwner, {
+            if(viewModel.getStatus().value!=null){
+                userStatus = userStatus.replace("UNVERIFIED",viewModel.getStatus().value.toString(),false)
+                pageView(userStatus,PremiumUser,notVerifiedUser,getInput,enterButton)
+            }
+        })
+
 
 
 
     }
-    fun pageView(user_status:CustomerStatus,PremiumUser:LinearLayout,notVerifiedUser:LinearLayout,getInput: LinearLayout,enterButton:LinearLayout){
+    fun pageView(user_status:String,PremiumUser:LinearLayout,notVerifiedUser:LinearLayout,getInput: LinearLayout,enterButton:LinearLayout){
         if(user_status.equals(CustomerStatus.VERIFIED.text)){
             getInput.visibility=View.VISIBLE
             enterButton.visibility=View.VISIBLE

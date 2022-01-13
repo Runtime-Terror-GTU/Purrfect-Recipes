@@ -8,15 +8,9 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.LifecycleOwner
-import com.example.purrfectrecipes.Adapters.HomePageRVAdapter
-import com.example.purrfectrecipes.Connectors.SettingsVMRepConnector
-import com.example.purrfectrecipes.Constants
 import com.example.purrfectrecipes.R
 import com.example.purrfectrecipes.User.CustomerStatus
-import com.google.firebase.database.*
-import com.orhanobut.hawk.Hawk
+
 
 class GetverifiedSettingsChildfragment: Fragment(R.layout.childfragment_settings_getverified)
 {
@@ -34,14 +28,8 @@ class GetverifiedSettingsChildfragment: Fragment(R.layout.childfragment_settings
                 super.onViewCreated(view, savedInstanceState)
             }
         })
-
-        val getVerified = view.findViewById<LinearLayout>(R.id.getVerified)
-        val gettingVerified = view.findViewById<LinearLayout>(R.id.gettingVerified)
-        val alreadyVerified = view.findViewById<LinearLayout>(R.id.alreadyVerified)
-        val num = (1000..9999).shuffled().last()
-
-        val enterVerifyButton=view.findViewById<TextView>(R.id.getVerifyButton)
         val emailInput = view.findViewById<EditText>(R.id.userEmailInput)
+
         var userStatus= "UNVERIFIED"
         viewModel.getInputUserEmail().observe(viewLifecycleOwner, {
             if(viewModel.getInputUserEmail().value!=null)
@@ -50,14 +38,86 @@ class GetverifiedSettingsChildfragment: Fragment(R.layout.childfragment_settings
         viewModel.getStatus().observe(viewLifecycleOwner, {
             if(viewModel.getStatus().value!=null){
                 userStatus = userStatus.replace("UNVERIFIED",viewModel.getStatus().value.toString(),false)
-                pageView()
+                pageView(userStatus,view)
             }
         })
 
 
     }
-    fun pageView(){
+    fun pageView(user_status:String,view2:View){
+        val getVerified = view2.findViewById<LinearLayout>(R.id.getVerified)
+        val gettingVerified = view2.findViewById<LinearLayout>(R.id.gettingVerified)
+        val alreadyVerified = view2.findViewById<LinearLayout>(R.id.alreadyVerified)
+
+
+        val enterVerifyButton=view2.findViewById<TextView>(R.id.getVerifyButton)
+        val emailInput = view2.findViewById<EditText>(R.id.userEmailInput)
+        val num = (1000..9999).shuffled().last()
+        if(user_status.equals(CustomerStatus.VERIFIED.text)){
+            getVerified.visibility=View.GONE
+            gettingVerified.visibility=View.GONE
+            alreadyVerified.visibility=View.VISIBLE
+        }
+        else if(user_status==CustomerStatus.PREMIUM.text){
+            getVerified.visibility=View.GONE
+            gettingVerified.visibility=View.GONE
+            alreadyVerified.visibility=View.VISIBLE
+        }
+        else{ //unverified
+            getVerified.visibility=View.VISIBLE
+            gettingVerified.visibility=View.GONE
+            alreadyVerified.visibility=View.GONE
+
+            viewModel.getInputUserEmail().observe(viewLifecycleOwner, {
+                if(viewModel.getInputUserEmail().value!=null)
+                    emailInput.setText(viewModel.getInputUserEmail().value.toString())
+
+            })
+
+            enterVerifyButton.setOnClickListener {
+                if(emailInput.text!=null){
+                    var toEmailList: List<String> = listOf(emailInput.text.toString())
+                    val emailSubject = "Verificiation Code"
+                    val emailBody = "Your verification code is : "+ num.toString()
+                    val sendVerificationMail = GMail("purrfectrecipes@gmail.com","gtubilmuh3",toEmailList,emailSubject,emailBody)
+                    try {
+                        sendVerificationMail.createEmailMessage()
+                        sendVerificationMail.sendEmail()
+                        Toast.makeText(requireActivity(), "The verificiation code is send. Please enter the code.", Toast.LENGTH_SHORT).show()
+                        getVerified.visibility=View.GONE
+                        gettingVerified.visibility=View.VISIBLE
+
+                    }catch (error: Exception){
+                        Toast.makeText(requireActivity(), "Something went wrong. Please try again..", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                else{
+                    Toast.makeText(requireActivity(), "You should enter your email. Please try again..", Toast.LENGTH_SHORT).show()
+                }
+            }
+            val enterCodeButton=view2.findViewById<TextView>(R.id.enterCodeButton)
+            val userCodeInput=view2.findViewById<TextView>(R.id.userCodeInput)
+
+            enterCodeButton.setOnClickListener {
+                if(userCodeInput.text!=null){
+                    if(userCodeInput.text.toString().equals(num.toString())){
+                        Toast.makeText(requireActivity(), "You are verified user now.", Toast.LENGTH_SHORT).show()
+                        gettingVerified.visibility=View.GONE
+                        alreadyVerified.visibility=View.VISIBLE
+                        viewModel.updateUserEmail(emailInput.text.toString()) //update user email in firebase
+
+                    }
+                    else{
+                        Toast.makeText(requireActivity(), "The verificiation code is wrong. Please enter the code again.", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+
+
+        }
 
     }
 
-}
+
+
+    }
