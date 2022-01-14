@@ -6,11 +6,11 @@
 
     <fragment
         android:id="@+id/recipesHomeChildfragment"
-        android:name="com.example.purrfectrecipes.Customer.RecipesHomeChildfragment"
+        android:name="com.pr.purrfectrecipes.Customer.RecipesHomeChildfragment"
         android:label="RecipesHomeChildfragment" />
     <fragment
         android:id="@+id/whatHomeChildfragment"
-        android:name="com.example.purrfectrecipes.Customer.WhatHomeChildfragment"
+        android:name="com.pr.purrfectrecipes.Customer.WhatHomeChildfragment"
         android:label="WhatHomeChildfragment" >
         <action
             android:id="@+id/action_whatHomeChildfragment_to_whatresHomeChildfragment"
@@ -18,6 +18,6 @@
     </fragment>
     <fragment
         android:id="@+id/whatresHomeChildfragment"
-        android:name="com.example.purrfectrecipes.Customer.WhatresHomeChildfragment"
+        android:name="com.pr.purrfectrecipes.Customer.WhatresHomeChildfragment"
         android:label="WhatresHomeChildfragment" />
 </navigation>

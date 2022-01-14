@@ -6,6 +6,6 @@
 
     <fragment
         android:id="@+id/adminFragment"
-        android:name="com.example.purrfectrecipes.Admin.AdminFragment"
+        android:name="com.pr.purrfectrecipes.Admin.AdminFragment"
         android:label="AdminFragment" />
 </navigation>

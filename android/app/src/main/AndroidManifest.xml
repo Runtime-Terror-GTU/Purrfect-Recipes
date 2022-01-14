@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.purrfectrecipes" >
+    package="com.pr.purrfectrecipes" >
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -14,27 +14,27 @@
         android:supportsRtl="true"
         android:theme="@style/SplashTheme" >
         <activity
-            android:name=".Guest.GuestActivity"
+            android:name="com.pr.purrfectrecipes.Guest.GuestActivity"
             android:exported="true"
             android:theme="@style/Theme2.StartScreen" />
         <activity
-            android:name=".Moderator.ModeratorActivity"
+            android:name="com.pr.purrfectrecipes.Moderator.ModeratorActivity"
             android:exported="true"
             android:theme="@style/Theme2.StartScreen" />
         <activity
-            android:name=".Customer.CustomerActivity"
+            android:name="com.pr.purrfectrecipes.Customer.CustomerActivity"
             android:exported="true"
             android:theme="@style/Theme2.StartScreen" />
         <activity
-            android:name=".Admin.AdminActivity"
+            android:name="com.pr.purrfectrecipes.Admin.AdminActivity"
             android:exported="true"
             android:theme="@style/Theme2.StartScreen" />
         <activity
-            android:name=".StartActivity"
+            android:name="com.pr.purrfectrecipes.StartActivity"
             android:exported="true"
             android:theme="@style/AuthenticationTheme" />
         <activity
-            android:name=".SplashActivity"
+            android:name="com.pr.purrfectrecipes.SplashActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

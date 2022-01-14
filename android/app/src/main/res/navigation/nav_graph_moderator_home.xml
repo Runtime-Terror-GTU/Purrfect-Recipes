@@ -6,14 +6,14 @@
 
     <fragment
         android:id="@+id/usersModeratorChildfragment"
-        android:name="com.example.purrfectrecipes.Moderator.UsersModeratorChildfragment"
+        android:name="com.pr.purrfectrecipes.Moderator.UsersModeratorChildfragment"
         android:label="UsersModeratorChildfragment" />
     <fragment
         android:id="@+id/recipesModeratorChildfragment"
-        android:name="com.example.purrfectrecipes.Moderator.RecipesModeratorChildfragment"
+        android:name="com.pr.purrfectrecipes.Moderator.RecipesModeratorChildfragment"
         android:label="RecipesModeratorChildfragment" />
     <fragment
         android:id="@+id/requestsModeratorChildfragment"
-        android:name="com.example.purrfectrecipes.Moderator.RequestsModeratorChildfragment"
+        android:name="com.pr.purrfectrecipes.Moderator.RequestsModeratorChildfragment"
         android:label="RequestsModeratorChildfragment" />
 </navigation>

@@ -5,11 +5,11 @@
     app:startDestination="@id/homeFragment">
     <fragment
         android:id="@+id/contactGuestFragment"
-        android:name="com.example.purrfectrecipes.Guest.ContactGuestFragment"
+        android:name="com.pr.purrfectrecipes.Guest.ContactGuestFragment"
         android:label="ContactGuestFragment" />
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.purrfectrecipes.Customer.HomeFragment"
+        android:name="com.pr.purrfectrecipes.Customer.HomeFragment"
         android:label="HomeFragment" >
         <action
             android:id="@+id/action_homeFragment_to_recipeFragment"
@@ -26,18 +26,18 @@
     </fragment>
     <fragment
         android:id="@+id/sortFragment"
-        android:name="com.example.purrfectrecipes.SortFragment"
+        android:name="com.pr.purrfectrecipes.SortFragment"
         android:label="SortFragment" />
     <fragment
         android:id="@+id/filterFragment"
-        android:name="com.example.purrfectrecipes.FilterFragment"
+        android:name="com.pr.purrfectrecipes.FilterFragment"
         android:label="FilterFragment" />
     <fragment
         android:id="@+id/editIngredientsFragment"
-        android:name="com.example.purrfectrecipes.EditIngredientsFragment"
+        android:name="com.pr.purrfectrecipes.EditIngredientsFragment"
         android:label="EditIngredientsFragment" />
     <fragment
         android:id="@+id/recipeFragment"
-        android:name="com.example.purrfectrecipes.RecipeFragment"
+        android:name="com.pr.purrfectrecipes.RecipeFragment"
         android:label="RecipeFragment" />
 </navigation>
