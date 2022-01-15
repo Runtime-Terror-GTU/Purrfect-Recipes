@@ -6,10 +6,10 @@
 
     <fragment
         android:id="@+id/addAdminChildfragment"
-        android:name="com.example.purrfectrecipes.Admin.AddAdminChildfragment"
+        android:name="com.pr.purrfectrecipes.Admin.AddAdminChildfragment"
         android:label="AddAdminChildfragment" />
     <fragment
         android:id="@+id/removeAdminChildfragment"
-        android:name="com.example.purrfectrecipes.Admin.RemoveAdminChildfragment"
+        android:name="com.pr.purrfectrecipes.Admin.RemoveAdminChildfragment"
         android:label="RemoveAdminChildfragment" />
 </navigation>

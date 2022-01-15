@@ -1,5 +1,7 @@
 import styled from "styled-components";
-import { FaPaw } from 'react-icons/fa';
+import { FaPaw, FaEdit } from 'react-icons/fa';
+import { MdDelete } from 'react-icons/md';
+import { Link } from "react-router-dom";
 
 export const RecipeContainer = styled.div`
     color: #fff;
@@ -165,4 +167,48 @@ export const PremiumImg = styled.img`
         width: 30px;
         height: 20px;
     }
+`;
+
+export const IconWrapper = styled.div`
+    display: grid;
+    align-items: center;
+    width: %100;
+    margin-left: 60px;
+    grid-template-rows: 1fr 1fr;
+
+    @media screen and (max-width: 1000px) {
+        grid-template-columns: 1fr 1fr;
+    }
+`;
+
+export const DeleteIcon = styled(MdDelete)`
+    font-size: 40px;
+    color: #F9C5D5;
+`;
+
+export const EditIcon = styled(FaEdit)`
+    font-size: 35px;
+    color: #F9C5D5;
+
+`;
+
+export const IconLink = styled(Link)`
+    background: #B38A9B;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    text-decoration: none;
+    &:hover {
+        transform: scale(1.12);
+        transition: all 0.2s ease-in-out;
+        cursor: pointer;
+    }
+    
+    //&:hover {
+    //    transition: all 0.2s ease-in-out;
+    //    background: #fff;
+    //    color: #010606;
+    //
+    */
 `;

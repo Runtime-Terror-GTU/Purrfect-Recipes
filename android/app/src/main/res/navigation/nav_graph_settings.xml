@@ -6,18 +6,18 @@
 
     <fragment
         android:id="@+id/getverifiedSettingsChildfragment"
-        android:name="com.example.purrfectrecipes.Customer.GetverifiedSettingsChildfragment"
+        android:name="com.pr.purrfectrecipes.Customer.GetverifiedSettingsChildfragment"
         android:label="GetverifiedSettingsChildfragment" />
     <fragment
         android:id="@+id/shopSettingsChildFragment"
-        android:name="com.example.purrfectrecipes.Customer.ShopSettingsChildFragment"
+        android:name="com.pr.purrfectrecipes.Customer.ShopSettingsChildFragment"
         android:label="ShopSettingsChildFragment" />
     <fragment
         android:id="@+id/suggestSettingsChildfragment"
-        android:name="com.example.purrfectrecipes.Customer.SuggestSettingsChildfragment"
+        android:name="com.pr.purrfectrecipes.Customer.SuggestSettingsChildfragment"
         android:label="SuggestSettingsChildfragment" />
     <fragment
         android:id="@+id/contactSettingsChildfragment"
-        android:name="com.example.purrfectrecipes.Customer.ContactSettingsChildfragment"
+        android:name="com.pr.purrfectrecipes.Customer.ContactSettingsChildfragment"
         android:label="ContactSettingsChildfragment" />
 </navigation>

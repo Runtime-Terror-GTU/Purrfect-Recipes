@@ -7,6 +7,8 @@ import SignUpPage from './pages/signup';
 import MainPage from './pages/main';
 import RecipePage from './pages/recipe';
 import ContactInfo from './components/ContactInfo';
+import EditRecipe from './pages/editrecipe';
+import AddRecipe from './pages/addrecipe';
 
 //recipe duzenlenecek
 function App(){
@@ -19,6 +21,9 @@ function App(){
         <Route path="/mainpage" component={MainPage} exact />
         <Route path="/recipe" component={RecipePage} exact />
         <Route path="/contactinfo" component={ContactInfo} exact />
+        <Route path="/editrecipe" component={EditRecipe} exact />
+        <Route path="/addrecipe" component={AddRecipe} exact />
+
       </Switch>
     </Router>
   )

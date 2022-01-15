@@ -9,7 +9,7 @@ android {
     compileSdk 31
 
     defaultConfig {
-        applicationId "com.example.purrfectrecipes"
+        applicationId "com.pr.purrfectrecipes"
         minSdk 27
         targetSdk 31
         versionCode 1

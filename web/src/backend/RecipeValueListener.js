@@ -27,7 +27,6 @@ const getRecipes = async () => {
 
         //finds the recipe owner with use R_RecipeOwnerID
         let recipeOwner = await findRecipeOwner(recipesArray[i].R_RecipeOwnerID);
-        
         //finds the recipe owner's username and put the array
         recipesArray[i].R_RecipeOwner = recipeOwner[recipesArray[i].R_RecipeOwnerID].R_Username;
         recipesArray[i].R_RecipeOwnerStatus = recipeOwner[recipesArray[i].R_RecipeOwnerID].R_User_Status;
