@@ -3,11 +3,11 @@ package com.example.purrfectrecipes.Moderator
 import android.app.Activity
 import android.widget.Toast
 import com.example.purrfectrecipes.Connectors.UsersModeratorVMRepConnecter
-import com.example.purrfectrecipes.Constants
-import com.example.purrfectrecipes.User.CustomerStatus
 import com.example.purrfectrecipes.User.UserClass
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
+import com.pr.purrfectrecipes.Constants
+import com.pr.purrfectrecipes.User.CustomerStatus
 
 
 class UsersModeratorRepository(val connector: UsersModeratorVMRepConnecter)  {

@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.purrfectrecipes.Connectors.UsersModeratorVMRepConnecter
+import com.example.purrfectrecipes.Moderator.UsersModeratorRepository
 import com.example.purrfectrecipes.User.UserClass
 
 class UsersModeratorViewModel: ViewModel() , UsersModeratorVMRepConnecter

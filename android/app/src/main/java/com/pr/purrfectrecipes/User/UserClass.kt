@@ -1,5 +1,7 @@
 package com.example.purrfectrecipes.User
 
+import com.pr.purrfectrecipes.User.User
+
 class UserClass(id:String, username:String,status:String,picture:String,recipeNum:Int) {
     private val userID:String=id
      fun getUserID(): String {return userID}
