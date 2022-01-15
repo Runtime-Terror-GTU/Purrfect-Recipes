@@ -54,7 +54,7 @@ class RequestsModeratorRepository(val connector: RequestsModeratorVMRepConnecter
 
                     val suggestion= ds.key.toString()
                     if(suggestedIngredient.equals(suggestion)){
-                        ds.ref.removeValue() //test etmedim henüz.
+                        ds.ref.removeValue()
                         connector.suggestionDeny(suggestedIngredient,activity)
                     }
                 }

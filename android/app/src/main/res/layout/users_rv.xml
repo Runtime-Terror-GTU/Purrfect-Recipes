@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/background_main"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:layout_width="0sp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="7sp"
+            android:layout_marginBottom="7sp"
+            android:orientation="vertical">
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/userProfilePic"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp">
+
+                    <ImageView
+                        android:id="@+id/profilePic"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/background_main"
+                        android:src="@drawable/profilepic1" />
+                </androidx.cardview.widget.CardView>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/userName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginLeft="50sp"
+                        android:layout_marginRight="5sp"
+                        android:fontFamily="@font/josefin_slab_bold"
+                        android:gravity="left"
+                        android:text="Lisa"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:textSize="22sp" />
+
+                    <ImageView
+                        android:id="@+id/premiumUserSymbol"
+                        android:layout_width="22sp"
+                        android:layout_height="22sp"
+                        android:layout_alignRight="@id/userName"
+                        android:layout_marginLeft="95sp"
+                        android:layout_marginRight="-26dp"
+                        android:src="@drawable/premium_symbol" />
+
+                    <TextView
+                        android:id="@+id/recipes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginTop="20sp"
+                        android:layout_marginLeft="50sp"
+                        android:layout_marginRight="5sp"
+                        android:fontFamily="@font/josefin_slab"
+                        android:gravity="left"
+                        android:text="15 recipes"
+                        android:textColor="@color/black"
+                        android:textSize="18sp" />
+                ></RelativeLayout>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/delete"
+                    android:layout_width="35dp"
+                    android:layout_height="33dp"
+                    android:layout_gravity="bottom|right">
+
+                    <ImageView
+                        android:id="@+id/deleteButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/trash"
+                        android:background="@color/background_main"/>
+                </androidx.cardview.widget.CardView>
+
+            </FrameLayout>
+
+        </FrameLayout>
+
+    </LinearLayout>
+</LinearLayout>

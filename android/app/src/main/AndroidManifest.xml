@@ -20,7 +20,7 @@
         <activity
             android:name=".Moderator.ModeratorActivity"
             android:exported="true"
-            android:theme="@style/Theme2.StartScreen" />
+            android:theme="@style/Theme2.StartScreen"/>
         <activity
             android:name=".Customer.CustomerActivity"
             android:exported="true"

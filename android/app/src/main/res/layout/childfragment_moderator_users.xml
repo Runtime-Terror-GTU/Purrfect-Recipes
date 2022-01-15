@@ -2,16 +2,46 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@color/white">
-
-    <TextView
+    <LinearLayout
+        android:id="@+id/searchView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:text="Moderator_Users"
-        android:textSize="30sp"
-        android:textColor="@color/black"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/main_bg">
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchUser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5sp"
+            android:layout_marginRight="3sp"
+            android:iconifiedByDefault="false"
+            app:queryHint="Who would you like to search?"
+            app:searchIcon="@drawable/search_icon_edited"
+            app:closeIcon="@drawable/cancel_icon_edited"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/userView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/main_bg">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/users"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:layout_marginRight="3sp"
+            android:layout_marginLeft="10sp"
+            android:layout_marginBottom="10sp"/>
+    </LinearLayout>
+
+
+
 
 </LinearLayout>

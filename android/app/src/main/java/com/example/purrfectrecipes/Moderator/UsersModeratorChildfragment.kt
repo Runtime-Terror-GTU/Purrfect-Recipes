@@ -2,17 +2,20 @@ package com.example.purrfectrecipes.Moderator
 
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.NavigationUI
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.purrfectrecipes.Adapters.UsersRVAdapter
+import com.example.purrfectrecipes.Connectors.UsersDeleteOnClickListener
 import com.example.purrfectrecipes.R
-import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class UsersModeratorChildfragment: Fragment(R.layout.childfragment_moderator_users)
+class UsersModeratorChildfragment: Fragment(R.layout.childfragment_moderator_users),
+    UsersDeleteOnClickListener
 {
     private val viewModel: UsersModeratorViewModel by activityViewModels()
+    private var usersRVAdapter: UsersRVAdapter?=null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         viewModel.getView().observe(viewLifecycleOwner, {
@@ -24,5 +27,39 @@ class UsersModeratorChildfragment: Fragment(R.layout.childfragment_moderator_use
                 super.onViewCreated(view, savedInstanceState)
             }
         })
+        var searchView = view.findViewById<SearchView>(R.id.searchUser)
+
+        viewModel.getUsers().observe(viewLifecycleOwner, {
+            if(viewModel.getUsers().value!=null){
+                usersRVAdapter?.setUsersList(viewModel.getUsers().value!!)
+                usersRVAdapter?.notifyDataSetChanged()
+
+            }
+        })
+        setRVAdapter()
+        searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                usersRVAdapter?.filter?.filter(newText)
+                return false
+            }
+
+        })
+        usersRVAdapter?.notifyDataSetChanged()
+        setRVAdapter()
+    }
+    fun setRVAdapter()
+    {
+        val users = view?.findViewById<RecyclerView>(R.id.users)
+        users?.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
+        usersRVAdapter = UsersRVAdapter(requireContext(),this)
+        users?.adapter = usersRVAdapter
+    }
+
+    override fun onDeleteClick(userID: String) {
+        viewModel.deleteUser(userID,requireActivity())
     }
 }
