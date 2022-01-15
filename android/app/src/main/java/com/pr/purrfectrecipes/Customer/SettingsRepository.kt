@@ -2,10 +2,10 @@ package com.pr.purrfectrecipes.Customer
 
 import android.app.Activity
 import android.widget.Toast
-import com.pr.purrfectrecipes.Connectors.SettingsVMRepConnector
-import com.pr.purrfectrecipes.Constants
 import com.google.firebase.database.*
 import com.orhanobut.hawk.Hawk
+import com.pr.purrfectrecipes.Connectors.SettingsVMRepConnector
+import com.pr.purrfectrecipes.Constants
 
 class SettingsRepository(val connector: SettingsVMRepConnector){
     private val userID= Hawk.get<String>(Constants.LOGGEDIN_USERID)
@@ -52,10 +52,10 @@ class SettingsRepository(val connector: SettingsVMRepConnector){
         })
     }
     fun updateUserEmail(newEmail:String){
-        usersRef.child(userID).addValueEventListener(object : ValueEventListener {
+        usersRef.child(userID).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 var email = snapshot.child(Constants.R_USEREMAIL).value.toString()
-                usersRef.child(Constants.R_USEREMAIL).setValue(newEmail)
+                usersRef.child(userID).child(Constants.R_USEREMAIL).setValue(newEmail)
                 return
             }
             override fun onCancelled(error: DatabaseError) {
