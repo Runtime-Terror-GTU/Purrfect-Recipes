@@ -27,7 +27,7 @@ import Footer from '../HomePage/Footer';
 import CommentBox from './CommentBox';
 import AddComment from './AddComment';
 import PremiumIcon from '../../images/premium_symbol.png';
-import { TagList } from '../../backend/RecipeValueListener';
+import { IngredientList, TagList } from '../../backend/RecipeValueListener';
 
 export const RecipeScreen = () => {
     let stringRecipe = localStorage.getItem("currentRecipe");
@@ -49,18 +49,24 @@ export const RecipeScreen = () => {
     }
 
     const [allTags, setTags] = useState([]);
+    const [allIngredients, setIngredients] = useState([]);
 
     const fetchTags = async() => {
         let data = await TagList();
         return data;
     }
- 
+    const fetchIngredients = async() => {
+        let data = await IngredientList();
+        return data;
+    }
         
     useEffect(() => {
         (async function() {
             try {
                 const allTags = await fetchTags();
+                const allIngredients = await fetchIngredients();
                 setTags(allTags);
+                setIngredients(allIngredients);
             } catch (e) {
                 console.error(e);
             }
@@ -146,7 +152,9 @@ export const RecipeScreen = () => {
                                         <DeleteIcon /> 
                                     </IconLink>
                                     <IconLink 
-                                    onClick={(e) => localStorage.setItem("allTags", JSON.stringify(allTags))}
+                                    onClick={(e) => {localStorage.setItem("allTags", JSON.stringify(allTags))
+                                    localStorage.setItem("allIngredients", JSON.stringify(allIngredients))
+                                    } }
                                     to='editrecipe'>
                                         <EditIcon /> 
                                     </IconLink>

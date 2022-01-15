@@ -21,11 +21,21 @@ export const PictureContainer = styled.div`
 `;
 
 export const ButtonContainer = styled.div`
-    display: flex;
+    display: grid;
     color: #fff;
     background: #B38A9B;
-    padding: 24px 24px;
+    padding: 24px 0;
 
+    grid-template-columns: 1fr 1fr;
+    @media screen and (max-width: 1000px) {
+        padding: 24px 15%;
+
+    }
+
+    @media screen and (max-width: 768px) {
+        padding: 24px 0;
+
+    }
 `;
 
 export const UploadButton = styled(Button)`
@@ -72,6 +82,13 @@ export const TopLine = styled.p`
     text-transform: uppercase;
     justify-content: left;
 `;
+
+export const Subtitle = styled.p`
+    max-width: 440px;
+    margin-bottom: 35px;
+    font-size: 18px;
+    line-height: 24px;
+`; 
 
 export const TextBox = styled.input`
     display: flex;
