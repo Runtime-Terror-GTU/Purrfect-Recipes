@@ -54,8 +54,10 @@ class SettingsRepository(val connector: SettingsVMRepConnector){
     fun updateUserEmail(newEmail:String){
         usersRef.child(userID).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                var email = snapshot.child(Constants.R_USEREMAIL).value.toString()
-                usersRef.child(userID).child(Constants.R_USEREMAIL).setValue(newEmail)
+                if(snapshot.exists()){
+                    usersRef.child(userID).child(Constants.R_USEREMAIL).setValue(newEmail)
+                }
+
                 return
             }
             override fun onCancelled(error: DatabaseError) {
