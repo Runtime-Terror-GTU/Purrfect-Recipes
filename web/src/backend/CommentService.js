@@ -1,4 +1,4 @@
-import { ref, set, get, query, orderByKey, equalTo } from "firebase/database";
+import { ref, get, query, orderByKey, equalTo } from "firebase/database";
 import { database } from "./firebase";
 
 const getComment = async (commentID) => {

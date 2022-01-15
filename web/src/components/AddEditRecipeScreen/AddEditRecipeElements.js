@@ -2,16 +2,131 @@ import styled from "styled-components";
 import { FaPaw, FaEdit } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
 import { Link } from "react-router-dom";
+import { Button } from 'semantic-ui-react';
 
-export const RecipeContainer = styled.div`
-    color: #fff;
+export const AddEditContainer = styled.div`
     background: #B38A9B;
     margin-top: 80px;
+    padding: 0 24px;
 
     @media screen and (max-width: 768px) {
-        padding: 10px 0;
+        padding: 0 24px;
     }
 `;
+
+export const PictureContainer = styled.div`
+    display: flex;
+    color: #fff;
+    background: #B38A9B;
+`;
+
+export const ButtonContainer = styled.div`
+    display: flex;
+    color: #fff;
+    background: #B38A9B;
+    padding: 24px 24px;
+
+`;
+
+export const UploadButton = styled(Button)`
+    background: #F9C5D5;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    text-decoration: none;
+    border-radius: 50px;
+    width: 200px;
+    height: 100px;
+    &:hover {
+        transform: scale(1.02);
+        transition: all 0.2s ease-in-out;
+        cursor: pointer;
+    }
+`;
+
+export const Img = styled.img`
+    width: 200px;
+    height: 200px;
+    border-radius: 50px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    @media screen and (max-width: 1000px) {
+        width: 150px;
+        height: 150px;
+    }
+
+    @media screen and (max-width: 768px) {
+        width: 150px;
+        height: 150px;
+    }
+`;
+
+export const TopLine = styled.p`
+    color: white;
+    font-size: 20px;
+    line-height: 20px;
+    font-weight: 700;
+    letter-soacing: 1.4px;
+    text-transform: uppercase;
+    justify-content: left;
+`;
+
+export const TextBox = styled.input`
+    display: flex;
+    width: 60%;
+    padding: 0 30px;
+    justify-content: left;
+    @media screen and (max-width: 768px) {
+        display: flex;
+    }
+`;
+
+export const TextAreaBox = styled.textarea`
+    display: flex;
+    width: 100%;
+    padding: 0 30px;
+    justify-content: left;
+    @media screen and (max-width: 768px) {
+        display: flex;
+    }
+`;
+
+export const RowWrapper = styled.div`
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr 5fr;
+    @media screen and (max-width: 768px) {
+        display: grid;
+        justify-content: left;
+
+    }
+`;
+
+export const ColumnWrapper1 = styled.div`
+    display: flex;
+    @media screen and (max-width: 768px) {
+        display: flex;
+        justify-content: left;
+
+    }
+`;
+
+export const ColumnWrapper2 = styled.div`
+    display: flex;
+    justify-content: left;
+
+    @media screen and (max-width: 768px) {
+        display: flex;
+        justify-content: right;
+    }
+`;
+
+
+
+
+
 
 export const RecipeWrapper = styled.div`
     display: flex;
@@ -47,51 +162,16 @@ export const Column2 = styled.div`
     grid-area: col2;
 `;
 
-export const TopLine = styled.p`
-    color: white;
-    font-size: 16px;
-    line-height: 16px;
-    font-weight: 700;
-    letter-soacing: 1.4px;
-    text-transform: uppercase;
-    margin-top: 30px;
 
-`;
 
-export const Heading = styled.h1`
-    margin-bottom: 24px;
-    font-size: 48px;
-    line-height: 1.1;
-    font-weight: 600;
-    color: #f7f8fa;
-    
-    @media screen and (max-width: 480px) {
-        font-size: 32px;
-    }
-`;
+
 
 export const ImgWrap = styled.div`
     max-width: 555px;
     height: 100%;
 `;
 
-export const Img = styled.img`
-    width: 500px;
-    height: 500px;
 
-    border-radius: 100px;
-    margin: 0 0 10px 0;
-    padding-right: 0;
-    @media screen and (max-width: 1000px) {
-        width: 100%;
-        height: 100%;
-    }
-
-    @media screen and (max-width: 768px) {
-        width: 100%;
-        height: 100%;
-    }
-`;
 
 export const PurrfectedRow = styled.div`
     display: grid;
@@ -211,4 +291,16 @@ export const IconLink = styled(Link)`
     //    color: #010606;
     //
     */
+`;
+
+export const Heading = styled.h1`
+    margin-bottom: 24px;
+    font-size: 48px;
+    line-height: 1.1;
+    font-weight: 600;
+    color: #f7f8fa;
+    
+    @media screen and (max-width: 480px) {
+        font-size: 32px;
+    }
 `;

@@ -36,13 +36,11 @@ export const CommentBox = (commentID) => {
                 <Img src={commentInfo.CommentOwnerPic} />
                 <h1>{commentInfo.CommentOwnerUsername}
                 {(() => {
-                    console.log(commentInfo)
-                    console.log(commentInfo.CommentOwnerStatus)
                 if( commentInfo.CommentOwnerStatus === "PREMIUM" ){
                     return(
                         <PremiumImg src={PremiumIcon}/>         
                     )
-                }               
+                }
                 })()}
                 </h1>
             </ImgContainer>
