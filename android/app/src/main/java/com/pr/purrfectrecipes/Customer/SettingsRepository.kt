@@ -6,6 +6,7 @@ import com.google.firebase.database.*
 import com.orhanobut.hawk.Hawk
 import com.pr.purrfectrecipes.Connectors.SettingsVMRepConnector
 import com.pr.purrfectrecipes.Constants
+import com.pr.purrfectrecipes.User.CustomerStatus
 
 class SettingsRepository(val connector: SettingsVMRepConnector){
     private val userID= Hawk.get<String>(Constants.LOGGEDIN_USERID)
@@ -49,6 +50,7 @@ class SettingsRepository(val connector: SettingsVMRepConnector){
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(snapshot.exists()){
                     usersRef.child(userID).child(Constants.R_USEREMAIL).setValue(newEmail)
+                    usersRef.child(userID).child(Constants.R_USERSTATUS).setValue(CustomerStatus.VERIFIED.text)
                 }
 
                 return
