@@ -4,75 +4,63 @@ import com.google.firebase.database.*
 import com.orhanobut.hawk.Hawk
 import com.pr.purrfectrecipes.Connectors.InfoProfileConnector
 import com.pr.purrfectrecipes.Constants
+import com.pr.purrfectrecipes.User.Customer
 import com.pr.purrfectrecipes.User.CustomerStatus
 
 class InfoProfileRepository(val connector: InfoProfileConnector) {
     private val usersRef: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users")
-    private val usersRef2: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users")
 
     private val userID = Hawk.get<String>(Constants.LOGGEDIN_USERID)
     private val userStatus = Hawk.get<CustomerStatus>(Constants.LOGGEDIN_USER_STATUS).text
-    fun getUserName(){
-        usersRef.child(userID).child(Constants.R_USERNAME).addListenerForSingleValueEvent(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if(snapshot.exists()){
-                    val name= snapshot.getValue().toString()
-                    connector.getName(name)
-                }
-                return
-            }
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-        })
-    }
-    fun getUserBio(){
-        usersRef.child(userID).child(Constants.R_USERBIO).addListenerForSingleValueEvent(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if(snapshot.exists()){
-                    val bio= snapshot.getValue().toString()
+    fun retrieveUser()
+    {
+        if(Hawk.get<String>(Constants.LOGGEDIN_USERID)!=null) {
+            usersRef.child(Hawk.get(Constants.LOGGEDIN_USERID))
+                .addValueEventListener(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        if(Hawk.get<String>(Constants.LOGGEDIN_USERID)==null)
+                            return
+                        var currentUser: Customer? = null
+                        val currentUserId = Hawk.get<String>(Constants.LOGGEDIN_USERID)
+                        val currentUserName = snapshot.child(Constants.R_USERNAME).value
+                        val currentUserStatus = snapshot.child(Constants.R_USERSTATUS).value
+                        val currentUserPic = snapshot.child(Constants.R_USERPICTURE).value
+                        val currentUserEmail = snapshot.child(Constants.R_USEREMAIL).value
 
-                    connector.getBio(bio)
-                }
-                return
+                        if (currentUserStatus == CustomerStatus.UNVERIFIED.text)
+                            currentUser = Customer(
+                                currentUserId,
+                                currentUserName as String,
+                                currentUserEmail as String,
+                                status = CustomerStatus.UNVERIFIED,
+                                pic = currentUserPic as String
+                            )
+                        else if (currentUserStatus == CustomerStatus.VERIFIED.text)
+                            currentUser = Customer(
+                                currentUserId,
+                                currentUserName as String,
+                                currentUserEmail as String,
+                                status = CustomerStatus.VERIFIED,
+                                pic = currentUserPic as String
+                            )
+                        else
+                            currentUser = Customer(
+                                currentUserId,
+                                currentUserName as String,
+                                currentUserEmail as String,
+                                status = CustomerStatus.PREMIUM,
+                                pic = currentUserPic as String
+                            )
 
-            }
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-        })
-    }
-    fun getUserPic(){
-        usersRef.child(userID).child(Constants.R_USERPICTURE).addListenerForSingleValueEvent(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if(snapshot.exists()){
-                    val pictureUrl= snapshot.getValue().toString()
-                    connector.getProfilePic(pictureUrl)
-                }
-                return
-            }
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-        })
-    }
-    fun getUserAddedRecipeNum(){
-        if(!userStatus.equals(CustomerStatus.PREMIUM.text)){
-            connector.getAddedRecipeNum(0)
-            return
+                        for (pRecipe in snapshot.child(Constants.R_ADDEDRECIPES).children)
+                            currentUser.addAddedRecipe(pRecipe.key.toString())
+                        connector.onUserRetrieved(currentUser)
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        TODO("Not yet implemented")
+                    }
+                })
         }
-        usersRef.child(userID).child(Constants.R_ADDEDRECIPES).addListenerForSingleValueEvent(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                var count : Int =0
-                for(ds in snapshot.children){
-                    count+=1
-                }
-                connector.getAddedRecipeNum(count)
-                return
-            }
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-        })
     }
 }

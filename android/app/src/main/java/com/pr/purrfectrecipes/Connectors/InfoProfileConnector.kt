@@ -1,8 +1,7 @@
 package com.pr.purrfectrecipes.Connectors
 
+import com.pr.purrfectrecipes.User.Customer
+
 interface InfoProfileConnector {
-    fun getName(name:String)
-    fun getBio(bio:String)
-    fun getAddedRecipeNum(num:Int)
-    fun getProfilePic(pictureUrl:String)
+    fun onUserRetrieved(user: Customer)
 }

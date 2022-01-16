@@ -51,35 +51,18 @@ class InfoProfileChildfragment: Fragment(R.layout.childfragment_profile_info)
         if(!userStatus.equals(CustomerStatus.PREMIUM.text)){
             premiumSymbol.visibility=View.GONE
         }
-        viewModel.getUsername().observe(viewLifecycleOwner, {
-            if(viewModel.getUsername().value!=null){
-                username.setText(viewModel.getUsername().value.toString())
-            }
-        })
-        viewModel.getBio().observe(viewLifecycleOwner, {
-            if(viewModel.getBio().value!=null){
-                userBio.setText(viewModel.getBio().value.toString())
-            }
-        })
-        viewModel.getAddedRecipeNum().observe(viewLifecycleOwner, {
-            if(viewModel.getAddedRecipeNum().value!=null){
-                addedRecipesCount.setText(viewModel.getAddedRecipeNum().value.toString()+" Added Recipes")
-            }
-        })
-        viewModel.getPicture().observe(viewLifecycleOwner, {
-            if(viewModel.getPicture().value!=null){
-
-                // Load the image using Glide 
+        viewModel.getUser().observe(viewLifecycleOwner, {
+            if(viewModel.getUser().value!=null)
+            {
+                username.setText(viewModel.getUser().value!!.getUsername())
+                userBio.setText(viewModel.getUser().value!!.getUserBio())
+                addedRecipesCount.setText(viewModel.getUser().value!!.getAddedRecipes().size.toString()+" Added Recipes")
                 Glide.with(requireContext())
-                    .load(viewModel.getPicture().value!!)
+                    .load(viewModel.getUser().value!!.getUserPic())
                     .into(profilePic);
             }
         })
 
-
-
     }
-
-
 
 }
