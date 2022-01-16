@@ -11,7 +11,7 @@ class InfoProfileRepository(val connector: InfoProfileConnector) {
     private val usersRef2: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users")
 
     private val userID = Hawk.get<String>(Constants.LOGGEDIN_USERID)
-    private val userStatus = Hawk.get<String>(Constants.LOGGEDIN_USER_STATUS)
+    private val userStatus = Hawk.get<CustomerStatus>(Constants.LOGGEDIN_USER_STATUS).text
     fun getUserName(){
         usersRef.child(userID).child(Constants.R_USERNAME).addListenerForSingleValueEvent(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {

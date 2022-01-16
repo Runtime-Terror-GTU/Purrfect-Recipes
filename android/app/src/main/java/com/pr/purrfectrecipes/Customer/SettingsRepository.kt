@@ -40,16 +40,9 @@ class SettingsRepository(val connector: SettingsVMRepConnector){
     }
 
     fun suggestedIngredients(suggestedIngredient:String , activity: Activity){
-        ingredients.addListenerForSingleValueEvent(object :
-            ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                Toast.makeText( activity,"Your suggestion has been received.", Toast.LENGTH_SHORT).show()
-                ingredients.child(suggestedIngredient.lowercase()).setValue(true)
-            }
-            override fun onCancelled(error: DatabaseError) {
-                Toast.makeText( activity,"Your suggestion has not been received."+error, Toast.LENGTH_SHORT).show()
-            }
-        })
+        Toast.makeText( activity,"Your suggestion has been received.", Toast.LENGTH_SHORT).show()
+        ingredients.child(suggestedIngredient.lowercase()).setValue(true)
+
     }
     fun updateUserEmail(newEmail:String){
         usersRef.child(userID).addListenerForSingleValueEvent(object : ValueEventListener {

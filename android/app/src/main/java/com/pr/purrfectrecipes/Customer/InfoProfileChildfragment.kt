@@ -42,7 +42,7 @@ class InfoProfileChildfragment: Fragment(R.layout.childfragment_profile_info)
             parentFragment?.activity?.finish()
         }
 
-        val userStatus = Hawk.get<String>(Constants.LOGGEDIN_USER_STATUS)
+        val userStatus = Hawk.get<CustomerStatus>(Constants.LOGGEDIN_USER_STATUS).text
         val premiumSymbol = view.findViewById<ImageView>(R.id.premiumSymbol)
         val username = view.findViewById<TextView>(R.id.username)
         val userBio = view.findViewById<TextView>(R.id.userBio)
@@ -68,13 +68,11 @@ class InfoProfileChildfragment: Fragment(R.layout.childfragment_profile_info)
         })
         viewModel.getPicture().observe(viewLifecycleOwner, {
             if(viewModel.getPicture().value!=null){
-               val storageRef= FirebaseStorage.getInstance().getReference().child("User Pictures")
-                val pic = storageRef.child(viewModel.getPicture().value.toString())
 
                 // Load the image using Glide 
-                Glide.with(this /* context */)
-                    .load(pic)
-                    .into(profilePic );
+                Glide.with(requireContext())
+                    .load(viewModel.getPicture().value!!)
+                    .into(profilePic);
             }
         })
 
