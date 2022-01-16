@@ -4,7 +4,7 @@ import { database } from "./firebase";
 
 const signUp = async (user) => {
     let users = await findUser(user);
-    console.log(users);
+    //console.log(users);
     if(users === null) {
         set(ref(database, "Users/" + user.id), {
             R_UserBio: "Insert Bio Here",

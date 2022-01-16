@@ -10,8 +10,6 @@ const EditRecipe = () => {
     const toggle = () => {
         setIsOpen(!isOpen);
     };
-
-
     return (
         <>
             <ScrollToTop />

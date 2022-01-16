@@ -30,10 +30,14 @@ import PremiumIcon from '../../images/premium_symbol.png';
 import { IngredientList, TagList } from '../../backend/RecipeValueListener';
 
 export const RecipeScreen = () => {
+
     let stringRecipe = localStorage.getItem("currentRecipe");
     //alert("The Value Received is " + b);
     let recipe = JSON.parse(stringRecipe);
     let tags = [];
+    console.log(recipe)
+
+    console.log(recipe.R_Recipe_Tags)
     for(let i=0; i<Object.keys(recipe.R_Recipe_Tags).length; i++){
         tags[i] = {};
         tags[i] = Object.keys(recipe.R_Recipe_Tags)[i]; 
@@ -45,9 +49,8 @@ export const RecipeScreen = () => {
             comments[i] = Object.keys(recipe.R_RecipeComments)[i]; 
         }
     } else {
-        console.log('Undefined or Null')
+        console.log('Undefined or Null --> commments')
     }
-
     const [allTags, setTags] = useState([]);
     const [allIngredients, setIngredients] = useState([]);
 
@@ -78,7 +81,6 @@ export const RecipeScreen = () => {
         console.log("delete")
     }
 
-
     return (
         <>  
         <RecipeContainer>
@@ -91,16 +93,21 @@ export const RecipeScreen = () => {
                         <Heading> {recipe.R_RecipeName} </Heading>
                         <TopLine> Ingredients </TopLine>
                         {
-                            recipe.R_RecipeIngredientsOverview.toString().split("\\n").map((ingredient, i) => (
-                                <div key={i}>
-                                    <li> {ingredient} </li>
-                                </div>
-                            ))
+                            recipe.R_RecipeIngredientsOverview.toString().split("\\n").map((ingredient, i) => {
+                                if( recipe !== null && ingredient.length > 0 ){
+                                    return(
+                                        <div key={i}>
+                                        <li> {ingredient} </li>
+                                        </div>
+                                    )
+                                }
+
+                            })
                         }
                         <TopLine> Preparations </TopLine>
                         {
                             recipe.R_RecipePreparation.map((preparation, i) => {
-                                if( preparation != null ){
+                                if( preparation !== null ){
                                     return(
                                         <div key={i}>
                                             <li> {preparation} </li>

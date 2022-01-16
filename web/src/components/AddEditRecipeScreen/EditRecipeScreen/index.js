@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import $ from 'jquery';
 import {
     AddEditContainer,
     ButtonContainer,
+    CancelButton,
     ColumnWrapper1,
     ColumnWrapper2,
     Img, 
@@ -14,8 +14,9 @@ import {
     TopLine, 
     UploadButton
 } from '../AddEditRecipeElements';
+import { Button } from '../../ButtonElements';
 import Select from 'react-select';
-
+import { updateRecipe, findRecipebyID } from '../../../backend/RecipeValueListener';
 
 let stringRecipe = localStorage.getItem("currentRecipe");
 let recipe = JSON.parse(stringRecipe);
@@ -26,57 +27,6 @@ export default class EditRecipeScreen extends React.Component {
         //console.log(recipe)
         stringRecipe = localStorage.getItem("currentRecipe");
         recipe = JSON.parse(stringRecipe);
-        this.state = {
-            picture: false,
-            src: recipe.R_RecipePicture
-        }
-    }
-
-    handlePictureSelected(event) {
-        var picture = event.target.files[0];
-        var src     = URL.createObjectURL(picture);
-        this.setState({
-            picture: picture,
-            src: src
-        });
-    }
-
-    renderPreview() {
-        if(this.state.src) {
-            return (
-                <Img src={this.state.src} />
-            );
-        } else {
-            return (
-                <p>
-                No Preview
-                </p>
-            );
-        }
-    }
-
-    upload() {
-        var formData = new FormData();
-        formData.append("file", this.state.picture);
-        $.ajax({
-            url: "/some/api/endpoint",
-            method: "POST",
-            data: formData,
-            cache: false,
-            contentType: false,
-            processData: false,
-            success: function(response) {
-                // Code to handle a succesful upload
-            }
-        });
-    }
-
-
-
-    handleChange = (e, { value }) => this.setState({ value })
-
-    render() {
-        const { value } = this.state
         let ingredientsOverview = ""
         recipe.R_RecipeIngredientsOverview.toString().split("\\n").map((ingredient, i) => (
             ingredientsOverview += (ingredient.toString() + "\n")
@@ -95,7 +45,7 @@ export default class EditRecipeScreen extends React.Component {
                 valuesTags[index].label = tag;
                 index++;
             }
-        })        
+        }) 
         let allTagsArray = JSON.parse(localStorage.getItem("allTags"));
         let allTags = []
         for(let i=0; i<allTagsArray.length; i++){
@@ -103,9 +53,6 @@ export default class EditRecipeScreen extends React.Component {
             allTags[i].value = allTagsArray[i].tagName;
             allTags[i].label = allTagsArray[i].tagName;
         }
-        /*
-        ingre'e eklediğim şeyi details a eklemeyebilirim??
-        */
         let recipeIngredients = [];
         for(let i=0; i<Object.keys(recipe.R_RecipeIngredients).length; i++){
             recipeIngredients[i] = {};
@@ -128,17 +75,181 @@ export default class EditRecipeScreen extends React.Component {
             allIngredients[i].value = allIngredientsArray[i].ingredientName;
             allIngredients[i].label = allIngredientsArray[i].ingredientName;
         }
-
-
-
-        let ingredientsPreparation = ""
+        let recipePreparation = ""
         recipe.R_RecipePreparation.map((preparation, i) => {
             if( preparation != null ){
-                ingredientsPreparation += (preparation.toString() + "\n")
+                recipePreparation += (preparation.toString() + "\n")
             }
         })
+        this.state = {
+            picture: false,
+            src: recipe.R_RecipePicture,
+            recipeName: recipe.R_RecipeName,
+            recipeDifficulty: recipe.R_RecipeDifficulty,
+            valuesTags: valuesTags,
+            valuesIngredients: valuesIngredients,
+            allIngredients: allIngredients, 
+            allTags: allTags,
+            recipePreparation: recipePreparation,
+            ingredientsOverview: ingredientsOverview,
+            nameError:"",
+            tagError:"",
+            ingrError:"",
+            ingrDetailError:"",
+            prepError:""
+        }
+        recipe.PictureFlag = false;
+        //console.log(this.state)
+    }
+
+    handlePictureSelected(event) {
+        var picture = event.target.files[0];
+        //console.log("src")
+        var src     = URL.createObjectURL(picture);
+        //console.log(src)
+        this.setState({
+            picture: picture,
+            src: src
+        });
+    }
+
+    renderPreview() {
+        if(this.state.src) {
+            return (
+                <Img src={this.state.src} />
+            );
+        } else {
+            return (
+                <p>
+                No Preview
+                </p>
+            );
+        }
+    }
+
+    handleRecipeName = (event) => {
+        this.state.recipeName = event.target.value;
+        recipe.R_RecipeName = event.target.value;
+    }
+
+    handleRecipeDifficulty = (event) => {
+        this.setState({
+            recipeDifficulty: event.target.value
+        })
+        recipe.R_RecipeDifficulty = event.target.value;
+        console.log(recipe)
+    }
+
+    handleRecipeIngredientDetails = (event) => {
+        this.setState({
+            ingredientsOverview: event.target.value
+        })
+        recipe.R_RecipeIngredientsOverview = event.target.value;
+    }
+
+    handleRecipePreparation = (event) => {
+        this.setState({
+            recipePreparation: event.target.value
+        })
+        recipe.R_RecipePreparation = event.target.value;
+    }
+
+    handleRecipeTags = (event) => {
+        console.log("tag")
+        console.log(event)
+
+        let tags = {};
+        for(let i=0; i<event.length; i++){
+            tags[event[i].value] = true;
+        }
+        this.setState({
+            valuesTags: tags
+        })
+        recipe.R_Recipe_Tags = tags;
+    }
+
+    handleRecipeIngredients = (event) => {
+        console.log("ingrrr")
+        console.log(event)
+        let ingredients = {};
+        for(let i=0; i<event.length; i++){
+            ingredients[event[i].value] = true;
+        }
+        this.setState({
+            valuesIngredients: ingredients
+        })
+        recipe.R_RecipeIngredients = ingredients;
+    }
+
+    validate = () => {
+        let nameError = "";
+        let tagError = "";
+        let ingrError = "";
+        let ingrDetailError = "";
+        let prepError = "";
+
+        if( this.state.recipeName.length === 0 ){
+            nameError = "Cannot be empty"
+        }
+
+        if( Object.keys(this.state.valuesTags).length === 0 ){
+            tagError = "Cannot be empty"
+        }
+
+        if( Object.keys( this.state.valuesIngredients).length === 0 ){
+            ingrError = "Cannot be empty"
+        }
+
+        if( this.state.ingredientsOverview.length === 0 ){
+            ingrDetailError = "Cannot be empty"
+        }
+
+        if( this.state.recipePreparation.length === 0 ){
+            prepError = "Cannot be empty"
+        }
+
+        if( nameError || tagError || ingrError || ingrDetailError || prepError ){
+            this.setState({ nameError, tagError, ingrError, ingrDetailError, prepError });
+            return false;
+        }
+
+        return true;
+    }
+
+    upload() {
+        const isValid = this.validate();
+        if( isValid ){
+            console.log("valid")
+            if( this.state.picture !== false ){
+                recipe.R_RecipePicture = this.state.picture;
+                recipe.PictureFlag = true;
+                //console.log("deneme")
+            } 
+            (async function() {
+                try {
+                    await updateRecipe(recipe.RecipeID, recipe)
+                    let newRecipe = await findRecipebyID(recipe.RecipeID)
+                    localStorage.setItem("currentRecipe", JSON.stringify(newRecipe))
+                    window.location.href="/recipe";
+                } catch (e) {   
+                    console.error(e);   
+                }  
+            })();
+        } else{
+            console.log("invalid")
+            this.state.nameError = "";
+            this.state.tagError = "";
+            this.state.ingrError = "";
+            this.state.ingrDetailError = "";
+            this.state.prepError = "";
+        }
+    }
 
 
+    render() {  
+        /*
+        ingre'e eklediğim şeyi details a eklemeyebilirim??
+        */
         return (
             <AddEditContainer>
                 
@@ -166,9 +277,17 @@ export default class EditRecipeScreen extends React.Component {
                             <TopLine>Recipe Name</TopLine>
                             </ColumnWrapper1>
                             <ColumnWrapper2>
-                            <TextBox type='text' defaultValue={recipe.R_RecipeName} required/>
-
+                            <TextBox 
+                            onChange={this.handleRecipeName}
+                            type='text' 
+                            defaultValue={this.state.recipeName} 
+                            />
                             </ColumnWrapper2>
+                            <div
+                            style={{ fontSize: 16, color: "pink" }}
+                            >
+                                {this.state.nameError}
+                            </div>
                         </RowWrapper>
                     </div>
                     <br />
@@ -180,12 +299,15 @@ export default class EditRecipeScreen extends React.Component {
                             <TopLine>Recipe Difficulty</TopLine>
                             </ColumnWrapper1>
                             <ColumnWrapper2>
-                            <input type="radio" value="Easy" name="difficulty" 
-                            checked={recipe.R_RecipeDifficulty === 'Easy'}/> Easy 
+                            <input type="radio" value="Easy" name="difficulty"
+                            onChange={this.handleRecipeDifficulty} 
+                            checked={this.state.recipeDifficulty === 'Easy'}/> Easy 
                             <input type="radio" value="Medium" name="difficulty" 
-                            checked={recipe.R_RecipeDifficulty === 'Medium'}/> Medium
-                            <input type="radio" value="Hard" name="difficulty" 
-                            checked={recipe.R_RecipeDifficulty === 'Hard'}/> Hard                          
+                            onChange={this.handleRecipeDifficulty} 
+                            checked={this.state.recipeDifficulty === 'Medium'}/> Medium
+                            <input type="radio" value="Hard" name="difficulty"
+                            onChange={this.handleRecipeDifficulty} 
+                            checked={this.state.recipeDifficulty === 'Hard'}/> Hard                          
                             </ColumnWrapper2>
                         </RowWrapper>
                     </div>
@@ -199,13 +321,19 @@ export default class EditRecipeScreen extends React.Component {
                             </ColumnWrapper1>
                             <ColumnWrapper2>
                             <Select
-                            defaultValue={valuesTags}
+                            defaultValue={this.state.valuesTags}
                             isMulti
                             name="Tags"
-                            options={allTags}
+                            options={this.state.allTags}
                             className="basic-multi-select"
                             classNamePrefix="select"
+                            onChange={this.handleRecipeTags}
                             />
+                            <div
+                            style={{ fontSize: 16, color: "pink" }}
+                            >
+                                {this.state.tagError}
+                            </div>
                             </ColumnWrapper2>
                         </RowWrapper>
                     </div>
@@ -219,13 +347,19 @@ export default class EditRecipeScreen extends React.Component {
                             </ColumnWrapper1>
                             <ColumnWrapper2>
                             <Select
-                            defaultValue={valuesIngredients}
+                            defaultValue={this.state.valuesIngredients}
                             isMulti
                             name="Tags"
-                            options={allIngredients}
+                            options={this.state.allIngredients}
                             className="basic-multi-select"
                             classNamePrefix="select"
+                            onChange={this.handleRecipeIngredients}
                             />
+                            <div
+                            style={{ fontSize: 16, color: "pink" }}
+                            >
+                                {this.state.ingrError}
+                            </div>
                             </ColumnWrapper2>
                         </RowWrapper>
                     </div>
@@ -239,7 +373,15 @@ export default class EditRecipeScreen extends React.Component {
                             <TopLine>Recipe Ingredient Details</TopLine>
                             </ColumnWrapper1>
                             <ColumnWrapper2>
-                            <TextAreaBox type='text' defaultValue={ingredientsOverview} rows="5" />
+                            <TextAreaBox type='text' 
+                            onChange={this.handleRecipeIngredientDetails}
+                            defaultValue={this.state.ingredientsOverview} rows="5" 
+                            />
+                            <div
+                            style={{ fontSize: 16, color: "pink" }}
+                            >
+                                {this.state.ingrDetailError}
+                            </div>
                             </ColumnWrapper2>
                         </RowWrapper>                        
                     </div>
@@ -253,7 +395,15 @@ export default class EditRecipeScreen extends React.Component {
                             <TopLine>Recipe Preparation</TopLine>
                             </ColumnWrapper1>            
                             <ColumnWrapper2>
-                            <TextAreaBox type='text' defaultValue={ingredientsPreparation} rows="5" />
+                            <TextAreaBox type='text'
+                            onChange={this.handleRecipePreparation}
+                            defaultValue={this.state.recipePreparation} rows="5" 
+                            />
+                            <div
+                            style={{ fontSize: 16, color: "pink" }}
+                            >
+                                {this.state.prepError}
+                            </div>
                             </ColumnWrapper2>
                         </RowWrapper> 
                     </div>
@@ -262,10 +412,10 @@ export default class EditRecipeScreen extends React.Component {
                 </form>
                 
                 <ButtonContainer>
-                    <UploadButton>
+                    <CancelButton to='/recipe'>
                         Cancel
-                    </UploadButton>
-                    <UploadButton>
+                    </CancelButton>
+                    <UploadButton onClick={this.upload.bind(this)} >
                         Update Recipe
                     </UploadButton>
                 </ButtonContainer>
