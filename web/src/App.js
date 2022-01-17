@@ -9,6 +9,8 @@ import RecipePage from './pages/recipe';
 import ContactInfo from './components/ContactInfo';
 import EditRecipe from './pages/editrecipe';
 import AddRecipe from './pages/addrecipe';
+import Admin from './pages/admin';
+import Moderator from './pages/moderator';
 
 //recipe duzenlenecek
 function App(){
@@ -23,6 +25,8 @@ function App(){
         <Route path="/contactinfo" component={ContactInfo} exact />
         <Route path="/editrecipe" component={EditRecipe} exact />
         <Route path="/addrecipe" component={AddRecipe} exact />
+        <Route path="/admin" component={Admin} exact />
+        <Route path="/moderator" component={Moderator} exact />
 
       </Switch>
     </Router>

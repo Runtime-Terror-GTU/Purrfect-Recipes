@@ -112,7 +112,7 @@ class GetverifiedSettingsChildfragment: Fragment(R.layout.childfragment_settings
                         gettingVerified.visibility=View.GONE
                         alreadyVerified.visibility=View.VISIBLE
                         viewModel.updateUserEmail(emailInput.text.toString()) //update user email in firebase
-                        Hawk.put(Constants.LOGGEDIN_USER_STATUS,CustomerStatus.VERIFIED.text) //update status in hawks
+                        Hawk.put(Constants.LOGGEDIN_USER_STATUS,CustomerStatus.VERIFIED) //update status in hawks
                     }
                     else{
                         Toast.makeText(requireActivity(), "The verificiation code is wrong. Please enter the code again.", Toast.LENGTH_SHORT).show()

@@ -6,6 +6,7 @@ import com.google.firebase.database.*
 import com.orhanobut.hawk.Hawk
 import com.pr.purrfectrecipes.Connectors.SettingsVMRepConnector
 import com.pr.purrfectrecipes.Constants
+import com.pr.purrfectrecipes.User.CustomerStatus
 
 class SettingsRepository(val connector: SettingsVMRepConnector){
     private val userID= Hawk.get<String>(Constants.LOGGEDIN_USERID)
@@ -40,22 +41,16 @@ class SettingsRepository(val connector: SettingsVMRepConnector){
     }
 
     fun suggestedIngredients(suggestedIngredient:String , activity: Activity){
-        ingredients.addListenerForSingleValueEvent(object :
-            ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                Toast.makeText( activity,"Your suggestion has been received.", Toast.LENGTH_SHORT).show()
-                ingredients.child(suggestedIngredient.lowercase()).setValue(true)
-            }
-            override fun onCancelled(error: DatabaseError) {
-                Toast.makeText( activity,"Your suggestion has not been received."+error, Toast.LENGTH_SHORT).show()
-            }
-        })
+        Toast.makeText( activity,"Your suggestion has been received.", Toast.LENGTH_SHORT).show()
+        ingredients.child(suggestedIngredient.lowercase()).setValue(true)
+
     }
     fun updateUserEmail(newEmail:String){
         usersRef.child(userID).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(snapshot.exists()){
                     usersRef.child(userID).child(Constants.R_USEREMAIL).setValue(newEmail)
+                    usersRef.child(userID).child(Constants.R_USERSTATUS).setValue(CustomerStatus.VERIFIED.text)
                 }
 
                 return

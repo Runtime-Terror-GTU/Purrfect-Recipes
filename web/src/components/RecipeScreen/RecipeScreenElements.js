@@ -137,6 +137,7 @@ export const CommentsWrapper = styled.div`
     display: grid;
     align-items: center;
     width: %100;
+    margin-top:150px;
     grid-template-rows: 250px 250px;
 
     @media screen and (max-width: 1000px) {

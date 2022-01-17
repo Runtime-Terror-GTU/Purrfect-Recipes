@@ -51,7 +51,7 @@
                     android:id="@+id/profilePic"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/profilepic1" />
+                    android:background="@drawable/default_pic1" />
             </androidx.cardview.widget.CardView>
 
         </FrameLayout>

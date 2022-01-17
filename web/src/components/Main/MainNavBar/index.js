@@ -11,9 +11,12 @@ import {
     NavBtn, 
     NavBtnLink 
 } from '../../HomePage/Navbar/NavbarElements';
+import { IngredientList, TagList } from '../../../backend/RecipeValueListener';
 
 const MainNavBar = ({toggle}) => {
     const [scrollNav, setScrollNav] = useState(false);
+    const [allTags, setTags] = useState([]);
+    const [allIngredients, setIngredients] = useState([]);
 
     const changeNav = () => {
         if(window.scrollY >= 80){
@@ -23,8 +26,28 @@ const MainNavBar = ({toggle}) => {
         }
     }
 
+    const fetchTags = async() => {
+        let data = await TagList();
+        return data;
+    }
+
+    const fetchIngredients = async() => {
+        let data = await IngredientList();
+        return data;
+    }
+
     useEffect(() => {
         window.addEventListener('scroll', changeNav);
+        (async function() {
+            try {
+                const allTags = await fetchTags();
+                const allIngredients = await fetchIngredients();
+                setTags(allTags);
+                setIngredients(allIngredients);
+            } catch (e) {
+                console.error(e);
+            }
+        })();
     }, [])
 
     const toggleHome = () => {
@@ -46,7 +69,11 @@ const MainNavBar = ({toggle}) => {
                         </MobileIcon>
                         
                         <NavBtn>
-                            <NavBtnLink to="/addrecipe">Add a Purrfect Recipe</NavBtnLink>
+                            <NavBtnLink 
+                            onClick={(e) => {localStorage.setItem("allTags", JSON.stringify(allTags))
+                            localStorage.setItem("allIngredients", JSON.stringify(allIngredients))
+                            } }
+                            to="/addrecipe">Add a Purrfect Recipe</NavBtnLink>
                         </NavBtn>
 
                         <NavBtn>

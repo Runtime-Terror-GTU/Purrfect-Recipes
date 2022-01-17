@@ -31,11 +31,16 @@ const onSubmit = async (e) => {
         if ( userSignIn !== null ){
             window.localStorage.clear();
             localStorage.setItem("currentUser", JSON.stringify(userSignIn)); //????
-            window.location.href = "/mainpage";
+            if( userSignIn[Object.keys(userSignIn)].R_User_Status == "ADMIN" ){
+                window.location.href = "/admin";
+            } else if( userSignIn[Object.keys(userSignIn)].R_User_Status == "MODERATOR" ){
+                window.location.href = "/moderator";
+            }  else {
+                window.location.href = "/mainpage";
+            }
         } else{
             window.location.href = "/signin";
         }
-     
     } else{
         console.log("login - something empty");
     }

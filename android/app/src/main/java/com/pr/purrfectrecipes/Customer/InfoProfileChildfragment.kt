@@ -42,7 +42,7 @@ class InfoProfileChildfragment: Fragment(R.layout.childfragment_profile_info)
             parentFragment?.activity?.finish()
         }
 
-        val userStatus = Hawk.get<String>(Constants.LOGGEDIN_USER_STATUS)
+        val userStatus = Hawk.get<CustomerStatus>(Constants.LOGGEDIN_USER_STATUS).text
         val premiumSymbol = view.findViewById<ImageView>(R.id.premiumSymbol)
         val username = view.findViewById<TextView>(R.id.username)
         val userBio = view.findViewById<TextView>(R.id.userBio)
@@ -51,11 +51,18 @@ class InfoProfileChildfragment: Fragment(R.layout.childfragment_profile_info)
         if(!userStatus.equals(CustomerStatus.PREMIUM.text)){
             premiumSymbol.visibility=View.GONE
         }
-        viewModel.getUsername().observe(viewLifecycleOwner, {
-            if(viewModel.getUsername().value!=null){
-                username.setText(viewModel.getUsername().value.toString())
+        viewModel.getUser().observe(viewLifecycleOwner, {
+            if(viewModel.getUser().value!=null)
+            {
+                username.setText(viewModel.getUser().value!!.getUsername())
+                userBio.setText(viewModel.getUser().value!!.getUserBio())
+                addedRecipesCount.setText(viewModel.getUser().value!!.getAddedRecipes().size.toString()+" Added Recipes")
+                Glide.with(requireContext())
+                    .load(viewModel.getUser().value!!.getUserPic())
+                    .into(profilePic);
             }
         })
+/*
         viewModel.getBio().observe(viewLifecycleOwner, {
             if(viewModel.getBio().value!=null){
                 userBio.setText(viewModel.getBio().value.toString())
@@ -76,12 +83,9 @@ class InfoProfileChildfragment: Fragment(R.layout.childfragment_profile_info)
                     .load(pic)
                     .into(profilePic );
             }
-        })
-
+        })*/
 
 
     }
-
-
 
 }

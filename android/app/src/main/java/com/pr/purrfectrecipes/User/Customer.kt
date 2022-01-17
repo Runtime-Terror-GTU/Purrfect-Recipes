@@ -23,8 +23,7 @@ class Customer(id:String, username:String, email:String, password:String="12345"
     private var purrfectedRecipes=HashSet<String>()
 
     init{
-        if(getUserStatus()!=CustomerStatus.UNVERIFIED)
-            addedRecipes=HashSet()
+        addedRecipes=HashSet()
     }
 
     fun isAddedRecipe(element:String):Boolean{

@@ -18,7 +18,7 @@ class AddAdminChildfragment: Fragment(R.layout.childfragment_admin_add)
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
 
         StrictMode.setThreadPolicy(policy)
-        
+
         viewModel.getView().observe(viewLifecycleOwner, {
             if(viewModel.getView().value!=null)
                 super.onViewCreated(viewModel.getView().value!!, savedInstanceState)

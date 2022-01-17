@@ -15,6 +15,9 @@ const AddRecipe = () => {
 
     return (
         <>
+            <ScrollToTop />
+            <MainSideBar isOpen={isOpen} toggle={toggle} />
+            <MainNavBar toggle={toggle} />
             <AddRecipeScreen />
         </>
     )

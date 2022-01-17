@@ -55,6 +55,27 @@ export const UploadButton = styled(Button)`
     }
 `;
 
+export const CancelButton = styled(Link)`
+    border-radius: 50px;
+    background: #F9C5D5;
+    color: black;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.2s ease-in-out;
+    text-decoration: none;
+    width: 200px;
+    height: 100px;
+    &:hover {
+        transform: scale(1.02);
+        transition: all 0.2s ease-in-out;
+        cursor: pointer;
+    }
+`;
+
 export const Img = styled.img`
     width: 200px;
     height: 200px;

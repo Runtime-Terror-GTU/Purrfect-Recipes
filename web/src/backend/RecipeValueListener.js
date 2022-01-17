@@ -1,12 +1,10 @@
 import './Recipe';
-import { ref, get, query, orderByKey, equalTo } from "firebase/database";
+import { ref, set, get, query, orderByKey, equalTo, update } from "firebase/database";
+import { getDownloadURL, getStorage, ref as sRef, uploadBytes  } from "firebase/storage";
 import { database } from "./firebase";
-import { getRecipeOfTheDay } from './RecipeOfTheDayServices';
+import { v4 as uuidv4 } from 'uuid';
 
 const getRecipes = async () => {
-    //call recipe of the day method
-    //getRecipeOfTheDay();
-
     //hold recipes
     let recipes = await findRecipes();
 
@@ -130,4 +128,128 @@ const findRecipeOwner = async (userID) => {
     return search.val();
 }
 
-export {getRecipes,IngredientList,TagList};
+//updates recipe's info
+const updateRecipe = async(recipeID, updatedRecipe) => {
+    let picURL = updatedRecipe.R_RecipePicture;
+    //update picture
+    if(updatedRecipe.PictureFlag){
+        // Create a root reference
+        const storage = getStorage();
+        // Create a reference to 'Recipe Picture/recipeID.jpg'
+        var path = "Recipe Pictures/" + recipeID + '';
+        const recipePicRef = sRef(storage, path);
+        //console.log(recipePicRef)
+        await uploadBytes(recipePicRef, updatedRecipe.R_RecipePicture).then((snapshot) => {
+            console.log('Uploaded a blob or file!');
+        });
+        picURL = await getDownloadURL(recipePicRef)
+    }
+    let stepsPreparation;
+    if(typeof updatedRecipe.R_RecipePreparation ==  "string"){
+        let arraysPrepation = updatedRecipe.R_RecipePreparation.split('\n');
+        let index = 1;
+        stepsPreparation = [];
+        stepsPreparation[index-1] = null;
+        for(let i=0; i<arraysPrepation.length; i++){
+            if( arraysPrepation[i].length > 0 ){
+                stepsPreparation[index] = arraysPrepation[i]
+                index++;
+            } 
+        }
+    } else{
+        stepsPreparation = updatedRecipe.R_RecipePreparation;
+    }
+    update(ref(database, "Recipes/" + recipeID), {
+        R_RecipeName: updatedRecipe.R_RecipeName,
+        R_RecipePicture: picURL,
+        R_RecipeDifficulty: updatedRecipe.R_RecipeDifficulty,
+        R_Recipe_Tags: updatedRecipe.R_Recipe_Tags,
+        R_RecipeIngredients: updatedRecipe.R_RecipeIngredients,
+        R_RecipeIngredientsOverview: updatedRecipe.R_RecipeIngredientsOverview.replaceAll("\n","\\n"),
+        R_RecipePreparation: stepsPreparation
+    });
+}
+
+//Call the Recipe from firebase database (according to Recipe ID)
+const findRecipebyID = async (recipeID) => {
+    var search = await get(query(ref(database, "Recipes"), orderByKey(), equalTo(recipeID.toString())));
+    recipeID = Object.keys(search.val());
+    let recipeObj = search.val()[recipeID];
+    var recipe = {}
+
+    recipe.R_RecipeName = recipeObj.R_RecipeName;
+    recipe.RecipeID = recipeID;
+    recipe.R_RecipeOwnerID = recipeObj.R_RecipeOwner;
+
+    //finds the recipe owner with use R_RecipeOwnerID
+    let recipeOwner = await findRecipeOwner(recipe.R_RecipeOwnerID);
+    //finds the recipe owner's username and put the array
+    recipe.R_RecipeOwner = recipeOwner[recipe.R_RecipeOwnerID].R_Username;
+    recipe.R_RecipeOwnerStatus = recipeOwner[recipe.R_RecipeOwnerID].R_User_Status;
+    recipe.R_RecipePicture = recipeObj.R_RecipePicture;
+    recipe.R_RecipePurrfectedCount = recipeObj.R_RecipePurrfectedCount;
+    recipe.R_RecipeIngredients = recipeObj.R_RecipeIngredients;
+    recipe.R_RecipeIngredientsOverview = recipeObj.R_RecipeIngredientsOverview;
+    recipe.R_RecipeDifficulty = recipeObj.R_RecipeDifficulty;
+    recipe.R_Recipe_Tags = recipeObj.R_Recipe_Tags;
+    recipe.R_RecipeComments = recipeObj.R_RecipeComments;
+    recipe.R_RecipePreparation = recipeObj.R_RecipePreparation;
+    return recipe;
+}
+
+//updates recipe's info
+const addRecipe = async(user, newRecipe) => {
+    newRecipe.R_RecipeOwnerID = Object.keys(user);
+    let picURL = newRecipe.R_RecipePicture;
+    //update picture
+    if(newRecipe.PictureFlag){
+        // Create a root reference
+        const storage = getStorage();
+        // Create a reference to 'Recipe Picture/recipeID.jpg'
+        var path = "Recipe Pictures/" + newRecipe.recipeID + '';
+        const recipePicRef = sRef(storage, path);
+        //console.log(recipePicRef)
+        await uploadBytes(recipePicRef, newRecipe.R_RecipePicture).then((snapshot) => {
+            console.log('Uploaded a blob or file!');
+        });
+        picURL = await getDownloadURL(recipePicRef)
+    }
+    /** */
+    let stepsPreparation;
+    let arraysPrepation = newRecipe.R_RecipePreparation.split('\n');
+    let index = 1;
+    stepsPreparation = [];
+    stepsPreparation[index-1] = null;
+    for(let i=0; i<arraysPrepation.length; i++){
+        if( arraysPrepation[i].length > 0 ){
+            stepsPreparation[index] = arraysPrepation[i]
+            index++;
+        } 
+    }
+    let recipeID = uuidv4();
+    
+    set(ref(database, "Recipes/" + recipeID), {
+        R_RecipeName: newRecipe.R_RecipeName,
+        R_RecipePicture: picURL,
+        R_RecipeDifficulty: newRecipe.R_RecipeDifficulty,
+        R_Recipe_Tags: newRecipe.R_Recipe_Tags,
+        R_RecipeIngredients: newRecipe.R_RecipeIngredients,
+        R_RecipeIngredientsOverview: newRecipe.R_RecipeIngredientsOverview.replaceAll("\n","\\n"),
+        R_RecipePreparation: stepsPreparation,
+        R_RecipeOwner: newRecipe.R_RecipeOwnerID.toString(),
+        R_RecipePurrfectedCount: newRecipe.R_RecipePurrfectedCount
+    });
+      
+    if( user[Object.keys(user)].R_AddedRecipes !== undefined ){
+        user[Object.keys(user)].R_AddedRecipes[recipeID] = true;
+        update(ref(database, "Users/" + Object.keys(user) + "/R_AddedRecipes/"),
+                user[Object.keys(user)].R_AddedRecipes );
+        //update firebase
+    } else{
+        //set
+        set(ref(database, "Users/" + Object.keys(user) + "/R_AddedRecipes/"),
+            {[recipeID]: true} );
+    }
+}
+
+export {getRecipes,IngredientList,TagList,updateRecipe,findRecipebyID,addRecipe};
