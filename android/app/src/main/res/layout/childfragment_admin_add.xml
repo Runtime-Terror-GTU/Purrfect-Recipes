@@ -2,16 +2,88 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:background="@color/white">
 
-    <TextView
+
+    <LinearLayout
+        android:id="@+id/premiumUser"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="10dp"
+        android:background="@drawable/main_bg"
+        android:visibility="visible">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginLeft="15sp"
+        android:layout_marginTop="25sp"
+        android:layout_marginRight="15sp"
+        android:fontFamily="@font/josefin_slab_bold"
         android:gravity="center"
-        android:text="Admin_Add"
-        android:textSize="30sp"
-        android:textColor="@color/black"/>
+        android:text="Add Moderator"
+        android:textColor="#B75C5C"
+        android:textSize="25sp" />
+
+
+        <EditText
+            android:id="@+id/inputNickname"
+            android:layout_width="match_parent"
+            android:layout_height="43dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="20dp"
+            android:fontFamily="@font/josefin_slab_italic"
+            android:hint="Enter nickname"
+            android:text=""
+            android:textColorHint="#B75C5C"
+            android:textSize="18sp">
+
+        </EditText>
+
+        <EditText
+            android:id="@+id/inputEmail"
+            android:layout_width="match_parent"
+            android:layout_height="43dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:fontFamily="@font/josefin_slab_italic"
+            android:hint="Enter e-mail"
+            android:text=""
+            android:textColorHint="#B75C5C"
+            android:textSize="18sp">
+
+        </EditText>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20sp"
+            android:layout_marginLeft="20sp"
+            android:layout_marginTop="25sp"
+            android:layout_marginBottom="20sp"
+            android:clickable="true"
+            android:background="@drawable/button_bg">
+
+            <TextView
+                android:id="@+id/enterButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Enter"
+                android:layout_margin="5sp"
+                android:textSize="22sp"
+                android:fontFamily="@font/josefin_slab_bold"
+                android:textStyle="bold"
+                android:textColor="@color/light_main"
+                android:gravity="center" />
+
+        </LinearLayout>
+
+        ></LinearLayout>
+
 
 </LinearLayout>

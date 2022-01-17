@@ -1,7 +1,5 @@
 package com.example.purrfectrecipes.User
 
-import com.pr.purrfectrecipes.User.User
-
 class UserClass(id:String, username:String,status:String,picture:String,recipeNum:Int) {
     private val userID:String=id
      fun getUserID(): String {return userID}
@@ -18,7 +16,7 @@ class UserClass(id:String, username:String,status:String,picture:String,recipeNu
     }
 
     override fun equals(other: Any?): Boolean {
-        if(other !is User)
+        if(other !is UserClass)
             return false
         else
             return userID.equals(other.getUserID())

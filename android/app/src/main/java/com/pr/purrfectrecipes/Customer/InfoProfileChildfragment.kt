@@ -71,7 +71,7 @@ class InfoProfileChildfragment: Fragment(R.layout.childfragment_profile_info)
                val storageRef= FirebaseStorage.getInstance().getReference().child("User Pictures")
                 val pic = storageRef.child(viewModel.getPicture().value.toString())
 
-                // Load the image using Glide 
+                // Load the image using Glide
                 Glide.with(this /* context */)
                     .load(pic)
                     .into(profilePic );
