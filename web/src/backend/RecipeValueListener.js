@@ -1,7 +1,8 @@
 import './Recipe';
-import { ref, get, query, orderByKey, equalTo, update } from "firebase/database";
+import { ref, set, get, query, orderByKey, equalTo, update } from "firebase/database";
 import { getDownloadURL, getStorage, ref as sRef, uploadBytes  } from "firebase/storage";
 import { database } from "./firebase";
+import { v4 as uuidv4 } from 'uuid';
 
 const getRecipes = async () => {
     //hold recipes
@@ -129,7 +130,6 @@ const findRecipeOwner = async (userID) => {
 
 //updates recipe's info
 const updateRecipe = async(recipeID, updatedRecipe) => {
-    console.log("updaterecipe func")
     let picURL = updatedRecipe.R_RecipePicture;
     //update picture
     if(updatedRecipe.PictureFlag){
@@ -168,12 +168,10 @@ const updateRecipe = async(recipeID, updatedRecipe) => {
         R_RecipeIngredientsOverview: updatedRecipe.R_RecipeIngredientsOverview.replaceAll("\n","\\n"),
         R_RecipePreparation: stepsPreparation
     });
-    console.log(updatedRecipe.R_Recipe_Tags)
 }
 
 //Call the Recipe from firebase database (according to Recipe ID)
 const findRecipebyID = async (recipeID) => {
-    console.log(recipeID.toString())
     var search = await get(query(ref(database, "Recipes"), orderByKey(), equalTo(recipeID.toString())));
     recipeID = Object.keys(search.val());
     let recipeObj = search.val()[recipeID];
@@ -199,4 +197,59 @@ const findRecipebyID = async (recipeID) => {
     return recipe;
 }
 
-export {getRecipes,IngredientList,TagList,updateRecipe,findRecipebyID};
+//updates recipe's info
+const addRecipe = async(user, newRecipe) => {
+    newRecipe.R_RecipeOwnerID = Object.keys(user);
+    let picURL = newRecipe.R_RecipePicture;
+    //update picture
+    if(newRecipe.PictureFlag){
+        // Create a root reference
+        const storage = getStorage();
+        // Create a reference to 'Recipe Picture/recipeID.jpg'
+        var path = "Recipe Pictures/" + newRecipe.recipeID + '';
+        const recipePicRef = sRef(storage, path);
+        //console.log(recipePicRef)
+        await uploadBytes(recipePicRef, newRecipe.R_RecipePicture).then((snapshot) => {
+            console.log('Uploaded a blob or file!');
+        });
+        picURL = await getDownloadURL(recipePicRef)
+    }
+    /** */
+    let stepsPreparation;
+    let arraysPrepation = newRecipe.R_RecipePreparation.split('\n');
+    let index = 1;
+    stepsPreparation = [];
+    stepsPreparation[index-1] = null;
+    for(let i=0; i<arraysPrepation.length; i++){
+        if( arraysPrepation[i].length > 0 ){
+            stepsPreparation[index] = arraysPrepation[i]
+            index++;
+        } 
+    }
+    let recipeID = uuidv4();
+    
+    set(ref(database, "Recipes/" + recipeID), {
+        R_RecipeName: newRecipe.R_RecipeName,
+        R_RecipePicture: picURL,
+        R_RecipeDifficulty: newRecipe.R_RecipeDifficulty,
+        R_Recipe_Tags: newRecipe.R_Recipe_Tags,
+        R_RecipeIngredients: newRecipe.R_RecipeIngredients,
+        R_RecipeIngredientsOverview: newRecipe.R_RecipeIngredientsOverview.replaceAll("\n","\\n"),
+        R_RecipePreparation: stepsPreparation,
+        R_RecipeOwner: newRecipe.R_RecipeOwnerID.toString(),
+        R_RecipePurrfectedCount: newRecipe.R_RecipePurrfectedCount
+    });
+      
+    if( user[Object.keys(user)].R_AddedRecipes !== undefined ){
+        user[Object.keys(user)].R_AddedRecipes[recipeID] = true;
+        update(ref(database, "Users/" + Object.keys(user) + "/R_AddedRecipes/"),
+                user[Object.keys(user)].R_AddedRecipes );
+        //update firebase
+    } else{
+        //set
+        set(ref(database, "Users/" + Object.keys(user) + "/R_AddedRecipes/"),
+            {[recipeID]: true} );
+    }
+}
+
+export {getRecipes,IngredientList,TagList,updateRecipe,findRecipebyID,addRecipe};
