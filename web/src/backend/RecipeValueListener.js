@@ -5,6 +5,7 @@ import { database } from "./firebase";
 import { v4 as uuidv4 } from 'uuid';
 import { findUser } from './UserService';
 
+
 const getRecipes = async () => {
     //hold recipes
     let recipes = await findRecipes();
@@ -216,6 +217,9 @@ const updateRecipe = async(recipeID, updatedRecipe) => {
 
 //Call the Recipe from firebase database (according to Recipe ID)
 const findRecipebyID = async (recipeID) => {
+    console.log(recipeID)
+    console.log(typeof  recipeID)
+
     var search = await get(query(ref(database, "Recipes"), orderByKey(), equalTo(recipeID.toString())));
     recipeID = Object.keys(search.val());
     let recipeObj = search.val()[recipeID];
@@ -296,4 +300,36 @@ const addRecipe = async(user, newRecipe) => {
     }
 }
 
-export {getRecipes,IngredientList,TagList,updateRecipe,findRecipebyID,addRecipe,getModerators,removeMod,addModerator};
+
+const purrfectedRecipe = async(user, recipe, purrfect) => {
+    console.log(user)
+    console.log(recipe)
+/*
+    if( purrfect ){
+        //ben seni zaten begenmisim
+        //seni silmem lazım
+        /*
+        console.log("deneme1")
+        await remove(ref(database, "Users/" + Object.keys(user) + "/R_PurrfectedRecipes/" + recipe.RecipeID));
+        let num = await get(query(ref(database, "Recipes/" + recipe.RecipeID + "/R_RecipePurrfectedCount")))
+        await update(ref(database, "Recipes/" + recipe.RecipeID + "/R_RecipePurrfectedCount"),
+            num.val()-1
+        );
+    } else{
+        console.log("deneme12")
+
+        await update(ref(database, "Users/" + Object.keys(user) + "/R_PurrfectedRecipes/"), {
+            [recipe.RecipeID]: true
+        });
+        let num = await get(query(ref(database, "Recipes/" + recipe.RecipeID + "/R_RecipePurrfectedCount")))
+        await update(ref(database, "Recipes/" + recipe.RecipeID ), {
+            "R_RecipePurrfectedCount": num.val()+1
+        } );
+    }
+    let newrecipe = await findRecipebyID(recipe.RecipeID);
+    return newrecipe;
+    */
+}
+
+export {getRecipes,IngredientList,TagList,updateRecipe,findRecipebyID,addRecipe,getModerators,removeMod,addModerator,purrfectedRecipe,findRecipeOwner,getModerators,removeMod};
+

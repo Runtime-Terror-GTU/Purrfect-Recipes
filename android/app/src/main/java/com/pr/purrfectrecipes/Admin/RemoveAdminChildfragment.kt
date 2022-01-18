@@ -10,8 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.pr.purrfectrecipes.Adapters.RemoveModRVAdapter
 import com.pr.purrfectrecipes.Connectors.ModDeleteOnClickListener
 import com.pr.purrfectrecipes.R
-
-
+import com.pr.purrfectrecipes.User.Customer
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class RemoveAdminChildfragment: Fragment(R.layout.childfragment_admin_remove),
@@ -39,16 +40,49 @@ class RemoveAdminChildfragment: Fragment(R.layout.childfragment_admin_remove),
             }
         })
         setRVAdapter()
-        searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                return false
-            }
+                searchView.clearFocus()
+                if(!query.isNullOrEmpty())
+                {
+                    val tempArray=ArrayList<Customer>()
+                    for(user in viewModel.getMods().value!!)
+                        if(user.getUsername().lowercase(Locale.ROOT).contains(query.lowercase(Locale.ROOT)))
+                            tempArray.add(user)
+                    modsRVAdapter?.setModsList(tempArray)
+                    modsRVAdapter?.notifyDataSetChanged()
+                    return true
+                }
+                else if(query.isNullOrEmpty())
+                {
+                    modsRVAdapter?.setModsList(viewModel.getMods().value!!)
+                    modsRVAdapter?.notifyDataSetChanged()
+                    return true
+                }
+                else
+                    return false
 
-            override fun onQueryTextChange(newText: String?): Boolean {
-                modsRVAdapter?.filter?.filter(newText)
-                return false
             }
-
+            override fun onQueryTextChange(query: String): Boolean {
+                if(!query.isNullOrEmpty())
+                {
+                    val tempArray=ArrayList<Customer>()
+                    for(user in viewModel.getMods().value!!)
+                        if(user.getUsername().lowercase(Locale.ROOT).contains(query.lowercase(Locale.ROOT)))
+                            tempArray.add(user)
+                    modsRVAdapter?.setModsList(tempArray)
+                    modsRVAdapter?.notifyDataSetChanged()
+                    return true
+                }
+                else if(query.isNullOrEmpty())
+                {
+                    modsRVAdapter?.setModsList(viewModel.getMods().value!!)
+                    modsRVAdapter?.notifyDataSetChanged()
+                    return true
+                }
+                else
+                    return false
+            }
         })
 
     }

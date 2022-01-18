@@ -11,6 +11,8 @@ import com.example.purrfectrecipes.Adapters.UsersRVAdapter
 import com.example.purrfectrecipes.Connectors.UsersDeleteOnClickListener
 import com.pr.purrfectrecipes.R
 import com.pr.purrfectrecipes.User.Customer
+import java.util.*
+import kotlin.collections.ArrayList
 
 class UsersModeratorChildfragment: Fragment(R.layout.childfragment_moderator_users),
     UsersDeleteOnClickListener
@@ -38,19 +40,51 @@ class UsersModeratorChildfragment: Fragment(R.layout.childfragment_moderator_use
             }
         })
         setRVAdapter()
-        searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                return false
-            }
+                searchView.clearFocus()
+                if(!query.isNullOrEmpty())
+                {
+                    val tempArray=ArrayList<Customer>()
+                    for(user in viewModel.getUsers().value!!)
+                        if(user.getUsername().lowercase(Locale.ROOT).contains(query.lowercase(Locale.ROOT)))
+                            tempArray.add(user)
+                    usersRVAdapter?.setUsersList(tempArray)
+                    usersRVAdapter?.notifyDataSetChanged()
+                    return true
+                }
+                else if(query.isNullOrEmpty())
+                {
+                    usersRVAdapter?.setUsersList(viewModel.getUsers().value!!)
+                    usersRVAdapter?.notifyDataSetChanged()
+                    return true
+                }
+                else
+                    return false
 
-            override fun onQueryTextChange(newText: String?): Boolean {
-                usersRVAdapter?.filter?.filter(newText)
-                return false
             }
-
+            override fun onQueryTextChange(query: String): Boolean {
+                if(!query.isNullOrEmpty())
+                {
+                    val tempArray=ArrayList<Customer>()
+                    for(user in viewModel.getUsers().value!!)
+                        if(user.getUsername().lowercase(Locale.ROOT).contains(query.lowercase(Locale.ROOT)))
+                            tempArray.add(user)
+                    usersRVAdapter?.setUsersList(tempArray)
+                    usersRVAdapter?.notifyDataSetChanged()
+                    return true
+                }
+                else if(query.isNullOrEmpty())
+                {
+                    usersRVAdapter?.setUsersList(viewModel.getUsers().value!!)
+                    usersRVAdapter?.notifyDataSetChanged()
+                    return true
+                }
+                else
+                    return false
+            }
         })
-        usersRVAdapter?.notifyDataSetChanged()
-        setRVAdapter()
+
     }
     fun setRVAdapter()
     {

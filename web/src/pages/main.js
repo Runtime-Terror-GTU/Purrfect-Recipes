@@ -11,15 +11,12 @@ const MainPage = () => {
         setIsOpen(!isOpen);
     };
 
-
     return (
         <>
             <ScrollToTop />
             <MainSideBar isOpen={isOpen} toggle={toggle} />
             <MainNavBar toggle={toggle} />
             <Main />
-
-
         </>
     )
 }

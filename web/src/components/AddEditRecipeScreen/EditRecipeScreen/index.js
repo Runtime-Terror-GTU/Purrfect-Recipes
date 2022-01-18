@@ -18,8 +18,8 @@ import { Button } from '../../ButtonElements';
 import Select from 'react-select';
 import { updateRecipe, findRecipebyID } from '../../../backend/RecipeValueListener';
 
-let stringRecipe = localStorage.getItem("currentRecipe");
-let recipe = JSON.parse(stringRecipe);
+let stringRecipe;
+let recipe;
 
 export default class EditRecipeScreen extends React.Component {
     constructor(props) {

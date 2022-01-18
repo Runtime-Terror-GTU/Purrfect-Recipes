@@ -137,9 +137,9 @@ export const CommentsWrapper = styled.div`
     display: grid;
     align-items: center;
     width: %100;
-    margin-top:150px;
-    grid-template-rows: 250px 250px;
+    margin-bottom:auto;
 
+    grid-template-rows: auto auto;
     @media screen and (max-width: 1000px) {
         grid-template-rows: 1fr 1fr;
         grid-template-columns: 1fr;
@@ -152,6 +152,7 @@ export const CommentsColumn = styled.div`
 `;
 
 export const AddCommentColumn = styled.div`
+    margin-top:auto;
     align-items: center;
 `;
 

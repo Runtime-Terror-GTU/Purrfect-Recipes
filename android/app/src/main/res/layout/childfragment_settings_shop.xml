@@ -56,12 +56,12 @@
         android:layout_marginLeft="15sp"
         android:fontFamily="@font/josefin_slab"
         android:gravity="center|left"
-        android:text="\n\nTo get premium at least likes of one your added recipe
-         must be 100.\n\n"
+        android:text="\n\nTo get premium at least likes of one your added recipe must be 100.\n\n"
         android:textColor="@color/black"
         android:textSize="17sp" />
 
     <TextView
+        android:id="@+id/mostLikeNum"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -69,7 +69,7 @@
         android:layout_marginLeft="15sp"
         android:fontFamily="@font/josefin_slab"
         android:gravity="center|left"
-        android:text="Your most get liked recipe likes is:"
+        android:text="Your most get liked recipe likes is: 0"
         android:textColor="@color/black"
         android:textSize="17sp" />
 
