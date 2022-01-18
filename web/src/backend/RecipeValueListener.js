@@ -3,6 +3,7 @@ import { ref, set, get, query, orderByKey, equalTo, update,orderByChild,remove }
 import { getDownloadURL, getStorage, ref as sRef, uploadBytes  } from "firebase/storage";
 import { database } from "./firebase";
 import { v4 as uuidv4 } from 'uuid';
+import { findUser } from './UserService';
 
 const getRecipes = async () => {
     //hold recipes
@@ -68,7 +69,21 @@ const IngredientList = async () => {
     return ingredientsArray;
 
 }
-
+//Add Moderator
+const addModerator = async (moderator) => {
+    console.log(moderator);
+    let users = await findUser(moderator);
+    if(users === null){
+        set(ref(database, "Users/" + moderator.id),{
+            R_Username : moderator.username,
+            R_UserEmail : moderator.email,
+            R_UserPassword : moderator.password,
+            R_User_Status: "MODERATOR"
+        })
+        return true;
+    }
+    return false;
+}
 //Read Ingredients From firebase
 const getIngredients = async () => {
 
@@ -106,7 +121,6 @@ const getModerators = async () =>{
 //Find Moderators
 const findModerator = async (userStatus) => {
     let search = await get(query(ref(database, "Users"), orderByChild("R_User_Status"), equalTo(userStatus)));
-    
     return search.val();
 } 
 //Return Tags
@@ -282,4 +296,4 @@ const addRecipe = async(user, newRecipe) => {
     }
 }
 
-export {getRecipes,IngredientList,TagList,updateRecipe,findRecipebyID,addRecipe,getModerators,removeMod};
+export {getRecipes,IngredientList,TagList,updateRecipe,findRecipebyID,addRecipe,getModerators,removeMod,addModerator};

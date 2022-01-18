@@ -22,6 +22,7 @@
   /* Control the left side */
   .left {
     left: 0;
+    border-right: solid;
     background-color: #F9C5D5;
   }
   
@@ -47,4 +48,31 @@
     width: 30%;
     margin: auto;
   }
-  
+  .inputMod{
+    border-style: solid;
+    border-radius: 20px;
+    height: 10%;
+    width: 70%;
+    margin: auto;
+    text-align: center;
+    align-items: center;
+  }
+  .email{
+    margin-top: 10%;
+  }
+  .input{
+    margin-top: 2%;
+  }
+  .addButton{
+    margin-top: 10%;
+  }
+  .addModerator{
+    background-color: #DC829E;
+    align-items: center;
+    border-style: solid;
+    border-color: #F9C5D5;
+    border-radius: 20px;
+    height: 50%;
+    margin: auto;
+    width: 70%;
+  }

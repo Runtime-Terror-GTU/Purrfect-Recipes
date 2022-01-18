@@ -34,4 +34,4 @@ const findUser = async (user) => {
     return search.val();
 }
 
-export {signIn, signUp};
+export {signIn, signUp,findUser};
