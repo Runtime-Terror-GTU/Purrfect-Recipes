@@ -38,7 +38,7 @@ class EditRepository(val connector: EditVMRepConnector) {
                 result.addOnSuccessListener {
 
                     var imageLink = it.toString()
-                    usersRef.child(userID).child(Constants.R_USERPICTURE).setValue(newPic)
+                    usersRef.child(userID).child(Constants.R_USERPICTURE).setValue(imageLink)
                 }
             }
     }

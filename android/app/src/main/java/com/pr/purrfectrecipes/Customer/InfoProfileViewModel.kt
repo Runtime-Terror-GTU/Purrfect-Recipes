@@ -17,10 +17,19 @@ class InfoProfileViewModel: ViewModel(), InfoProfileConnector
     private var user=MutableLiveData<Customer>()
         fun getUser():LiveData<Customer>{return user}
 
+    private val editProfile=MutableLiveData<Boolean?>()
+        fun getEditProfile():LiveData<Boolean?>{return editProfile}
+
     fun setView(newView: View?)
     {
         view.value=newView
     }
+
+    fun setEditProfile(bool:Boolean?)
+    {
+        editProfile.value=bool
+    }
+
     init{
         repository.retrieveUser()
     }

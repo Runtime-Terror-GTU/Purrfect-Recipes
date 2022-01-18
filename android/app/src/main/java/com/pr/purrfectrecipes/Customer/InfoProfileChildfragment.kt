@@ -19,7 +19,6 @@ import com.pr.purrfectrecipes.User.CustomerStatus
 class InfoProfileChildfragment: Fragment(R.layout.childfragment_profile_info)
 {
     private val viewModel: InfoProfileViewModel by activityViewModels()
-    private val editViewModel : EditViewModel by activityViewModels()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel.getView().observe(viewLifecycleOwner, {
             if(viewModel.getView().value!=null)
@@ -56,17 +55,17 @@ class InfoProfileChildfragment: Fragment(R.layout.childfragment_profile_info)
             if(viewModel.getUser().value!=null)
             {
                 username.setText(viewModel.getUser().value!!.getUsername())
-                userBio.setText(viewModel.getUser().value!!.getUserBio())
+                userBio.text=viewModel.getUser().value!!.getUserBio()
                 addedRecipesCount.setText(viewModel.getUser().value!!.getAddedRecipes().size.toString()+" Added Recipes")
                 Glide.with(requireContext())
                     .load(viewModel.getUser().value!!.getUserPic())
-                    .into(profilePic);
+                    .into(profilePic)
             }
         })
 
         val editProfileButton = view.findViewById<ImageView>(R.id.editProfileButton)
         editProfileButton?.setOnClickListener {
-            findNavController().navigate(R.id.action_infoProfileChildfragment_to_editProfileFragment)
+            viewModel.setEditProfile(true)
 
         }
 

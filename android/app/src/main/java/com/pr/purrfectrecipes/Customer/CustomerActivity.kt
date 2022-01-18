@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
@@ -26,6 +27,8 @@ class CustomerActivity : AppCompatActivity() {
     private val recipeViewModel:RecipeViewModel by viewModels()
     private val addedRecipesViewModel:AddedrecipesProfileViewModel by viewModels()
     private val purrfectedRecipesViewModel:PurrfectedrecipesProfileViewModel by viewModels()
+    private val infoProfileViewModel: InfoProfileViewModel by viewModels()
+    private val editProileViewModel:EditViewModel by viewModels()
 
     var navHostFragment:NavHostFragment?=null
     var navController: NavController?=null
@@ -256,6 +259,19 @@ class CustomerActivity : AppCompatActivity() {
             }
         })
 
+        infoProfileViewModel.getEditProfile().observe(this,{
+            if(infoProfileViewModel.getEditProfile().value!=null && infoProfileViewModel.getEditProfile().value==true)
+            {
+                navController?.popBackStack(R.id.editProfileFragment, true)
+                navigationBarCustomer.visibility=View.GONE
+                navController?.navigate(R.id.action_profileFragment_to_editProfileFragment)
+            }
+            else if(infoProfileViewModel.getEditProfile().value!=null && infoProfileViewModel.getEditProfile().value==false){
+                navController?.popBackStack(R.id.profileFragment, false)
+                navigationBarCustomer.visibility=View.VISIBLE
+            }
+        })
+
         purrfectedRecipesViewModel.getShownRecipe().observe(this,{
             if(purrfectedRecipesViewModel.getShownRecipe().value!=null)
             {
@@ -338,6 +354,10 @@ class CustomerActivity : AppCompatActivity() {
         else if(purrfectedRecipesViewModel.getShownRecipe().value!=null) {
             purrfectedRecipesViewModel.setShownRecipe(null)
             recipeViewModel.resetRecipe()
+        }
+        else if(infoProfileViewModel.getEditProfile().value!=null && infoProfileViewModel.getEditProfile().value==true)
+        {
+            infoProfileViewModel.setEditProfile(false)
         }
         else
             super.onBackPressed()

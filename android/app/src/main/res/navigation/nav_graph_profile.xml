@@ -7,11 +7,7 @@
     <fragment
         android:id="@+id/infoProfileChildfragment"
         android:name="com.pr.purrfectrecipes.Customer.InfoProfileChildfragment"
-        android:label="InfoProfileChildfragment" >
-        <action
-            android:id="@+id/action_infoProfileChildfragment_to_editProfileFragment"
-            app:destination="@id/editProfileFragment" />
-    </fragment>
+        android:label="InfoProfileChildfragment" />
     <fragment
         android:id="@+id/addedrecipesProfileChildfragment"
         android:name="com.pr.purrfectrecipes.Customer.AddedrecipesProfileChildfragment"
@@ -20,8 +16,4 @@
         android:id="@+id/purrfectedrecipesProfileChildfragment"
         android:name="com.pr.purrfectrecipes.Customer.PurrfectedrecipesProfileChildfragment"
         android:label="PurrfectedrecipesProfileChildfragment" />
-    <fragment
-        android:id="@+id/editProfileFragment"
-        android:name="com.pr.purrfectrecipes.EditProfileFragment"
-        android:label="EditProfileFragment" />
 </navigation>

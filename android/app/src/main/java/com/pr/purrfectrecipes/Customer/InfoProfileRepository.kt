@@ -26,13 +26,14 @@ class InfoProfileRepository(val connector: InfoProfileConnector) {
                         val currentUserStatus = snapshot.child(Constants.R_USERSTATUS).value
                         val currentUserPic = snapshot.child(Constants.R_USERPICTURE).value
                         val currentUserEmail = snapshot.child(Constants.R_USEREMAIL).value
+                        val bio=snapshot.child(Constants.R_USERBIO).value.toString()
 
                         if (currentUserStatus == CustomerStatus.UNVERIFIED.text)
                             currentUser = Customer(
                                 currentUserId,
                                 currentUserName as String,
                                 currentUserEmail as String,
-                                status = CustomerStatus.UNVERIFIED,
+                                status = CustomerStatus.UNVERIFIED,bio=bio,
                                 pic = currentUserPic as String
                             )
                         else if (currentUserStatus == CustomerStatus.VERIFIED.text)
@@ -40,7 +41,7 @@ class InfoProfileRepository(val connector: InfoProfileConnector) {
                                 currentUserId,
                                 currentUserName as String,
                                 currentUserEmail as String,
-                                status = CustomerStatus.VERIFIED,
+                                status = CustomerStatus.VERIFIED, bio=bio,
                                 pic = currentUserPic as String
                             )
                         else
@@ -48,7 +49,7 @@ class InfoProfileRepository(val connector: InfoProfileConnector) {
                                 currentUserId,
                                 currentUserName as String,
                                 currentUserEmail as String,
-                                status = CustomerStatus.PREMIUM,
+                                status = CustomerStatus.PREMIUM,bio=bio,
                                 pic = currentUserPic as String
                             )
 
