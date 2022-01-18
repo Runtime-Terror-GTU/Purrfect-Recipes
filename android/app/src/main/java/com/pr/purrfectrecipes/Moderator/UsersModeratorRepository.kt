@@ -3,10 +3,10 @@ package com.example.purrfectrecipes.Moderator
 import android.app.Activity
 import android.widget.Toast
 import com.example.purrfectrecipes.Connectors.UsersModeratorVMRepConnecter
-import com.example.purrfectrecipes.User.UserClass
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import com.pr.purrfectrecipes.Constants
+import com.pr.purrfectrecipes.User.Customer
 import com.pr.purrfectrecipes.User.CustomerStatus
 
 
@@ -21,27 +21,52 @@ class UsersModeratorRepository(val connector: UsersModeratorVMRepConnecter)  {
     private val recipeOfDayRef : DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Recipe of The Day")
 
     private val userID = ArrayList<String>()
-    private val users = ArrayList<UserClass>()
+    private val users = ArrayList<Customer>()
     private val recipeIDs = ArrayList<String>()
-    private val commentIDs = ArrayList<String>()
     private var addedRecipeNum = 0
     init{
-        userRetriveID()
+        userRetrive()
     }
-    fun userRetriveID(){
+    fun userRetrive(){
         usersRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for(ds in snapshot.children){
-                    val user= ds.key.toString()
-                    userID.add(user)
+                    val userID= ds.key.toString()
+                    if(ds.child(Constants.R_USERSTATUS).value!=CustomerStatus.ADMIN.text &&
+                        ds.child(Constants.R_USERSTATUS).value!=CustomerStatus.MODERATOR.text ){
+
+                        val userName = ds.child(Constants.R_USERNAME).value
+                        val userStatus = ds.child(Constants.R_USERSTATUS).value
+                        val userPic = ds.child(Constants.R_USERPICTURE).value
+                        val userEmail = ds.child(Constants.R_USEREMAIL).value
+                        var status = CustomerStatus.UNVERIFIED
+                        if(userStatus.toString().equals(CustomerStatus.VERIFIED.text)){
+                            status = CustomerStatus.VERIFIED
+                        }
+                        if(userStatus.toString().equals(CustomerStatus.PREMIUM.text)){
+                            status = CustomerStatus.PREMIUM
+                        }
+                        var user = Customer(userID, userName.toString(), userEmail.toString(), "12345", status, "Insert Bio Here", userPic.toString())
+
+                        for (purrfectedRecipes in snapshot.child(Constants.R_PURRFECTEDRECIPES).children)
+                            user.addPurrfectedRecipe(purrfectedRecipes.key.toString())
+                        for (addedRecipes in snapshot.child(Constants.R_ADDEDRECIPES).children)
+                            user.addAddedRecipe(addedRecipes.key.toString())
+
+                        users.add(user!!)
+
+                    }
+                  //  userID.add(user)
+
                 }
+                connector.onUsersRetrieved(users)
             }
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
             }
         })
     }
-    fun userInfoRetrive(id:String){
+   /* fun userInfoRetrive(id:String){
         usersRef.child(id).addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val name  = snapshot.child(Constants.R_USERNAME).value.toString()
@@ -85,19 +110,17 @@ class UsersModeratorRepository(val connector: UsersModeratorVMRepConnecter)  {
             }
         })
 
-    }
+    }*/
 
-    fun deleteUser(userId:String, activity:Activity){
-       usersRef.child(userId).addListenerForSingleValueEvent(object : ValueEventListener {
+    fun deleteUser(user:Customer, activity:Activity){
+
+       usersRef.child(user.getUserID()).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for(ds in snapshot.children){
                     if(ds.key.toString().equals(Constants.R_ADDEDRECIPES)){
-                        getRecipeID(userId)
+                        getRecipeID(user.getUserID())
                     }
-                    deleteUserComments(userId)
-                    usersRef.child(userId).removeValue()
-                    val storageRef= FirebaseStorage.getInstance().getReference().child("User Pictures")
-                    storageRef.child(userId).delete()
+                    deleteUserComments(user.getUserID())
                 }
 
             }
@@ -105,6 +128,9 @@ class UsersModeratorRepository(val connector: UsersModeratorVMRepConnecter)  {
                 Toast.makeText( activity,"User cannot be deleted."+error, Toast.LENGTH_SHORT).show()
             }
         })
+        usersRef.child(user.getUserID()).removeValue()
+        val storageRef= FirebaseStorage.getInstance().getReference().child("User Pictures")
+        storageRef.child(user.getUserID()).delete()
     }
     fun getRecipeID(userId: String){
         usersRef.child(userId).child(Constants.R_ADDEDRECIPES).addListenerForSingleValueEvent(object : ValueEventListener {
@@ -126,9 +152,7 @@ class UsersModeratorRepository(val connector: UsersModeratorVMRepConnecter)  {
         recipeRef.child(recipeID).child(Constants.R_RECIPECOMMENTS).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for(ds in snapshot.children){
-                    commentIDs.add(ds.key.toString())
                     deleteComments(ds.key.toString())
-
                 }
             }
             override fun onCancelled(error: DatabaseError) {
@@ -137,16 +161,21 @@ class UsersModeratorRepository(val connector: UsersModeratorVMRepConnecter)  {
         })
     }
     fun deleteComments(commentID:String){
-        commentRef.child(commentID).addListenerForSingleValueEvent(object : ValueEventListener {
+        commentRef.child(commentID).removeValue()
+      /*  commentRef.child(commentID).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 commentRef.child(commentID).removeValue()
             }
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
             }
-        })
+        })*/
     }
     fun deleteRecipe(recipeID: String){
+        recipeRef.child(recipeID).removeValue()
+        val storageRef= FirebaseStorage.getInstance().getReference().child("Recipe Pictures")
+        storageRef.child(recipeID).delete()
+        /*
         recipeRef.child(recipeID).child(Constants.R_RECIPECOMMENTS).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
 
@@ -157,7 +186,7 @@ class UsersModeratorRepository(val connector: UsersModeratorVMRepConnecter)  {
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
             }
-        })
+        })*/
     }
     fun checkRecipeOfTheDay(recipeID:String){
         recipeOfDayRef.addListenerForSingleValueEvent(object :ValueEventListener {
@@ -200,14 +229,15 @@ class UsersModeratorRepository(val connector: UsersModeratorVMRepConnecter)  {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val id = snapshot.getValue().toString()
                 if(id.equals(userId)){
-                    commentRef2.child(commentID).addListenerForSingleValueEvent(object : ValueEventListener {
+                    commentRef2.child(commentID).removeValue()
+                  /*  commentRef2.child(commentID).addListenerForSingleValueEvent(object : ValueEventListener {
                         override fun onDataChange(snapshot: DataSnapshot) {
                             commentRef2.child(commentID).removeValue()
                         }
                         override fun onCancelled(error: DatabaseError) {
                             TODO("Not yet implemented")
                         }
-                    })
+                    })*/
                 }
             }
             override fun onCancelled(error: DatabaseError) {

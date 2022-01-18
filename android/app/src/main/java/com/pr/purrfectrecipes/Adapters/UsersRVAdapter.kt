@@ -10,15 +10,15 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.purrfectrecipes.Connectors.UsersDeleteOnClickListener
-import com.example.purrfectrecipes.User.UserClass
 import com.pr.purrfectrecipes.R
+import com.pr.purrfectrecipes.User.Customer
 import com.pr.purrfectrecipes.User.CustomerStatus
 import java.util.*
 import kotlin.collections.ArrayList
 
 class UsersRVAdapter(val context: Context , val listener: UsersDeleteOnClickListener): RecyclerView.Adapter<UsersRVAdapter.ViewHolder>()
     , Filterable {
-    private var users=ArrayList<UserClass>()
+    private var users=ArrayList<Customer>()
     class ViewHolder(view: View): RecyclerView.ViewHolder(view)
     {
         val userName =  view.findViewById<TextView>(R.id.userName)
@@ -41,28 +41,34 @@ class UsersRVAdapter(val context: Context , val listener: UsersDeleteOnClickList
         if(!users[position].getUserStatus().equals(CustomerStatus.PREMIUM.text)){
             holder.premiumUserSymbol.visibility=View.GONE
         }
-        holder.recipes.text= users[position].getAddedRecipeNum().toString() + " recipes"
+        holder.recipes.text= users[position].getAddedRecipes().size.toString() + " recipes"
 
         holder.deleteButton.setOnClickListener{
-            listener.onDeleteClick(users[position].getUserID())
+            listener.onDeleteClick(users[position])
+            deleteUser(position)
+
         }
 
     }
     override fun getItemCount(): Int {
         return users.size
     }
+    fun deleteUser(position: Int){
+        users.removeAt(position)
+    }
 
-    fun setUsersList(list:ArrayList<UserClass>){
+    fun setUsersList(list:ArrayList<Customer>){
         users=list
     }
-    fun getUser(position: Int):UserClass{
+    fun getUser(position: Int):Customer{
         return users.get(position)
+        notifyDataSetChanged()
     }
     override fun getFilter(): Filter {
         return object : Filter() {
             override fun performFiltering(constraint: CharSequence?): FilterResults {
                 val charSearch = constraint.toString()
-                val resultList = ArrayList<UserClass>()
+                val resultList = ArrayList<Customer>()
                 if (!charSearch.isEmpty()) {
                     for (row in users) {
                         if (row.getUsername().lowercase(Locale.ROOT).contains(charSearch.lowercase(Locale.ROOT))) {
@@ -78,7 +84,7 @@ class UsersRVAdapter(val context: Context , val listener: UsersDeleteOnClickList
 
             @Suppress("UNCHECKED_CAST")
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-                users = results?.values as ArrayList<UserClass>
+                users = results?.values as ArrayList<Customer>
                 notifyDataSetChanged()
             }
 

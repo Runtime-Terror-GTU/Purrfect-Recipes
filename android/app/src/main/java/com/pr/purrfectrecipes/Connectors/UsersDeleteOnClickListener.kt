@@ -1,5 +1,7 @@
 package com.example.purrfectrecipes.Connectors
 
+import com.pr.purrfectrecipes.User.Customer
+
 interface UsersDeleteOnClickListener {
-    fun onDeleteClick(userID:String)
+    fun onDeleteClick(user: Customer)
 }

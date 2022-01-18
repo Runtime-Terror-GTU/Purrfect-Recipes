@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.purrfectrecipes.Adapters.UsersRVAdapter
 import com.example.purrfectrecipes.Connectors.UsersDeleteOnClickListener
 import com.pr.purrfectrecipes.R
+import com.pr.purrfectrecipes.User.Customer
 
 class UsersModeratorChildfragment: Fragment(R.layout.childfragment_moderator_users),
     UsersDeleteOnClickListener
@@ -59,7 +60,7 @@ class UsersModeratorChildfragment: Fragment(R.layout.childfragment_moderator_use
         users?.adapter = usersRVAdapter
     }
 
-    override fun onDeleteClick(userID: String) {
-        viewModel.deleteUser(userID,requireActivity())
+    override fun onDeleteClick(user: Customer) {
+        viewModel.deleteUser(user,requireActivity())
     }
 }

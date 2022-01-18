@@ -3,8 +3,8 @@ package com.pr.purrfectrecipes.Moderator
 import android.app.Activity
 import android.util.Log
 import android.widget.Toast
-import com.pr.purrfectrecipes.Connectors.RequestsModeratorVMRepConnecter
 import com.google.firebase.database.*
+import com.pr.purrfectrecipes.Connectors.RequestsModeratorVMRepConnecter
 
 
 class RequestsModeratorRepository(val connector: RequestsModeratorVMRepConnecter) {
@@ -47,7 +47,7 @@ class RequestsModeratorRepository(val connector: RequestsModeratorVMRepConnecter
     }
 
     fun denySuggestion(suggestedIngredient:String , activity: Activity){
-        suggestionsRef.addValueEventListener(object :
+        suggestionsRef.addListenerForSingleValueEvent(object :
             ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for(ds in snapshot.children){
@@ -56,8 +56,10 @@ class RequestsModeratorRepository(val connector: RequestsModeratorVMRepConnecter
                     if(suggestedIngredient.equals(suggestion)){
                         ds.ref.removeValue()
                         connector.suggestionDeny(suggestedIngredient,activity)
+                        return
                     }
                 }
+                return
 
             }
             override fun onCancelled(error: DatabaseError) {
