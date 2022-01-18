@@ -88,7 +88,6 @@ export const RecipeScreen = () => {
         //mevcut recipe favlanlarda varsa azalt
         //yoksa arttır
         let user = JSON.parse(localStorage.getItem("currentUser"));
-        console.log(Object.keys(user[Object.keys(user)].R_PurrfectedRecipes))
         let flag = false;
         let newRecipe = recipe;
         for(let i=0; i<Object.keys(user[Object.keys(user)].R_PurrfectedRecipes).length; i++){
@@ -96,28 +95,24 @@ export const RecipeScreen = () => {
                 //zaten begenmisim o zaman begenmicem artık
                 (async function() {
                     try {
-                        console.log("dkkjklfjdlkfd")
                         newRecipe = await purrfectedRecipe(user, recipe, true)
                     } catch (e) {
                         console.error(e);
                     }
                 })();
                 flag = true; 
+                break;
             } 
         }
         if( flag === false ){
             (async function() {
                 try {
-                    console.log("fdkljfdlkjflkdjflkdjklfdjlkfdjlkfj")
-
                     newRecipe = await purrfectedRecipe(user, recipe, false)
                 } catch (e) {
                     console.error(e);
                 }
             })();
         }
-        console.log("deneme")
-        console.log(newRecipe)
         let newUser = user;
         (async function() {
             try {

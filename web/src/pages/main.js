@@ -3,7 +3,6 @@ import ScrollToTop from '../components/ScrollToTop';
 import Main from '../components/Main';
 import MainNavBar from '../components/Main/MainNavBar';
 import MainSideBar from '../components/Main/MainSideBar';
-import { deneme } from '../backend/verification';
 
 const MainPage = () => {
     const [isOpen, setIsOpen] = useState(false);
