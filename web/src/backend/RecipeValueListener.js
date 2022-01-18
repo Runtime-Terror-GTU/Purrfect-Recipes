@@ -1,9 +1,5 @@
 import './Recipe';
-<<<<<<< HEAD
-import { ref, set, get, query, orderByKey, equalTo, update, remove } from "firebase/database";
-=======
 import { ref, set, get, query, orderByKey, equalTo, update,orderByChild,remove } from "firebase/database";
->>>>>>> 47eff934cf405c63a1e0d20408c4d419a5b3c219
 import { getDownloadURL, getStorage, ref as sRef, uploadBytes  } from "firebase/storage";
 import { database } from "./firebase";
 import { v4 as uuidv4 } from 'uuid';
@@ -289,7 +285,6 @@ const addRecipe = async(user, newRecipe) => {
     }
 }
 
-<<<<<<< HEAD
 const purrfectedRecipe = async(user, recipe, purrfect) => {
     console.log(user)
     console.log(recipe)
@@ -320,7 +315,4 @@ const purrfectedRecipe = async(user, recipe, purrfect) => {
     */
 }
 
-export {getRecipes,IngredientList,TagList,updateRecipe,findRecipebyID,addRecipe,purrfectedRecipe,findRecipeOwner};
-=======
-export {getRecipes,IngredientList,TagList,updateRecipe,findRecipebyID,addRecipe,getModerators,removeMod};
->>>>>>> 47eff934cf405c63a1e0d20408c4d419a5b3c219
+export {getRecipes,IngredientList,TagList,updateRecipe,findRecipebyID,addRecipe,purrfectedRecipe,findRecipeOwner,getModerators,removeMod};
