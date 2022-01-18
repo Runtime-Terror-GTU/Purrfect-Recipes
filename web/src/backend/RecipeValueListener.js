@@ -331,5 +331,5 @@ const purrfectedRecipe = async(user, recipe, purrfect) => {
     */
 }
 
-export {getRecipes,IngredientList,TagList,updateRecipe,findRecipebyID,addRecipe,getModerators,removeMod,addModerator,purrfectedRecipe,findRecipeOwner,getModerators,removeMod};
+export {getRecipes,IngredientList,TagList,updateRecipe,findRecipebyID,addRecipe,getModerators,removeMod,addModerator,purrfectedRecipe,findRecipeOwner};
 

@@ -93,36 +93,18 @@ export const RecipeScreen = () => {
         for(let i=0; i<Object.keys(user[Object.keys(user)].R_PurrfectedRecipes).length; i++){
             if( Object.keys(user[Object.keys(user)].R_PurrfectedRecipes)[i] === recipe.RecipeID ){
                 //zaten begenmisim o zaman begenmicem artık
-                (async function() {
-                    try {
-                        newRecipe = await purrfectedRecipe(user, recipe, true)
-                    } catch (e) {
-                        console.error(e);
-                    }
-                })();
+                //newRecipe = await purrfectedRecipe(user, recipe, true)
                 flag = true; 
                 break;
             } 
         }
         if( flag === false ){
-            (async function() {
-                try {
-                    newRecipe = await purrfectedRecipe(user, recipe, false)
-                } catch (e) {
-                    console.error(e);
-                }
-            })();
+            //newRecipe = await purrfectedRecipe(user, recipe, false)  
         }
         let newUser = user;
-        (async function() {
-            try {
-                newUser = await findRecipeOwner(Object.keys(user).toString());
-            } catch (e) {
-                console.error(e);
-            }
-        })();
-        localStorage.setItem("currentUser", JSON.stringify(newUser))
-        localStorage.setItem("currentRecipe", JSON.stringify(newRecipe))
+        //newUser = await findRecipeOwner(Object.keys(user).toString());
+        //localStorage.setItem("currentUser", JSON.stringify(newUser))
+        //localStorage.setItem("currentRecipe", JSON.stringify(newRecipe))
         //window.location.href="/recipe";
     }
 
