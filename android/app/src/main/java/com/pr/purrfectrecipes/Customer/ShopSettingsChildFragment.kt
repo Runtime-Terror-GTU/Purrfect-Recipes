@@ -23,38 +23,32 @@ class ShopSettingsChildFragment: Fragment(R.layout.childfragment_settings_shop)
             }
         })
         var userStatus= "UNVERIFIED"
-        val getInput = view.findViewById<LinearLayout>(R.id.getInput)
-        val enterButton = view.findViewById<LinearLayout>(R.id.enterButton)
+
         val notVerifiedUser = view.findViewById<LinearLayout>(R.id.notVerifiedUser)
         val PremiumUser = view.findViewById<LinearLayout>(R.id.PremiumUser)
 
         viewModel.getStatus().observe(viewLifecycleOwner, {
             if(viewModel.getStatus().value!=null){
                 userStatus = userStatus.replace("UNVERIFIED",viewModel.getStatus().value.toString(),false)
-                pageView(userStatus,PremiumUser,notVerifiedUser,getInput,enterButton)
+                pageView(userStatus,PremiumUser,notVerifiedUser)
             }
         })
 
 
 
 
+
     }
-    fun pageView(user_status:String,PremiumUser:LinearLayout,notVerifiedUser:LinearLayout,getInput: LinearLayout,enterButton:LinearLayout){
+    fun pageView(user_status:String,PremiumUser:LinearLayout,notVerifiedUser:LinearLayout){
         if(user_status.equals(CustomerStatus.VERIFIED.text)){
-            getInput.visibility=View.VISIBLE
-            enterButton.visibility=View.VISIBLE
             notVerifiedUser.visibility=View.GONE
             PremiumUser.visibility=View.GONE
         }
         else if(user_status.equals(CustomerStatus.PREMIUM.text)){
-            getInput.visibility=View.GONE
-            enterButton.visibility=View.GONE
             notVerifiedUser.visibility=View.GONE
             PremiumUser.visibility=View.VISIBLE
         }
         else {
-            getInput.visibility=View.GONE
-            enterButton.visibility=View.GONE
             notVerifiedUser.visibility=View.VISIBLE
             PremiumUser.visibility=View.GONE
         }

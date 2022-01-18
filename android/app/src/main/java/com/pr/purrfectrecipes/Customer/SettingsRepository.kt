@@ -61,4 +61,17 @@ class SettingsRepository(val connector: SettingsVMRepConnector){
         })
     }
 
+    fun getMostLikeRecipe(){
+        usersRef.child(userID).addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (addedRecipes in snapshot.child(Constants.R_ADDEDRECIPES).children)
+                    
+                return
+            }
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
+    }
+
 }
