@@ -34,9 +34,10 @@ class ShopSettingsChildFragment: Fragment(R.layout.childfragment_settings_shop)
             }
         })
 
-
-
-
+        val beVerifiedButton=view.findViewById<LinearLayout>(R.id.beVerifiedButton)
+        beVerifiedButton.setOnClickListener {
+            viewModel.setGetVerified(true)
+        }
 
     }
     fun pageView(user_status:String,PremiumUser:LinearLayout,notVerifiedUser:LinearLayout){

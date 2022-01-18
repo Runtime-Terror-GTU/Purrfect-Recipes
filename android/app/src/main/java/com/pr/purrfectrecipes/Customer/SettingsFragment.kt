@@ -14,6 +14,7 @@ import androidx.fragment.app.activityViewModels
 class SettingsFragment: Fragment(R.layout.fragment_settings)
 {
     private val viewModel: SettingsFragmentViewModel by activityViewModels()
+    private val settingsViewModel:SettingsSharedViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val navigationTabbarSettings=view.findViewById<BottomNavigationView>(R.id.navigationTabbarSettings)
@@ -38,6 +39,21 @@ class SettingsFragment: Fragment(R.layout.fragment_settings)
                 navController.navigate(R.id.suggestSettingsChildfragment)
             }
         }
+        settingsViewModel.getGetVerified().observe(viewLifecycleOwner, {
+            if(settingsViewModel.getGetVerified().value!=null && settingsViewModel.getGetVerified().value==true)
+            {
+                navigationTabbarSettings.selectedItemId=R.id.getverifiedSettingsChildfragment
+                settingsViewModel.setGetVerified(false)
+            }
+        })
+
+        settingsViewModel.getBuyPremium().observe(viewLifecycleOwner, {
+            if(settingsViewModel.getBuyPremium().value!=null && settingsViewModel.getBuyPremium().value==true)
+            {
+                navigationTabbarSettings.selectedItemId=R.id.shopSettingsChildFragment
+                settingsViewModel.setBuyPremium(false)
+            }
+        })
 
         viewModel.getView().observe(viewLifecycleOwner, {
             if(viewModel.getView().value!=null)

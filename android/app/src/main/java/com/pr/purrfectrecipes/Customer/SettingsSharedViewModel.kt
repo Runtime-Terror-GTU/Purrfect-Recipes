@@ -21,6 +21,20 @@ class SettingsSharedViewModel: ViewModel(), SettingsVMRepConnector
     private var status= MutableLiveData<String?>()
     fun getStatus(): LiveData<String?> {return status}
 
+    private val getVerified=MutableLiveData<Boolean?>()
+        fun getGetVerified():LiveData<Boolean?>{return getVerified}
+    private val buyPremium=MutableLiveData<Boolean?>()
+        fun getBuyPremium():LiveData<Boolean?>{return buyPremium}
+
+    fun setGetVerified(bool:Boolean?)
+    {
+        getVerified.value=bool
+    }
+
+    fun setBuyPremium(bool:Boolean?)
+    {
+        buyPremium.value=bool
+    }
 
     fun setVerifyView(newView: View?)
     {

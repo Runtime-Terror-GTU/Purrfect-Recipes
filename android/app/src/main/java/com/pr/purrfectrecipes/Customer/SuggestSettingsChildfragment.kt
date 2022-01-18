@@ -34,6 +34,11 @@ class SuggestSettingsChildfragment: Fragment(R.layout.childfragment_settings_sug
             }
         })
 
+        val bePremiumButton=view.findViewById<TextView>(R.id.bePremiumButton)
+        bePremiumButton.setOnClickListener {
+            viewModel.setBuyPremium(true)
+        }
+
 
     }
     fun pageView(user_status:String,premiumUser:LinearLayout,notPremiumUser:LinearLayout){
