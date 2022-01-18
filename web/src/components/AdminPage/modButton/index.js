@@ -1,13 +1,12 @@
 import CancelIcon from '@mui/icons-material/Cancel';
 import "./modButtonElement.css"
-
+import { removeMod } from '../../../backend/RecipeValueListener';
 const ModButton = ({moderator}) => {
     console.log(moderator);
-
+    //moderator button's cross part's event 
     const oldumubeee = e =>{
-        
-        
-
+        //remove moderator
+        removeMod(moderator);
     }
     return (
         <div className="modButton">

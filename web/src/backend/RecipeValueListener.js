@@ -1,5 +1,5 @@
 import './Recipe';
-import { ref, set, get, query, orderByKey, equalTo, update,orderByChild } from "firebase/database";
+import { ref, set, get, query, orderByKey, equalTo, update,orderByChild,remove } from "firebase/database";
 import { getDownloadURL, getStorage, ref as sRef, uploadBytes  } from "firebase/storage";
 import { database } from "./firebase";
 import { v4 as uuidv4 } from 'uuid';
@@ -79,9 +79,10 @@ const getIngredients = async () => {
     
 }
 //Delete Moderators
-const removeMod = async (modID) => {
-    //this funtion is writing...
+const removeMod = async (moderator) => {
+    remove(ref(database,"Users/"+moderator.ModID));
 }
+
 //Return Moderators
 const getModerators = async () =>{
         let userStatus = "MODERATOR";
@@ -281,4 +282,4 @@ const addRecipe = async(user, newRecipe) => {
     }
 }
 
-export {getRecipes,IngredientList,TagList,updateRecipe,findRecipebyID,addRecipe,getModerators};
+export {getRecipes,IngredientList,TagList,updateRecipe,findRecipebyID,addRecipe,getModerators,removeMod};
