@@ -21,7 +21,7 @@ let recipe = [];
 
 export default class EditRecipeScreen extends React.Component {
     constructor(props) {
-        super(props);        
+        super(props);      
         let allTagsArray = JSON.parse(localStorage.getItem("allTags"));
         let allTags = []
         for(let i=0; i<allTagsArray.length; i++){
@@ -179,7 +179,7 @@ export default class EditRecipeScreen extends React.Component {
                     let stringUser = localStorage.getItem("currentUser");
                     let user = JSON.parse(stringUser);
                     await addRecipe(user, recipe)
-                    //window.location.href="/mainpage";
+                    window.location.href="/mainpage";
                 } catch (e) {   
                     console.error(e);   
                 }  

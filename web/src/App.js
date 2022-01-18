@@ -27,7 +27,6 @@ function App(){
         <Route path="/addrecipe" component={AddRecipe} exact />
         <Route path="/admin" component={Admin} exact />
         <Route path="/moderator" component={Moderator} exact />
-
       </Switch>
     </Router>
   )

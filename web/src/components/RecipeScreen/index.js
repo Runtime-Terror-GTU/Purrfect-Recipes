@@ -27,7 +27,8 @@ import Footer from '../HomePage/Footer';
 import CommentBox from './CommentBox';
 import AddComment from './AddComment';
 import PremiumIcon from '../../images/premium_symbol.png';
-import { IngredientList, TagList } from '../../backend/RecipeValueListener';
+import { findRecipeOwner, IngredientList, purrfectedRecipe, TagList } from '../../backend/RecipeValueListener';
+import { Button } from 'semantic-ui-react';
 
 export const RecipeScreen = () => {
 
@@ -51,6 +52,7 @@ export const RecipeScreen = () => {
     } else {
         console.log('Undefined or Null --> commments')
     }
+
     const [allTags, setTags] = useState([]);
     const [allIngredients, setIngredients] = useState([]);
 
@@ -58,6 +60,7 @@ export const RecipeScreen = () => {
         let data = await TagList();
         return data;
     }
+
     const fetchIngredients = async() => {
         let data = await IngredientList();
         return data;
@@ -79,6 +82,53 @@ export const RecipeScreen = () => {
 
     const deleteRecipe = () => {
         console.log("delete")
+    }
+
+    const countPurrfected = (async) => {
+        //mevcut recipe favlanlarda varsa azalt
+        //yoksa arttır
+        let user = JSON.parse(localStorage.getItem("currentUser"));
+        console.log(Object.keys(user[Object.keys(user)].R_PurrfectedRecipes))
+        let flag = false;
+        let newRecipe = recipe;
+        for(let i=0; i<Object.keys(user[Object.keys(user)].R_PurrfectedRecipes).length; i++){
+            if( Object.keys(user[Object.keys(user)].R_PurrfectedRecipes)[i] === recipe.RecipeID ){
+                //zaten begenmisim o zaman begenmicem artık
+                (async function() {
+                    try {
+                        console.log("dkkjklfjdlkfd")
+                        newRecipe = await purrfectedRecipe(user, recipe, true)
+                    } catch (e) {
+                        console.error(e);
+                    }
+                })();
+                flag = true; 
+            } 
+        }
+        if( flag === false ){
+            (async function() {
+                try {
+                    console.log("fdkljfdlkjflkdjflkdjklfdjlkfdjlkfj")
+
+                    newRecipe = await purrfectedRecipe(user, recipe, false)
+                } catch (e) {
+                    console.error(e);
+                }
+            })();
+        }
+        console.log("deneme")
+        console.log(newRecipe)
+        let newUser = user;
+        (async function() {
+            try {
+                newUser = await findRecipeOwner(Object.keys(user).toString());
+            } catch (e) {
+                console.error(e);
+            }
+        })();
+        localStorage.setItem("currentUser", JSON.stringify(newUser))
+        localStorage.setItem("currentRecipe", JSON.stringify(newRecipe))
+        //window.location.href="/recipe";
     }
 
     return (
@@ -142,7 +192,9 @@ export const RecipeScreen = () => {
                         }
                         <PurrfectedRow>
                             <PurrfectedColumn1>
-                                <PurrfectedIcon />
+                                <Button onClick={countPurrfected}>
+                                    <PurrfectedIcon />
+                                </Button>
                             </PurrfectedColumn1>
                             <PurrfectedColumn2>
                                 <h1> {recipe.R_RecipePurrfectedCount} </h1>

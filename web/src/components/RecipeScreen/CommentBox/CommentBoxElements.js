@@ -1,4 +1,8 @@
 import styled from "styled-components";
+import { FaPaw, FaEdit } from 'react-icons/fa';
+import { MdDelete } from 'react-icons/md';
+import { Link } from "react-router-dom";
+import { Button } from 'semantic-ui-react';
 
 export const CommentContainer = styled.div`
     color: #fff;
@@ -77,3 +81,30 @@ export const PremiumImg = styled.img`
         height: 20px;
     }
 `;
+
+export const DeleteIcon = styled(MdDelete)`
+    font-size: 40px;
+    color: #F9C5D5;
+`;
+
+export const IconLink = styled(Link)`
+    background: #B38A9B;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    text-decoration: none;
+    &:hover {
+        transform: scale(1.12);
+        transition: all 0.2s ease-in-out;
+        cursor: pointer;
+    }
+    
+    //&:hover {
+    //    transition: all 0.2s ease-in-out;
+    //    background: #fff;
+    //    color: #010606;
+    //
+    */
+`;
+
