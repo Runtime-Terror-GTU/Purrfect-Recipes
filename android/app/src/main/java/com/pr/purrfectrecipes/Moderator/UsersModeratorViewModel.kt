@@ -25,7 +25,6 @@ class UsersModeratorViewModel: ViewModel() , UsersModeratorVMRepConnecter
         repository.userRetrive()
     }
     override fun onUsersRetrieved(list:ArrayList<Customer>?){
-
         if(list!=null){
             users.value=list
         }

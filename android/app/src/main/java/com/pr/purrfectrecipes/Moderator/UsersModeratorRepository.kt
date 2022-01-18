@@ -30,6 +30,7 @@ class UsersModeratorRepository(val connector: UsersModeratorVMRepConnecter)  {
     fun userRetrive(){
         usersRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
+                users.clear()
                 for(ds in snapshot.children){
                     val userID= ds.key.toString()
                     if(ds.child(Constants.R_USERSTATUS).value!=CustomerStatus.ADMIN.text &&
