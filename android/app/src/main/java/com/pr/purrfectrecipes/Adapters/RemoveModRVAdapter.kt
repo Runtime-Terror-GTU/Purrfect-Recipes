@@ -4,19 +4,15 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Filter
-import android.widget.Filterable
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.pr.purrfectrecipes.Connectors.ModDeleteOnClickListener
 import com.pr.purrfectrecipes.R
 import com.pr.purrfectrecipes.User.Customer
-import java.util.*
-import kotlin.collections.ArrayList
 
 class RemoveModRVAdapter(val context: Context, val listener: ModDeleteOnClickListener): RecyclerView.Adapter<RemoveModRVAdapter.ViewHolder>()
-    , Filterable {
+     {
     private var mods= ArrayList<Customer>()
         class ViewHolder(view: View): RecyclerView.ViewHolder(view)
         {
@@ -49,32 +45,5 @@ class RemoveModRVAdapter(val context: Context, val listener: ModDeleteOnClickLis
         mods.removeAt(position)
         notifyDataSetChanged()
     }
-    override fun getFilter(): Filter {
-        return object : Filter() {
-            override fun performFiltering(constraint: CharSequence?): FilterResults {
-                val charSearch = constraint.toString()
-                val resultList = ArrayList<Customer>()
-                if (!charSearch.isEmpty()) {
-                    for (row in mods) {
-                        if (row.getUsername().lowercase(Locale.ROOT).contains(charSearch.lowercase(
-                                Locale.ROOT))) {
-                            resultList.add(row)
-                        }
-                    }
-                    mods = resultList
-                }
-                val filterResults = FilterResults()
-                filterResults.values = mods
-                return filterResults
-            }
 
-            @Suppress("UNCHECKED_CAST")
-            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-                mods = results?.values as ArrayList<Customer>
-                notifyDataSetChanged()
-            }
-
-        }
-
-    }
 }
