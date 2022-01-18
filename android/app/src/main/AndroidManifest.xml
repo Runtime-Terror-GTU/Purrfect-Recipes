@@ -12,30 +12,37 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
+        android:configChanges="keyboardHidden"
         android:theme="@style/SplashTheme" >
         <activity
             android:name="com.pr.purrfectrecipes.Guest.GuestActivity"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme2.StartScreen" />
         <activity
             android:name="com.pr.purrfectrecipes.Moderator.ModeratorActivity"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme2.StartScreen"/>
         <activity
             android:name="com.pr.purrfectrecipes.Customer.CustomerActivity"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme2.StartScreen" />
         <activity
             android:name="com.pr.purrfectrecipes.Admin.AdminActivity"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme2.StartScreen" />
         <activity
             android:name="com.pr.purrfectrecipes.StartActivity"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:theme="@style/AuthenticationTheme" />
         <activity
             android:name="com.pr.purrfectrecipes.SplashActivity"
-            android:exported="true" >
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

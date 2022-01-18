@@ -1,0 +1,50 @@
+.allofit{
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+.split {
+    height: 100%;
+    width: 50%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    margin-top: 2%;
+    overflow-x: hidden;
+    padding-top: 20px;
+  }
+  
+  /* Control the left side */
+  .left {
+    left: 0;
+    background-color: #F9C5D5;
+  }
+  
+  /* Control the right side */
+  .right {
+    right: 0;
+    background-color: #F9C5D5;
+  }
+  .header{
+      border-style: solid;
+      border-radius: 20px;
+      text-align: center;
+      margin: auto;
+      margin-bottom: 5%;
+      width: 50%;
+      height: 10%;
+  }
+  .modButton_{
+    
+    height: 10%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 30%;
+    margin: auto;
+  }
+  

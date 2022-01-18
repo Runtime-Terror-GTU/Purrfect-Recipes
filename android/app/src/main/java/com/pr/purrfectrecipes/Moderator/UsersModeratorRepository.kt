@@ -30,6 +30,7 @@ class UsersModeratorRepository(val connector: UsersModeratorVMRepConnecter)  {
     fun userRetrive(){
         usersRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
+                users.clear()
                 for(ds in snapshot.children){
                     val userID= ds.key.toString()
                     if(ds.child(Constants.R_USERSTATUS).value!=CustomerStatus.ADMIN.text &&
@@ -48,9 +49,9 @@ class UsersModeratorRepository(val connector: UsersModeratorVMRepConnecter)  {
                         }
                         var user = Customer(userID, userName.toString(), userEmail.toString(), "12345", status, "Insert Bio Here", userPic.toString())
 
-                        for (purrfectedRecipes in snapshot.child(Constants.R_PURRFECTEDRECIPES).children)
+                        for (purrfectedRecipes in ds.child(Constants.R_PURRFECTEDRECIPES).children)
                             user.addPurrfectedRecipe(purrfectedRecipes.key.toString())
-                        for (addedRecipes in snapshot.child(Constants.R_ADDEDRECIPES).children)
+                        for (addedRecipes in ds.child(Constants.R_ADDEDRECIPES).children)
                             user.addAddedRecipe(addedRecipes.key.toString())
 
                         users.add(user!!)

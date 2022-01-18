@@ -21,6 +21,23 @@ class SettingsSharedViewModel: ViewModel(), SettingsVMRepConnector
     private var status= MutableLiveData<String?>()
     fun getStatus(): LiveData<String?> {return status}
 
+    private var mostLike= MutableLiveData<Int?>()
+    fun getMostLike(): LiveData<Int?> {return mostLike}
+
+    private val getVerified=MutableLiveData<Boolean?>()
+        fun getGetVerified():LiveData<Boolean?>{return getVerified}
+    private val buyPremium=MutableLiveData<Boolean?>()
+        fun getBuyPremium():LiveData<Boolean?>{return buyPremium}
+
+    fun setGetVerified(bool:Boolean?)
+    {
+        getVerified.value=bool
+    }
+
+    fun setBuyPremium(bool:Boolean?)
+    {
+        buyPremium.value=bool
+    }
 
     fun setVerifyView(newView: View?)
     {
@@ -39,6 +56,7 @@ class SettingsSharedViewModel: ViewModel(), SettingsVMRepConnector
     init{
         repository.findUserEmail()
         repository.findUserStatus()
+        repository.recipeLikeRetrive()
     }
     override fun getUserEmail(email:String)  {
 
@@ -53,6 +71,11 @@ class SettingsSharedViewModel: ViewModel(), SettingsVMRepConnector
     }
     fun updateUserEmail(Email: String){
         repository.updateUserEmail(Email)
+    }
+    override fun getMostLike(likeNum:Int){
+        if(likeNum!=null){
+            mostLike.value=likeNum
+        }
     }
 
 
