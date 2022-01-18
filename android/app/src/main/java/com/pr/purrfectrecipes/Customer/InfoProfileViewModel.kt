@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.pr.purrfectrecipes.Connectors.InfoProfileConnector
 import com.pr.purrfectrecipes.User.Customer
-import com.pr.purrfectrecipes.User.User
 
 class InfoProfileViewModel: ViewModel(), InfoProfileConnector
 {
@@ -29,5 +28,7 @@ class InfoProfileViewModel: ViewModel(), InfoProfileConnector
     override fun onUserRetrieved(user: Customer) {
         this.user.value=user
     }
+
+
 
 }

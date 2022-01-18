@@ -42,11 +42,7 @@ class UsersRVAdapter(val context: Context , val listener: UsersDeleteOnClickList
             holder.premiumUserSymbol.visibility=View.GONE
         }
         holder.recipes.text= users[position].getAddedRecipeNum().toString() + " recipes"
-        /*
-        holder.recipePic.setOnClickListener {
-            listener.onRecipeClick(recipes.get(position).getRecipeID())
-        }
-         */
+
         holder.deleteButton.setOnClickListener{
             listener.onDeleteClick(users[position].getUserID())
         }

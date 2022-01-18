@@ -34,6 +34,8 @@ class AddAdminChildfragment: Fragment(R.layout.childfragment_admin_add)
         val inputEmail = view.findViewById<EditText>(R.id.inputEmail)
         val enterButton = view.findViewById<TextView>(R.id.enterButton)
 
+        var isMailSend : Boolean = true
+
         enterButton.setOnClickListener{
 
             if(inputNickname.text.isEmpty() or inputEmail.text.isEmpty() ){
@@ -43,18 +45,22 @@ class AddAdminChildfragment: Fragment(R.layout.childfragment_admin_add)
                 viewModel.addModerator(inputNickname.text.toString(),inputEmail.text.toString(),requireActivity())
                 viewModel.getPasssword().observe(viewLifecycleOwner, {
                     if(viewModel.getPasssword().value!=null){
-                        var toEmailList: List<String> = listOf(inputEmail.text.toString())
-                        val emailSubject = "Moderator Password"
-                        val emailBody = "Your password is : "+ viewModel.getPasssword().value.toString()
-                        val sendVerificationMail = GMail("purrfectrecipes@gmail.com","gtubilmuh3",toEmailList,emailSubject,emailBody)
-                        try {
-                            sendVerificationMail.createEmailMessage()
-                            sendVerificationMail.sendEmail()
-                            Toast.makeText(requireActivity(), "The password is send to moderator.", Toast.LENGTH_SHORT).show()
+                        if(isMailSend){
+                            var toEmailList: List<String> = listOf(inputEmail.text.toString())
+                            val emailSubject = "Moderator Password"
+                            val emailBody = "Your password is : "+ viewModel.getPasssword().value.toString()
+                            val sendVerificationMail = GMail("purrfectrecipes@gmail.com","gtubilmuh3",toEmailList,emailSubject,emailBody)
+                            try {
+                                sendVerificationMail.createEmailMessage()
+                                sendVerificationMail.sendEmail()
+                                Toast.makeText(requireActivity(), "The password is send to moderator.", Toast.LENGTH_SHORT).show()
 
-                        }catch (error: Exception){
-                            Toast.makeText(requireActivity(), "Something went wrong. Please try again.."+error, Toast.LENGTH_SHORT).show()
+                            }catch (error: Exception){
+                                Toast.makeText(requireActivity(), "Something went wrong. Please try again.."+error, Toast.LENGTH_SHORT).show()
+                            }
+                            isMailSend = false
                         }
+
                     }
                 })
             }

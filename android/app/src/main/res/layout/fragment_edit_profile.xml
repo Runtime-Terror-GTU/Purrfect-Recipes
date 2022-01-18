@@ -4,14 +4,168 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white">
-
-    <TextView
+    <FrameLayout
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:text="Edit Profile"
-        android:textSize="30sp"
-        android:textColor="@color/black"/>
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textStyle="bold"
+            android:fontFamily="@font/josefin_slab_bold"
+            android:textSize="22dp"
+            android:text="Edit Profile"
+            android:layout_marginTop="15dp"
+            android:textAlignment="center"/>
+        <ImageView
+            android:id="@+id/cancel"
+            android:layout_marginTop="15dp"
+            android:layout_gravity="right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/cancel_icon_edited"/>
 
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/main_bg">
+
+        <ImageView
+            android:id="@+id/userProfilePic"
+            android:layout_width="70dp"
+            android:clickable="true"
+            android:layout_height="70dp"
+            android:layout_marginTop="50dp"
+            android:layout_gravity="top|center"
+            android:scaleType="centerCrop"
+            android:src="@drawable/profilepic1" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textStyle="bold"
+            android:fontFamily="@font/josefin_slab_bold"
+            android:textSize="22dp"
+            android:layout_gravity="top|center"
+            android:text="Change Profile Picture"
+            android:layout_marginTop="10dp"
+            android:textAlignment="center"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/josefin_slab"
+            android:textSize="18dp"
+            android:text="Username"
+            android:layout_marginTop="10dp"
+            android:textAlignment="textStart"/>
+        <TextView
+            android:id="@+id/username"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/josefin_slab"
+            android:textSize="18dp"
+            android:text="Username"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:textAlignment="textStart"/>
+        <LinearLayout
+            android:layout_gravity="bottom"
+            android:layout_width="match_parent"
+            android:layout_height="1sp"
+            android:background="@color/dark_grey">
+
+        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/josefin_slab"
+            android:textSize="18dp"
+            android:text="Profile Bio"
+            android:layout_marginTop="10dp"
+            android:textAlignment="textStart"/>
+        <EditText
+            android:id="@+id/bio"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/josefin_slab"
+            android:textSize="18dp"
+            android:hint="Insert Here A Profile Introduction Text"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:textAlignment="textStart"/>
+        <LinearLayout
+            android:layout_gravity="bottom"
+            android:layout_width="match_parent"
+            android:layout_height="1sp"
+            android:background="@color/dark_grey">
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/josefin_slab_bold"
+            android:textSize="22dp"
+            android:text="Change Password"
+            android:layout_marginTop="10dp"
+            android:textAlignment="textStart"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/josefin_slab"
+            android:textSize="18dp"
+            android:text="Enter New Password Twice"
+            android:layout_marginTop="10dp"
+            android:textAlignment="textStart"/>
+        <EditText
+            android:id="@+id/password1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/josefin_slab"
+            android:textSize="18dp"
+            android:hint="*******"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:textAlignment="textStart"/>
+        <EditText
+            android:id="@+id/password2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/josefin_slab"
+            android:textSize="18dp"
+            android:hint="*******"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:textAlignment="textStart"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="20sp"
+        android:layout_marginLeft="20sp"
+        android:layout_marginTop="20sp"
+        android:layout_marginBottom="20sp"
+        android:clickable="true"
+        android:background="@drawable/button_bg">
+
+        <TextView
+            android:id="@+id/doneButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Done"
+            android:layout_margin="5sp"
+            android:textSize="22sp"
+            android:fontFamily="@font/josefin_slab_bold"
+            android:textStyle="bold"
+            android:textColor="@color/light_main"
+            android:gravity="center" />
+
+    </LinearLayout>
 </LinearLayout>
