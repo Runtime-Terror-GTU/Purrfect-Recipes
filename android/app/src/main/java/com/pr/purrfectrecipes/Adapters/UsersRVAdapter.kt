@@ -18,7 +18,9 @@ import kotlin.collections.ArrayList
 
 class UsersRVAdapter(val context: Context , val listener: UsersDeleteOnClickListener): RecyclerView.Adapter<UsersRVAdapter.ViewHolder>()
     , Filterable {
+
     private var users=ArrayList<Customer>()
+
     class ViewHolder(view: View): RecyclerView.ViewHolder(view)
     {
         val userName =  view.findViewById<TextView>(R.id.userName)
@@ -29,9 +31,9 @@ class UsersRVAdapter(val context: Context , val listener: UsersDeleteOnClickList
 
 
     }
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UsersRVAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
-        return UsersRVAdapter.ViewHolder(
+        return ViewHolder(
             LayoutInflater.from(context).inflate(R.layout.users_rv, parent, false)
         )
     }

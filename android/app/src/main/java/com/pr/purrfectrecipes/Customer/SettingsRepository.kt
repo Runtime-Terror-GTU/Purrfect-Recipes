@@ -16,9 +16,7 @@ class SettingsRepository(val connector: SettingsVMRepConnector){
     val ingredients: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Suggested Ingredients")
     private val addedRecipe = ArrayList<String>()
     private val addedRecipeLike = ArrayList<Int>()
-    init{
-        getRecipe()
-    }
+
     fun findUserEmail(){
 
         usersRef.child(userID).addValueEventListener(object : ValueEventListener {
@@ -67,28 +65,22 @@ class SettingsRepository(val connector: SettingsVMRepConnector){
         })
     }
 
-    fun getRecipe(){
-        usersRef.child(userID).addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                for (addedRecipes in snapshot.child(Constants.R_ADDEDRECIPES).children)
-                    addedRecipe.add(addedRecipes.key.toString())
-                    addedRecipeLike.add(0)
-                return
-            }
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-        })
-    }
+
     fun recipeLikeRetrive(){
-        if(userStatus==CustomerStatus.UNVERIFIED){
+        if(userStatus==CustomerStatus.UNVERIFIED || userStatus==CustomerStatus.PREMIUM){
             connector.getMostLike(0)
             return
         }
         usersRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
+                for (addedRecipes in snapshot.child(userID).child(Constants.R_ADDEDRECIPES).children){
+                    addedRecipe.add(addedRecipes.key.toString())
+                    addedRecipeLike.add(0)
+                }
+
                 for(ds in snapshot.children){
                     val userId = ds.key.toString()
+
                     if(ds.child(Constants.R_USERSTATUS).value!=CustomerStatus.ADMIN.text &&
                         ds.child(Constants.R_USERSTATUS).value!=CustomerStatus.MODERATOR.text ){
 
@@ -114,7 +106,7 @@ class SettingsRepository(val connector: SettingsVMRepConnector){
                             for(i in 0..irange){
                                 for(j in 0..jrange){
                                     if(addedRecipe.get(j).equals(user.getPurrfectedRecipes().get(i))){
-                                        addedRecipeLike.set(j,addedRecipeLike.get(j)+1)
+                                        addedRecipeLike.set(j,addedRecipeLike[j]+1)
                                     }
                                 }
                             }

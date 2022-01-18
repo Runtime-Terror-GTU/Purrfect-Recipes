@@ -56,10 +56,12 @@ class ShopSettingsChildFragment: Fragment(R.layout.childfragment_settings_shop)
         else if(user_status.equals(CustomerStatus.PREMIUM.text)){
             notVerifiedUser.visibility=View.GONE
             PremiumUser.visibility=View.VISIBLE
+            mostLikeNum.visibility=View.GONE
         }
         else {
             notVerifiedUser.visibility=View.VISIBLE
             PremiumUser.visibility=View.GONE
+            mostLikeNum.visibility=View.GONE
         }
     }
 
