@@ -38,9 +38,11 @@ class UsersRVAdapter(val context: Context , val listener: UsersDeleteOnClickList
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.userName.text =  users[position].getUsername()
-        if(!users[position].getUserStatus().equals(CustomerStatus.PREMIUM.text)){
+        if(!users[position].getUserStatus().equals(CustomerStatus.PREMIUM)){
             holder.premiumUserSymbol.visibility=View.GONE
         }
+        else
+            holder.premiumUserSymbol.visibility=View.VISIBLE
         holder.recipes.text= users[position].getAddedRecipes().size.toString() + " recipes"
 
         holder.deleteButton.setOnClickListener{

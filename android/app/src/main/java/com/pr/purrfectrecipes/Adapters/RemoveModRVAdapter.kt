@@ -26,7 +26,7 @@ class RemoveModRVAdapter(val context: Context, val listener: ModDeleteOnClickLis
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
         return ViewHolder(
-            LayoutInflater.from(context).inflate(R.layout.moderator_rv, parent, false)
+            LayoutInflater.from(context).inflate(R.layout.users_rv, parent, false)
         )
     }
 
