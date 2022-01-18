@@ -34,7 +34,6 @@ class AddAdminChildfragment: Fragment(R.layout.childfragment_admin_add)
         val inputEmail = view.findViewById<EditText>(R.id.inputEmail)
         val enterButton = view.findViewById<TextView>(R.id.enterButton)
 
-        var isMailSend : Boolean = true
 
         enterButton.setOnClickListener{
 
@@ -45,7 +44,7 @@ class AddAdminChildfragment: Fragment(R.layout.childfragment_admin_add)
                 viewModel.addModerator(inputNickname.text.toString(),inputEmail.text.toString(),requireActivity())
                 viewModel.getPasssword().observe(viewLifecycleOwner, {
                     if(viewModel.getPasssword().value!=null){
-                        if(isMailSend){
+
                             var toEmailList: List<String> = listOf(inputEmail.text.toString())
                             val emailSubject = "Moderator Password"
                             val emailBody = "Your password is : "+ viewModel.getPasssword().value.toString()
@@ -58,8 +57,7 @@ class AddAdminChildfragment: Fragment(R.layout.childfragment_admin_add)
                             }catch (error: Exception){
                                 Toast.makeText(requireActivity(), "Something went wrong. Please try again.."+error, Toast.LENGTH_SHORT).show()
                             }
-                            isMailSend = false
-                        }
+
 
                     }
                 })
