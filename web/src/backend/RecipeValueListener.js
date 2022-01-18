@@ -1,5 +1,5 @@
 import './Recipe';
-import { ref, set, get, query, orderByKey, equalTo, update } from "firebase/database";
+import { ref, set, get, query, orderByKey, equalTo, update,orderByChild } from "firebase/database";
 import { getDownloadURL, getStorage, ref as sRef, uploadBytes  } from "firebase/storage";
 import { database } from "./firebase";
 import { v4 as uuidv4 } from 'uuid';
@@ -78,7 +78,36 @@ const getIngredients = async () => {
 
     
 }
+//Delete Moderators
+const removeMod = async (modID) => {
+    //this funtion is writing...
+}
+//Return Moderators
+const getModerators = async () =>{
+        let userStatus = "MODERATOR";
+        let moderators = await findModerator(userStatus);
+        var countModerator = Object.keys(moderators).length;
+   
+        let moderatorObjects = Object.keys(moderators);
+        var moderatorArray = [];
+        for(let i=0; i<countModerator; i++){
+            moderatorArray[i] = {};
+            moderatorArray[i].ModID = moderatorObjects[i];
+            moderatorArray[i].R_UserEmail = moderators[moderatorObjects[i]].R_UserEmail;    
+            moderatorArray[i].R_UserPassword=  moderators[moderatorObjects[i]].R_UserPassword;
+            moderatorArray[i].R_User_Status=  moderators[moderatorObjects[i]].R_User_Status;
+            moderatorArray[i].R_Username= moderators[moderatorObjects[i]].R_Username;
+        }
 
+        return moderatorArray;
+
+}
+//Find Moderators
+const findModerator = async (userStatus) => {
+    let search = await get(query(ref(database, "Users"), orderByChild("R_User_Status"), equalTo(userStatus)));
+    
+    return search.val();
+} 
 //Return Tags
 const TagList = async () => {
     let tags = await getTags();
@@ -252,4 +281,4 @@ const addRecipe = async(user, newRecipe) => {
     }
 }
 
-export {getRecipes,IngredientList,TagList,updateRecipe,findRecipebyID,addRecipe};
+export {getRecipes,IngredientList,TagList,updateRecipe,findRecipebyID,addRecipe,getModerators};
