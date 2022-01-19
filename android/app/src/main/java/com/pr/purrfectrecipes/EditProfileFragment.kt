@@ -65,10 +65,15 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
         doneButton.setOnClickListener{
             if(username.text.isNullOrEmpty())
                 Toast.makeText(requireActivity(), "Please enter username correctly first.", Toast.LENGTH_SHORT).show()
-            else if(password1.text.isNullOrEmpty())
+            else if(!username.text.isNullOrEmpty()){
+                println("burda")
+                viewModel.changeUsername(username.text.toString(),requireActivity())
+                infoProileViewModel.setEditProfile(false)
+            }
+            if(password1.text.isNullOrEmpty())
                 Toast.makeText(requireActivity(), "Please enter the password twice correctly", Toast.LENGTH_SHORT).show()
-            else if(password1.text!=null){
-                if(password2.text!=null){
+            else if(password1.text!=null && !password1.text.toString().equals("*******")){
+                if(password2.text!=null && !password2.text.toString().equals("*******")){
                     val pass1=password1.text.toString()
                     val pass2=password2.text.toString()
                     if(pass1.equals(pass2)){
@@ -82,9 +87,7 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
                     }
                 }
             }
-            else if(!username.text.isNullOrEmpty()){
-                viewModel.changeUsername(username.text.toString(),requireActivity())
-            }
+
             viewModel.changeBio(bio.text.toString())
         }
 

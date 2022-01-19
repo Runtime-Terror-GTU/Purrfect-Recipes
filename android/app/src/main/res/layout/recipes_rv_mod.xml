@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/main_bg"
+        android:layout_marginRight="7sp">
+
+        <LinearLayout
+            android:layout_width="0sp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/main_bg">
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/recipe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="8dp">
+
+                    <ImageView
+                        android:id="@+id/recipePic"
+                        android:layout_width="130sp"
+                        android:layout_height="120sp"
+                        android:src="@drawable/cinnamon_roll"
+                        android:scaleType="centerCrop"/>
+
+                </androidx.cardview.widget.CardView>
+
+
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginTop="7sp"
+                android:gravity="center"
+                android:layout_marginRight="8sp"
+                android:layout_marginBottom="7sp"
+                android:layout_marginLeft="5sp">
+
+                <TextView
+                    android:id="@+id/recipeName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Cinnamon Roll Cupcake"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:layout_marginBottom="3sp"
+                    android:fontFamily="@font/josefin_slab_bold"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:id="@+id/recipeOwner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="by Purrfect Recipes"
+                    android:layout_marginBottom="5sp"
+                    android:layout_gravity="center"
+                    android:textColor="@color/black"
+                    android:textSize="13sp"
+                    android:fontFamily="@font/josefin_slab"
+                    android:gravity="center"/>
+
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.15"
+            android:orientation="vertical"
+            android:layout_gravity="center">
+
+            <ImageView
+                android:id="@+id/deleteRecipeButton"
+                android:layout_width="42sp"
+                android:layout_height="42sp"
+                android:src="@drawable/trash_box"
+                android:layout_marginBottom="5sp"
+                android:layout_gravity="center"/>
+
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

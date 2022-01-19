@@ -115,7 +115,13 @@ class SettingsRepository(val connector: SettingsVMRepConnector){
                     }
 
                 }
-                connector.getMostLike(addedRecipeLike.maxOrNull()!!)
+                if(addedRecipeLike.maxOrNull()==null){
+                    connector.getMostLike(0)
+                }
+                else{
+                    connector.getMostLike(addedRecipeLike.maxOrNull()!!)
+                }
+
             }
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
