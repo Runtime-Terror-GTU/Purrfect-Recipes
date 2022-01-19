@@ -44,10 +44,10 @@ class RequestsModeratorChildfragment: Fragment(R.layout.childfragment_moderator_
     }
 
     override fun onApproveClick(requestID:String){
-        viewModel.suggestionApprove(requestID,requireActivity())
+        viewModel.suggestionApprove(requestID)
     }
     override fun onDenyClick(requestID:String){
-        viewModel.suggestionDeny(requestID,requireActivity())
+        viewModel.suggestionDeny(requestID)
     }
 
 

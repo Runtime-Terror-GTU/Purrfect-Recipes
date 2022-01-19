@@ -1,8 +1,6 @@
 package com.pr.purrfectrecipes.Moderator
 
-import android.app.Activity
 import android.util.Log
-import android.widget.Toast
 import com.google.firebase.database.*
 import com.pr.purrfectrecipes.Connectors.RequestsModeratorVMRepConnecter
 
@@ -16,10 +14,8 @@ class RequestsModeratorRepository(val connector: RequestsModeratorVMRepConnecter
             override fun onDataChange(snapshot: DataSnapshot) {
                 val suggestionsArray = ArrayList<String>()
                 for(ds in snapshot.children){
-
                     val suggestion= "Suggested ingredient: " + ds.key.toString()
                     suggestionsArray.add(suggestion)
-
                 }
                 connector.onSuggestionsRetrieved(suggestionsArray)
                 connector.size(suggestionsArray.size)
@@ -31,31 +27,15 @@ class RequestsModeratorRepository(val connector: RequestsModeratorVMRepConnecter
         })
     }
 
-    fun approveSuggestion(suggestedIngredient:String , activity: Activity){
+    fun approveSuggestion(suggestedIngredient:String ){
         ingredientsRef.child(suggestedIngredient.lowercase()).setValue(true)
         suggestionsRef.child(suggestedIngredient.lowercase()).removeValue()
-        connector.suggestionApprove(suggestedIngredient,activity)
+        connector.suggestionApprove(suggestedIngredient)
     }
 
-    fun denySuggestion(suggestedIngredient:String , activity: Activity){
-        suggestionsRef.addListenerForSingleValueEvent(object :
-            ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                for(ds in snapshot.children){
+    fun denySuggestion(suggestedIngredient:String){
+        suggestionsRef.child(suggestedIngredient).removeValue()
+        connector.suggestionDeny(suggestedIngredient)
 
-                    val suggestion= ds.key.toString()
-                    if(suggestedIngredient.equals(suggestion)){
-                        ds.ref.removeValue()
-                        connector.suggestionDeny(suggestedIngredient,activity)
-                        return
-                    }
-                }
-                return
-
-            }
-            override fun onCancelled(error: DatabaseError) {
-                Toast.makeText( activity,"Suggestion has not denied."+error, Toast.LENGTH_SHORT).show()
-            }
-        })
     }
 }

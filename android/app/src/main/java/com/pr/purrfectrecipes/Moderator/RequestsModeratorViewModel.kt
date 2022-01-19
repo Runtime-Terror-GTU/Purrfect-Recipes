@@ -33,11 +33,11 @@ class RequestsModeratorViewModel: ViewModel(), RequestsModeratorVMRepConnecter
         size.value=count
 
     }
-    override fun suggestionApprove(suggestedIngredient:String , activity: Activity){
-        repository.approveSuggestion(suggestedIngredient,activity)
+    override fun suggestionApprove(suggestedIngredient:String){
+        repository.approveSuggestion(suggestedIngredient)
     }
-    override fun suggestionDeny(suggestedIngredient:String , activity: Activity){
-        repository.denySuggestion(suggestedIngredient,activity)
+    override fun suggestionDeny(suggestedIngredient:String){
+        repository.denySuggestion(suggestedIngredient)
     }
 
 }
