@@ -85,13 +85,18 @@ export const RecipeScreen = () => {
             try {
                 let user = JSON.parse(localStorage.getItem("currentUser"));
                 let flag = true;
-                for(let i=0; i<Object.keys(user[Object.keys(user)].R_PurrfectedRecipes).length; i++){
-                    if( Object.keys(user[Object.keys(user)].R_PurrfectedRecipes)[i] === recipe.RecipeID.toString() ){
-                        //zaten begenmisim o zaman begenmicem artık
-                        flag = false; 
-                        break;
-                    } 
+                if('R_PurrfectedRecipes' in user[Object.keys(user)]){
+                    for(let i=0; i<Object.keys(user[Object.keys(user)].R_PurrfectedRecipes).length; i++){
+                        if( Object.keys(user[Object.keys(user)].R_PurrfectedRecipes)[i] === recipe.RecipeID.toString() ){
+                            //zaten begenmisim o zaman begenmicem artık
+                            flag = false; 
+                            break;
+                        } 
+                    }                
+                } else{
+                    console.log("kfjdlkfjld")
                 }
+
                 let newRecipe = await purrfectedRecipe(user, recipe, flag)
                 localStorage.setItem("currentRecipe", JSON.stringify(newRecipe))
                 let newUser = user;
