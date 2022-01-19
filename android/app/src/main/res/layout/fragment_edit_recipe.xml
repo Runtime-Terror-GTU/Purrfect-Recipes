@@ -90,6 +90,7 @@
                 android:layout_marginLeft="15sp"
                 android:fontFamily="@font/josefin_slab_bold"
                 android:gravity="top"
+                android:maxLength="30"
                 android:textSize="20sp"/>
 
             <TextView

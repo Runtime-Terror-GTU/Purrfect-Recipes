@@ -29,8 +29,8 @@
                     android:id="@+id/recipePicRV"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/kruvasan"
-                    android:scaleType="centerCrop"/>
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/kruvasan" />
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/purrfectButtonRV"
@@ -65,11 +65,12 @@
         <TextView
             android:id="@+id/recipeNameRV"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="33sp"
             android:layout_gravity="center"
             android:layout_marginTop="-6sp"
             android:layout_marginLeft="6sp"
             android:layout_marginRight="5sp"
+            android:gravity="center|left"
             android:fontFamily="@font/josefin_slab_bold"
             android:text="Chocolate Croissant"
             android:textColor="@color/black"

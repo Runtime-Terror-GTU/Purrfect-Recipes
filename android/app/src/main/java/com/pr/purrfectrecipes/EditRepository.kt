@@ -15,12 +15,13 @@ class EditRepository(val connector: EditVMRepConnector) {
     private val userID = Hawk.get<String>(Constants.LOGGEDIN_USERID)
     private val userStatus = Hawk.get<CustomerStatus>(Constants.LOGGEDIN_USER_STATUS)
     fun userInfoRetrive(){
-        usersRef.child(userID).addListenerForSingleValueEvent(object : ValueEventListener {
+        usersRef.child(userID).addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val name = snapshot.child(Constants.R_USERNAME).value.toString()
                 val bio = snapshot.child(Constants.R_USERBIO).value.toString()
                 val pic = snapshot.child(Constants.R_USERPICTURE).value.toString()
-                val user = Customer(userID, name, "email","12345", userStatus, bio, pic)
+                val pass=snapshot.child(Constants.R_USERPASS).value.toString()
+                val user = Customer(userID, name, "email",pass, userStatus, bio, pic)
                 connector.userInfo(user)
             }
             override fun onCancelled(error: DatabaseError) {

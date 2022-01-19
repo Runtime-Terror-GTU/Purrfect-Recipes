@@ -74,8 +74,8 @@
                     android:layout_gravity="center"
                     android:text="Cinnamon Roll Cupcake"
                     android:textColor="@color/black"
-                    android:textSize="20sp"
-                    android:layout_marginBottom="4sp"
+                    android:textSize="18sp"
+                    android:layout_marginBottom="3sp"
                     android:fontFamily="@font/josefin_slab_bold"
                     android:gravity="center"/>
 
@@ -84,10 +84,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="by Purrfect Recipes"
-                    android:layout_marginBottom="7sp"
+                    android:layout_marginBottom="5sp"
                     android:layout_gravity="center"
                     android:textColor="@color/black"
-                    android:textSize="14sp"
+                    android:textSize="13sp"
                     android:fontFamily="@font/josefin_slab"
                     android:gravity="center"/>
 
