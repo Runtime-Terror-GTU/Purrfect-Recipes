@@ -4,6 +4,7 @@ import { getDownloadURL, getStorage, ref as sRef, uploadBytes, deleteObject } fr
 import { database } from "./firebase";
 import { v4 as uuidv4 } from 'uuid';
 import { findUser } from './UserService';
+import { getRecipeOfTheDay } from './RecipeOfTheDayServices';
 
 
 const getRecipes = async () => {
@@ -423,6 +424,17 @@ const deleteRecipeFromFirebase = async(user, recipe) => {
     }
     console.log("Recipes/"+recipe.RecipeID.toString())
     remove(ref(database,"Recipes/"+recipe.RecipeID.toString()));
+    //eğer günün recipe ı ise değiştir
+    var search = await get(query(ref(database, "Recipe of The Day"), orderByKey()));
+    var todayObject = new Date();
+    var dd = String(todayObject.getDate()).padStart(2, '0');
+    var mm = String(todayObject.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = todayObject.getFullYear();
+    var today = dd + ' ' + mm + ' ' + yyyy;
+    if( search.val()[today].toString() === recipe.RecipeID.toString() ){
+        remove(ref(database,"Recipe of The Day/"));
+        getRecipeOfTheDay();
+    }
 }
 
 export {deleteRecipeFromFirebase,getRecipes,IngredientList,TagList,updateRecipe,findRecipebyID,addRecipe,getModerators,removeMod,addModerator,purrfectedRecipe,findRecipeOwner};
