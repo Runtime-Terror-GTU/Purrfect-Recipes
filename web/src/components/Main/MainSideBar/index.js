@@ -53,7 +53,7 @@ const Sidebar = ({isOpen, toggle}) => {
                     to="/addrecipe">Add a Purrfect Recipe</SidebarRoute>
                 </SideBtnWrap>
                 <SideBtnWrap>
-                    <SidebarRoute to="/profile">Profile</SidebarRoute>
+                    <SidebarRoute to="/profilePage">Profile</SidebarRoute>
                 </SideBtnWrap>
             </SidebarWrapper>
 

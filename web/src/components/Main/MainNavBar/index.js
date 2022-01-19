@@ -77,7 +77,7 @@ const MainNavBar = ({toggle}) => {
                         </NavBtn>
 
                         <NavBtn>
-                            <NavBtnLink to="/profile">Profile</NavBtnLink>
+                            <NavBtnLink to="/profilePage">Profile</NavBtnLink>
                         </NavBtn>
 
                     </NavbarContainer>
