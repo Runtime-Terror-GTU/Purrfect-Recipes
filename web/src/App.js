@@ -29,11 +29,9 @@ function App(){
         <Route path="/addrecipe" component={AddRecipe} exact />
         <Route path="/admin" component={Admin} exact />
         <Route path="/moderator" component={Moderator} exact />
-<<<<<<< Updated upstream
-=======
         <Route path="/profilepage" component={ProfilePage} exact />
 
->>>>>>> Stashed changes
+
       </Switch>
     </Router>
   )
