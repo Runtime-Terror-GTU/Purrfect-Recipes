@@ -11,6 +11,8 @@ import EditRecipe from './pages/editrecipe';
 import AddRecipe from './pages/addrecipe';
 import Admin from './pages/admin';
 import Moderator from './pages/moderator';
+import ProfilePage from './components/ProfilePage';
+
 
 //recipe duzenlenecek
 function App(){
@@ -27,6 +29,9 @@ function App(){
         <Route path="/addrecipe" component={AddRecipe} exact />
         <Route path="/admin" component={Admin} exact />
         <Route path="/moderator" component={Moderator} exact />
+        <Route path="/profilepage" component={ProfilePage} exact />
+
+
       </Switch>
     </Router>
   )
