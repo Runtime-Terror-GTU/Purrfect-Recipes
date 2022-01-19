@@ -1,5 +1,6 @@
 package com.pr.purrfectrecipes
 
+import android.app.Activity
 import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -27,6 +28,14 @@ class EditViewModel: ViewModel(), EditVMRepConnector {
         repository.changePassword(newPass)
         if(imageUri!=null)
             repository.changePicture(imageUri!!)
+    }
+    fun changeUsername(newName:String,activity: Activity){
+        if(!newName.equals(username.value.toString())){
+            repository.changeUserName(newName,activity)
+        }
+    }
+    fun changeBio(newBio:String){
+        repository.changeBio(newBio)
     }
 
 }

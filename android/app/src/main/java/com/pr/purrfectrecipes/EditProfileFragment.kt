@@ -81,6 +81,10 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
                     }
                 }
             }
+            else if(!username.text.isNullOrEmpty()){
+                viewModel.changeUsername(username.text.toString(),requireActivity())
+            }
+            viewModel.changeBio(bio.text.toString())
         }
 
         cancelButton.setOnClickListener {

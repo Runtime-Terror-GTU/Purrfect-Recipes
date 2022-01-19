@@ -1,6 +1,8 @@
 package com.pr.purrfectrecipes
 
+import android.app.Activity
 import android.net.Uri
+import android.widget.Toast
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import com.orhanobut.hawk.Hawk
@@ -41,5 +43,34 @@ class EditRepository(val connector: EditVMRepConnector) {
                     usersRef.child(userID).child(Constants.R_USERPICTURE).setValue(imageLink)
                 }
             }
+    }
+    fun changeBio(bio:String){
+        usersRef.child(userID).child(Constants.R_USERBIO).setValue(bio)
+
+    }
+    fun changeUserName(name:String,activity: Activity){
+        usersRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                var isUnique=true
+                for(ds in snapshot.children){
+                    val userName = ds.child(Constants.R_USERNAME).value
+                    if(name.equals(userName.toString())){
+                        Toast.makeText(activity,"There is already a user with this username", Toast.LENGTH_SHORT).show()
+                        isUnique=false
+                        return
+                    }
+
+                }
+                if(isUnique){
+                    usersRef.child(userID).child(Constants.R_USERNAME).setValue(name)
+                    Toast.makeText(activity,"Your username is changed.", Toast.LENGTH_SHORT).show()
+                    return
+                }
+                return
+            }
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
     }
 }
