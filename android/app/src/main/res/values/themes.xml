@@ -10,6 +10,7 @@
         <item name="colorSecondaryVariant">@color/secondary</item>
         <item name="colorOnSecondary">@color/secondary</item>
         <!-- Customize your theme here. -->
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
     </style>
 
     <style name="Theme2.StartScreen" parent="Theme.MaterialComponents.DayNight.NoActionBar">
@@ -25,6 +26,7 @@
         <item name="android:statusBarColor" tools:targetApi="l">@color/main</item>
         <item name="android:navigationBarColor">@color/main</item>
         <!-- Customize your theme here. -->
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
     </style>
 
     <style name="SplashTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
@@ -39,6 +41,7 @@
         <item name="android:windowBackground">@drawable/splash_screen</item>
         <item name="android:statusBarColor" tools:targetApi="l">@color/status_bar_secondary</item>
         <item name="android:navigationBarColor">@color/status_bar_secondary</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
     </style>
 
     <style name="AuthenticationTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
@@ -52,6 +55,7 @@
 
         <item name="android:statusBarColor" tools:targetApi="l">@color/status_bar_secondary</item>
         <item name="android:navigationBarColor">@color/nav_bar_secondary</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
     </style>
 
     <style name="JosefinSlabTextViewStyle" parent="android:Widget.TextView">
