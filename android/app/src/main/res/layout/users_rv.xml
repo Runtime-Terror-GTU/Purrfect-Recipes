@@ -35,6 +35,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@color/background_main"
+                        android:scaleType="centerCrop"
                         android:src="@drawable/profilepic1" />
                 </androidx.cardview.widget.CardView>
                 <RelativeLayout
