@@ -32,18 +32,9 @@ class RequestsModeratorRepository(val connector: RequestsModeratorVMRepConnecter
     }
 
     fun approveSuggestion(suggestedIngredient:String , activity: Activity){
-        ingredientsRef.addListenerForSingleValueEvent(object :
-            ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                ingredientsRef.child(suggestedIngredient.lowercase()).setValue(true)
-                removeInDS(suggestedIngredient)
-                connector.suggestionApprove(suggestedIngredient,activity)
-            }
-            override fun onCancelled(error: DatabaseError) {
-               // Toast.makeText( Activity(),"Suggestion has not approved."+error, Toast.LENGTH_SHORT).show()
-                Toast.makeText( activity,"Suggestion has not approved."+error, Toast.LENGTH_SHORT).show()
-            }
-        })
+        ingredientsRef.child(suggestedIngredient.lowercase()).setValue(true)
+        suggestionsRef.child(suggestedIngredient.lowercase()).removeValue()
+        connector.suggestionApprove(suggestedIngredient,activity)
     }
 
     fun denySuggestion(suggestedIngredient:String , activity: Activity){
@@ -64,22 +55,6 @@ class RequestsModeratorRepository(val connector: RequestsModeratorVMRepConnecter
             }
             override fun onCancelled(error: DatabaseError) {
                 Toast.makeText( activity,"Suggestion has not denied."+error, Toast.LENGTH_SHORT).show()
-            }
-        })
-    }
-    private fun removeInDS(suggestedIngredient:String ){
-        suggestionsRef.addValueEventListener(object :
-            ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                for(ds in snapshot.children){
-                    val suggestion= ds.key.toString()
-                    if(suggestedIngredient.equals(suggestion)){
-                        ds.ref.removeValue() //test etmedim henüz.
-                    }
-                }
-            }
-            override fun onCancelled(error: DatabaseError) {
-                Log.e("ERROR", error.message)
             }
         })
     }
