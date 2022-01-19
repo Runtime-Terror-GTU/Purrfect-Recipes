@@ -75,12 +75,13 @@ class RecipesHomeViewModel: ViewModel(), RecipesHomeVMRepConnector
     {
         val tempList=ArrayList<Recipe>()
         for(recipe in recipes.value!!)
-            for(tag in tags)
-                if(recipe.isRecipeTag(tag))
-                {
+            for(tag in tags) {
+                if (recipe.isRecipeTag(tag) && !tempList.contains(recipe)) {
                     tempList.add(recipe)
-                    break
                 }
+                else if(!recipe.isRecipeTag(tag))
+                    tempList.remove(recipe)
+            }
         recipes.value=tempList
     }
 
