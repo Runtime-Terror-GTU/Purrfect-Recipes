@@ -37,5 +37,9 @@ class EditViewModel: ViewModel(), EditVMRepConnector {
     fun changeBio(newBio:String){
         repository.changeBio(newBio)
     }
+    fun changePicture2(defaultPic:String){
+        repository.changePictureDefault(defaultPic)
+
+    }
 
 }

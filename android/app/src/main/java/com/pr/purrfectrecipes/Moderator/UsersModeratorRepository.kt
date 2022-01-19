@@ -14,16 +14,13 @@ class UsersModeratorRepository(val connector: UsersModeratorVMRepConnecter)  {
 
 
     private val usersRef: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users")
-    private val usersRef2: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users")
-    private val commentRef : DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Comments")
+   private val commentRef : DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Comments")
     private val recipeRef :  DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Recipes")
     private val commentRef2 : DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Comments")
     private val recipeOfDayRef : DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Recipe of The Day")
 
-    private val userID = ArrayList<String>()
     private val users = ArrayList<Customer>()
     private val recipeIDs = ArrayList<String>()
-    private var addedRecipeNum = 0
     init{
         userRetrive()
     }
@@ -55,9 +52,7 @@ class UsersModeratorRepository(val connector: UsersModeratorVMRepConnecter)  {
                             user.addAddedRecipe(addedRecipes.key.toString())
 
                         users.add(user!!)
-
                     }
-                  //  userID.add(user)
 
                 }
                 connector.onUsersRetrieved(users)
@@ -67,55 +62,9 @@ class UsersModeratorRepository(val connector: UsersModeratorVMRepConnecter)  {
             }
         })
     }
-   /* fun userInfoRetrive(id:String){
-        usersRef.child(id).addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val name  = snapshot.child(Constants.R_USERNAME).value.toString()
-                val status = snapshot.child(Constants.R_USERSTATUS).value.toString()
-                val profilePic = snapshot.child(Constants.R_USERPICTURE).value.toString()
-                addedRecipeNum = 0
-                usersRef2.child(id).child(Constants.R_ADDEDRECIPES).addValueEventListener(object : ValueEventListener {
-                    override fun onDataChange(ss: DataSnapshot) {
-                        for(ds in ss.children){
-                            addedRecipeNum += 1
-                        }
-                        if(!status.equals(CustomerStatus.ADMIN.text) && !status.equals(CustomerStatus.MODERATOR.text) ){
-                            val recivedUser = UserClass(id,name,status,profilePic,addedRecipeNum)
-                            users.add(recivedUser)
-                            addedRecipeNum = 0
-                        }
-
-                    }
-                    override fun onCancelled(error: DatabaseError) {
-                        TODO("Not yet implemented")
-                    }
-                })
-                return
-            }
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-        })
-    }
-    fun userRetrive(){
-        usersRef.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                for(ds in snapshot.children){
-                    val user= ds.key.toString()
-                    userInfoRetrive(user)
-                }
-                connector.onUsersRetrieved(users)
-            }
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-        })
-
-    }*/
-
     fun deleteUser(user:Customer, activity:Activity){
 
-       usersRef.child(user.getUserID()).addListenerForSingleValueEvent(object : ValueEventListener {
+        usersRef.child(user.getUserID()).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for(ds in snapshot.children){
                     if(ds.key.toString().equals(Constants.R_ADDEDRECIPES)){
@@ -163,31 +112,11 @@ class UsersModeratorRepository(val connector: UsersModeratorVMRepConnecter)  {
     }
     fun deleteComments(commentID:String){
         commentRef.child(commentID).removeValue()
-      /*  commentRef.child(commentID).addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                commentRef.child(commentID).removeValue()
-            }
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-        })*/
     }
     fun deleteRecipe(recipeID: String){
         recipeRef.child(recipeID).removeValue()
         val storageRef= FirebaseStorage.getInstance().getReference().child("Recipe Pictures")
         storageRef.child(recipeID).delete()
-        /*
-        recipeRef.child(recipeID).child(Constants.R_RECIPECOMMENTS).addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-
-                recipeRef.child(recipeID).removeValue()
-                val storageRef= FirebaseStorage.getInstance().getReference().child("Recipe Pictures")
-                storageRef.child(recipeID).delete()
-            }
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-        })*/
     }
     fun checkRecipeOfTheDay(recipeID:String){
         recipeOfDayRef.addListenerForSingleValueEvent(object :ValueEventListener {
@@ -231,14 +160,6 @@ class UsersModeratorRepository(val connector: UsersModeratorVMRepConnecter)  {
                 val id = snapshot.getValue().toString()
                 if(id.equals(userId)){
                     commentRef2.child(commentID).removeValue()
-                  /*  commentRef2.child(commentID).addListenerForSingleValueEvent(object : ValueEventListener {
-                        override fun onDataChange(snapshot: DataSnapshot) {
-                            commentRef2.child(commentID).removeValue()
-                        }
-                        override fun onCancelled(error: DatabaseError) {
-                            TODO("Not yet implemented")
-                        }
-                    })*/
                 }
             }
             override fun onCancelled(error: DatabaseError) {

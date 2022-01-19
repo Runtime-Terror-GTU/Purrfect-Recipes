@@ -1,8 +1,10 @@
 package com.pr.purrfectrecipes
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
@@ -22,7 +24,7 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val username = view.findViewById<TextView>(R.id.username)
+        val username = view.findViewById<EditText>(R.id.username)
         val bio = view.findViewById<EditText>(R.id.bio)
         val password1 = view.findViewById<EditText>(R.id.password1)
         val password2 = view.findViewById<EditText>(R.id.password2)
@@ -35,7 +37,7 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
             if(viewModel.getUser().value!=null) {
                 val user = viewModel.getUser().value
                 bio.setText(user?.getUserBio()!!)
-                username.text=user.getUsername()
+                username.setText(user.getUsername())
                 password1.setText(user.getUserPassword())
                 password2.setText(user.getUserPassword())
                 Glide.with(requireContext())
@@ -55,8 +57,7 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
                     )
                 }
                 else{
-                    Toast.makeText(requireActivity(), "You should be premium user.", Toast.LENGTH_SHORT).show()
-
+                    showPictures()
                 }
             }
 
@@ -99,5 +100,111 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
             userProfilePic?.setImageURI(selectedImageUri)
             viewModel.imageUri=(selectedImageUri)
         }
+    }
+    fun showPictures(){
+
+        val picturesBoxView = LayoutInflater.from(activity).inflate(R.layout.select_picture_dialog, null)
+
+        val picturesBoxBuilder = AlertDialog.Builder(activity).setView(picturesBoxView)
+
+
+
+        //show dialog
+        val  pictureBoxInstance = picturesBoxBuilder.show()
+
+        val default_pic1 = picturesBoxView.findViewById<ImageView>(R.id.default_pic1)
+        val default_pic2 = picturesBoxView.findViewById<ImageView>(R.id.default_pic2)
+        val default_pic3 = picturesBoxView.findViewById<ImageView>(R.id.default_pic3)
+        val default_pic4 = picturesBoxView.findViewById<ImageView>(R.id.default_pic4)
+        val default_pic5 = picturesBoxView.findViewById<ImageView>(R.id.default_pic5)
+        val default_pic6 = picturesBoxView.findViewById<ImageView>(R.id.default_pic6)
+        val default_pic7 = picturesBoxView.findViewById<ImageView>(R.id.default_pic7)
+        val default_pic8 = picturesBoxView.findViewById<ImageView>(R.id.default_pic8)
+        val default_pic9 = picturesBoxView.findViewById<ImageView>(R.id.default_pic9)
+        val default_pic10 = picturesBoxView.findViewById<ImageView>(R.id.default_pic10)
+        val default_pic11 = picturesBoxView.findViewById<ImageView>(R.id.default_pic11)
+        val default_pic12 = picturesBoxView.findViewById<ImageView>(R.id.default_pic12)
+
+
+        default_pic1.setOnClickListener {
+            viewModel.changePicture2("default_pic1")
+            pictureBoxInstance.dismiss()
+            Toast.makeText(requireActivity(), "Your picture is changing..", Toast.LENGTH_SHORT).show()
+
+        }
+        default_pic2.setOnClickListener {
+            viewModel.changePicture2("default_pic2")
+            pictureBoxInstance.dismiss()
+            Toast.makeText(requireActivity(), "Your picture is changing..", Toast.LENGTH_SHORT).show()
+
+        }
+        default_pic3.setOnClickListener {
+            viewModel.changePicture2("default_pic3")
+            pictureBoxInstance.dismiss()
+            Toast.makeText(requireActivity(), "Your picture is changing..", Toast.LENGTH_SHORT).show()
+
+        }
+        default_pic4.setOnClickListener {
+            viewModel.changePicture2("default_pic4")
+            pictureBoxInstance.dismiss()
+            Toast.makeText(requireActivity(), "Your picture is changing..", Toast.LENGTH_SHORT).show()
+
+        }
+        default_pic5.setOnClickListener {
+            viewModel.changePicture2("default_pic5")
+            pictureBoxInstance.dismiss()
+            Toast.makeText(requireActivity(), "Your picture is changing..", Toast.LENGTH_SHORT).show()
+
+        }
+        default_pic6.setOnClickListener {
+            viewModel.changePicture2("default_pic6")
+            pictureBoxInstance.dismiss()
+            Toast.makeText(requireActivity(), "Your picture is changing..", Toast.LENGTH_SHORT).show()
+
+        }
+        default_pic7.setOnClickListener {
+            viewModel.changePicture2("default_pic7")
+            pictureBoxInstance.dismiss()
+            Toast.makeText(requireActivity(), "Your picture is changing..", Toast.LENGTH_SHORT).show()
+
+        }
+        default_pic8.setOnClickListener {
+            viewModel.changePicture2("default_pic8")
+            pictureBoxInstance.dismiss()
+            Toast.makeText(requireActivity(), "Your picture is changing..", Toast.LENGTH_SHORT).show()
+
+        }
+        default_pic9.setOnClickListener {
+            viewModel.changePicture2("default_pic9")
+            pictureBoxInstance.dismiss()
+            Toast.makeText(requireActivity(), "Your picture is changing..", Toast.LENGTH_SHORT).show()
+
+        }
+        default_pic10.setOnClickListener {
+            viewModel.changePicture2("default_pic10")
+            pictureBoxInstance.dismiss()
+            Toast.makeText(requireActivity(), "Your picture is changing..", Toast.LENGTH_SHORT).show()
+
+        }
+        default_pic11.setOnClickListener {
+            viewModel.changePicture2("default_pic11")
+            pictureBoxInstance.dismiss()
+            Toast.makeText(requireActivity(), "Your picture is changing..", Toast.LENGTH_SHORT).show()
+
+        }
+        default_pic12.setOnClickListener {
+            viewModel.changePicture2("default_pic12")
+            pictureBoxInstance.dismiss()
+            Toast.makeText(requireActivity(), "Your picture is changing..", Toast.LENGTH_SHORT).show()
+
+        }
+
+
+
+
+
+
+
+
     }
 }
