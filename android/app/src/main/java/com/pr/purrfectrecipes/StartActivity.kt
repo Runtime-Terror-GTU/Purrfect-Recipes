@@ -16,6 +16,8 @@ import com.pr.purrfectrecipes.Guest.GuestActivity
 import com.pr.purrfectrecipes.Moderator.ModeratorActivity
 import com.pr.purrfectrecipes.User.*
 import com.google.android.material.textfield.TextInputLayout
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.orhanobut.hawk.Hawk
 import java.util.*
 

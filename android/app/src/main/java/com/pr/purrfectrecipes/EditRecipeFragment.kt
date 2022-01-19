@@ -359,4 +359,8 @@ class EditRecipeFragment : Fragment(R.layout.fragment_edit_recipe), TagOnSelecte
     override fun onStepDeleted(stepText: String) {
         viewModel.removeStep(stepText)
     }
+
+    override fun onStepChanged(stepText: String, stepNo: Int) {
+        viewModel.updateStep(stepText, stepNo)
+    }
 }

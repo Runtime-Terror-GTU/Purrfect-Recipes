@@ -1,6 +1,8 @@
 package com.pr.purrfectrecipes.Adapters
 
 import android.content.Context
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,6 +36,19 @@ class RecipeNewStepsRVAdapter(val context: Context, val listener: StepDeletedLis
         holder.deleteStep.setOnClickListener {
             listener.onStepDeleted(steps.get(position))
         }
+        holder.step.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                listener.onStepChanged(p0.toString(), position)
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+                listener.onStepChanged(p0.toString(), position)
+            }
+        })
     }
 
     override fun getItemCount(): Int {
@@ -43,4 +58,5 @@ class RecipeNewStepsRVAdapter(val context: Context, val listener: StepDeletedLis
     fun setSteps(list: ArrayList<String>) {
         steps = list
     }
+
 }

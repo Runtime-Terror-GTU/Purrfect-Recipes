@@ -151,6 +151,14 @@ class EditRecipeViewModel: ViewModel(),FilterVMRepConnector, EditIngredientsVMRe
         repository.updateRecipe(recipe.value!!, newRecipePicUri)
     }
 
+    fun updateStep(text:String, no:Int)
+    {
+        if(recipe.value==null)
+            recipeSteps.value?.set(no, text)
+        else
+            recipe.value!!.getRecipeStages().set(no, text)
+    }
+
     override fun onTagsRetrieved(tags: ArrayList<String>) {
         allTags=tags
     }
