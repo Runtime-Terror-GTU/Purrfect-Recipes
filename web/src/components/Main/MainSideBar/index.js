@@ -55,6 +55,13 @@ const Sidebar = ({isOpen, toggle}) => {
                 <SideBtnWrap>
                     <SidebarRoute to="/profile">Profile</SidebarRoute>
                 </SideBtnWrap>
+                <SideBtnWrap>
+                    <SidebarRoute to="/" 
+                    onClick={(e) => {window.localStorage.clear()} }
+                    >
+                        Logout
+                    </SidebarRoute>
+                </SideBtnWrap>
             </SidebarWrapper>
 
         </SidebarContainer>

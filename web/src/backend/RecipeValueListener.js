@@ -1,6 +1,6 @@
 import './Recipe';
-import { ref, set, get, query, orderByKey, equalTo, update,orderByChild,remove } from "firebase/database";
-import { getDownloadURL, getStorage, ref as sRef, uploadBytes  } from "firebase/storage";
+import { ref, set, get, query, orderByKey, equalTo, update, orderByChild, remove } from "firebase/database";
+import { getDownloadURL, getStorage, ref as sRef, uploadBytes, deleteObject } from "firebase/storage";
 import { database } from "./firebase";
 import { v4 as uuidv4 } from 'uuid';
 import { findUser } from './UserService';
@@ -217,8 +217,8 @@ const updateRecipe = async(recipeID, updatedRecipe) => {
 
 //Call the Recipe from firebase database (according to Recipe ID)
 const findRecipebyID = async (recipeID) => {
-    console.log(recipeID)
-    console.log(typeof  recipeID)
+    //console.log(recipeID)
+    //console.log(typeof  recipeID)
 
     var search = await get(query(ref(database, "Recipes"), orderByKey(), equalTo(recipeID.toString())));
     recipeID = Object.keys(search.val());
@@ -245,7 +245,7 @@ const findRecipebyID = async (recipeID) => {
     return recipe;
 }
 
-//updates recipe's info
+//add recipe
 const addRecipe = async(user, newRecipe) => {
     newRecipe.R_RecipeOwnerID = Object.keys(user);
     let picURL = newRecipe.R_RecipePicture;
@@ -300,36 +300,130 @@ const addRecipe = async(user, newRecipe) => {
     }
 }
 
+const purrfectedRecipe = async(user, recipe, purrfectFlag) => {
+    /**
+     * flag === false => zaten begenmisim o zaman begenmicem artık
+     */
 
-const purrfectedRecipe = async(user, recipe, purrfect) => {
-    console.log(user)
-    console.log(recipe)
-/*
-    if( purrfect ){
-        //ben seni zaten begenmisim
-        //seni silmem lazım
-        /*
-        console.log("deneme1")
-        await remove(ref(database, "Users/" + Object.keys(user) + "/R_PurrfectedRecipes/" + recipe.RecipeID));
-        let num = await get(query(ref(database, "Recipes/" + recipe.RecipeID + "/R_RecipePurrfectedCount")))
-        await update(ref(database, "Recipes/" + recipe.RecipeID + "/R_RecipePurrfectedCount"),
-            num.val()-1
-        );
-    } else{
-        console.log("deneme12")
-
-        await update(ref(database, "Users/" + Object.keys(user) + "/R_PurrfectedRecipes/"), {
-            [recipe.RecipeID]: true
-        });
+    /**
+     * flag == true => //begenmemisim henuz.begenmem lazim
+     */
+    if( purrfectFlag ){
+        //ben bunu henuz begenmedim
+        //once count arttırıcam
+        //ardından profilimdeki purrfectedrecipes'a eklicem
         let num = await get(query(ref(database, "Recipes/" + recipe.RecipeID + "/R_RecipePurrfectedCount")))
         await update(ref(database, "Recipes/" + recipe.RecipeID ), {
-            "R_RecipePurrfectedCount": num.val()+1
+            "R_RecipePurrfectedCount": (parseInt(num.val())+1).toString()
         } );
+        num = await get(query(ref(database, "Recipes/" + recipe.RecipeID + "/R_RecipePurrfectedCount")))
+        //oldu hadi purrfected a ekleyelim
+        let currentPurrfectedsTemp = await get(query(ref(database, "Users/" + Object.keys(user) + "/R_PurrfectedRecipes/")))
+        let currentPurrfecteds = currentPurrfectedsTemp.val();
+        let newPurrfecteds = {}
+        for(let i=0; i<Object.keys(currentPurrfecteds).length; i++){
+            let key = Object.keys(currentPurrfecteds)[i];
+            let value = currentPurrfecteds[key];
+            newPurrfecteds[key] = value;
+        }
+       newPurrfecteds[recipe.RecipeID] = true;
+       await update(ref(database, "Users/" + Object.keys(user) + "/R_PurrfectedRecipes/"), newPurrfecteds);
+
+    } else{
+        let num = await get(query(ref(database, "Recipes/" + recipe.RecipeID + "/R_RecipePurrfectedCount")))
+        await update(ref(database, "Recipes/" + recipe.RecipeID ), {
+            "R_RecipePurrfectedCount": (parseInt(num.val())-1).toString()
+        } );
+        num = await get(query(ref(database, "Recipes/" + recipe.RecipeID + "/R_RecipePurrfectedCount")))
+        //oldu hadi purrfected ten silelim
+        let currentPurrfectedsTemp = await get(query(ref(database, "Users/" + Object.keys(user) + "/R_PurrfectedRecipes/")))
+        let currentPurrfecteds = currentPurrfectedsTemp.val();
+        let newPurrfecteds = {}
+        for(let i=0; i<Object.keys(currentPurrfecteds).length; i++){
+            if( recipe.RecipeID.toString() !== Object.keys(currentPurrfecteds)[i].toString() ){
+                let key = Object.keys(currentPurrfecteds)[i];
+                let value = currentPurrfecteds[key];
+                newPurrfecteds[key] = value;
+            }
+        }
+        await set(ref(database, "Users/" + Object.keys(user) + "/R_PurrfectedRecipes/"), newPurrfecteds);
     }
     let newrecipe = await findRecipebyID(recipe.RecipeID);
     return newrecipe;
-    */
 }
 
-export {getRecipes,IngredientList,TagList,updateRecipe,findRecipebyID,addRecipe,getModerators,removeMod,addModerator,purrfectedRecipe,findRecipeOwner};
+const deleteRecipeFromFirebase = async(user, recipe) => {
+    console.log(user)
+    console.log(recipe)
+    //delete pic from firebase (if it is not default pic)
+    let defaultPicURL = "https://firebasestorage.googleapis.com/v0/b/purrfect-recipes.appspot.com/o/Recipe%20Pictures%2Fno_photo.jpg?alt=media&token=e4eff4ad-f601-47b9-9916-1d1cfb908552"
+    if( recipe.R_RecipePicture !==  defaultPicURL ){
+        const storage = getStorage();
+        const desertRef = sRef(storage, recipe.R_RecipePicture);
+        deleteObject(desertRef);
+    }
+    //delete recipe comments(if exists) from all comments
+    if( recipe.R_RecipeComments !== null && recipe.R_RecipeComments !== undefined ){
+        var searchAllComments = await get(query(ref(database, "Comments"), orderByKey()));
+        var allComments = searchAllComments.val();
+        var recipesComments = recipe.R_RecipeComments;
+        var newComments = {};
+        //console.log(Object.keys(allComments).length)
+        for(let i=0; i<Object.keys(recipesComments).length; i++){
+            for(let j=0; j<Object.keys(allComments).length; j++){
+                let recipeComment = Object.keys(recipesComments)[i].toString();
+                let currentComment = Object.keys(allComments)[j].toString();
+                if( recipeComment !== currentComment ){
+                    let key = Object.keys(allComments)[j];
+                    let value = allComments[key];
+                    newComments[key] = value;
+                } 
+            }
+        }
+        //console.log(Object.keys(newComments).length)
+        await set(ref(database, "Comments/"), newComments);
+    }
+    //delete the recipe from user's added recipes
+    let currentAddedsTemp = await get(query(ref(database, "Users/" + Object.keys(user) + "/R_AddedRecipes/")));
+    let currentAddeds = currentAddedsTemp.val();
+    let newAddeds = {}
+    for(let i=0; i<Object.keys(currentAddeds).length; i++){
+        if( recipe.RecipeID.toString() !== Object.keys(currentAddeds)[i].toString() ){
+            let key = Object.keys(currentAddeds)[i];
+            let value = currentAddeds[key];
+            newAddeds[key] = value;
+            console.log(key)
+        }
+    }
+    await set(ref(database, "Users/" + Object.keys(user) + "/R_AddedRecipes/"), newAddeds);
+    //delete the recipe from a user's purrfected recipes
+    //tüm userların R_PurrfectedRecipes ref ini al ve guncelle mlsf ki aklıma geleen ilk yok bu
+    let allUsersTemp = await get(query(ref(database, "Users/" )));
+    let allUsers = allUsersTemp.val();
+    for(let i=0; i<Object.keys(allUsers).length; i++){
+        let userPurrfectedTemp = await get(query(ref(database, "Users/" + Object.keys(allUsers)[i] + "/R_PurrfectedRecipes/")));
+        let userPurrfected = userPurrfectedTemp.val();
+        let newPurrfecteds = {}
+        let newPurrfectedsFlag = false;
+        if( userPurrfected !== null && userPurrfected !== undefined ){
+            for(let j=0; j<Object.keys(userPurrfected).length; j++){
+                if( recipe.RecipeID.toString() !== Object.keys(userPurrfected)[j].toString() ){
+                    let key = Object.keys(userPurrfected)[j];
+                    let value = userPurrfected[key];
+                    newPurrfecteds[key] = value;
+                } else{
+                    newPurrfectedsFlag = true;
+                }
+            }
+            if( newPurrfectedsFlag ){
+                //there is change so update
+                await set(ref(database, "Users/" + Object.keys(allUsers)[i] + "/R_PurrfectedRecipes/"), newPurrfecteds);
+            }
+        }
+    }
+    console.log("Recipes/"+recipe.RecipeID.toString())
+    remove(ref(database,"Recipes/"+recipe.RecipeID.toString()));
+}
+
+export {deleteRecipeFromFirebase,getRecipes,IngredientList,TagList,updateRecipe,findRecipebyID,addRecipe,getModerators,removeMod,addModerator,purrfectedRecipe,findRecipeOwner};
 

@@ -40,8 +40,9 @@ const onSubmit = async (e) => {
             }
         } else{
             window.location.href = "/signin";
-        }
+        }   
     } else{
+        alert("Fields cannot be empty");
         console.log("login - something empty");
     }
 

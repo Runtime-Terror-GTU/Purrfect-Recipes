@@ -5,10 +5,11 @@ import { findRecipebyID } from "./RecipeValueListener";
 
 const getComment = async(commentID) => {
     let commentFromFirebase = await findComment(commentID);
-    let userFromFirebase = await findRecipeOwner(commentFromFirebase[commentID]["Comment Owner"]);
+    if( commentID !== null && commentID !== undefined){
+        let userFromFirebase = await findRecipeOwner(commentFromFirebase[commentID]["Comment Owner"]);
 
-    let comment = [];
-    comment = {
+        let comment = [];
+        comment = {
                 CommentID: commentID,
                 CommentContent: commentFromFirebase[commentID]["Comment Content"],
                 CommentOwnerID: commentFromFirebase[commentID]["Comment Owner"],
@@ -16,7 +17,8 @@ const getComment = async(commentID) => {
                 CommentOwnerPic: userFromFirebase[commentFromFirebase[commentID]["Comment Owner"]].R_UserPicture,
                 CommentOwnerStatus: userFromFirebase[commentFromFirebase[commentID]["Comment Owner"]].R_User_Status
             }
-    return comment;
+        return comment;
+    }
 }
 
 const findComment = async(commentID) => {

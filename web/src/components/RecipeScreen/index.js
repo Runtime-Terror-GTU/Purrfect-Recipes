@@ -27,7 +27,7 @@ import Footer from '../HomePage/Footer';
 import CommentBox from './CommentBox';
 import AddComment from './AddComment';
 import PremiumIcon from '../../images/premium_symbol.png';
-import { findRecipeOwner, IngredientList, purrfectedRecipe, TagList } from '../../backend/RecipeValueListener';
+import { deleteRecipeFromFirebase, findRecipeOwner, IngredientList, purrfectedRecipe, TagList } from '../../backend/RecipeValueListener';
 import { Button } from 'semantic-ui-react';
 
 export const RecipeScreen = () => {
@@ -36,9 +36,8 @@ export const RecipeScreen = () => {
     //alert("The Value Received is " + b);
     let recipe = JSON.parse(stringRecipe);
     let tags = [];
-    console.log(recipe)
-
-    console.log(recipe.R_Recipe_Tags)
+    //console.log(recipe)
+    //console.log(recipe.R_Recipe_Tags)
     for(let i=0; i<Object.keys(recipe.R_Recipe_Tags).length; i++){
         tags[i] = {};
         tags[i] = Object.keys(recipe.R_Recipe_Tags)[i]; 
@@ -79,33 +78,47 @@ export const RecipeScreen = () => {
         })();
     }, []);
 
-
-    const deleteRecipe = () => {
-        console.log("delete")
-    }
-
     const countPurrfected = (async) => {
         //mevcut recipe favlanlarda varsa azalt
         //yoksa arttır
-        let user = JSON.parse(localStorage.getItem("currentUser"));
-        let flag = false;
-        let newRecipe = recipe;
-        for(let i=0; i<Object.keys(user[Object.keys(user)].R_PurrfectedRecipes).length; i++){
-            if( Object.keys(user[Object.keys(user)].R_PurrfectedRecipes)[i] === recipe.RecipeID ){
-                //zaten begenmisim o zaman begenmicem artık
-                //newRecipe = await purrfectedRecipe(user, recipe, true)
-                flag = true; 
-                break;
-            } 
-        }
-        if( flag === false ){
-            //newRecipe = await purrfectedRecipe(user, recipe, false)  
-        }
-        let newUser = user;
-        //newUser = await findRecipeOwner(Object.keys(user).toString());
-        //localStorage.setItem("currentUser", JSON.stringify(newUser))
-        //localStorage.setItem("currentRecipe", JSON.stringify(newRecipe))
-        //window.location.href="/recipe";
+        (async function() {
+            try {
+                let user = JSON.parse(localStorage.getItem("currentUser"));
+                let flag = true;
+                for(let i=0; i<Object.keys(user[Object.keys(user)].R_PurrfectedRecipes).length; i++){
+                    if( Object.keys(user[Object.keys(user)].R_PurrfectedRecipes)[i] === recipe.RecipeID.toString() ){
+                        //zaten begenmisim o zaman begenmicem artık
+                        flag = false; 
+                        break;
+                    } 
+                }
+                let newRecipe = await purrfectedRecipe(user, recipe, flag)
+                localStorage.setItem("currentRecipe", JSON.stringify(newRecipe))
+                let newUser = user;
+                newUser = await findRecipeOwner(Object.keys(user).toString());
+                localStorage.setItem("currentUser", JSON.stringify(newUser))
+                window.location.href="/recipe";
+            } catch (e) {
+                console.error(e);
+            }
+        })();
+    }
+
+    const deleteRecipe = (async) => {
+        (async function() {
+            try {
+                console.log("delete")
+                let user = JSON.parse(localStorage.getItem("currentUser"));
+                deleteRecipeFromFirebase(user, recipe);
+                let newUser = user;
+                newUser = await findRecipeOwner(Object.keys(user).toString());
+                localStorage.setItem("currentUser", JSON.stringify(newUser))
+                setTimeout(function(){window.location.href="/mainpage"}, 5000);
+
+            } catch (e) {
+                console.error(e);
+            }
+        })();
     }
 
     return (
@@ -184,9 +197,9 @@ export const RecipeScreen = () => {
                             return(
                                 <>
                                 <IconWrapper>
-                                    <IconLink  onClick={deleteRecipe} to='/mainpage' >
+                                    <Button  onClick={deleteRecipe} >
                                         <DeleteIcon /> 
-                                    </IconLink>
+                                    </Button>
                                     <IconLink 
                                     onClick={(e) => {localStorage.setItem("allTags", JSON.stringify(allTags))
                                     localStorage.setItem("allIngredients", JSON.stringify(allIngredients))

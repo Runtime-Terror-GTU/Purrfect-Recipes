@@ -80,6 +80,14 @@ const MainNavBar = ({toggle}) => {
                             <NavBtnLink to="/profile">Profile</NavBtnLink>
                         </NavBtn>
 
+                        <NavBtn>
+                            <NavBtnLink to="/" 
+                            onClick={(e) => {window.localStorage.clear()} }
+                            >
+                                Logout
+                            </NavBtnLink>
+                        </NavBtn>
+
                     </NavbarContainer>
                 </Nav>
             </IconContext.Provider>

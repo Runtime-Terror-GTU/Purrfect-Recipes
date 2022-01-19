@@ -248,7 +248,7 @@ export default class EditRecipeScreen extends React.Component {
                             <ColumnWrapper2>
                             <input type="radio" value="Easy" name="difficulty"
                             onChange={this.handleRecipeDifficulty} 
-                            checked='Easy'/> Easy 
+                            defaultChecked/> Easy 
                             <input type="radio" value="Medium" name="difficulty" 
                             onChange={this.handleRecipeDifficulty} 
                             /> Medium

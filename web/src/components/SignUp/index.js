@@ -34,10 +34,12 @@ const onSubmit = async (e) => {
             localStorage.setItem("currentUser", JSON.stringify(user)); //????
             window.location.href = "/mainpage"
         } else{
+            alert("Username must be unique");
             window.location.href = "/signup"
         }
 
     } else{
+        alert("Fields cannot be empty");
         console.log("something empty");
     }
 
