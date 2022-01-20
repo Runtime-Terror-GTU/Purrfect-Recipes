@@ -26,7 +26,23 @@ class RecipesModeratorRepository(val connector: RecipesModeratorConnector) {
                    val currentRecipe = Recipe(recipeId, name, owner, "difficulty", 0, pictureURL, "No Ingredients Overview")
                    recipes.add(currentRecipe)
                }
-               connector.onRecipeRetrieved(recipes)
+
+               var i=0
+               for(recipe in recipes) {
+                   usersRef.child(recipe.recipeOwner).addListenerForSingleValueEvent(object : ValueEventListener {
+                       override fun onDataChange(snapshot: DataSnapshot) {
+
+                           recipe.recipeOwnerName=snapshot.child(Constants.R_USERNAME).value.toString()
+                           i++
+                           if(i==recipes.size)
+                               connector.onRecipeRetrieved(recipes)
+                       }
+
+                       override fun onCancelled(error: DatabaseError) {
+                           TODO("Not yet implemented")
+                       }
+                   })
+               }
            }
            override fun onCancelled(error: DatabaseError) {
                TODO("Not yet implemented")

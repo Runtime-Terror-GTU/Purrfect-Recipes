@@ -35,6 +35,7 @@ class ModeratorRecipeRVAdapter(val context: Context, val listener: ModDeleteReci
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.recipeName.text =  recipes[position].recipeName
+        holder.recipeOwner.text=recipes[position].recipeOwnerName
         if(recipes.get(position).recipePictureURL!=" ")
         {
             Glide.with(context)
