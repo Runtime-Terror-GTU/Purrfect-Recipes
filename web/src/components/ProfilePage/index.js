@@ -27,11 +27,7 @@ const ProfilePage= () => {
         <div className="i">
               <div className="i-left">
                     <div className="i-up-left-wrapper">
-                      <h2 className="i-intro">fuck university</h2>
-                      <h1 className="i-name">hi gebze</h1>
-                      <div className="i-description">
-                       I cook and doin' shit my niggas.
-                       </div>
+
                     </div>
 
                     <div className="i-down-left-wrapper">
