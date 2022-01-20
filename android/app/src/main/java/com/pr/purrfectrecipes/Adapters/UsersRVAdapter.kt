@@ -46,8 +46,6 @@ class UsersRVAdapter(val context: Context , val listener: UsersDeleteOnClickList
 
         holder.deleteButton.setOnClickListener{
             listener.onDeleteClick(users[position])
-            deleteUser(position)
-
         }
 
         Glide.with(context)
@@ -58,16 +56,9 @@ class UsersRVAdapter(val context: Context , val listener: UsersDeleteOnClickList
     override fun getItemCount(): Int {
         return users.size
     }
-    fun deleteUser(position: Int){
-        users.removeAt(position)
-    }
 
     fun setUsersList(list:ArrayList<Customer>){
         users=list
-    }
-    fun getUser(position: Int):Customer{
-        return users.get(position)
-        notifyDataSetChanged()
     }
 
 }

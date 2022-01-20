@@ -34,7 +34,6 @@ class RemoveModRVAdapter(val context: Context, val listener: ModDeleteOnClickLis
         holder.premiumUserSymbol.visibility=View.GONE
 
         holder.deleteButton.setOnClickListener{
-            deleteMod(position)
             listener.onDeleteClick(mods[position].getUserID())
         }
 
@@ -48,10 +47,6 @@ class RemoveModRVAdapter(val context: Context, val listener: ModDeleteOnClickLis
 
     fun setModsList(list:ArrayList<Customer>){
         mods=list
-    }
-    private fun deleteMod(position: Int){
-        mods.removeAt(position)
-        notifyDataSetChanged()
     }
 
 }
