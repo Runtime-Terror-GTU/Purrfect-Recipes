@@ -104,13 +104,12 @@ class AddedrecipesProfileViewModel: ViewModel(), RecipesRetrievedListener
     {
         val tempList=ArrayList<Recipe>()
         for(recipe in recipes.value!!)
-            for(tag in tags) {
-                if (recipe.isRecipeTag(tag) && !tempList.contains(recipe)) {
+            for(tag in tags)
+                if(recipe.isRecipeTag(tag))
+                {
                     tempList.add(recipe)
+                    break
                 }
-                else if(!recipe.isRecipeTag(tag))
-                    tempList.remove(recipe)
-            }
         recipes.value=tempList
     }
 
