@@ -1,0 +1,18 @@
+.Recipes{
+
+    height: 750px;
+    margin-right: 10px;
+    margin-bottom: 50px;
+    width: 680px;
+    overflow: hidden;
+    overflow-y: auto;
+
+    @media screen and (max-width: 1000px) {
+        width: 200px;
+    }
+
+    @media screen and (max-width: 768px) {
+        padding: 0 20px;
+        width: 350px;
+    }
+}

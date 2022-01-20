@@ -313,7 +313,11 @@ const purrfectedRecipe = async(user, recipe, purrfectFlag) => {
         //ben bunu henuz begenmedim
         //once count arttırıcam
         //ardından profilimdeki purrfectedrecipes'a eklicem
+        console.log("klkjfdlkjflkd")
         let num = await get(query(ref(database, "Recipes/" + recipe.RecipeID + "/R_RecipePurrfectedCount")))
+        if(num === null){
+            console.log("undefined")
+        }
         await update(ref(database, "Recipes/" + recipe.RecipeID ), {
             "R_RecipePurrfectedCount": (parseInt(num.val())+1).toString()
         } );
@@ -322,11 +326,14 @@ const purrfectedRecipe = async(user, recipe, purrfectFlag) => {
         let currentPurrfectedsTemp = await get(query(ref(database, "Users/" + Object.keys(user) + "/R_PurrfectedRecipes/")))
         let currentPurrfecteds = currentPurrfectedsTemp.val();
         let newPurrfecteds = {}
-        for(let i=0; i<Object.keys(currentPurrfecteds).length; i++){
-            let key = Object.keys(currentPurrfecteds)[i];
-            let value = currentPurrfecteds[key];
-            newPurrfecteds[key] = value;
+        if( currentPurrfecteds !== null && currentPurrfecteds !== undefined ){
+            for(let i=0; i<Object.keys(currentPurrfecteds).length; i++){
+                let key = Object.keys(currentPurrfecteds)[i];
+                let value = currentPurrfecteds[key];
+                newPurrfecteds[key] = value;
+            }
         }
+
        newPurrfecteds[recipe.RecipeID] = true;
        await update(ref(database, "Users/" + Object.keys(user) + "/R_PurrfectedRecipes/"), newPurrfecteds);
 

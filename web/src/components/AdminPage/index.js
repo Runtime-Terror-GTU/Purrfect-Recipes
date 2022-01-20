@@ -26,10 +26,14 @@ export default function  AdminPage () {
         let deneme = await addModerator(moderator);
         if ( deneme === true)
           window.location.href = "/admin";
+        else
+          alert("Username must be unique");
+
       } 
     
     else{
         console.log("something empty");
+        alert("Fields cannot be empty");
     }
 
   }

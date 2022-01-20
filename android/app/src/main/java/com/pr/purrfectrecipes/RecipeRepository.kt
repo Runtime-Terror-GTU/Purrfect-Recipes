@@ -215,6 +215,8 @@ class RecipeRepository(val connector: RecipeRetrievedListener)
         for(commentId in deletedRecipe.getRecipeComments())
             commentsRef.child(commentId).removeValue()
 
+
+        recipesRef.child(deletedRecipe.getRecipeID()).removeValue()
         usersRef.child(deletedRecipe.recipeOwner).child(Constants.R_ADDEDRECIPES).child(deletedRecipe.getRecipeID()).removeValue()
         usersRef.addListenerForSingleValueEvent(object:ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -227,7 +229,6 @@ class RecipeRepository(val connector: RecipeRetrievedListener)
                 TODO("Not yet implemented")
             }
         })
-        recipesRef.child(deletedRecipe.getRecipeID()).removeValue()
         dayRecipeRef.addListenerForSingleValueEvent(object :ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 for(ds in snapshot.children)

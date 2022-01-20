@@ -88,6 +88,8 @@ class AddedRecipesRepository(val connector: RecipesRetrievedListener)
             override fun onDataChange(addedR: DataSnapshot) {
                 val recipesArray=ArrayList<Recipe>()
                 var i=0
+                if(addedR.childrenCount.toInt()==0)
+                    connector.onRecipesRetrieved(recipesArray)
                 for(ds in addedR.children)
                 {
                     recipesRef.child(ds.key.toString()).addListenerForSingleValueEvent(object : ValueEventListener{

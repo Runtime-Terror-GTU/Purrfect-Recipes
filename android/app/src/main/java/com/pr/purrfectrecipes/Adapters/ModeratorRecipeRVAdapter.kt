@@ -34,13 +34,18 @@ class ModeratorRecipeRVAdapter(val context: Context, val listener: ModDeleteReci
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.recipeName.text =  recipes[position].recipeName
-
+     /*   if(recipes.get(position).recipePictureURL!=" ")
+        {
+            Glide.with(context)
+                .load(recipes.get(position).recipePictureURL)
+                .into(holder.recipePic)
+        }*/
 
         holder.deleteRecipeButton.setOnClickListener{
             listener.onDeleteClick(recipes[position])
             deleteRecipe(position)
-
         }
+
 
     }
     override fun getItemCount(): Int {

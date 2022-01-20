@@ -20,7 +20,7 @@ const onSubmit = async (e) => {
 
     if( document.getElementById("passwordInput").value !== "" 
         && document.getElementById("userInput").value !== "" ){
-
+        console.log(document.getElementById("passwordInput").value)
         let user = {
             password: document.getElementById("passwordInput").value,
             username: document.getElementById("userInput").value
@@ -39,6 +39,7 @@ const onSubmit = async (e) => {
                 window.location.href = "/mainpage";
             }
         } else{
+            alert("Invalid input");
             window.location.href = "/signin";
         }   
     } else{
@@ -61,10 +62,7 @@ const SignIn = () => {
                             <FormInput id='userInput' type='username' placeholder="Username" required/>
                             <FormLabel htmlFor='for'>Password</FormLabel>
                             <FormInput id='passwordInput' type='password' placeholder="Password" required/>
-                            
-                            <Text to = "/forgot">
-                                 Forgot your password?
-                            </Text>
+                        
                             <FormButton type='button' onClick={onSubmit}>Let's cook!</FormButton>
                             <Button to = "/signup">
                                 Don't you have an account? Create a Purrfect account! 

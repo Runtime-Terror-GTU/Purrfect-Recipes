@@ -21,11 +21,15 @@ const signUp = async (user) => {
 
 const signIn = async (user, password) => {
     let fUser =  await findUser(user);
-    let uuid = Object.keys(fUser); //read id
-    let fPassword = fUser[uuid[0]].R_UserPassword; //read password
-    if(user !== null && fPassword === password){
-        return fUser;
+    if( fUser !== null ){
+        let uuid = Object.keys(fUser); //read id
+        let fPassword = fUser[uuid[0]].R_UserPassword; //read password
+        if(fPassword === password){
+            return fUser;
+        }
     }
+
+
     return null;
 }
 
