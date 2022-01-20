@@ -30,12 +30,10 @@ class RequestsModeratorRepository(val connector: RequestsModeratorVMRepConnecter
     fun approveSuggestion(suggestedIngredient:String ){
         ingredientsRef.child(suggestedIngredient.lowercase()).setValue(true)
         suggestionsRef.child(suggestedIngredient.lowercase()).removeValue()
-        connector.suggestionApprove(suggestedIngredient)
     }
 
     fun denySuggestion(suggestedIngredient:String){
         suggestionsRef.child(suggestedIngredient).removeValue()
-        connector.suggestionDeny(suggestedIngredient)
 
     }
 }
