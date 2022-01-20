@@ -45,7 +45,6 @@ class ModeratorRecipeRVAdapter(val context: Context, val listener: ModDeleteReci
 
         holder.deleteRecipeButton.setOnClickListener{
             listener.onDeleteClick(recipes[position])
-            deleteRecipe(position)
         }
 
         holder.recipePic.setOnClickListener {
@@ -57,14 +56,9 @@ class ModeratorRecipeRVAdapter(val context: Context, val listener: ModDeleteReci
     override fun getItemCount(): Int {
         return recipes.size
     }
-    fun deleteRecipe(position: Int){
-        recipes.removeAt(position)
-    }
 
     fun setRecipeList(list:ArrayList<Recipe>){
         recipes=list
     }
-    fun getRecipe(position: Int): Recipe {
-        return recipes.get(position)
-    }
+
 }
