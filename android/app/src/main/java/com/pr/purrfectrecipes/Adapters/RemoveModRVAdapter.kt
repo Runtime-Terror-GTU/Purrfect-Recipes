@@ -21,6 +21,7 @@ class RemoveModRVAdapter(val context: Context, val listener: ModDeleteOnClickLis
             val deleteButton = view.findViewById<ImageView>(R.id.deleteButton)
             val premiumUserSymbol = view.findViewById<ImageView>(R.id.premiumUserSymbol)
             val profilePic = view.findViewById<ImageView>(R.id.profilePic)
+            val recipeLikes=view.findViewById<TextView>(R.id.recipes)
         }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
@@ -40,6 +41,8 @@ class RemoveModRVAdapter(val context: Context, val listener: ModDeleteOnClickLis
         Glide.with(context)
             .load(mods.get(position).getUserPic())
             .into(holder.profilePic)
+
+        holder.recipeLikes.visibility=View.GONE
     }
     override fun getItemCount(): Int {
         return mods.size
