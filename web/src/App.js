@@ -12,7 +12,7 @@ import AddRecipe from './pages/addrecipe';
 import Admin from './pages/admin';
 import Moderator from './pages/moderator';
 import ProfilePage from './components/ProfilePage';
-
+import Guest from './pages/guest';
 
 //recipe duzenlenecek
 function App(){
@@ -30,6 +30,7 @@ function App(){
         <Route path="/admin" component={Admin} exact />
         <Route path="/moderator" component={Moderator} exact />
         <Route path="/profilepage" component={ProfilePage} exact />
+        <Route path="/guest" component={Guest} exact />
 
 
       </Switch>

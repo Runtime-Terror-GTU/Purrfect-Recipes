@@ -2,6 +2,8 @@ package com.pr.purrfectrecipes.Moderator
 
 import android.os.Bundle
 import android.view.View
+import android.widget.LinearLayout
+import android.widget.ProgressBar
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -21,6 +23,9 @@ class UsersModeratorChildfragment: Fragment(R.layout.childfragment_moderator_use
     private var usersRVAdapter: UsersRVAdapter?=null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
+        val mainLayout=view.findViewById<LinearLayout>(R.id.mainLayout)
+        val progressBar=view.findViewById<ProgressBar>(R.id.loadingBar)
+
         viewModel.getView().observe(viewLifecycleOwner, {
             if(viewModel.getView().value!=null)
                 super.onViewCreated(viewModel.getView().value!!, savedInstanceState)
@@ -36,6 +41,9 @@ class UsersModeratorChildfragment: Fragment(R.layout.childfragment_moderator_use
             if(viewModel.getUsers().value!=null){
                 usersRVAdapter?.setUsersList(viewModel.getUsers().value!!)
                 usersRVAdapter?.notifyDataSetChanged()
+
+                mainLayout.visibility=View.VISIBLE
+                progressBar.visibility=View.GONE
 
             }
         })

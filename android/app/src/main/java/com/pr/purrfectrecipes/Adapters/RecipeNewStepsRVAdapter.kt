@@ -36,17 +36,18 @@ class RecipeNewStepsRVAdapter(val context: Context, val listener: StepDeletedLis
         holder.deleteStep.setOnClickListener {
             listener.onStepDeleted(steps.get(position))
         }
+
         holder.step.addTextChangedListener(object : TextWatcher{
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                listener.onStepChanged(p0.toString(), position)
+                if(holder.step.isFocused)
+                    listener.onStepChanged(p0.toString(), holder.adapterPosition)
             }
 
             override fun afterTextChanged(p0: Editable?) {
-                listener.onStepChanged(p0.toString(), position)
             }
         })
     }

@@ -14,6 +14,8 @@ class SortViewModel: ViewModel()
         fun getAddedSortId(): LiveData<Int> {return checkAddedSortId}
     private var checkPurrfectedSortId= MutableLiveData<Int>()
         fun getPurrfectedSortId(): LiveData<Int> {return checkPurrfectedSortId}
+    private var checkModeratorSortId= MutableLiveData<Int>()
+        fun getModeratorSortId(): LiveData<Int> {return checkModeratorSortId}
 
     private val diffHomeSort=MutableLiveData<SortMethods?>()
         fun getDiffHomeSort():LiveData<SortMethods?> {return diffHomeSort}
@@ -34,6 +36,11 @@ class SortViewModel: ViewModel()
         fun getDiffPurrfectedSort():LiveData<SortMethods?> {return diffPurrfectedSort}
     private val popPurrfectedSort=MutableLiveData<SortMethods?>()
         fun getPopPurrfectedSort():LiveData<SortMethods?> {return popPurrfectedSort}
+
+    private val diffModeratorSort=MutableLiveData<SortMethods?>()
+        fun getDiffModeratorSort():LiveData<SortMethods?> {return diffModeratorSort}
+    private val popModeratorSort=MutableLiveData<SortMethods?>()
+        fun getPopModeratorSort():LiveData<SortMethods?> {return popModeratorSort}
 
     init{
         checkHomeSortId.value=-1
@@ -129,6 +136,29 @@ class SortViewModel: ViewModel()
         diffPurrfectedSort.value=null
         popPurrfectedSort.value=null
         checkPurrfectedSortId.value=-1
+    }
+
+    fun setModeratorSortId(newId: Int)
+    {
+        if(checkModeratorSortId.value!=newId)
+            checkModeratorSortId.value=newId
+    }
+
+    fun setDiffModeratorSort(method:SortMethods?)
+    {
+        diffModeratorSort.value=method
+    }
+
+    fun setPopModeratorSort(method:SortMethods?)
+    {
+        popModeratorSort.value=method
+    }
+
+    fun resetModeratorSort()
+    {
+        diffModeratorSort.value=null
+        popModeratorSort.value=null
+        checkModeratorSortId.value=-1
     }
 
 }

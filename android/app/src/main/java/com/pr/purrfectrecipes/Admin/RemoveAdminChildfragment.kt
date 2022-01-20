@@ -2,6 +2,8 @@ package com.pr.purrfectrecipes.Admin
 
 import android.os.Bundle
 import android.view.View
+import android.widget.LinearLayout
+import android.widget.ProgressBar
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -22,6 +24,9 @@ class RemoveAdminChildfragment: Fragment(R.layout.childfragment_admin_remove),
     private var modsRVAdapter: RemoveModRVAdapter?=null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
+        val mainLayout=view.findViewById<LinearLayout>(R.id.mainLayout)
+        val progressBar=view.findViewById<ProgressBar>(R.id.loadingBar)
+
         viewModel.getView().observe(viewLifecycleOwner, {
             if(viewModel.getView().value!=null)
                 super.onViewCreated(viewModel.getView().value!!, savedInstanceState)
@@ -36,6 +41,9 @@ class RemoveAdminChildfragment: Fragment(R.layout.childfragment_admin_remove),
             if(viewModel.getMods().value!=null){
                 modsRVAdapter?.setModsList(viewModel.getMods().value!!)
                 modsRVAdapter?.notifyDataSetChanged()
+
+                mainLayout.visibility=View.VISIBLE
+                progressBar.visibility=View.GONE
 
             }
         })

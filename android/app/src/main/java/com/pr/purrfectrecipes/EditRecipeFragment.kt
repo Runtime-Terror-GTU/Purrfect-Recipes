@@ -51,6 +51,14 @@ class EditRecipeFragment : Fragment(R.layout.fragment_edit_recipe), TagOnSelecte
         val recipeName=view.findViewById<EditText>(R.id.recipeName)
         val recipeIngredientDetails=view.findViewById<EditText>(R.id.recipeIngredientDetails)
         val difficultyOptions=view.findViewById<RadioGroup>(R.id.difficultyOptions)
+        
+        recipeName.setOnFocusChangeListener(object: View.OnFocusChangeListener{
+            override fun onFocusChange(p0: View?, p1: Boolean) {
+                if(!p0!!.isFocused && viewModel.getRecipe().value!=null)
+                    viewModel.getRecipe().value!!.recipeName=recipeName.text.toString()
+            }
+
+        })
 
         viewModel.getRecipeSteps().observe(viewLifecycleOwner,{
             recipeStepsRVAdapter?.setSteps(viewModel.getRecipeSteps().value!!)
@@ -83,12 +91,9 @@ class EditRecipeFragment : Fragment(R.layout.fragment_edit_recipe), TagOnSelecte
                 else if(viewModel.getRecipe().value!!.recipeDifficulty=="Hard")
                     difficultyOptions.check(R.id.hardOption)
 
-                recipeTagsRVAdapter?.setIngredients(viewModel.getRecipe().value?.getRecipeTags()!!)
-                recipeTagsRVAdapter?.notifyDataSetChanged()
-                recipeIngredientsRVAdapter?.setIngredients(viewModel.getRecipe().value?.getRecipeIngredients()!!)
-                recipeIngredientsRVAdapter?.notifyDataSetChanged()
-                recipeStepsRVAdapter?.setSteps(viewModel.getRecipe().value?.getRecipeStages()!!)
-                recipeStepsRVAdapter?.notifyDataSetChanged()
+                viewModel.setRecipeIngredients(viewModel.getRecipe().value!!.getRecipeIngredients())
+                viewModel.setRecipeTags(viewModel.getRecipe().value!!.getRecipeTags())
+                viewModel.setRecipeSteps(viewModel.getRecipe().value!!.getRecipeStages())
 
             }
             else
@@ -170,10 +175,14 @@ class EditRecipeFragment : Fragment(R.layout.fragment_edit_recipe), TagOnSelecte
 
                 if(viewModel.getRecipe().value!=null)
                 {
-                    viewModel.getRecipe().value!!.recipeName=recipeName.text.toString()
-                    viewModel.getRecipe().value!!.recipeIngredientsOverview=recipeIngredientDetails.text.toString()
-                    viewModel.getRecipe().value!!.recipeOwner=Hawk.get(Constants.LOGGEDIN_USERID)
-                    viewModel.getRecipe().value!!.recipeDifficulty=diff
+                    viewModel.setRecipe(Recipe(viewModel.getRecipe().value!!.getRecipeID(), recipeName.text.toString(), Hawk.get(Constants.LOGGEDIN_USERID), diff,
+                        viewModel.getRecipe().value!!.recipeLikes, overview = recipeIngredientDetails.text.toString()))
+                    for(ingredient in viewModel.getRecipeIngredients().value!!)
+                        viewModel.getRecipe().value!!.addIngredient(ingredient)
+                    for(step in viewModel.getRecipeSteps().value!!)
+                        viewModel.getRecipe().value!!.addStage(step)
+                    for(tag in viewModel.getRecipeTags().value!!)
+                        viewModel.getRecipe().value!!.addTag(tag)
                 }
                 else
                 {
@@ -233,18 +242,9 @@ class EditRecipeFragment : Fragment(R.layout.fragment_edit_recipe), TagOnSelecte
         tagsRVAdapter = TagsRVAdapter(requireContext(), this)
         addTagsRV?.adapter = tagsRVAdapter
 
-        if(viewModel.getRecipe().value!=null)
-        {
-            tagsRVAdapter.setTags(viewModel.allTags)
-            tagsRVAdapter.setChosen(viewModel.getRecipe().value!!.getRecipeTags())
-            tagsRVAdapter.notifyDataSetChanged()
-        }
-        else
-        {
-            tagsRVAdapter.setTags(viewModel.allTags)
-            tagsRVAdapter.setChosen(viewModel.getRecipeTags().value!!)
-            tagsRVAdapter.notifyDataSetChanged()
-        }
+        tagsRVAdapter.setTags(viewModel.allTags)
+        tagsRVAdapter.setChosen(viewModel.getRecipeTags().value!!)
+        tagsRVAdapter.notifyDataSetChanged()
 
         val saveButton = dialog.findViewById<LinearLayout>(R.id.doneButton)
         saveButton?.setOnClickListener {
@@ -265,19 +265,10 @@ class EditRecipeFragment : Fragment(R.layout.fragment_edit_recipe), TagOnSelecte
         ingredientsRVAdapter = IngredientsRVAdapter(requireContext(), this)
         ingredientsList?.adapter = ingredientsRVAdapter
 
-        if(viewModel.getRecipe().value!=null)
-        {
-            ingredientsRVAdapter.setIngredients(viewModel.allIngredients)
-            ingredientsRVAdapter.setChosen(viewModel.getRecipe().value!!.getRecipeIngredients())
-            ingredientsRVAdapter.notifyDataSetChanged()
-        }
-        else
-        {
-            ingredientsRVAdapter.setIngredients(viewModel.allIngredients)
-            if(!viewModel.getRecipeIngredients().value!!.isEmpty())
-                ingredientsRVAdapter.setChosen(viewModel.getRecipeIngredients().value!!)
-            ingredientsRVAdapter.notifyDataSetChanged()
-        }
+        ingredientsRVAdapter.setIngredients(viewModel.allIngredients)
+        if(!viewModel.getRecipeIngredients().value!!.isEmpty())
+            ingredientsRVAdapter.setChosen(viewModel.getRecipeIngredients().value!!)
+        ingredientsRVAdapter.notifyDataSetChanged()
 
         val searchBar=dialog?.findViewById<androidx.appcompat.widget.SearchView>(R.id.ingredientSearchBar)
         searchBar.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {

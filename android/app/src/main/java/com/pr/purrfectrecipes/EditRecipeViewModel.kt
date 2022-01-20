@@ -33,6 +33,24 @@ class EditRecipeViewModel: ViewModel(),FilterVMRepConnector, EditIngredientsVMRe
         recipeSteps.value= ArrayList()
     }
 
+    fun setRecipeTags(list:ArrayList<String>)
+    {
+        recipeTags.value?.addAll(list)
+        recipeTags.value=recipeTags.value
+    }
+
+    fun setRecipeIngredients(list:ArrayList<String>)
+    {
+        recipeIngredients.value?.addAll(list)
+        recipeIngredients.value=recipeIngredients.value
+    }
+
+    fun setRecipeSteps(list:ArrayList<String>)
+    {
+        recipeSteps.value?.addAll(list)
+        recipeSteps.value=recipeSteps.value
+    }
+
     fun setRecipe(retrievedRecipe:Recipe?)
     {
         if(retrievedRecipe==null)
@@ -60,90 +78,45 @@ class EditRecipeViewModel: ViewModel(),FilterVMRepConnector, EditIngredientsVMRe
 
     fun addStep(stepText:String)
     {
-        if(recipe.value!=null)
-        {
-            recipe.value!!.addStage(stepText)
-            recipe.value=recipe.value
-        }
-        else
-        {
+        if(!recipeSteps.value!!.contains(stepText)) {
             recipeSteps.value!!.add(stepText)
-            recipeSteps.value=recipeSteps.value
+            recipeSteps.value = recipeSteps.value
         }
     }
 
     fun addTag(tag:String)
     {
-        if(recipe.value!=null)
-        {
-            recipe.value!!.addTag(tag)
-            recipe.value=recipe.value
-        }
-        else
-        {
-            if(!recipeTags.value!!.contains(tag)) {
-                recipeTags.value!!.add(tag)
-                recipeTags.value = recipeTags.value
-            }
+        if(!recipeTags.value!!.contains(tag)) {
+            recipeTags.value!!.add(tag)
+            recipeTags.value = recipeTags.value
         }
     }
 
     fun removeTag(tag:String)
     {
-        if(recipe.value!=null)
-        {
-            recipe.value!!.removeTag(tag)
-            recipe.value=recipe.value
-        }
-        else
-        {
-            recipeTags.value!!.remove(tag)
-            recipeTags.value=recipeTags.value
-        }
+        recipeTags.value!!.remove(tag)
+        recipeTags.value=recipeTags.value
+
     }
 
     fun addIngredient(ingredient:String)
     {
-        if(recipe.value!=null)
-        {
-            recipe.value!!.addIngredient(ingredient)
-            recipe.value=recipe.value
-        }
-        else
-        {
-            if(!recipeIngredients.value!!.contains(ingredient)) {
-                recipeIngredients.value!!.add(ingredient)
-                recipeIngredients.value = recipeIngredients.value
-            }
+        if(!recipeIngredients.value!!.contains(ingredient)) {
+            recipeIngredients.value!!.add(ingredient)
+            recipeIngredients.value = recipeIngredients.value
         }
     }
 
     fun removeIngredient(ingredient:String)
     {
-        if(recipe.value!=null)
-        {
-            recipe.value!!.removeIngredient(ingredient)
-            recipe.value=recipe.value
-        }
-        else
-        {
-            recipeIngredients.value!!.remove(ingredient)
-            recipeIngredients.value=recipeIngredients.value
-        }
+        recipeIngredients.value!!.remove(ingredient)
+        recipeIngredients.value=recipeIngredients.value
     }
 
     fun removeStep(step:String)
     {
-        if(recipe.value!=null)
-        {
-            recipe.value!!.removeStage(step)
-            recipe.value=recipe.value
-        }
-        else
-        {
-            recipeSteps.value!!.remove(step)
-            recipeSteps.value=recipeSteps.value
-        }
+        recipeSteps.value!!.remove(step)
+        recipeSteps.value=recipeSteps.value
     }
 
     fun saveRecipe()
@@ -153,10 +126,8 @@ class EditRecipeViewModel: ViewModel(),FilterVMRepConnector, EditIngredientsVMRe
 
     fun updateStep(text:String, no:Int)
     {
-        if(recipe.value==null)
-            recipeSteps.value?.set(no, text)
-        else
-            recipe.value!!.getRecipeStages().set(no, text)
+        if(no<recipeSteps.value!!.size)
+            recipeSteps.value!!.set(no, text)
     }
 
     override fun onTagsRetrieved(tags: ArrayList<String>) {

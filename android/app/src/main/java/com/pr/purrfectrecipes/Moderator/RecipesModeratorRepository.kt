@@ -21,12 +21,33 @@ class RecipesModeratorRepository(val connector: RecipesModeratorConnector) {
                    val recipeId=ds.key.toString()
                    val name = ds.child(Constants.R_RECIPENAME).value.toString()
                    val owner = ds.child(Constants.R_RECIPEOWNER).value.toString()
-
+                   val difficulty=ds.child(Constants.R_RECIPEDIFFICULTY).value.toString()
+                   val likes=ds.child(Constants.R_RECIPEPURRFECTEDCOUNT).value.toString()
                    val pictureURL = ds.child(Constants.R_RECIPEPICTURE).value.toString()
-                   val currentRecipe = Recipe(recipeId, name, owner, "difficulty", 0, pictureURL, "No Ingredients Overview")
+
+                   val currentRecipe = Recipe(recipeId, name, owner, difficulty, likes.toInt(), pictureURL, "No Ingredients Overview")
+
+                   for(tag in ds.child(Constants.R_RECIPETAGS).children)
+                       currentRecipe.addTag(tag.key.toString())
                    recipes.add(currentRecipe)
                }
-               connector.onRecipeRetrieved(recipes)
+
+               var i=0
+               for(recipe in recipes) {
+                   usersRef.child(recipe.recipeOwner).addListenerForSingleValueEvent(object : ValueEventListener {
+                       override fun onDataChange(snapshot: DataSnapshot) {
+
+                           recipe.recipeOwnerName=snapshot.child(Constants.R_USERNAME).value.toString()
+                           i++
+                           if(i==recipes.size)
+                               connector.onRecipeRetrieved(recipes)
+                       }
+
+                       override fun onCancelled(error: DatabaseError) {
+                           TODO("Not yet implemented")
+                       }
+                   })
+               }
            }
            override fun onCancelled(error: DatabaseError) {
                TODO("Not yet implemented")

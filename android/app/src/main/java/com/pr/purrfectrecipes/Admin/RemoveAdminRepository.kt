@@ -1,6 +1,7 @@
 package com.pr.purrfectrecipes.Admin
 
 
+import android.util.Log
 import com.google.firebase.database.*
 import com.pr.purrfectrecipes.Connectors.AdminRemoveModoratorVMRepConnector
 import com.pr.purrfectrecipes.Constants
@@ -13,10 +14,13 @@ class RemoveAdminRepository(val connector: AdminRemoveModoratorVMRepConnector) {
     fun modRetrive(){
         usersRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
+                mods.clear()
                 for(ds in snapshot.children){
                     val status= ds.child(Constants.R_USERSTATUS).value.toString()
+                    val currentUserPic ="https://firebasestorage.googleapis.com/v0/b/purrfect-recipes.appspot.com/o/User%20Pictures%2Fdefault_pic1.png?alt=media&token=04ac54da-978e-43a6-8fe5-5dbdd2267da3"
+                    Log.i("here", currentUserPic.toString())
                     if(status.equals(CustomerStatus.MODERATOR.text)){
-                        val mod = Customer(ds.key.toString(), ds.child(Constants.R_USERNAME).value.toString(),"..","123456",CustomerStatus.MODERATOR,"-","pic")
+                        val mod = Customer(ds.key.toString(), ds.child(Constants.R_USERNAME).value.toString(),"..","123456",CustomerStatus.MODERATOR,"-",currentUserPic)
                         mods.add(mod)
                     }
                 }

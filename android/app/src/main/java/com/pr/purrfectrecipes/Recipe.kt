@@ -8,6 +8,7 @@ class Recipe(id:String, name:String, owner:String, difficulty:String, likes: Int
         fun getRecipeID(): String {return recipeId}
     var recipeName:String=name
     var recipeOwner:String=owner
+    var recipeOwnerName:String="Owner"
     var recipeDifficulty:String=difficulty
     var recipeLikes:Int=likes
     var recipeIngredientsOverview:String?=null

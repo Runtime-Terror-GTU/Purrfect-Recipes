@@ -13,17 +13,13 @@
         <entry key="..\:/Users/ASUS/Desktop/git/android/app/src/main/res/layout/action_search.xml" value="0.4" />
         <entry key="..\:/Users/ASUS/Desktop/git/android/app/src/main/res/layout/activity_customer.xml" value="0.22146739130434784" />
         <entry key="..\:/Users/ASUS/Desktop/git/android/app/src/main/res/layout/add_ingredients_dialog.xml" value="0.22146739130434784" />
-        <entry key="..\:/Users/ASUS/Desktop/git/android/app/src/main/res/layout/add_tag_dialog.xml" value="0.16197916666666667" />
-        <entry key="..\:/Users/ASUS/Desktop/git/android/app/src/main/res/layout/add_tags_dialog.xml" value="0.16197916666666667" />
         <entry key="..\:/Users/ASUS/Desktop/git/android/app/src/main/res/layout/childfragment_admin_add.xml" value="0.15780141843971632" />
         <entry key="..\:/Users/ASUS/Desktop/git/android/app/src/main/res/layout/childfragment_admin_remove.xml" value="0.264" />
         <entry key="..\:/Users/ASUS/Desktop/git/android/app/src/main/res/layout/childfragment_home_recipes.xml" value="0.1" />
         <entry key="..\:/Users/ASUS/Desktop/git/android/app/src/main/res/layout/childfragment_home_what.xml" value="0.12708333333333333" />
         <entry key="..\:/Users/ASUS/Desktop/git/android/app/src/main/res/layout/childfragment_home_whatres.xml" value="0.6" />
-        <entry key="..\:/Users/ASUS/Desktop/git/android/app/src/main/res/layout/childfragment_moderator_recipes.xml" value="0.1171875" />
         <entry key="..\:/Users/ASUS/Desktop/git/android/app/src/main/res/layout/childfragment_moderator_requests.xml" value="0.13020833333333334" />
         <entry key="..\:/Users/ASUS/Desktop/git/android/app/src/main/res/layout/childfragment_moderator_users.xml" value="0.2400388726919339" />
-        <entry key="..\:/Users/ASUS/Desktop/git/android/app/src/main/res/layout/childfragment_profile_addedrecipes.xml" value="0.16197916666666667" />
         <entry key="..\:/Users/ASUS/Desktop/git/android/app/src/main/res/layout/childfragment_profile_info.xml" value="0.4" />
         <entry key="..\:/Users/ASUS/Desktop/git/android/app/src/main/res/layout/childfragment_profile_purrfectedrecipes.xml" value="0.22146739130434784" />
         <entry key="..\:/Users/ASUS/Desktop/git/android/app/src/main/res/layout/childfragment_settings_contact.xml" value="0.22916666666666666" />
@@ -42,10 +38,7 @@
         <entry key="..\:/Users/ASUS/Desktop/git/android/app/src/main/res/layout/ingredients_rv_bg.xml" value="0.4" />
         <entry key="..\:/Users/ASUS/Desktop/git/android/app/src/main/res/layout/moderator_rv.xml" value="0.21333333333333335" />
         <entry key="..\:/Users/ASUS/Desktop/git/android/app/src/main/res/layout/recipe_steps_rv_bg.xml" value="0.22146739130434784" />
-        <entry key="..\:/Users/ASUS/Desktop/git/android/app/src/main/res/layout/recipes_rv_bg2.xml" value="0.4" />
-        <entry key="..\:/Users/ASUS/Desktop/git/android/app/src/main/res/layout/recipes_rv_mod.xml" value="0.29245283018867924" />
         <entry key="..\:/Users/ASUS/Desktop/git/android/app/src/main/res/layout/search_bar.xml" value="0.12760416666666666" />
-        <entry key="..\:/Users/ASUS/Desktop/git/android/app/src/main/res/layout/select_picture_dialog.xml" value="0.3163265306122449" />
         <entry key="..\:/Users/ASUS/Desktop/git/android/app/src/main/res/layout/suggestions_rv.xml" value="0.12539184952978055" />
         <entry key="..\:/Users/ASUS/Desktop/git/android/app/src/main/res/layout/users_rv.xml" value="0.18808777429467086" />
         <entry key="..\:/Users/ASUS/Desktop/git/android/app/src/main/res/menu/guest_navigation_bar.xml" value="0.264" />
@@ -123,14 +116,18 @@
         <entry key="..\:/Users/JADE/Documents/GitHub/Purrfect-Recipes/android/app/src/main/res/layout/activity_sort.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/JADE/Documents/GitHub/Purrfect-Recipes/android/app/src/main/res/layout/activity_start.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/JADE/Documents/GitHub/Purrfect-Recipes/android/app/src/main/res/layout/add_tag_dialog.xml" value="0.35260416666666666" />
+        <entry key="..\:/Users/JADE/Documents/GitHub/Purrfect-Recipes/android/app/src/main/res/layout/add_tags_dialog.xml" value="0.17831813576494426" />
         <entry key="..\:/Users/JADE/Documents/GitHub/Purrfect-Recipes/android/app/src/main/res/layout/added_recipe_steps_rv_bg.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/JADE/Documents/GitHub/Purrfect-Recipes/android/app/src/main/res/layout/childfragment_admin_remove.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/JADE/Documents/GitHub/Purrfect-Recipes/android/app/src/main/res/layout/childfragment_home_recipes.xml" value="0.33" />
         <entry key="..\:/Users/JADE/Documents/GitHub/Purrfect-Recipes/android/app/src/main/res/layout/childfragment_home_what.xml" value="0.33" />
         <entry key="..\:/Users/JADE/Documents/GitHub/Purrfect-Recipes/android/app/src/main/res/layout/childfragment_home_whatres.xml" value="0.33" />
+        <entry key="..\:/Users/JADE/Documents/GitHub/Purrfect-Recipes/android/app/src/main/res/layout/childfragment_moderator_recipes.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/JADE/Documents/GitHub/Purrfect-Recipes/android/app/src/main/res/layout/childfragment_moderator_requests.xml" value="0.17831813576494426" />
         <entry key="..\:/Users/JADE/Documents/GitHub/Purrfect-Recipes/android/app/src/main/res/layout/childfragment_moderator_users.xml" value="0.17831813576494426" />
         <entry key="..\:/Users/JADE/Documents/GitHub/Purrfect-Recipes/android/app/src/main/res/layout/childfragment_profile_addedrecipes.xml" value="0.33" />
         <entry key="..\:/Users/JADE/Documents/GitHub/Purrfect-Recipes/android/app/src/main/res/layout/childfragment_profile_info.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/JADE/Documents/GitHub/Purrfect-Recipes/android/app/src/main/res/layout/childfragment_profile_purrfectedrecipes.xml" value="0.17831813576494426" />
         <entry key="..\:/Users/JADE/Documents/GitHub/Purrfect-Recipes/android/app/src/main/res/layout/childfragment_settings_shop.xml" value="0.25" />
         <entry key="..\:/Users/JADE/Documents/GitHub/Purrfect-Recipes/android/app/src/main/res/layout/childfragment_settings_suggest.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/JADE/Documents/GitHub/Purrfect-Recipes/android/app/src/main/res/layout/chosen_ingredients_rv_bg.xml" value="0.36666666666666664" />
@@ -150,6 +147,8 @@
         <entry key="..\:/Users/JADE/Documents/GitHub/Purrfect-Recipes/android/app/src/main/res/layout/recipe_tags_rv_bg.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/JADE/Documents/GitHub/Purrfect-Recipes/android/app/src/main/res/layout/recipe_types_rv_bg.xml" value="0.33" />
         <entry key="..\:/Users/JADE/Documents/GitHub/Purrfect-Recipes/android/app/src/main/res/layout/recipes_rv_bg2.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/JADE/Documents/GitHub/Purrfect-Recipes/android/app/src/main/res/layout/recipes_rv_mod.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/JADE/Documents/GitHub/Purrfect-Recipes/android/app/src/main/res/layout/select_picture_dialog.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/JADE/Documents/GitHub/Purrfect-Recipes/android/app/src/main/res/layout/suggestions_rv.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/JADE/Documents/GitHub/Purrfect-Recipes/android/app/src/main/res/layout/users_rv.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/JADE/Documents/GitHub/Purrfect-Recipes/android/app/src/main/res/menu/admin_navigation_bar.xml" value="0.36666666666666664" />

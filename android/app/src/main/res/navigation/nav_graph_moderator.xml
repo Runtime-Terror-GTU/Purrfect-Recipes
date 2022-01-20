@@ -7,5 +7,27 @@
     <fragment
         android:id="@+id/moderatorFragment"
         android:name="com.pr.purrfectrecipes.Moderator.ModeratorFragment"
-        android:label="ModeratorFragment" />
+        android:label="ModeratorFragment" >
+        <action
+            android:id="@+id/action_moderatorFragment_to_sortFragment"
+            app:destination="@id/sortFragment" />
+        <action
+            android:id="@+id/action_moderatorFragment_to_filterFragment"
+            app:destination="@id/filterFragment" />
+        <action
+            android:id="@+id/action_moderatorFragment_to_recipeFragment"
+            app:destination="@id/recipeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/sortFragment"
+        android:name="com.pr.purrfectrecipes.SortFragment"
+        android:label="SortFragment" />
+    <fragment
+        android:id="@+id/filterFragment"
+        android:name="com.pr.purrfectrecipes.FilterFragment"
+        android:label="FilterFragment" />
+    <fragment
+        android:id="@+id/recipeFragment"
+        android:name="com.pr.purrfectrecipes.RecipeFragment"
+        android:label="RecipeFragment" />
 </navigation>

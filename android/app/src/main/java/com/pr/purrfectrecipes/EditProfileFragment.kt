@@ -1,7 +1,10 @@
 package com.pr.purrfectrecipes
 
 import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,6 +13,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.compose.ui.graphics.Color.Companion.Transparent
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.bumptech.glide.Glide
@@ -66,7 +70,6 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
             if(username.text.isNullOrEmpty())
                 Toast.makeText(requireActivity(), "Please enter username correctly first.", Toast.LENGTH_SHORT).show()
             else if(!username.text.isNullOrEmpty()){
-                println("burda")
                 viewModel.changeUsername(username.text.toString(),requireActivity())
                 infoProileViewModel.setEditProfile(false)
             }
@@ -78,7 +81,7 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
                     val pass2=password2.text.toString()
                     if(pass1.equals(pass2)){
                         viewModel.changePassword(password1.text.toString())
-                        Toast.makeText(requireActivity(), "Your password changed.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireActivity(), "Your info is updated.", Toast.LENGTH_SHORT).show()
                         infoProileViewModel.setEditProfile(false)
                     }
                     else{
@@ -106,108 +109,99 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
     }
     fun showPictures(){
 
-        val picturesBoxView = LayoutInflater.from(activity).inflate(R.layout.select_picture_dialog, null)
-
-        val picturesBoxBuilder = AlertDialog.Builder(activity).setView(picturesBoxView)
-
-
+        val dialog = Dialog(requireContext())
+        dialog?.setContentView(R.layout.select_picture_dialog)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog?.show()
 
         //show dialog
-        val  pictureBoxInstance = picturesBoxBuilder.show()
 
-        val default_pic1 = picturesBoxView.findViewById<ImageView>(R.id.default_pic1)
-        val default_pic2 = picturesBoxView.findViewById<ImageView>(R.id.default_pic2)
-        val default_pic3 = picturesBoxView.findViewById<ImageView>(R.id.default_pic3)
-        val default_pic4 = picturesBoxView.findViewById<ImageView>(R.id.default_pic4)
-        val default_pic5 = picturesBoxView.findViewById<ImageView>(R.id.default_pic5)
-        val default_pic6 = picturesBoxView.findViewById<ImageView>(R.id.default_pic6)
-        val default_pic7 = picturesBoxView.findViewById<ImageView>(R.id.default_pic7)
-        val default_pic8 = picturesBoxView.findViewById<ImageView>(R.id.default_pic8)
-        val default_pic9 = picturesBoxView.findViewById<ImageView>(R.id.default_pic9)
-        val default_pic10 = picturesBoxView.findViewById<ImageView>(R.id.default_pic10)
-        val default_pic11 = picturesBoxView.findViewById<ImageView>(R.id.default_pic11)
-        val default_pic12 = picturesBoxView.findViewById<ImageView>(R.id.default_pic12)
+        val default_pic1 = dialog?.findViewById<ImageView>(R.id.default_pic1)
+        val default_pic2 = dialog?.findViewById<ImageView>(R.id.default_pic2)
+        val default_pic3 = dialog?.findViewById<ImageView>(R.id.default_pic3)
+        val default_pic4 = dialog?.findViewById<ImageView>(R.id.default_pic4)
+        val default_pic5 = dialog?.findViewById<ImageView>(R.id.default_pic5)
+        val default_pic6 = dialog?.findViewById<ImageView>(R.id.default_pic6)
+        val default_pic7 = dialog?.findViewById<ImageView>(R.id.default_pic7)
+        val default_pic8 = dialog?.findViewById<ImageView>(R.id.default_pic8)
+        val default_pic9 = dialog?.findViewById<ImageView>(R.id.default_pic9)
+        val default_pic10 = dialog?.findViewById<ImageView>(R.id.default_pic10)
+        val default_pic11 = dialog?.findViewById<ImageView>(R.id.default_pic11)
+        val default_pic12 = dialog?.findViewById<ImageView>(R.id.default_pic12)
 
 
         default_pic1.setOnClickListener {
             viewModel.changePicture2("default_pic1")
-            pictureBoxInstance.dismiss()
+            dialog?.dismiss()
             Toast.makeText(requireActivity(), "Your picture is changing..", Toast.LENGTH_SHORT).show()
 
         }
         default_pic2.setOnClickListener {
             viewModel.changePicture2("default_pic2")
-            pictureBoxInstance.dismiss()
+            dialog?.dismiss()
             Toast.makeText(requireActivity(), "Your picture is changing..", Toast.LENGTH_SHORT).show()
 
         }
         default_pic3.setOnClickListener {
             viewModel.changePicture2("default_pic3")
-            pictureBoxInstance.dismiss()
+            dialog?.dismiss()
             Toast.makeText(requireActivity(), "Your picture is changing..", Toast.LENGTH_SHORT).show()
 
         }
         default_pic4.setOnClickListener {
             viewModel.changePicture2("default_pic4")
-            pictureBoxInstance.dismiss()
+            dialog?.dismiss()
             Toast.makeText(requireActivity(), "Your picture is changing..", Toast.LENGTH_SHORT).show()
 
         }
         default_pic5.setOnClickListener {
             viewModel.changePicture2("default_pic5")
-            pictureBoxInstance.dismiss()
+            dialog?.dismiss()
             Toast.makeText(requireActivity(), "Your picture is changing..", Toast.LENGTH_SHORT).show()
 
         }
         default_pic6.setOnClickListener {
             viewModel.changePicture2("default_pic6")
-            pictureBoxInstance.dismiss()
+            dialog?.dismiss()
             Toast.makeText(requireActivity(), "Your picture is changing..", Toast.LENGTH_SHORT).show()
 
         }
         default_pic7.setOnClickListener {
             viewModel.changePicture2("default_pic7")
-            pictureBoxInstance.dismiss()
+            dialog?.dismiss()
             Toast.makeText(requireActivity(), "Your picture is changing..", Toast.LENGTH_SHORT).show()
 
         }
         default_pic8.setOnClickListener {
             viewModel.changePicture2("default_pic8")
-            pictureBoxInstance.dismiss()
+            dialog?.dismiss()
             Toast.makeText(requireActivity(), "Your picture is changing..", Toast.LENGTH_SHORT).show()
 
         }
         default_pic9.setOnClickListener {
             viewModel.changePicture2("default_pic9")
-            pictureBoxInstance.dismiss()
+            dialog?.dismiss()
             Toast.makeText(requireActivity(), "Your picture is changing..", Toast.LENGTH_SHORT).show()
 
         }
         default_pic10.setOnClickListener {
             viewModel.changePicture2("default_pic10")
-            pictureBoxInstance.dismiss()
+            dialog?.dismiss()
             Toast.makeText(requireActivity(), "Your picture is changing..", Toast.LENGTH_SHORT).show()
 
         }
         default_pic11.setOnClickListener {
             viewModel.changePicture2("default_pic11")
-            pictureBoxInstance.dismiss()
+            dialog?.dismiss()
             Toast.makeText(requireActivity(), "Your picture is changing..", Toast.LENGTH_SHORT).show()
 
         }
         default_pic12.setOnClickListener {
             viewModel.changePicture2("default_pic12")
-            pictureBoxInstance.dismiss()
+            dialog?.dismiss()
             Toast.makeText(requireActivity(), "Your picture is changing..", Toast.LENGTH_SHORT).show()
 
         }
-
-
-
-
-
-
-
 
     }
 }

@@ -8,6 +8,7 @@ import com.pr.purrfectrecipes.*
 import com.pr.purrfectrecipes.Connectors.RecipesRetrievedListener
 import com.pr.purrfectrecipes.User.Customer
 import com.orhanobut.hawk.Hawk
+import com.pr.purrfectrecipes.User.CustomerStatus
 
 class WhatresHomeViewModel: ViewModel(), RecipesRetrievedListener
 {
@@ -40,8 +41,11 @@ class WhatresHomeViewModel: ViewModel(), RecipesRetrievedListener
     val repository=WhatresHomeRepository(this)
 
     init{
-        repository.retrieveUser()
-        repository.retrieveRecipes()
+        val userType=Hawk.get<CustomerStatus>(Constants.LOGGEDIN_USER_STATUS)
+        if(userType!= CustomerStatus.MODERATOR) {
+            repository.retrieveUser()
+            repository.retrieveRecipes()
+        }
     }
 
     fun setShownRecipe(id:String?)
