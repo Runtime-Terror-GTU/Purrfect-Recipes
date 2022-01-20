@@ -14,6 +14,7 @@ import com.pr.purrfectrecipes.Customer.PurrfectedrecipesProfileViewModel
 import com.pr.purrfectrecipes.Customer.RecipesHomeViewModel
 import com.pr.purrfectrecipes.Customer.WhatresHomeViewModel
 import com.orhanobut.hawk.Hawk
+import com.pr.purrfectrecipes.Moderator.RecipesModeratorViewModel
 
 class FilterFragment : Fragment(R.layout.fragment_filter), TagOnSelectedListener {
 
@@ -21,6 +22,7 @@ class FilterFragment : Fragment(R.layout.fragment_filter), TagOnSelectedListener
     private val whatResViewModel: WhatresHomeViewModel by activityViewModels()
     private val addedRecipesViewModel:AddedrecipesProfileViewModel by activityViewModels()
     private val purrfectedRecipesViewModel:PurrfectedrecipesProfileViewModel by activityViewModels()
+    private val moderatorRecipesViewModel:RecipesModeratorViewModel by activityViewModels()
     private val viewModel:FilterViewModel by activityViewModels()
     private var tagsRVAdapter: TagsRVAdapter?=null
 
@@ -281,6 +283,59 @@ class FilterFragment : Fragment(R.layout.fragment_filter), TagOnSelectedListener
                 }
                 if(viewModel.getChosenDifficultiesPurrfected().value!=null && viewModel.getChosenDifficultiesPurrfected().value!!.contains("Hard") &&
                     viewModel.getChosenDifficultiesPurrfected().value!!.size!=3) {
+                    hardOption.isChecked = true
+                    viewModel.tempDifficulties.add("Hard")
+                }
+            })
+        }
+        else if(direction==Constants.MODERATOR_TO_FILTER)
+        {
+            cancelButton.setOnClickListener {
+                moderatorRecipesViewModel.setFilter(false)
+                viewModel.tempTags.clear()
+                viewModel.tempDifficulties.clear()
+                Hawk.delete(Constants.FILTER_DIRECTION)
+            }
+
+            enterButton.setOnClickListener {
+                if(viewModel.tempTags.size==0)
+                    viewModel.setModeratorTags(viewModel.getTags().value!!)
+                else
+                    viewModel.setModeratorTags(viewModel.tempTags)
+
+                if(viewModel.tempDifficulties.size==0)
+                    viewModel.setModeratorDifficulties(diffArray)
+                else
+                    viewModel.setModeratorDifficulties(viewModel.tempDifficulties)
+
+                viewModel.tempTags.clear()
+                viewModel.tempDifficulties.clear()
+                moderatorRecipesViewModel.setFilter(false)
+                Hawk.delete(Constants.FILTER_DIRECTION)
+            }
+
+            viewModel.getChosenTagsModerator().observe(viewLifecycleOwner,{
+                if(viewModel.getChosenTagsModerator().value!=null && viewModel.getChosenTagsModerator().value!!.size!=0 &&
+                    viewModel.getChosenTagsModerator().value!!.size!=viewModel.getTags().value!!.size)
+                {
+                    tagsRVAdapter?.setChosen(viewModel.getChosenTagsModerator().value!!)
+                    tagsRVAdapter?.notifyDataSetChanged()
+                }
+            })
+
+            viewModel.getChosenDifficultiesModerator().observe(viewLifecycleOwner, {
+                if(viewModel.getChosenDifficultiesModerator().value!=null && viewModel.getChosenDifficultiesModerator().value!!.contains("Easy") &&
+                    viewModel.getChosenDifficultiesModerator().value!!.size!=3) {
+                    easyOption.isChecked = true
+                    viewModel.tempDifficulties.add("Easy")
+                }
+                if(viewModel.getChosenDifficultiesModerator().value!=null && viewModel.getChosenDifficultiesModerator().value!!.contains("Medium") &&
+                    viewModel.getChosenDifficultiesModerator().value!!.size!=3) {
+                    mediumOption.isChecked = true
+                    viewModel.tempDifficulties.add("Medium")
+                }
+                if(viewModel.getChosenDifficultiesModerator().value!=null && viewModel.getChosenDifficultiesModerator().value!!.contains("Hard") &&
+                    viewModel.getChosenDifficultiesModerator().value!!.size!=3) {
                     hardOption.isChecked = true
                     viewModel.tempDifficulties.add("Hard")
                 }

@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.pr.purrfectrecipes.Customer.*
 import com.orhanobut.hawk.Hawk
+import com.pr.purrfectrecipes.Moderator.RecipesModeratorViewModel
 
 class SortFragment: Fragment(R.layout.fragment_sort) {
 
@@ -14,6 +15,7 @@ class SortFragment: Fragment(R.layout.fragment_sort) {
     private val whatResViewModel: WhatresHomeViewModel by activityViewModels()
     private val addedRecipesViewModel:AddedrecipesProfileViewModel by activityViewModels()
     private val purrfectedRecipesViewModel:PurrfectedrecipesProfileViewModel by activityViewModels()
+    private val moderatorRecipesViewModel: RecipesModeratorViewModel by activityViewModels()
 
     private val viewModel:SortViewModel by activityViewModels()
 
@@ -239,6 +241,59 @@ class SortFragment: Fragment(R.layout.fragment_sort) {
                 else
                 {
                     purrfectedRecipesViewModel.setSort(false)
+                    Hawk.delete(Constants.SORT_DIRECTION)
+                }
+            }
+        }
+        else if(direction==Constants.MODERATOR_TO_SORT)
+        {
+            viewModel.getModeratorSortId().observe(viewLifecycleOwner,{
+                if(viewModel.getModeratorSortId().value!=-1 && sortMethod.checkedRadioButtonId==-1) {
+                    if(viewModel.getModeratorSortId().value==0)
+                        diffHardest.isChecked=true
+                    else if(viewModel.getModeratorSortId().value==1)
+                        diffEasiest.isChecked=true
+                    else if(viewModel.getModeratorSortId().value==2)
+                        popMin.isChecked=true
+                    else if(viewModel.getModeratorSortId().value==3)
+                        popMax.isChecked=true
+                }
+            })
+
+            diffHardest.setOnClickListener {
+                viewModel.setPopModeratorSort(null)
+                viewModel.setDiffModeratorSort(SortMethods.difMaxtoMin)
+                viewModel.setModeratorSortId(0)
+            }
+            diffEasiest.setOnClickListener {
+                viewModel.setPopModeratorSort(null)
+                viewModel.setDiffModeratorSort(SortMethods.difMintoMax)
+                viewModel.setModeratorSortId(1)
+            }
+            popMax.setOnClickListener {
+                viewModel.setDiffModeratorSort(null)
+                viewModel.setPopModeratorSort(SortMethods.popMaxtoMin)
+                viewModel.setModeratorSortId(3)
+            }
+            popMin.setOnClickListener {
+                viewModel.setDiffModeratorSort(null)
+                viewModel.setPopModeratorSort(SortMethods.popMintoMax)
+                viewModel.setModeratorSortId(2)
+            }
+
+            cancelButton.setOnClickListener {
+                viewModel.resetModeratorSort()
+                moderatorRecipesViewModel.setSort(false)
+                Hawk.delete(Constants.SORT_DIRECTION)
+            }
+
+            enterButton.setOnClickListener {
+                if(sortMethod.checkedRadioButtonId==-1) {
+                    Toast.makeText(requireContext(), "Choose a sort method first.", Toast.LENGTH_SHORT).show()
+                }
+                else
+                {
+                    moderatorRecipesViewModel.setSort(false)
                     Hawk.delete(Constants.SORT_DIRECTION)
                 }
             }

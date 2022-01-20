@@ -52,6 +52,16 @@ class RecipeRepository(val connector: RecipeRetrievedListener)
                                 status = CustomerStatus.VERIFIED,
                                 pic = currentUserPic as String
                             )
+                        else if(currentUserStatus == CustomerStatus.MODERATOR.text)
+                        {
+                            currentUser = Customer(
+                                currentUserId,
+                                currentUserName as String,
+                                currentUserEmail as String,
+                                status = CustomerStatus.MODERATOR,
+                                pic = "currentUserPic as String"
+                            )
+                        }
                         else
                             currentUser = Customer(
                                 currentUserId,

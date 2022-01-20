@@ -30,7 +30,7 @@ class RecipesHomeRepository(val connector: RecipesHomeVMRepConnector)
 
     fun retrieveUser()
     {
-        if(Hawk.get<String>(Constants.LOGGEDIN_USERID)!=null) {
+        if(Hawk.get<String>(Constants.LOGGEDIN_USERID)!=null && Hawk.get<CustomerStatus>(Constants.LOGGEDIN_USER_STATUS)!=CustomerStatus.MODERATOR) {
             usersRef.child(Hawk.get(Constants.LOGGEDIN_USERID))
                 .addValueEventListener(object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {

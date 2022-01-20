@@ -8,6 +8,7 @@ import com.pr.purrfectrecipes.*
 import com.pr.purrfectrecipes.Connectors.RecipesHomeVMRepConnector
 import com.pr.purrfectrecipes.User.Customer
 import com.orhanobut.hawk.Hawk
+import com.pr.purrfectrecipes.User.CustomerStatus
 
 class RecipesHomeViewModel: ViewModel(), RecipesHomeVMRepConnector
 {
@@ -39,8 +40,13 @@ class RecipesHomeViewModel: ViewModel(), RecipesHomeVMRepConnector
     private val popComparator=PopularityComparator()
 
     init{
-        repository.retrieveUser()
-        repository.retrieveRecipes()
+
+        val userType=Hawk.get<CustomerStatus>(Constants.LOGGEDIN_USER_STATUS)
+        if(userType!= CustomerStatus.MODERATOR) {
+            repository.retrieveUser()
+            repository.retrieveRecipes()
+        }
+
     }
 
     fun setShownRecipe(id:String?)

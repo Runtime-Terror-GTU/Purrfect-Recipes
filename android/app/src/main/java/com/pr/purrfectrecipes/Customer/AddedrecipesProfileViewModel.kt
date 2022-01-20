@@ -1,6 +1,7 @@
 package com.pr.purrfectrecipes.Customer
 
 import android.view.View
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,6 +9,8 @@ import com.pr.purrfectrecipes.*
 import com.pr.purrfectrecipes.Connectors.RecipesRetrievedListener
 import com.pr.purrfectrecipes.User.Customer
 import com.orhanobut.hawk.Hawk
+import com.pr.purrfectrecipes.Moderator.RecipesModeratorViewModel
+import com.pr.purrfectrecipes.User.CustomerStatus
 
 class AddedrecipesProfileViewModel: ViewModel(), RecipesRetrievedListener
 {
@@ -47,8 +50,12 @@ class AddedrecipesProfileViewModel: ViewModel(), RecipesRetrievedListener
     private val popComparator= PopularityComparator()
 
     init{
-        repository.retrieveUser()
-        repository.retrieveRecipes()
+
+        val userType=Hawk.get<CustomerStatus>(Constants.LOGGEDIN_USER_STATUS)
+        if(userType!= CustomerStatus.MODERATOR) {
+            repository.retrieveUser()
+            repository.retrieveRecipes()
+        }
     }
 
     fun setView(newView: View?)

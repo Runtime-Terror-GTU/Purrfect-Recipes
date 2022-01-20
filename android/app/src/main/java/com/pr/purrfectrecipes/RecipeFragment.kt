@@ -18,18 +18,21 @@ import com.pr.purrfectrecipes.Customer.RecipesHomeViewModel
 import com.pr.purrfectrecipes.Customer.WhatresHomeViewModel
 import com.pr.purrfectrecipes.User.CustomerStatus
 import com.orhanobut.hawk.Hawk
+import com.pr.purrfectrecipes.Moderator.RecipesModeratorViewModel
 
 class RecipeFragment : Fragment(R.layout.fragment_recipe), CommentChangeListener
 {
+    private var commentsRVAdapter:CommentsRVAdapter?=null
+    private var stepsRVAdapter:RecipeStepsRVAdapter?=null
+    private var tagsRVAdapter:RecipeTagsRVAdapter?=null
+
     private val viewModel:RecipeViewModel by activityViewModels()
+
     private val recipesHomeViewModel:RecipesHomeViewModel by activityViewModels()
     private val whatresViewModel:WhatresHomeViewModel by activityViewModels()
     private val addedRecipesViewModel:AddedrecipesProfileViewModel by activityViewModels()
     private val purrfectedRecipesViewModel:PurrfectedrecipesProfileViewModel by activityViewModels()
-
-    private var commentsRVAdapter:CommentsRVAdapter?=null
-    private var stepsRVAdapter:RecipeStepsRVAdapter?=null
-    private var tagsRVAdapter:RecipeTagsRVAdapter?=null
+    private val moderatorRecipesViewModel: RecipesModeratorViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -70,6 +73,11 @@ class RecipeFragment : Fragment(R.layout.fragment_recipe), CommentChangeListener
         purrfectedRecipesViewModel.getShownRecipe().observe(viewLifecycleOwner,{
             if( purrfectedRecipesViewModel.getShownRecipe().value!=null)
                 viewModel.setRecipe( purrfectedRecipesViewModel.getShownRecipe().value!!)
+        })
+
+        moderatorRecipesViewModel.getShownRecipe().observe(viewLifecycleOwner,{
+            if( moderatorRecipesViewModel.getShownRecipe().value!=null)
+                viewModel.setRecipe( moderatorRecipesViewModel.getShownRecipe().value!!)
         })
 
         viewModel.getRecipe().observe(viewLifecycleOwner,{
@@ -153,16 +161,20 @@ class RecipeFragment : Fragment(R.layout.fragment_recipe), CommentChangeListener
                 whatresViewModel.setShownRecipe(null)
             if(addedRecipesViewModel.getShownRecipe().value!=null)
                 addedRecipesViewModel.setShownRecipe(null)
+            if(purrfectedRecipesViewModel.getShownRecipe().value!=null)
+                purrfectedRecipesViewModel.setShownRecipe(null)
+            if(moderatorRecipesViewModel.getShownRecipe().value!=null)
+                moderatorRecipesViewModel.setShownRecipe(null)
             viewModel.resetRecipe()
         }
 
         purrfectButton.setOnClickListener {
-            if(viewModel.user!=null && (!viewModel.user!!.isPurrfectedRecipe(viewModel.getRecipe().value!!.getRecipeID())))
+            if(viewModel.user!=null && viewModel.user!!.getUserStatus()!=CustomerStatus.MODERATOR && (!viewModel.user!!.isPurrfectedRecipe(viewModel.getRecipe().value!!.getRecipeID())))
             {
                 viewModel.purrfectRecipe()
                 purrfectButton.setCardBackgroundColor(ContextCompat.getColor(requireContext(), R.color.secondary))
             }
-            else if (viewModel.user!=null)
+            else if (viewModel.user!=null && viewModel.user!!.getUserStatus()!=CustomerStatus.MODERATOR)
             {
                 viewModel.unPurrfectRecipe()
                 purrfectButton.setCardBackgroundColor(ContextCompat.getColor(requireContext(), R.color.white))

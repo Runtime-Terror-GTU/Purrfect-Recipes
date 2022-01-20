@@ -39,5 +39,7 @@ object Constants
     const val ADDED_TO_FILTER="Added_to_Filter"
     const val PURRFECTED_TO_SORT="Purrfected_to_Sort"
     const val PURRFECTED_TO_FILTER="Purrfected_to_Filter"
+    const val MODERATOR_TO_SORT="Moderator_to_Sort"
+    const val MODERATOR_TO_FILTER="Moderator_to_Filter"
 
 }

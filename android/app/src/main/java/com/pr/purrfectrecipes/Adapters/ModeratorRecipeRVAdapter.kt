@@ -48,6 +48,10 @@ class ModeratorRecipeRVAdapter(val context: Context, val listener: ModDeleteReci
             deleteRecipe(position)
         }
 
+        holder.recipePic.setOnClickListener {
+            listener.onRecipeClick(recipes.get(position).getRecipeID())
+        }
+
 
     }
     override fun getItemCount(): Int {
