@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useRef, useState, useEffect } from 'react';
 import Footer from '../HomePage/Footer';
 import './profilePage.css';
 import Ad from '../../images/ad.png';
@@ -13,6 +13,11 @@ const ProfilePage= () => {
   const toggle = () => {
       setIsOpen(!isOpen);
   };
+  const formRef = useRef()
+
+  const handleSubmit = (e) =>{
+      e.preventDefault()
+  }
 
   return (
     <>
@@ -30,11 +35,16 @@ const ProfilePage= () => {
                     </div>
 
                     <div className="i-down-left-wrapper">
-                      <h2 className="i-intro">fuck university</h2>
-                      <h1 className="i-name">hi gebze</h1>
-                      <div className="i-description">
-                       I cook and doin' shit my niggas.
-                       </div>
+                            <form ref={formRef} onSubmit={handleSubmit}>
+                              <div>Username</div>
+                              <input type="text" placeholder="Username" name="user_name" />
+                              <div>Profile Bio</div>
+                              <input type="text" placeholder="Insert Bio Here" name="profile_bio" />
+                              <div>Change Password</div>
+                              <input type="text" placeholder="Password" name="user_password" />
+                              <input type="text" placeholder="Password" name="user_password" />
+                              <button>Done</button>
+                            </form>
                     </div>
               </div>
               
