@@ -31,16 +31,7 @@ const ProfilePage= () => {
                     </div>
 
                     <div className="i-down-left-wrapper">
-                            <form ref={formRef} onSubmit={handleSubmit}>
-                              <div>Username</div>
-                              <input type="text" placeholder="Username" name="user_name" />
-                              <div>Profile Bio</div>
-                              <input type="text" placeholder="Insert Bio Here" name="profile_bio" />
-                              <div>Change Password</div>
-                              <input type="text" placeholder="Password" name="user_password" />
-                              <input type="text" placeholder="Password" name="user_password" />
-                              <button>Done</button>
-                            </form>
+
                     </div>
               </div>
               

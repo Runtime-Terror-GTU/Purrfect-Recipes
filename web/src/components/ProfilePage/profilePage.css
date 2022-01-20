@@ -86,23 +86,3 @@ background-color: #f9c5d5;
     object-fit:fill;
     
 }
-form{
-    margin-top: 5px;
-}
-input{
-    width: 100%;
-    height:25px;
-    border:none;
-    margin: 5px 0px;
-    border-bottom: 1px solid black;
-}
-
-button{
-    border:none;
-    padding: 10px;
-    background-color: #bb5678 ;
-    color: #ffffff;
-    font-weight: 200;
-    cursor:pointer ;
-    font-size: large;
-}
