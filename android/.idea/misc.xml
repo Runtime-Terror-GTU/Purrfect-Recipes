@@ -116,12 +116,14 @@
         <entry key="..\:/Users/JADE/Documents/GitHub/Purrfect-Recipes/android/app/src/main/res/layout/activity_sort.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/JADE/Documents/GitHub/Purrfect-Recipes/android/app/src/main/res/layout/activity_start.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/JADE/Documents/GitHub/Purrfect-Recipes/android/app/src/main/res/layout/add_tag_dialog.xml" value="0.35260416666666666" />
+        <entry key="..\:/Users/JADE/Documents/GitHub/Purrfect-Recipes/android/app/src/main/res/layout/add_tags_dialog.xml" value="0.17831813576494426" />
         <entry key="..\:/Users/JADE/Documents/GitHub/Purrfect-Recipes/android/app/src/main/res/layout/added_recipe_steps_rv_bg.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/JADE/Documents/GitHub/Purrfect-Recipes/android/app/src/main/res/layout/childfragment_admin_remove.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/JADE/Documents/GitHub/Purrfect-Recipes/android/app/src/main/res/layout/childfragment_home_recipes.xml" value="0.33" />
         <entry key="..\:/Users/JADE/Documents/GitHub/Purrfect-Recipes/android/app/src/main/res/layout/childfragment_home_what.xml" value="0.33" />
         <entry key="..\:/Users/JADE/Documents/GitHub/Purrfect-Recipes/android/app/src/main/res/layout/childfragment_home_whatres.xml" value="0.33" />
         <entry key="..\:/Users/JADE/Documents/GitHub/Purrfect-Recipes/android/app/src/main/res/layout/childfragment_moderator_recipes.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/JADE/Documents/GitHub/Purrfect-Recipes/android/app/src/main/res/layout/childfragment_moderator_requests.xml" value="0.17831813576494426" />
         <entry key="..\:/Users/JADE/Documents/GitHub/Purrfect-Recipes/android/app/src/main/res/layout/childfragment_moderator_users.xml" value="0.17831813576494426" />
         <entry key="..\:/Users/JADE/Documents/GitHub/Purrfect-Recipes/android/app/src/main/res/layout/childfragment_profile_addedrecipes.xml" value="0.33" />
         <entry key="..\:/Users/JADE/Documents/GitHub/Purrfect-Recipes/android/app/src/main/res/layout/childfragment_profile_info.xml" value="0.36666666666666664" />
@@ -146,6 +148,7 @@
         <entry key="..\:/Users/JADE/Documents/GitHub/Purrfect-Recipes/android/app/src/main/res/layout/recipe_types_rv_bg.xml" value="0.33" />
         <entry key="..\:/Users/JADE/Documents/GitHub/Purrfect-Recipes/android/app/src/main/res/layout/recipes_rv_bg2.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/JADE/Documents/GitHub/Purrfect-Recipes/android/app/src/main/res/layout/recipes_rv_mod.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/JADE/Documents/GitHub/Purrfect-Recipes/android/app/src/main/res/layout/select_picture_dialog.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/JADE/Documents/GitHub/Purrfect-Recipes/android/app/src/main/res/layout/suggestions_rv.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/JADE/Documents/GitHub/Purrfect-Recipes/android/app/src/main/res/layout/users_rv.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/JADE/Documents/GitHub/Purrfect-Recipes/android/app/src/main/res/menu/admin_navigation_bar.xml" value="0.36666666666666664" />

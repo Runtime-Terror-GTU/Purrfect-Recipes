@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.pr.purrfectrecipes.Connectors.ModDeleteRecipeOnClickListener
 import com.pr.purrfectrecipes.R
 import com.pr.purrfectrecipes.Recipe
@@ -19,7 +20,7 @@ class ModeratorRecipeRVAdapter(val context: Context, val listener: ModDeleteReci
     class ViewHolder(view: View): RecyclerView.ViewHolder(view)
     {
         val deleteRecipeButton =  view.findViewById<ImageView>(R.id.deleteRecipeButton)
-        val recipePic = view.findViewById<ImageView>(R.id.premiumUserSymbol)
+        val recipePic = view.findViewById<ImageView>(R.id.recipePic)
         val recipeOwner = view.findViewById<TextView>(R.id.recipeOwner)
         val recipeName = view.findViewById<TextView>(R.id.recipeName)
 
@@ -34,12 +35,12 @@ class ModeratorRecipeRVAdapter(val context: Context, val listener: ModDeleteReci
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.recipeName.text =  recipes[position].recipeName
-     /*   if(recipes.get(position).recipePictureURL!=" ")
+        if(recipes.get(position).recipePictureURL!=" ")
         {
             Glide.with(context)
                 .load(recipes.get(position).recipePictureURL)
                 .into(holder.recipePic)
-        }*/
+        }
 
         holder.deleteRecipeButton.setOnClickListener{
             listener.onDeleteClick(recipes[position])

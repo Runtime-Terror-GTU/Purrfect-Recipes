@@ -2,7 +2,7 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="300sp"
+    android:layout_width="295sp"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:layout_marginLeft="20sp"
@@ -12,13 +12,13 @@
     android:orientation="vertical">
 
     <TextView
-        android:layout_marginTop="10sp"
+        android:layout_marginTop="15sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/josefin_slab_bold"
         android:text="Select Pictures"
         android:textColor="@color/black"
-        android:textSize="18sp"
+        android:textSize="19sp"
         android:textStyle="bold" />
 
     <FrameLayout
@@ -26,118 +26,220 @@
         android:layout_height="match_parent"
         android:layout_marginLeft="10sp"
         android:layout_marginRight="10sp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="15dp"
         android:layout_marginTop="10sp"
         android:background="@drawable/main_bg"
         android:orientation="vertical">
 
-        <ImageView
-            android:contentDescription="picture"
-            android:id="@+id/default_pic1"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="5dp"
-            android:clickable="true"
-            android:src="@drawable/default_pic1"/>
-        <ImageView
-            android:contentDescription="picture"
-            android:id="@+id/default_pic2"
-            android:layout_width="50dp"
-            android:layout_marginLeft="55dp"
-            android:layout_height="50dp"
-            android:clickable="true"
-            android:src="@drawable/default_pic2"/>
-        <ImageView
-            android:contentDescription="picture"
-            android:id="@+id/default_pic3"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="105dp"
-            android:clickable="true"
-            android:src="@drawable/default_pic3"/>
-        <ImageView
-            android:contentDescription="picture"
-            android:id="@+id/default_pic4"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="155dp"
-            android:clickable="true"
-            android:src="@drawable/default_pic4"/>
-        <ImageView
-            android:contentDescription="picture"
-            android:id="@+id/default_pic5"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="205dp"
-            android:clickable="true"
-            android:src="@drawable/default_pic5"/>
-        <ImageView
-            android:contentDescription="picture"
-            android:id="@+id/default_pic6"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="55dp"
-            android:layout_marginLeft="5dp"
-            android:clickable="true"
-            android:src="@drawable/default_pic6"/>
-        <ImageView
-            android:contentDescription="picture"
-            android:id="@+id/default_pic7"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="55dp"
-            android:layout_marginLeft="55dp"
-            android:clickable="true"
-            android:src="@drawable/default_pic7"/>
-        <ImageView
-            android:contentDescription="picture"
-            android:id="@+id/default_pic8"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="55dp"
-            android:layout_marginLeft="105dp"
-            android:clickable="true"
-            android:src="@drawable/default_pic8"/>
-        <ImageView
-            android:contentDescription="picture"
-            android:id="@+id/default_pic9"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="55dp"
-            android:layout_marginLeft="155dp"
-            android:clickable="true"
-            android:src="@drawable/default_pic9"/>
-        <ImageView
-            android:contentDescription="picture"
-            android:id="@+id/default_pic10"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="55dp"
-            android:layout_marginLeft="205dp"
-            android:clickable="true"
-            android:src="@drawable/default_pic10"/>
-        <ImageView
-            android:contentDescription="picture"
-            android:id="@+id/default_pic11"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:clickable="true"
-            android:layout_marginTop="105dp"
-            android:layout_marginLeft="5dp"
-            android:src="@drawable/default_pic11"/>
-        <ImageView
-            android:contentDescription="picture"
-            android:id="@+id/default_pic12"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="105dp"
-            android:layout_marginLeft="55dp"
-            android:clickable="true"
-            android:src="@drawable/default_pic12"/>
+        <androidx.cardview.widget.CardView
+            android:layout_marginLeft="10sp"
+            android:layout_marginTop="10sp"
+            android:id="@+id/userProfilePic"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            app:cardCornerRadius="60dp">
+            <ImageView
+                android:contentDescription="picture"
+                android:id="@+id/default_pic1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/default_pic1"/>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/userProfilePic2"
+            android:layout_width="60dp"
+            android:layout_marginLeft="75sp"
+            android:layout_marginTop="10sp"
+            android:layout_height="60dp"
+            app:cardCornerRadius="60dp">
+            <ImageView
+                android:contentDescription="picture"
+                android:id="@+id/default_pic2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/default_pic2"/>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/userProfilePic3"
+            android:layout_width="60dp"
+            android:layout_marginLeft="140sp"
+            android:layout_marginTop="10sp"
+            android:layout_height="60dp"
+            app:cardCornerRadius="60dp">
+            <ImageView
+                android:contentDescription="picture"
+                android:id="@+id/default_pic3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/default_pic3"/>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/userProfilePic4"
+            android:layout_width="60dp"
+            android:layout_marginLeft="205sp"
+            android:layout_marginTop="10sp"
+            android:layout_height="60dp"
+            app:cardCornerRadius="60dp">
+            <ImageView
+                android:contentDescription="picture"
+                android:id="@+id/default_pic4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/default_pic4"/>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/userProfilePic5"
+            android:layout_width="60dp"
+            android:layout_marginLeft="10sp"
+            android:layout_marginTop="75sp"
+            android:layout_height="60dp"
+            app:cardCornerRadius="60dp">
+            <ImageView
+                android:contentDescription="picture"
+                android:id="@+id/default_pic5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/default_pic5"/>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/userProfilePic6"
+            android:layout_width="60dp"
+            android:layout_marginLeft="75sp"
+            android:layout_marginTop="75sp"
+            android:layout_height="60dp"
+            app:cardCornerRadius="60dp">
+            <ImageView
+                android:contentDescription="picture"
+                android:id="@+id/default_pic6"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/default_pic6"/>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/userProfilePic7"
+            android:layout_width="60dp"
+            android:layout_marginLeft="140sp"
+            android:layout_marginTop="75sp"
+            android:layout_height="60dp"
+            app:cardCornerRadius="60dp">
+            <ImageView
+                android:contentDescription="picture"
+                android:id="@+id/default_pic7"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/default_pic7"/>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/userProfilePic8"
+            android:layout_width="60dp"
+            android:layout_marginLeft="205sp"
+            android:layout_marginTop="75sp"
+            android:layout_height="60dp"
+            app:cardCornerRadius="60dp">
+            <ImageView
+                android:contentDescription="picture"
+                android:id="@+id/default_pic8"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/default_pic8"/>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/userProfilePic9"
+            android:layout_width="60dp"
+            android:layout_marginLeft="10sp"
+            android:layout_marginTop="140sp"
+            android:layout_marginBottom="10sp"
+            android:layout_height="60dp"
+            app:cardCornerRadius="60dp">
+            <ImageView
+                android:contentDescription="picture"
+                android:id="@+id/default_pic9"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/default_pic9"/>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/userProfilePic10"
+            android:layout_width="60dp"
+            android:layout_marginLeft="75sp"
+            android:layout_marginTop="140sp"
+            android:layout_marginBottom="10sp"
+            android:layout_height="60dp"
+            app:cardCornerRadius="60dp">
+            <ImageView
+                android:contentDescription="picture"
+                android:id="@+id/default_pic10"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/default_pic10"/>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/userProfilePic11"
+            android:layout_width="60dp"
+            android:layout_marginLeft="140sp"
+            android:layout_marginTop="140sp"
+            android:layout_marginBottom="10sp"
+            android:layout_height="60dp"
+            app:cardCornerRadius="60dp">
+            <ImageView
+                android:contentDescription="picture"
+                android:id="@+id/default_pic11"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/default_pic11"/>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/userProfilePic12"
+            android:layout_width="60dp"
+            android:layout_marginLeft="205sp"
+            android:layout_marginTop="140sp"
+            android:layout_marginBottom="10sp"
+            android:layout_height="60dp"
+            app:cardCornerRadius="60dp">
+            <ImageView
+                android:contentDescription="picture"
+                android:id="@+id/default_pic12"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/default_pic12"/>
+        </androidx.cardview.widget.CardView>
 
 
     </FrameLayout>
-
-
 
 </LinearLayout>

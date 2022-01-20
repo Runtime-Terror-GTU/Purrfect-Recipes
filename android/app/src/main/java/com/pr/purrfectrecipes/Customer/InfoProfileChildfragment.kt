@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -20,6 +21,8 @@ class InfoProfileChildfragment: Fragment(R.layout.childfragment_profile_info)
 {
     private val viewModel: InfoProfileViewModel by activityViewModels()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        val progressBar=view.findViewById<ProgressBar>(R.id.loadingBar)
         viewModel.getView().observe(viewLifecycleOwner, {
             if(viewModel.getView().value!=null)
                 super.onViewCreated(viewModel.getView().value!!, savedInstanceState)
@@ -60,6 +63,8 @@ class InfoProfileChildfragment: Fragment(R.layout.childfragment_profile_info)
                 Glide.with(requireContext())
                     .load(viewModel.getUser().value!!.getUserPic())
                     .into(profilePic)
+
+                progressBar.visibility=View.GONE
             }
         })
 

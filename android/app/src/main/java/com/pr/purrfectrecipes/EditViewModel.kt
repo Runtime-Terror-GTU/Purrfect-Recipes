@@ -30,7 +30,7 @@ class EditViewModel: ViewModel(), EditVMRepConnector {
             repository.changePicture(imageUri!!)
     }
     fun changeUsername(newName:String,activity: Activity){
-        if(newName!=null){
+        if(newName!=null && newName!=user.value!!.getUsername()){
             repository.changeUserName(newName,activity)
         }
     }
