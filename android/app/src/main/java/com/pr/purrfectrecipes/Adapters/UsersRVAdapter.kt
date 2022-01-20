@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.purrfectrecipes.Connectors.UsersDeleteOnClickListener
 import com.pr.purrfectrecipes.R
 import com.pr.purrfectrecipes.User.Customer
@@ -48,6 +49,10 @@ class UsersRVAdapter(val context: Context , val listener: UsersDeleteOnClickList
             deleteUser(position)
 
         }
+
+        Glide.with(context)
+            .load(users.get(position).getUserPic())
+            .into(holder.profilePic)
 
     }
     override fun getItemCount(): Int {
