@@ -13,13 +13,12 @@ class UsersModeratorRepository(val connector: UsersModeratorVMRepConnecter)  {
 
 
     private val usersRef: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users")
-   private val commentRef : DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Comments")
+    private val commentRef : DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Comments")
     private val recipeRef :  DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Recipes")
     private val commentRef2 : DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Comments")
     private val recipeOfDayRef : DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Recipe of The Day")
 
     private val users = ArrayList<Customer>()
-    private val recipeIDs = ArrayList<String>()
     init{
         userRetrive()
     }
@@ -117,10 +116,10 @@ class UsersModeratorRepository(val connector: UsersModeratorVMRepConnecter)  {
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
             }
-            })
+        })
 
-            val storageRef= FirebaseStorage.getInstance().getReference().child("Recipe Pictures")
-            storageRef.child(recipeID).delete()
+        val storageRef= FirebaseStorage.getInstance().getReference().child("Recipe Pictures")
+        storageRef.child(recipeID).delete()
 
     }
 
