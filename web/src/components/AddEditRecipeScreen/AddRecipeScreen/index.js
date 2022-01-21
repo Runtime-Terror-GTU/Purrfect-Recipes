@@ -15,7 +15,7 @@ import {
     UploadButton
 } from '../AddEditRecipeElements';
 import Select from 'react-select';
-import { addRecipe } from '../../../backend/RecipeValueListener';
+import { addRecipe, findRecipeOwner } from '../../../backend/RecipeValueListener';
 
 let recipe = [];
 
@@ -178,7 +178,10 @@ export default class EditRecipeScreen extends React.Component {
                 try {
                     let stringUser = localStorage.getItem("currentUser");
                     let user = JSON.parse(stringUser);
-                    await addRecipe(user, recipe)
+                    let id = await addRecipe(user, recipe)
+                    let newUser = user;
+                    newUser = await findRecipeOwner(Object.keys(user).toString());
+                    localStorage.setItem("currentUser", JSON.stringify(newUser))
                     window.location.href="/mainpage";
                 } catch (e) {   
                     console.error(e);   

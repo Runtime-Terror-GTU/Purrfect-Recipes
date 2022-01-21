@@ -112,14 +112,12 @@ export const RecipeScreen = () => {
     const deleteRecipe = (async) => {
         (async function() {
             try {
-                console.log("delete")
                 let user = JSON.parse(localStorage.getItem("currentUser"));
-                deleteRecipeFromFirebase(user, recipe);
+                await deleteRecipeFromFirebase(user, recipe);
                 let newUser = user;
                 newUser = await findRecipeOwner(Object.keys(user).toString());
                 localStorage.setItem("currentUser", JSON.stringify(newUser))
                 setTimeout(function(){window.location.href="/mainpage"}, 5000);
-
             } catch (e) {
                 console.error(e);
             }

@@ -171,6 +171,7 @@ const findRecipes = async () => {
 //finds the recipe owner with use R_RecipeOwnerID
 const findRecipeOwner = async (userID) => {
     var search = await get(query(ref(database, "Users"), orderByKey(), equalTo(userID)));
+    console.log("find: ", search.val())
     return search.val();
 }
 
@@ -251,11 +252,13 @@ const addRecipe = async(user, newRecipe) => {
     newRecipe.R_RecipeOwnerID = Object.keys(user);
     let picURL = newRecipe.R_RecipePicture;
     //update picture
+    let recipeID = uuidv4();
+
     if(newRecipe.PictureFlag){
         // Create a root reference
         const storage = getStorage();
         // Create a reference to 'Recipe Picture/recipeID.jpg'
-        var path = "Recipe Pictures/" + newRecipe.recipeID + '';
+        var path = "Recipe Pictures/" + recipeID + '';
         const recipePicRef = sRef(storage, path);
         //console.log(recipePicRef)
         await uploadBytes(recipePicRef, newRecipe.R_RecipePicture).then((snapshot) => {
@@ -275,7 +278,6 @@ const addRecipe = async(user, newRecipe) => {
             index++;
         } 
     }
-    let recipeID = uuidv4();
     
     set(ref(database, "Recipes/" + recipeID), {
         R_RecipeName: newRecipe.R_RecipeName,
@@ -299,6 +301,7 @@ const addRecipe = async(user, newRecipe) => {
         set(ref(database, "Users/" + Object.keys(user) + "/R_AddedRecipes/"),
             {[recipeID]: true} );
     }
+    return recipeID;
 }
 
 const purrfectedRecipe = async(user, recipe, purrfectFlag) => {
@@ -400,10 +403,11 @@ const deleteRecipeFromFirebase = async(user, recipe) => {
             let key = Object.keys(currentAddeds)[i];
             let value = currentAddeds[key];
             newAddeds[key] = value;
-            console.log(key)
         }
     }
-    await set(ref(database, "Users/" + Object.keys(user) + "/R_AddedRecipes/"), newAddeds);
+    if( Object.keys(newAddeds).length !== 0 ){
+        await set(ref(database, "Users/" + Object.keys(user) + "/R_AddedRecipes/"), newAddeds);
+    }
     //delete the recipe from a user's purrfected recipes
     //tüm userların R_PurrfectedRecipes ref ini al ve guncelle mlsf ki aklıma geleen ilk yok bu
     let allUsersTemp = await get(query(ref(database, "Users/" )));
@@ -429,7 +433,6 @@ const deleteRecipeFromFirebase = async(user, recipe) => {
             }
         }
     }
-    console.log("Recipes/"+recipe.RecipeID.toString())
     remove(ref(database,"Recipes/"+recipe.RecipeID.toString()));
     //eğer günün recipe ı ise değiştir
     var search = await get(query(ref(database, "Recipe of The Day"), orderByKey()));
