@@ -129,7 +129,7 @@ class RecipesHomeRepository(val connector: RecipesHomeVMRepConnector)
 
     fun getRecipeOfTheDay(recipesArray:ArrayList<Recipe>)
     {
-        dayRecipeRef.addValueEventListener(object: ValueEventListener{
+        dayRecipeRef.addListenerForSingleValueEvent(object: ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 val format: DateFormat = SimpleDateFormat("dd MM yyyy", Locale.ENGLISH)
                 val c: Calendar = Calendar.getInstance(TimeZone.getTimeZone("GMT+3"))
