@@ -169,6 +169,8 @@ export const RecipeScreen = () => {
                             )
                         }               
                         })()}
+
+                        
                         </h1>
                         <TopLine> Difficulty: {recipe.R_RecipeDifficulty} </TopLine>
                         <TopLine> Tags </TopLine>
