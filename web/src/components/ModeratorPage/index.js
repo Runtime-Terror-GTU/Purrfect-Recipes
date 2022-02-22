@@ -5,7 +5,4 @@ const ModeratorPage = () => {
     <h1>moderators</h1>
   );
 }
-
-
-
 export default ModeratorPage;
